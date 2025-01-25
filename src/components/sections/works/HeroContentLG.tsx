@@ -1,12 +1,12 @@
 import { FC, HTMLProps } from "react";
 
-import WHAT from "@/assets/portfolio/what.svg";
-import WEVE from "@/assets/portfolio/weve.svg";
-import SERVED from "@/assets/portfolio/served.svg";
-import DESIGNBRANDING from "@/assets/portfolio/design-branding.svg";
-import SOFAR from "@/assets/portfolio/so-far.svg";
-import PORTFOLIO from "@/assets/portfolio/portfolio.svg";
-import OURWORKS from "@/assets/portfolio/our-works.svg";
+import WHAT from "@/assets/works/what.svg";
+import WEVE from "@/assets/works/weve.svg";
+import SERVED from "@/assets/works/served.svg";
+import DESIGNBRANDING from "@/assets/works/design-branding.svg";
+import SOFAR from "@/assets/works/so-far.svg";
+import PORTFOLIO from "@/assets/works/portfolio.svg";
+import OURWORKS from "@/assets/works/our-works.svg";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
