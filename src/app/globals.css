@@ -1,0 +1,60 @@
+@import "./fonts.css";
+@import "./animations.css";
+
+/* tailwind imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+}
+
+@layer base {
+  :root {
+    /* color variables */
+    --simmer-white: 243, 231, 211;
+    --simmer-yellow: 248, 154, 28;
+
+    --border: 240 5.9% 90%;
+
+    /* font variables */
+    --font-aciella-script: "Aciella Script";
+    --font-adelle-mono: "Adelle Mono";
+    --font-adelle-mono-flex: "Adelle Mono Flex";
+    --font-afton-james: "Afton James";
+    --font-articulat: "Articulat";
+    --font-asthetic: "Asthetic";
+    --font-bantayog: "Bantayog";
+    --font-baurems: "Baurems";
+    --font-fionas: "Fionas";
+    --font-gilroy: "Gilroy";
+    --font-imbue: "Imbue";
+    --font-lora: "Lora";
+    --font-myriad-pro: "Myriad Pro";
+    --font-nabire-1943: "Nabire 1943";
+    --font-soulcraft: "Soulcraft";
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-articulat);
+  }
+
+  body {
+  }
+
+  .marquee:hover .infinite-slider {
+    animation-play-state: paused;
+  }
+
+  /* animations */
+  .infinite-slider {
+    animation: 20s infiniteSlider infinite linear;
+  }
+}
+
+@layer utilities {
+  .debug-outline {
+    @apply bg-pink-400/10 outline-dashed outline-1 outline-pink-600;
+  }
+}

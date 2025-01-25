@@ -1,0 +1,9 @@
+{
+  "tabWidth": 2,
+  "jsxSingleQuote": false,
+  "singleQuote": false,
+  "semi": true,
+  "useTabs": false,
+  "trailingComma": "none",
+  "plugins": ["prettier-plugin-tailwindcss"]
+}

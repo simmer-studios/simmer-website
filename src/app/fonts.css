@@ -1,0 +1,231 @@
+/* Aciella Script */
+@font-face {
+  font-family: "Aciella Script";
+  src: url("/fonts/Aciella Script/Aciella Script.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Aciella Script";
+  src: url("/fonts/Aciella Script/Aciella Script Italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: normal;
+}
+
+/* Adelle Mono */
+@font-face {
+  font-family: "Adelle Mono";
+  src: url("/fonts/Adelle Mono/Adelle Mono Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Adelle Mono Flex";
+  src: url("/fonts/Adelle Mono/Adelle Mono Flex-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+/* Afton James */
+@font-face {
+  font-family: "Afton James";
+  src: url("/fonts/Afton James/Afton James.otf") format("opentype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+/* Articulat */
+@font-face {
+  font-family: "Articulat";
+  src: url("/fonts/Articulat/ArticulatCF-Bold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Articulat";
+  src: url("/fonts/Articulat/ArticulatCF-DemiBold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "Articulat";
+  src: url("/fonts/Articulat/ArticulatCF-ExtraBold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Articulat";
+  src: url("/fonts/Articulat/ArticulatCF-ExtraLightOblique.otf")
+    format("opentype");
+  font-style: oblique;
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Articulat";
+  src: url("/fonts/Articulat/ArticulatCF-Light.otf") format("opentype");
+  font-style: normal;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Articulat";
+  src: url("/fonts/Articulat/ArticulatCF-LightOblique.otf") format("opentype");
+  font-style: oblique;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Articulat";
+  src: url("/fonts/Articulat/ArticulatCF-Medium.otf") format("opentype");
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Articulat";
+  src: url("/fonts/Articulat/ArticulatCF-Normal.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Articulat";
+  src: url("/fonts/Articulat/ArticulatCF-NormalOblique.otf") format("opentype");
+  font-style: oblique;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Articulat";
+  src: url("/fonts/Articulat/ArticulatCF-Regular.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Articulat";
+  src: url("/fonts/Articulat/ArticulatCF-ThinOblique.otf") format("opentype");
+  font-style: oblique;
+  font-weight: 300;
+}
+
+/* Asthetic */
+@font-face {
+  font-family: "Asthetic";
+  src: url("/fonts/Asthetic/Asthetic-Regular.otf") format("opentype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+/* Bantayog */
+@font-face {
+  font-family: "Bantayog";
+  src: url("/fonts/Bantayog/Bantayog-Regular.otf") format("opentype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+/* Baurems */
+@font-face {
+  font-family: "Baurems";
+  src: url("/fonts/Baurems/Baurems-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+/* Fionas */
+@font-face {
+  font-family: "Fionas";
+  src: url("/fonts/Fionas/Fionas-ExtraBold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Fionas";
+  src: url("/fonts/Fionas/Fionas-Medium.otf") format("opentype");
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Fionas";
+  src: url("/fonts/Fionas/Fionas-MediumItalic.otf") format("opentype");
+  font-style: italic;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Fionas";
+  src: url("/fonts/Fionas/Fionas-Regular.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Fionas";
+  src: url("/fonts/Fionas/Fionas-SemiBold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Fionas";
+  src: url("/fonts/Fionas/Fionas-SemiBoldItalic.otf") format("opentype");
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* Gilroy */
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/Gilroy/Gilroy-ExtraBold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 900;
+}
+
+/* Imbue */
+@font-face {
+  font-family: "Imbue";
+  src: url("/fonts/Imbue/Imbue-VariableFont_opsz,wght.ttf") format("truetype");
+  font-style: normal;
+  /* font-weight */
+}
+
+/* Lora */
+@font-face {
+  font-family: "Lora";
+  src: url("/fonts/Lora/Lora-VariableFont_wght.ttf") format("truetype");
+  font-style: normal;
+  /* font-weight */
+}
+
+/* Myriad Pro */
+@font-face {
+  font-family: "Myriad Pro";
+  src: url("/fonts/Myriad Pro/MyriadPro-Regular.otf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+/* Nabire 1943 */
+@font-face {
+  font-family: "Nabire 1943";
+  src: url("/fonts/Nabire 1943/Nabire1943-Regular.otf") format("opentype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+/* Soulcraft */
+@font-face {
+  font-family: "Soulcraft";
+  src: url("/fonts/Soulcraft/Soulcraft.ttf") format("truetype");
+  /* font-style: ?; */
+  /* font-weight: ?; */
+}
