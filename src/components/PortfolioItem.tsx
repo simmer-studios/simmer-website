@@ -12,7 +12,7 @@ interface Props {
 const PortfolioItem: React.FC<Props> = ({ slug, name, category }) => {
   return (
     <Link
-      href={`/portfolio/${slug}`}
+      href={`/works/${slug}`}
       className="group/portfolio-item bg-simmer-white transition duration-300 ease-in-out hover:brightness-90"
     >
       <div className="relative min-h-max">

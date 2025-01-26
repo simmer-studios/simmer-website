@@ -2,8 +2,8 @@ import ContentWrapper from "@/components/ContentWrapper";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import PortfolioFeatured from "@/components/PortfolioFeatured";
-import Hero from "@/components/sections/portfolio/Hero";
-import PortfolioGrid from "@/components/sections/portfolio/PortfolioGrid";
+import Hero from "@/components/sections/works/Hero";
+import PortfolioGrid from "@/components/sections/works/PortfolioGrid";
 import StickySidebar from "@/components/StickySidebar";
 import data from "@/lib/mockdata.json";
 
