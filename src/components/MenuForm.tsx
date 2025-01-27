@@ -57,15 +57,15 @@ const MenuFormTab: FC<
   return (
     <TabsTrigger
       className={cn(
-        "group relative flex min-h-[100px] flex-1 items-start justify-start bg-simmer-white p-3 text-xl font-medium uppercase tracking-tighter duration-0 data-[state=active]:bg-simmer-yellow sm:min-h-[120px] sm:text-3xl md:min-h-[150px] md:p-4 md:text-4xl lg:min-h-[200px] lg:p-6 lg:text-5xl lg:font-normal xl:min-h-[250px] xl:p-7 xl:text-6xl",
+        "group relative flex min-h-[100px] flex-1 items-start justify-start overflow-hidden bg-simmer-white p-3 text-xl font-medium uppercase tracking-tighter duration-0 data-[state=active]:bg-simmer-yellow sm:min-h-[120px] sm:text-3xl md:min-h-[150px] md:p-4 md:text-4xl lg:min-h-[200px] lg:p-6 lg:text-5xl lg:font-normal xl:min-h-[250px] xl:p-7 xl:text-6xl",
         className
       )}
       {...props}
     >
       {children}
       <div className="aspect-[4:1] absolute bottom-0 left-0 flex w-[80%] -translate-x-0.5 translate-y-[3.2px] items-center overflow-hidden text-xs normal-case tracking-normal md:translate-y-0.5 lg:translate-x-4 xl:w-[60%] 2xl:w-[50%]">
-        <MenuTabDecorSM className="block h-full w-full fill-black group-data-[state=active]:fill-transparent md:hidden" />
-        <MenuTabDecorLG className="hidden h-full w-full fill-black group-data-[state=active]:fill-transparent md:block" />
+        <MenuTabDecorSM className="block h-full w-full fill-black group-data-[state=active]:fill-simmer-white md:hidden" />
+        <MenuTabDecorLG className="hidden h-full w-full fill-black group-data-[state=active]:fill-simmer-white md:block" />
         <span className="absolute px-3 font-adelle-mono uppercase text-simmer-white group-data-[state=active]:text-black sm:px-4 sm:text-lg md:px-5 md:text-xl lg:px-6 lg:text-2xl xl:px-8">
           {alias}
         </span>
