@@ -44,7 +44,7 @@ const HeroAside: FC<HTMLProps<HTMLDivElement> & Props> = ({
         </div>
         <div className="flex flex-col items-center gap-3">
           <Link
-            href="#"
+            href="/works"
             className={cn(
               "inline-block h-11 w-24 content-center rounded-xl bg-black text-center font-adelle-mono text-xl text-simmer-white hover:bg-black/90",
               {
@@ -56,7 +56,7 @@ const HeroAside: FC<HTMLProps<HTMLDivElement> & Props> = ({
             WORKS
           </Link>
           <Link
-            href="#"
+            href="/menu"
             className={cn(
               "inline-block h-11 w-24 content-center rounded-xl bg-black text-center font-adelle-mono text-xl text-simmer-white hover:bg-black/90",
               {
@@ -68,7 +68,7 @@ const HeroAside: FC<HTMLProps<HTMLDivElement> & Props> = ({
             MENU
           </Link>
           <Link
-            href="#"
+            href="/about"
             className={cn(
               "inline-block h-11 w-24 content-center rounded-xl bg-black text-center font-adelle-mono text-xl text-simmer-white hover:bg-black/90",
               {
@@ -88,7 +88,7 @@ const HeroAside: FC<HTMLProps<HTMLDivElement> & Props> = ({
         })}
       >
         <Link
-          href="#"
+          href="/snap"
           className={cn(
             "group flex min-h-[65px] items-center justify-center bg-simmer-white hover:brightness-95",
             {
@@ -104,7 +104,7 @@ const HeroAside: FC<HTMLProps<HTMLDivElement> & Props> = ({
           </div>
         </Link>
         <Link
-          href="#"
+          href="/space"
           className={cn(
             "group flex min-h-[65px] items-center justify-center bg-simmer-white hover:brightness-95",
             {
@@ -120,7 +120,7 @@ const HeroAside: FC<HTMLProps<HTMLDivElement> & Props> = ({
           </div>
         </Link>
         <Link
-          href="#"
+          href="/stores"
           className={cn(
             "group flex min-h-[65px] items-center justify-center bg-simmer-white hover:brightness-95",
             {
@@ -136,12 +136,12 @@ const HeroAside: FC<HTMLProps<HTMLDivElement> & Props> = ({
               })}
             />
             <span className="font-adelle-mono text-3xl font-bold uppercase tracking-tight">
-              STORES
+              STORIES
             </span>
           </div>
         </Link>
         <Link
-          href="#"
+          href="/supply"
           className={cn(
             "group flex min-h-[65px] items-center justify-center bg-simmer-white hover:brightness-95",
             {

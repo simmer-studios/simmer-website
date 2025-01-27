@@ -37,11 +37,11 @@ const StickySidebar: FC<HTMLAttributes<HTMLElement> & Props> = ({
           style={{ writingMode: "vertical-lr" }}
         >
           <SidebarNavLink href="#plate">PLATE</SidebarNavLink>
-          <SidebarNavLink href="#home">HOME</SidebarNavLink>
-          <SidebarNavLink href="#quote">QUOTE</SidebarNavLink>
-          <SidebarNavLink href="#menu">MENU</SidebarNavLink>
+          <SidebarNavLink href="/home">HOME</SidebarNavLink>
+          <SidebarNavLink href="/checkout">QUOTE</SidebarNavLink>
+          <SidebarNavLink href="/menu">MENU</SidebarNavLink>
           <SidebarNavLink
-            href="#works"
+            href="/works"
             className={cn(
               "flex items-center gap-[0.87rem] after:inline-block after:h-[0.68rem] after:w-[0.68rem] after:rounded-full after:content-['']",
               {
@@ -52,10 +52,10 @@ const StickySidebar: FC<HTMLAttributes<HTMLElement> & Props> = ({
           >
             WORKS
           </SidebarNavLink>
-          <SidebarNavLink href="#about">ABOUT</SidebarNavLink>
-          <SidebarNavLink href="#snap">SNAP</SidebarNavLink>
-          <SidebarNavLink href="#stories">STORIES</SidebarNavLink>
-          <SidebarNavLink href="#supply">SUPPLY</SidebarNavLink>
+          <SidebarNavLink href="/about">ABOUT</SidebarNavLink>
+          <SidebarNavLink href="/snap">SNAP</SidebarNavLink>
+          <SidebarNavLink href="/stories">STORIES</SidebarNavLink>
+          <SidebarNavLink href="/supply">SUPPLY</SidebarNavLink>
         </div>
       </div>
     </aside>
