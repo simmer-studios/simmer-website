@@ -314,6 +314,7 @@ interface SingleLineFormFieldProps {
 const SingleLineFormField: FC<
   HTMLProps<HTMLInputElement> & SingleLineFormFieldProps
 > = ({
+  name,
   label,
   placeholder,
   type = "text",
@@ -325,7 +326,7 @@ const SingleLineFormField: FC<
   return (
     <div className={cn("flex divide-x-2 divide-simmer-white", className)}>
       <label
-        htmlFor="name"
+        htmlFor={name}
         className="flex min-h-[60px] items-center px-5 py-2.5 text-3xl leading-none sm:text-5xl lg:min-h-[95px] lg:px-7 lg:py-4 lg:text-6xl lg:font-bold"
       >
         <span className="inline-block translate-y-0.5 font-adelle-mono-flex">
