@@ -18,13 +18,13 @@ const RoundedLinks: FC<HTMLProps<HTMLDivElement>> = ({
         <Pill href="#" className="lg:absolute lg:left-[-40] lg:top-0">
           THERE'S MORE?
         </Pill>
-        <Pill href="#" className="lg:absolute lg:left-[215] lg:top-0">
+        <Pill href="/menu" className="lg:absolute lg:left-[215] lg:top-0">
           ORDER
         </Pill>
-        <Pill href="#" className="lg:absolute lg:left-[130] lg:top-[65]">
+        <Pill href="/works" className="lg:absolute lg:left-[130] lg:top-[65]">
           OUR WORKS
         </Pill>
-        <Pill href="#" className="lg:absolute lg:left-[340] lg:top-[35]">
+        <Pill href="/about" className="lg:absolute lg:left-[340] lg:top-[35]">
           ABOUT
         </Pill>
       </div>
@@ -41,7 +41,7 @@ const Pill: FC<ComponentProps<typeof Link>> = ({
     <Link
       {...props}
       className={cn(
-        "inline-block h-[40px] content-center rounded-full border-2 border-black bg-simmer-yellow px-4 text-center font-adelle-mono leading-none hover:brightness-105 active:brightness-95 lg:h-[50px] lg:px-5 lg:text-2xl",
+        "inline-block h-[40px] content-center rounded-full border-2 border-black bg-simmer-yellow px-4 text-center font-adelle-mono leading-none hover:bg-black hover:text-simmer-white active:brightness-95 lg:h-[50px] lg:px-5 lg:text-2xl",
         className
       )}
     >

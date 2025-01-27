@@ -17,8 +17,8 @@ const Footer = () => {
         {/* button row */}
         <div className="flex items-center justify-center lg:order-1 lg:justify-end">
           <Link
-            href="#"
-            className="block h-12 content-center rounded-full bg-simmer-white px-10 text-xl text-black"
+            href="/menu"
+            className="block h-12 content-center rounded-full bg-simmer-white px-10 text-xl text-black hover:border-2 hover:border-simmer-white hover:bg-black hover:text-simmer-white"
           >
             ADD TO PLATE
           </Link>
