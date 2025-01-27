@@ -19,7 +19,7 @@ export default function NotFound() {
                   Where are you going?
                 </h1>
                 <p className="max-w-[10ch] font-adelle-mono leading-tight tracking-tighter lg:max-w-none lg:text-xl">
-                  YOU'RE LOST.
+                  YOU&apos;RE LOST.
                 </p>
               </div>
               <div className="relative flex aspect-square w-full min-w-[300px] max-w-[500px] -translate-y-8 justify-center sm:translate-y-0 lg:justify-self-start">

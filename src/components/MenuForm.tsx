@@ -40,7 +40,7 @@ const MenuForm: FC<HTMLProps<HTMLFormElement>> = () => {
           className="rounded-full border-2 border-black px-10 py-2 font-adelle-mono hover:bg-simmer-yellow sm:px-10 sm:py-4 sm:text-2xl md:px-14 md:py-8 lg:px-20 lg:py-12 lg:text-4xl"
           type="submit"
         >
-          LET'S WRAP IT UP
+          LET&apos;S WRAP IT UP
         </button>
       </div>
     </form>

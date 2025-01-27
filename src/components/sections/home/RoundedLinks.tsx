@@ -16,7 +16,7 @@ const RoundedLinks: FC<HTMLProps<HTMLDivElement>> = ({
     >
       <div className="relative flex min-h-max w-[300px] flex-wrap justify-center gap-3 lg:min-h-[100px] lg:min-w-[500px]">
         <Pill href="#" className="lg:absolute lg:left-[-40] lg:top-0">
-          THERE'S MORE?
+          THERE&apos;S MORE?
         </Pill>
         <Pill href="/menu" className="lg:absolute lg:left-[215] lg:top-0">
           ORDER

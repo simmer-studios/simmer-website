@@ -26,7 +26,7 @@ const MenuPhaseContent: FC<
               </span>
               <div className="inline-flex items-center gap-1 tracking-tighter">
                 <Asterisk className="h-2 w-2 rotate-90 md:w-3" />
-                CHEF'S CHOICE
+                CHEF&apos;S CHOICE
               </div>
             </div>
           </div>
@@ -79,7 +79,7 @@ const MenuPhaseContent: FC<
           <Check className="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8" />
         </button>
         <div className="flex items-center p-5 font-articulat text-2xl font-bold tracking-tighter sm:text-4xl md:font-adelle-mono md:text-3xl md:uppercase lg:p-8 lg:text-5xl xl:p-10">
-          Chef's choice
+          Chef&apos;s choice
         </div>
       </div>{" "}
     </>

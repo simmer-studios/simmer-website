@@ -263,7 +263,7 @@ const CheckoutForm: FC<HTMLProps<HTMLFormElement>> = ({
               className="-translate-y-16 rounded-full border-2 border-black bg-simmer-white px-10 pb-5 pt-6 font-adelle-mono text-xl text-black lg:translate-y-0"
               type="submit"
             >
-              LET'S GET COOKING
+              LET&apos;S GET COOKING
             </button>
           </div>
         </div>

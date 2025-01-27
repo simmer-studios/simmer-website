@@ -58,7 +58,7 @@ const Ticket: FC<HTMLProps<HTMLDivElement> & TicketProps> = ({
             <span className="inline-block">NO WRONG ANSWERS</span>
             <br />
             <span className="inline-block -translate-y-0.5 font-lora font-semibold">
-              &#91;don't think&#93;
+              &#91;don&apos;t think&#93;
             </span>
             &nbsp;
             <span className="inline-block">COME ON, JUST TYPE!</span>
@@ -111,7 +111,7 @@ const DiscountCoupon: FC<HTMLProps<HTMLDivElement> & DiscountCouponProps> = ({
         <hr className="w-[70%] border-black lg:w-[50%]" />
         <div className="">
           <h2 className="font-fionas text-5xl font-medium lg:text-9xl">
-            Here's{" "}
+            Here&&apos;s{" "}
             <span className="font-semibold underline decoration-2 underline-offset-4 lg:underline-offset-8">
               5%
             </span>{" "}
