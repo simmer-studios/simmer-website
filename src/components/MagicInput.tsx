@@ -6,7 +6,7 @@ import { FC, useEffect, useState } from "react";
 const secretWord = "Simmering Ideas";
 
 interface Props {
-  hasRevealed: Function;
+  hasRevealed: () => void;
 }
 
 const MagicInput: FC<Props> = ({ hasRevealed }) => {
@@ -38,7 +38,7 @@ const MagicInput: FC<Props> = ({ hasRevealed }) => {
     if (revealedText === secretWord) {
       hasRevealed();
     }
-  }, [revealedText]);
+  }, [revealedText, hasRevealed]);
 
   return (
     <div className="relative overflow-hidden rounded-xl border-2 border-black lg:rounded-3xl xl:rounded-[3rem]">
