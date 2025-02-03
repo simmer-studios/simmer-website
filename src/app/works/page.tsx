@@ -7,6 +7,13 @@ import PortfolioGrid from "@/components/sections/works/PortfolioGrid";
 import StickySidebar from "@/components/StickySidebar";
 import data from "@/lib/mockdata.json";
 
+export function generateMetadata() {
+  return {
+    title: "Works | Simmer Studios",
+    description: ""
+  };
+}
+
 export default function PortfolioPage() {
   const projects = data.portfolios;
 

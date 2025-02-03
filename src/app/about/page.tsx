@@ -6,6 +6,13 @@ import Hero from "@/components/sections/about/Hero";
 import MemberCards from "@/components/sections/about/MemberCards";
 import StickySidebar from "@/components/StickySidebar";
 
+export function generateMetadata() {
+  return {
+    title: "About | Simmer Studios",
+    description: "Simmer Studios is a creative agency."
+  };
+}
+
 export default function AboutPage() {
   return (
     <>
