@@ -6,6 +6,13 @@ import Hero from "@/components/sections/menu/Hero";
 import StickySidebar from "@/components/StickySidebar";
 import { Suspense } from "react";
 
+export function generateMetadata() {
+  return {
+    title: "Menu | Simmer Studios",
+    description: ""
+  };
+}
+
 /* MENU PAGE */
 export default function MenuPage() {
   return (
