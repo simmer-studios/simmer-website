@@ -7,7 +7,13 @@ import Image from "next/image";
 import DIGIN from "@/assets/branding/dig-in.svg";
 import BrandingForm from "@/components/BrandingForm";
 
-/* BRANDING PAGE */
+export function generateMetadata() {
+  return {
+    title: "Branding Questionnaire | Simmer Studios",
+    description: ""
+  };
+}
+
 export default function BrandingPage() {
   return (
     <>
