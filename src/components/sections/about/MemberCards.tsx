@@ -18,30 +18,32 @@ const MemberCards: FC<HTMLProps<HTMLDivElement>> = ({
           name="RK"
           role="Head Chef"
           avatar="/images/sample_avatar-dimsum.svg"
+          catchPhrase="CRAZY BAO'T DESIGN."
           number={1}
         />
         <MemberCard
           name="SJ"
           role="Head Chef"
-          avatar="/images/sample_avatar-dimsum.svg"
+          avatar="/images/sample_avatar-cocktail.svg"
+          catchPhrase="SIP HAPPENS."
           number={2}
         />
         <MemberCard
           name="MICA"
           role="Jr. Art Director"
-          avatar="/images/sample_avatar-dimsum.svg"
+          avatar="/images/sample_avatar-pudding.svg"
           number={3}
         />
         <MemberCard
           name="MOLIN"
           role="Hybrid Chef"
-          avatar="/images/sample_avatar-dimsum.svg"
+          avatar="/images/sample_avatar-pudding.svg"
           number={4}
         />
         <MemberCard
           name="CHESCA"
           role="Writer & Strategist"
-          avatar="/images/sample_avatar-dimsum.svg"
+          avatar="/images/sample_avatar-ice-cream.svg"
           number={5}
         />
       </div>

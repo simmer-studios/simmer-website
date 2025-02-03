@@ -12,25 +12,24 @@ interface MemberCardProps {
   name: string;
   role: string;
   avatar: ImgHTMLAttributes<HTMLImageElement>["src"];
+  catchPhrase?: string;
 }
 
 const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
   avatar,
   name,
   role,
+  catchPhrase,
   number,
   className,
   ...props
 }) => {
   return (
     <div
-      className={cn(
-        "card aspect-[51.233333333333/77.11] rounded-3xl border-2 border-black bg-simmer-white xl:rounded-[3rem]",
-        className
-      )}
+      className={cn("card aspect-[51.233333333333/77.11]", className)}
       {...props}
     >
-      <div className="front-face relative flex h-full w-full flex-col justify-between gap-5">
+      {/* <div className="front-face relative flex h-full w-full flex-col justify-between gap-5 rounded-3xl border-2 border-black bg-simmer-white xl:rounded-[3rem]">
         <div className="absolute -top-2.5 left-4 flex aspect-[9/17] w-12 items-end justify-center xl:left-8 xl:w-[70px]">
           <Image src={TICKET} alt="" fill className="object-contain" />
           <div className="z-10 mb-2 max-w-[5ch] text-center font-adelle-mono text-[10px] leading-none text-simmer-white xl:mb-4 xl:text-[14px]">
@@ -65,8 +64,20 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
             {role}
           </span>
         </div>
+      </div> */}
+      <div className="back-face relative flex h-full w-full justify-center overflow-hidden rounded-3xl border-2 border-black bg-simmer-white xl:rounded-[3rem]">
+        <Image
+          src="/images/sample_member-photo-1.jpg"
+          alt="SJ"
+          fill
+          className="object-cover object-center"
+        />
+        {catchPhrase && (
+          <div className="absolute bottom-0 z-10 mb-10 bg-simmer-white px-2">
+            {catchPhrase}
+          </div>
+        )}
       </div>
-      <div className="back-face"></div>
     </div>
   );
 };
