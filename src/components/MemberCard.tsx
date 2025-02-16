@@ -12,11 +12,13 @@ interface MemberCardProps {
   name: string;
   role: string;
   avatar: ImgHTMLAttributes<HTMLImageElement>["src"];
+  photo: ImgHTMLAttributes<HTMLImageElement>["src"];
   catchPhrase?: string;
 }
 
 const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
   avatar,
+  photo,
   name,
   role,
   catchPhrase,
@@ -67,7 +69,7 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
       </div> */}
       <div className="back-face relative flex h-full w-full justify-center overflow-hidden rounded-3xl border-2 border-black bg-simmer-white xl:rounded-[3rem]">
         <Image
-          src="/images/sample_member-photo-1.jpg"
+          src={photo || "/images/sample_member-photo-1.jpg"}
           alt="SJ"
           fill
           className="object-cover object-center"
