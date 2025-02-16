@@ -31,6 +31,74 @@ const MemberCards: FC<HTMLProps<HTMLDivElement>> = ({
           catchPhrase="SIP HAPPENS."
           number={2}
         />
+
+        <MemberCard
+          name="RK"
+          role="Head Chef"
+          avatar="/images/sample_avatar-dimsum.svg"
+          photo="/images/sample_member-photo-2.jpg"
+          catchPhrase="CRAZY BAO'T DESIGN."
+          number={1}
+        />
+        <MemberCard
+          name="SJ"
+          role="Head Chef"
+          avatar="/images/sample_avatar-cocktail.svg"
+          photo="/images/sample_member-photo-1.jpg"
+          catchPhrase="SIP HAPPENS."
+          number={2}
+        />
+
+        <MemberCard
+          name="RK"
+          role="Head Chef"
+          avatar="/images/sample_avatar-dimsum.svg"
+          photo="/images/sample_member-photo-2.jpg"
+          catchPhrase="CRAZY BAO'T DESIGN."
+          number={1}
+        />
+        <MemberCard
+          name="SJ"
+          role="Head Chef"
+          avatar="/images/sample_avatar-cocktail.svg"
+          photo="/images/sample_member-photo-1.jpg"
+          catchPhrase="SIP HAPPENS."
+          number={2}
+        />
+
+        <MemberCard
+          name="RK"
+          role="Head Chef"
+          avatar="/images/sample_avatar-dimsum.svg"
+          photo="/images/sample_member-photo-2.jpg"
+          catchPhrase="CRAZY BAO'T DESIGN."
+          number={1}
+        />
+        <MemberCard
+          name="SJ"
+          role="Head Chef"
+          avatar="/images/sample_avatar-cocktail.svg"
+          photo="/images/sample_member-photo-1.jpg"
+          catchPhrase="SIP HAPPENS."
+          number={2}
+        />
+
+        <MemberCard
+          name="RK"
+          role="Head Chef"
+          avatar="/images/sample_avatar-dimsum.svg"
+          photo="/images/sample_member-photo-2.jpg"
+          catchPhrase="CRAZY BAO'T DESIGN."
+          number={1}
+        />
+        <MemberCard
+          name="SJ"
+          role="Head Chef"
+          avatar="/images/sample_avatar-cocktail.svg"
+          photo="/images/sample_member-photo-1.jpg"
+          catchPhrase="SIP HAPPENS."
+          number={2}
+        />
       </div>
       <div className="flex items-center justify-center lg:hidden">
         <button className="rounded-full border-2 border-black bg-simmer-white px-7 py-1 active:bg-simmer-yellow">
