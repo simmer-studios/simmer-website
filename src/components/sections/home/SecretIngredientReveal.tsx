@@ -3,6 +3,7 @@
 import MagicInput from "@/components/MagicInput";
 import { cn } from "@/lib/utils";
 import { FC, HTMLProps, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 
 const SecretIngredientReveal = () => {
   const [revealDiscount, setRevealDiscount] = useState<boolean>(false);
@@ -14,12 +15,14 @@ const SecretIngredientReveal = () => {
           className="absolute bottom-0 left-0 right-0 top-0 z-10 mx-auto min-h-[540px] lg:min-h-[850px]"
           reveal={revealDiscount}
         />
-        <Ticket
-          className={cn("relative z-20", {
-            invisible: revealDiscount
-          })}
-          revealDiscountSuccess={() => setRevealDiscount(true)}
-        />
+        <AnimatePresence initial={false}>
+          {!revealDiscount && (
+            <Ticket
+              className="relative z-20"
+              revealDiscountSuccess={() => setRevealDiscount(true)}
+            />
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
@@ -35,7 +38,9 @@ const Ticket: FC<HTMLProps<HTMLDivElement> & TicketProps> = ({
   ...props
 }) => {
   return (
-    <div
+    <motion.div
+      exit={{ opacity: 0, x: 1000, rotateY: "45deg", rotateX: "45deg" }}
+      transition={{ duration: 1 }}
       className={cn(
         "relative flex flex-col gap-10 rounded-xl bg-[url('/images/img_ticket-vertical.svg')] bg-cover bg-center px-6 py-12 sm:px-10 sm:py-14 md:px-14 md:py-16 lg:rounded-3xl lg:bg-[url('/images/img_ticket-horizontal.svg')] lg:px-20 lg:py-20 xl:px-28 xl:py-24 2xl:px-32",
         className
@@ -75,7 +80,7 @@ const Ticket: FC<HTMLProps<HTMLDivElement> & TicketProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
