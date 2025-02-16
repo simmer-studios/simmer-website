@@ -1,5 +1,6 @@
-import { cn } from "@/lib/utils";
 import { FC, HTMLProps } from "react";
+
+import { cn } from "@/lib/utils";
 
 interface Props {
   quote: string;

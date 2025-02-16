@@ -1,5 +1,6 @@
-import { cn } from "@/lib/utils";
 import { FC, SVGProps } from "react";
+
+import { cn } from "@/lib/utils";
 
 const Play: FC<SVGProps<SVGSVGElement>> = ({ className }) => {
   return (

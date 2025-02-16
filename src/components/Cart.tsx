@@ -1,9 +1,11 @@
 "use client";
 
-import { CartItem as TCartItem, useCart } from "@/contexts/CartContext";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { FC, HTMLProps } from "react";
+
+import { CartItem as TCartItem, useCart } from "@/contexts/CartContext";
+import { cn } from "@/lib/utils";
+
 import Cross from "./icons/Cross";
 import { ScrollArea } from "./ui/ScrollArea";
 

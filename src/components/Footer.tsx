@@ -1,9 +1,10 @@
-import Link from "next/link";
-import MarqueeText from "./MarqueeText";
 import Image from "next/image";
-import InteractiveTaco from "./InteractiveTaco";
-import InteractiveFooterButtons from "./InteractiveFooterButtons";
+import Link from "next/link";
+
 import FooterCopyright from "./FooterCopyright";
+import InteractiveFooterButtons from "./InteractiveFooterButtons";
+import InteractiveTaco from "./InteractiveTaco";
+import MarqueeText from "./MarqueeText";
 
 const Footer = () => {
   return (

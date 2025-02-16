@@ -1,5 +1,6 @@
-import { cn } from "@/lib/utils";
 import { FC, HTMLProps, PropsWithChildren } from "react";
+
+import { cn } from "@/lib/utils";
 
 const ServiceCourseList: FC<PropsWithChildren<HTMLProps<HTMLDivElement>>> = ({
   children,

@@ -1,6 +1,7 @@
+import { FC, HTMLProps } from "react";
+
 import BestOfTheBest from "@/components/icons/BestOfTheBest";
 import { cn } from "@/lib/utils";
-import { FC, HTMLProps } from "react";
 
 const ClientList: FC<HTMLProps<HTMLDivElement>> = ({ className }) => {
   return (

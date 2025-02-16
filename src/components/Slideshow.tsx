@@ -1,9 +1,11 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { FC, HTMLProps, useEffect } from "react";
+
+import { cn } from "@/lib/utils";
+
 import ArrowRight from "./icons/ArrowRight";
 
 interface Props {
