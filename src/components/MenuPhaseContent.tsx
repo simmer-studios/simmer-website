@@ -53,22 +53,36 @@ const MenuPhaseContent: FC<
             </div>
           </div>
           {/* Field Row - Regular */}
-          <MenuService defaultChecked={true} serviceName="PRODUCTION" />
           <MenuService
+            defaultChecked={true}
+            serviceId="a"
+            serviceName="PRODUCTION"
+          />
+          <MenuService
+            serviceId="b"
             serviceName="PHOTOGRAPHY"
             link={{ label: "GO TO SIMMER SNAP", url: "#" }}
           />
           <MenuService
+            serviceId="c"
             serviceName="VIDEOGRAPHY"
             link={{ label: "GO TO SIMMER SNAP", url: "#" }}
             description="From start-ups, local, international, personal brands,
 										communities, corporations, businesses and government
 										agencies."
           />
-          <MenuService serviceName="SERVICE NAME" />
-          <MenuService serviceName="SERVICE NAME" defaultChecked={true} />
-          <MenuService serviceName="SERVICE NAME" defaultChecked={true} />
-          <MenuService serviceName="SERVICE NAME" />
+          <MenuService serviceId="d" serviceName="SERVICE NAME" />
+          <MenuService
+            serviceId="e"
+            serviceName="SERVICE NAME"
+            defaultChecked={true}
+          />
+          <MenuService
+            serviceId="f"
+            serviceName="SERVICE NAME"
+            defaultChecked={true}
+          />
+          <MenuService serviceId="g" serviceName="SERVICE NAME" />
         </div>
       </div>
       <div className="row grid w-full grid-cols-[70px_1fr] divide-x-2 divide-black border-b-2 border-black lg:grid-cols-[100px_1fr]">

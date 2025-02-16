@@ -9,32 +9,47 @@ import {
 } from "./ui/Collapsible";
 import ChevronDown from "./icons/ChevronDown";
 import Link from "next/link";
+import { useCart } from "@/contexts/CartContext";
 
 interface MenuServiceProps {
   link?: {
     label: string;
     url: string;
   };
-  description?: string;
+  serviceId: string;
   serviceName: string;
+  description?: string;
   defaultChecked?: boolean;
 }
 
 const MenuService: FC<HTMLProps<HTMLDivElement> & MenuServiceProps> = ({
   link,
   description,
+  serviceId,
   serviceName,
   defaultChecked = false,
   ...props
 }) => {
   const [checked, setChecked] = useState(defaultChecked || false);
 
+  const { addItem, removeItem } = useCart();
+
+  const handleOnTick = (value: boolean) => {
+    /* set checkmark visibility */
+    setChecked((prev) => !prev);
+    /* add or remove to cart */
+    if (value === true) {
+      addItem({
+        id: serviceId,
+        name: serviceName
+      });
+    } else {
+      removeItem(serviceId);
+    }
+  };
+
   return (
-    <MenuItem
-      checked={checked}
-      onCheck={() => setChecked((prev) => !prev)}
-      {...props}
-    >
+    <MenuItem checked={checked} onChangeHandler={handleOnTick} {...props}>
       <div className="flex items-center p-5 font-adelle-mono-flex text-xl tracking-tighter sm:text-2xl md:text-xl lg:text-3xl xl:text-4xl">
         {description ? (
           <Collapsible className="w-full space-y-4">

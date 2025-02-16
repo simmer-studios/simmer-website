@@ -9,6 +9,7 @@ import FoodDome from "./icons/FoodDome";
 import HeaderHamburger from "./icons/HeaderHamburger";
 import Logo from "./Logo";
 import { cn } from "@/lib/utils";
+import { useCart } from "@/contexts/CartContext";
 
 interface Props {
   theme: Theme;
@@ -22,6 +23,7 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
   ...props
 }) => {
   const path = usePathname();
+  const { toggleCartVisibility } = useCart();
 
   return (
     <header
@@ -106,8 +108,8 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
               GET A QUOTE
             </span>
           </Link>
-          <Link
-            href="#"
+          <button
+            onClick={toggleCartVisibility}
             className={cn(
               "group hidden h-full items-center justify-center bg-simmer-white hover:brightness-95 lg:flex lg:w-[140px] lg:border-x-2 lg:border-black",
               {
@@ -121,7 +123,7 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
                 "fill-simmer-white group-hover:fill-black": theme === "dark"
               })}
             />
-          </Link>
+          </button>
           <button className="block lg:hidden">
             <HeaderHamburger
               className={cn("h-[40px]", {
