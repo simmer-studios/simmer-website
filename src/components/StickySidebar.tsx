@@ -1,7 +1,9 @@
-import { Theme } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { ComponentProps, FC, HTMLAttributes } from "react";
+
+import { Theme } from "@/lib/types";
+import { cn } from "@/lib/utils";
+
 import FoodDome from "./icons/FoodDome";
 
 interface Props {

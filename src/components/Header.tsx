@@ -1,11 +1,13 @@
 "use client";
 
-import { Theme } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, HTMLProps } from "react";
 import { FaCaretRight } from "react-icons/fa";
+
+import { Theme } from "@/lib/types";
+import { cn } from "@/lib/utils";
+
 import Cart from "./Cart";
 import FoodDome from "./icons/FoodDome";
 import HeaderHamburger from "./icons/HeaderHamburger";

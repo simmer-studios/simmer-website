@@ -1,15 +1,17 @@
 "use client";
 
+import Link from "next/link";
 import { ComponentProps, FC, HTMLProps, useState } from "react";
+
+import { useCart } from "@/contexts/CartContext";
+
+import ChevronDown from "./icons/ChevronDown";
 import MenuItem from "./MenuItem";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger
 } from "./ui/Collapsible";
-import ChevronDown from "./icons/ChevronDown";
-import Link from "next/link";
-import { useCart } from "@/contexts/CartContext";
 
 interface MenuServiceProps {
   link?: {

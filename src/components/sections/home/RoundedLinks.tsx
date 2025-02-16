@@ -1,6 +1,7 @@
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { ComponentProps, FC, HTMLProps } from "react";
+
+import { cn } from "@/lib/utils";
 
 const RoundedLinks: FC<HTMLProps<HTMLDivElement>> = ({
   className,

@@ -1,6 +1,8 @@
 import { FC, HTMLProps, PropsWithChildren } from "react";
-import ProjectPrimaryDetailsRow from "./ProjectPrimaryDetailsRow";
+
 import { cn } from "@/lib/utils";
+
+import ProjectPrimaryDetailsRow from "./ProjectPrimaryDetailsRow";
 
 const ProjectPrimaryDetails: FC<HTMLProps<HTMLUListElement>> = ({
   className

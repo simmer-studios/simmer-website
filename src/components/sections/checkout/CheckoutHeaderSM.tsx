@@ -1,9 +1,9 @@
 import Image from "next/image";
+import { FC, HTMLProps } from "react";
 
 import START from "@/assets/checkout/sm_start.svg";
 import WORKWITHUS from "@/assets/checkout/sm_work-with-us.svg";
 import { cn } from "@/lib/utils";
-import { FC, HTMLProps } from "react";
 
 const CheckoutHeaderSM: FC<HTMLProps<HTMLDivElement>> = ({
   className,

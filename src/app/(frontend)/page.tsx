@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import ContentWrapper from "@/components/ContentWrapper";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -10,7 +12,6 @@ import RoundedLinks from "@/components/sections/home/RoundedLinks";
 import SecretIngredientReveal from "@/components/sections/home/SecretIngredientReveal";
 import ServiceCourses from "@/components/sections/home/ServiceCourses";
 import StickySidebar from "@/components/StickySidebar";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Simmer Studios",

@@ -1,18 +1,18 @@
+import Image from "next/image";
 import { FC, HTMLProps } from "react";
 
-import WEARE from "@/assets/home/sm_we-are.svg";
-import MORE from "@/assets/home/sm_more.svg";
-import HAMBURGER from "@/assets/home/sm_hamburger.svg";
-import EGGSANDWICH from "@/assets/home/sm_egg-sandwich.svg";
-import THAN from "@/assets/home/sm_than.svg";
-import JUST from "@/assets/home/sm_just.svg";
 import A from "@/assets/home/sm_A.svg";
+import BRANDING from "@/assets/home/sm_branding.svg";
 import CREATIVE from "@/assets/home/sm_creative.svg";
 import DIAGONALTEXT from "@/assets/home/sm_diagonal-text.svg";
-import BRANDING from "@/assets/home/sm_branding.svg";
 import EGG from "@/assets/home/sm_egg.svg";
+import EGGSANDWICH from "@/assets/home/sm_egg-sandwich.svg";
+import HAMBURGER from "@/assets/home/sm_hamburger.svg";
+import JUST from "@/assets/home/sm_just.svg";
+import MORE from "@/assets/home/sm_more.svg";
 import STUDIO from "@/assets/home/sm_studio.svg";
-import Image from "next/image";
+import THAN from "@/assets/home/sm_than.svg";
+import WEARE from "@/assets/home/sm_we-are.svg";
 import { cn } from "@/lib/utils";
 
 const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({

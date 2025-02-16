@@ -1,5 +1,7 @@
-import { cn } from "@/lib/utils";
 import { FC, HTMLProps } from "react";
+
+import { cn } from "@/lib/utils";
+
 import ArrowDown from "./icons/ArrowDown";
 import ScaleInput from "./ScaleInput";
 

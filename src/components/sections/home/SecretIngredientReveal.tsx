@@ -1,9 +1,9 @@
 "use client";
 
+import { FC, HTMLProps, useState } from "react";
+
 import MagicInput from "@/components/MagicInput";
 import { cn } from "@/lib/utils";
-import { FC, HTMLProps, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
 
 const SecretIngredientReveal = () => {
   const [revealDiscount, setRevealDiscount] = useState<boolean>(false);

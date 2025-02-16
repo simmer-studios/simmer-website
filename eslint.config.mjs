@@ -12,9 +12,12 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.config({
     extends: ["next/core-web-vitals", "next/typescript", "prettier"],
+    plugins: ["simple-import-sort"],
     rules: {
       "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": "off"
+      "@typescript-eslint/no-unused-vars": "off",
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error"
     }
   })
 ];

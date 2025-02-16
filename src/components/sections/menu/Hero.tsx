@@ -1,7 +1,9 @@
-import HeroAside from "@/components/HeroAside";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { FC, HTMLProps } from "react";
+
+import HeroAside from "@/components/HeroAside";
+import { cn } from "@/lib/utils";
+
 import HeroContentLG from "./HeroContentLG";
 import HeroContentSM from "./HeroContentSM";
 

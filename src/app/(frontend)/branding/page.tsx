@@ -1,11 +1,11 @@
-import ContentWrapper from "@/components/ContentWrapper";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import StickySidebar from "@/components/StickySidebar";
 import Image from "next/image";
 
 import DIGIN from "@/assets/branding/dig-in.svg";
 import BrandingForm from "@/components/BrandingForm";
+import ContentWrapper from "@/components/ContentWrapper";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import StickySidebar from "@/components/StickySidebar";
 
 export function generateMetadata() {
   return {
