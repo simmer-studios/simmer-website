@@ -1,6 +1,7 @@
+import { FC, HTMLProps } from "react";
+
 import HeroAside from "@/components/HeroAside";
 import { cn } from "@/lib/utils";
-import { FC, HTMLProps } from "react";
 
 import HeroContentLG from "../works/HeroContentLG";
 import HeroContentSM from "../works/HeroContentSM";

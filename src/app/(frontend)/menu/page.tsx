@@ -1,10 +1,11 @@
+import { Suspense } from "react";
+
 import ContentWrapper from "@/components/ContentWrapper";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MenuForm from "@/components/MenuForm";
 import Hero from "@/components/sections/menu/Hero";
 import StickySidebar from "@/components/StickySidebar";
-import { Suspense } from "react";
 
 export function generateMetadata() {
   return {

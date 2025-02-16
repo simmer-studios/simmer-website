@@ -1,6 +1,7 @@
 import { FC, HTMLProps } from "react";
-import Check from "./icons/Check";
+
 import Asterisk from "./icons/Asterisk";
+import Check from "./icons/Check";
 import MenuService from "./MenuService";
 
 interface MenuPhaseContentProps {

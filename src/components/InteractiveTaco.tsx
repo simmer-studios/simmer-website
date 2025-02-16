@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "motion/react";
+import Image from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
 
 const MAX_DISTANCE = 10;

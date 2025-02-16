@@ -1,10 +1,11 @@
+import { FC, HTMLProps, PropsWithChildren } from "react";
+
 import Asterisk from "@/components/icons/Asterisk";
 import InformationIcon from "@/components/icons/InformationIcon";
 import ServiceCourseHeading from "@/components/ServiceCourseHeadingRow";
 import ServiceCourseList from "@/components/ServiceCourseList";
 import ServiceCourseListItem from "@/components/ServiceCourseListItem";
 import { cn } from "@/lib/utils";
-import { FC, HTMLProps, PropsWithChildren } from "react";
 
 const AppetizersContent = () => {
   return (

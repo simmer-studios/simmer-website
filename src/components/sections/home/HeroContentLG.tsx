@@ -1,24 +1,24 @@
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { ComponentProps, FC, HTMLProps } from "react";
 
-/* images */
-import WeAre from "@/assets/home/we-are.svg";
-import More from "@/assets/home/more.svg";
-import Ramen from "@/assets/home/ramen.svg";
-import Than from "@/assets/home/than.svg";
+import A from "@/assets/home/A.svg";
+import Ampersand from "@/assets/home/ampersand.svg";
+import Branding from "@/assets/home/branding.svg";
+import Creative from "@/assets/home/creative.svg";
+import DiagonalText from "@/assets/home/diagonal-text.svg";
+import Egg from "@/assets/home/egg.svg";
 import EggSandwich from "@/assets/home/egg-sandwich.svg";
 import Just from "@/assets/home/just.svg";
-import A from "@/assets/home/A.svg";
-import DiagonalText from "@/assets/home/diagonal-text.svg";
-import Creative from "@/assets/home/creative.svg";
-import Branding from "@/assets/home/branding.svg";
+import More from "@/assets/home/more.svg";
 import Naruto from "@/assets/home/naruto.svg";
-import Studio from "@/assets/home/studio.svg";
-import Egg from "@/assets/home/egg.svg";
 import Play from "@/assets/home/play.svg";
-import Ampersand from "@/assets/home/ampersand.svg";
+import Ramen from "@/assets/home/ramen.svg";
+import Studio from "@/assets/home/studio.svg";
+import Than from "@/assets/home/than.svg";
+/* images */
+import WeAre from "@/assets/home/we-are.svg";
+import { cn } from "@/lib/utils";
 
 const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
   return (

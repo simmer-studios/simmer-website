@@ -1,6 +1,7 @@
+import { FC, HTMLProps } from "react";
+
 import MemberCard from "@/components/MemberCard";
 import { cn } from "@/lib/utils";
-import { FC, HTMLProps } from "react";
 
 const MemberCards: FC<HTMLProps<HTMLDivElement>> = ({
   className,

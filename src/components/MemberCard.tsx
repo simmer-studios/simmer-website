@@ -1,11 +1,10 @@
 import Image from "next/image";
-
-import { cn } from "@/lib/utils";
 import { FC, HTMLProps, ImgHTMLAttributes } from "react";
 
-import TICKET from "@/assets/about/ticket.svg";
 import FLIPMEOVERLG from "@/assets/about/flip-me-over.svg";
 import FLIPMEOVERSM from "@/assets/about/sm_flip-me-over.svg";
+import TICKET from "@/assets/about/ticket.svg";
+import { cn } from "@/lib/utils";
 
 interface MemberCardProps {
   number: number;

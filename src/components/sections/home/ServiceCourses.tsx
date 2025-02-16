@@ -1,9 +1,11 @@
+import { ComponentProps, FC } from "react";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { cn } from "@/lib/utils";
-import { ComponentProps, FC } from "react";
+
 import AppetizersContent from "./AppetizersContent";
-import MainCourseContent from "./MainCourseContent";
 import DessertsContent from "./DessertsContent";
+import MainCourseContent from "./MainCourseContent";
 
 const ServiceCourses = () => {
   return (

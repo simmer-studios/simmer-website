@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import FoodDome from "./icons/FoodDome";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useState } from "react";
+
+import { cn } from "@/lib/utils";
+
+import FoodDome from "./icons/FoodDome";
 
 const InteractiveFooterButtons = () => {
   const [shouldSwitch, setShouldSwitch] = useState<boolean>(false);

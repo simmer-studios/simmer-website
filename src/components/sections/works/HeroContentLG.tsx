@@ -1,13 +1,13 @@
+import Image from "next/image";
 import { FC, HTMLProps } from "react";
 
-import WHAT from "@/assets/works/what.svg";
-import WEVE from "@/assets/works/weve.svg";
-import SERVED from "@/assets/works/served.svg";
 import DESIGNBRANDING from "@/assets/works/design-branding.svg";
-import SOFAR from "@/assets/works/so-far.svg";
-import PORTFOLIO from "@/assets/works/portfolio.svg";
 import OURWORKS from "@/assets/works/our-works.svg";
-import Image from "next/image";
+import PORTFOLIO from "@/assets/works/portfolio.svg";
+import SERVED from "@/assets/works/served.svg";
+import SOFAR from "@/assets/works/so-far.svg";
+import WEVE from "@/assets/works/weve.svg";
+import WHAT from "@/assets/works/what.svg";
 import { cn } from "@/lib/utils";
 
 const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = ({

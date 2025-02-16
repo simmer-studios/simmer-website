@@ -1,6 +1,7 @@
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { ComponentProps, FC } from "react";
+
+import { cn } from "@/lib/utils";
 
 const FullWidthImage: FC<ComponentProps<typeof Image>> = ({
   className,
