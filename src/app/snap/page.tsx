@@ -20,7 +20,7 @@ export default function SimmerSnapsPage() {
         <Hero />
         <ContentWrapper className="border-b-2 border-black">
           <StickySidebar className="border-0" theme="dark" />
-          <div className="basis-full"></div>
+          <div className="basis-full border-t-2 border-black"></div>
         </ContentWrapper>
       </main>
       <Footer />
