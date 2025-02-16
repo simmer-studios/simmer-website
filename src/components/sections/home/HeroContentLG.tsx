@@ -77,7 +77,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
       <div className="row flex border-b-2 border-black">
         <div className="container h-full">
           <div className="flex items-center justify-center">
-            <div className="px-8 py-8">
+            <div className="px-5 py-5">
               <Image src={Creative} alt="" height={160} />
             </div>
             <Image
@@ -87,7 +87,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
               width={100}
               className="h-full"
             />
-            <div className="px-10 py-8">
+            <div className="px-10 py-5">
               <Image src={Branding} alt="" height={160} />
             </div>
           </div>
