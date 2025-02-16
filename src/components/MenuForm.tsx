@@ -2,14 +2,14 @@
 
 import { cn } from "@/lib/utils";
 import { ComponentProps, FC, HTMLProps } from "react";
+import MenuTabDecorLG from "./icons/MenuTabDecorLG";
+import MenuTabDecorSM from "./icons/MenuTabDecorSM";
 import MenuPhaseContent from "./MenuPhaseContent";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/Tabs";
-import MenuTabDecorSM from "./icons/MenuTabDecorSM";
-import MenuTabDecorLG from "./icons/MenuTabDecorLG";
 
 const MenuForm: FC<HTMLProps<HTMLFormElement>> = () => {
   return (
-    <form action="">
+    <div>
       <Tabs
         defaultValue="STRATEGY"
         className="relative flex flex-col divide-y-2 divide-black border-t-2 border-black"
@@ -43,7 +43,7 @@ const MenuForm: FC<HTMLProps<HTMLFormElement>> = () => {
           LET&apos;S WRAP IT UP
         </button>
       </div>
-    </form>
+    </div>
   );
 };
 

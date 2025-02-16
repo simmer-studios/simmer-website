@@ -3,12 +3,12 @@ import Check from "./icons/Check";
 
 interface MenuItemProps {
   checked: boolean;
-  onCheck: () => void;
+  onChangeHandler: (value: boolean) => void;
 }
 
 const MenuItem: FC<HTMLProps<HTMLDivElement> & MenuItemProps> = ({
   checked,
-  onCheck,
+  onChangeHandler,
   children,
   ...props
 }) => {
@@ -19,7 +19,7 @@ const MenuItem: FC<HTMLProps<HTMLDivElement> & MenuItemProps> = ({
     >
       <button
         className="flex items-center justify-center bg-simmer-white hover:brightness-95"
-        onClick={onCheck}
+        onClick={() => onChangeHandler(!checked)}
         type="button"
       >
         {checked && <Check className="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8" />}
