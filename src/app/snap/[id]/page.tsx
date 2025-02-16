@@ -21,7 +21,7 @@ export default function SimmerSnapsInvidiualPage() {
         disableLogoBorder
         className="absolute top-0 z-50 w-full border-b-0 bg-black/45 lg:static lg:z-0 lg:bg-black"
       />
-      <main className="bg-black">
+      <main className="border-b-2 border-black bg-black">
         <ContentWrapper>
           <StickySidebar theme="dark" className="mt-32 border-r-0" />
           <div className="basis-full space-y-20 overflow-hidden bg-simmer-white pb-20 lg:rounded-tl-[8rem]">

@@ -7,6 +7,13 @@ import CheckoutHeaderLG from "@/components/sections/checkout/CheckoutHeaderLG";
 
 import CheckoutHeaderSM from "@/components/sections/checkout/CheckoutHeaderSM";
 
+export function generateMetadata() {
+  return {
+    title: "Checkout | Simmer Studios",
+    description: ""
+  };
+}
+
 /* CHECKOUT PAGE */
 export default function CheckoutPage() {
   return (
