@@ -1,15 +1,16 @@
 "use client";
 
 import { Theme } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, HTMLProps } from "react";
 import { FaCaretRight } from "react-icons/fa";
+import Cart from "./Cart";
 import FoodDome from "./icons/FoodDome";
 import HeaderHamburger from "./icons/HeaderHamburger";
 import Logo from "./Logo";
-import { cn } from "@/lib/utils";
-import { useCart } from "@/contexts/CartContext";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/Popover";
 
 interface Props {
   theme: Theme;
@@ -23,7 +24,6 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
   ...props
 }) => {
   const path = usePathname();
-  const { toggleCartVisibility } = useCart();
 
   return (
     <header
@@ -108,22 +108,32 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
               GET A QUOTE
             </span>
           </Link>
-          <button
-            onClick={toggleCartVisibility}
-            className={cn(
-              "group hidden h-full items-center justify-center bg-simmer-white hover:brightness-95 lg:flex lg:w-[140px] lg:border-x-2 lg:border-black",
-              {
-                "bg-black hover:bg-simmer-white lg:border-simmer-white":
-                  theme === "dark"
-              }
-            )}
-          >
-            <FoodDome
-              className={cn("h-[50px]", {
-                "fill-simmer-white group-hover:fill-black": theme === "dark"
-              })}
-            />
-          </button>
+          <Popover>
+            <PopoverTrigger asChild>
+              <button
+                className={cn(
+                  "group hidden h-full items-center justify-center bg-simmer-white hover:brightness-95 lg:flex lg:w-[140px] lg:border-x-2 lg:border-black",
+                  {
+                    "bg-black hover:bg-simmer-white lg:border-simmer-white":
+                      theme === "dark"
+                  }
+                )}
+              >
+                <FoodDome
+                  className={cn("h-[50px]", {
+                    "fill-simmer-white group-hover:fill-black": theme === "dark"
+                  })}
+                />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent
+              align="end"
+              className="relative rounded-3xl border-2 border-black bg-simmer-yellow p-0 shadow-lg outline-none"
+            >
+              <div className="absolute -top-[20px] right-9 h-5 w-16 bg-[url(/images/img_cart-decoration.svg)] bg-cover bg-center"></div>
+              <Cart />
+            </PopoverContent>
+          </Popover>
           <button className="block lg:hidden">
             <HeaderHamburger
               className={cn("h-[40px]", {

@@ -53,11 +53,7 @@ const MenuPhaseContent: FC<
             </div>
           </div>
           {/* Field Row - Regular */}
-          <MenuService
-            defaultChecked={true}
-            serviceId="a"
-            serviceName="PRODUCTION"
-          />
+          <MenuService serviceId="a" serviceName="PRODUCTION" />
           <MenuService
             serviceId="b"
             serviceName="PHOTOGRAPHY"
@@ -72,16 +68,8 @@ const MenuPhaseContent: FC<
 										agencies."
           />
           <MenuService serviceId="d" serviceName="SERVICE NAME" />
-          <MenuService
-            serviceId="e"
-            serviceName="SERVICE NAME"
-            defaultChecked={true}
-          />
-          <MenuService
-            serviceId="f"
-            serviceName="SERVICE NAME"
-            defaultChecked={true}
-          />
+          <MenuService serviceId="e" serviceName="SERVICE NAME" />
+          <MenuService serviceId="f" serviceName="SERVICE NAME" />
           <MenuService serviceId="g" serviceName="SERVICE NAME" />
         </div>
       </div>

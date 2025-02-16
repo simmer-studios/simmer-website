@@ -8,7 +8,7 @@ import {
   useState
 } from "react";
 
-type CartItem = {
+export type CartItem = {
   id: string;
   name: string;
 };
@@ -18,15 +18,13 @@ interface Cart {
   addItem: (item: CartItem) => void;
   removeItem: (itemId: string) => void;
   isVisible: boolean;
-  toggleCartVisibility: () => void;
 }
 
 const CartContext = createContext<Cart>({
   items: [],
   addItem: () => null,
   removeItem: () => null,
-  isVisible: false,
-  toggleCartVisibility: () => null
+  isVisible: false
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
@@ -34,10 +32,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
-
-  const toggleCartVisibility = () => {
-    setIsVisible((prev) => !prev);
-  };
 
   const addCartItem = (item: CartItem) => {
     /* check if item is already included in the cart */
@@ -69,8 +63,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         items,
         isVisible,
         addItem: addCartItem,
-        removeItem: removeCartItem,
-        toggleCartVisibility
+        removeItem: removeCartItem
       }}
     >
       {children}
