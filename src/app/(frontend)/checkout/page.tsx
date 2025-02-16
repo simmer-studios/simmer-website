@@ -2,10 +2,9 @@ import CheckoutForm from "@/components/CheckoutForm";
 import ContentWrapper from "@/components/ContentWrapper";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import StickySidebar from "@/components/StickySidebar";
 import CheckoutHeaderLG from "@/components/sections/checkout/CheckoutHeaderLG";
-
 import CheckoutHeaderSM from "@/components/sections/checkout/CheckoutHeaderSM";
+import StickySidebar from "@/components/StickySidebar";
 
 export function generateMetadata() {
   return {

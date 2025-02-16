@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+
 import Slider from "./ui/Slider";
 
 interface Props {

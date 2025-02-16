@@ -1,13 +1,13 @@
 import Image from "next/image";
+import { FC, HTMLProps } from "react";
 
-import WHAT from "@/assets/menu/what.svg";
 import AREYOU from "@/assets/menu/areyou.svg";
 import CRAVING from "@/assets/menu/craving.svg";
-import OURSIMMERSPECIALS from "@/assets/menu/our-simmer-specials.svg";
 import FOR from "@/assets/menu/for.svg";
 import MENU from "@/assets/menu/menu.svg";
+import OURSIMMERSPECIALS from "@/assets/menu/our-simmer-specials.svg";
 import QUESTIONMARK from "@/assets/menu/question-mark.svg";
-import { FC, HTMLProps } from "react";
+import WHAT from "@/assets/menu/what.svg";
 import { cn } from "@/lib/utils";
 
 const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = ({

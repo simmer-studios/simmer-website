@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { FC, HTMLProps } from "react";
 
@@ -8,6 +7,7 @@ import FOR from "@/assets/menu/sm_for.svg";
 import MENU from "@/assets/menu/sm_menu.svg";
 import QUESTIONMARK from "@/assets/menu/sm_question-mark.svg";
 import WHAT from "@/assets/menu/sm_what.svg";
+import { cn } from "@/lib/utils";
 
 const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
   className,

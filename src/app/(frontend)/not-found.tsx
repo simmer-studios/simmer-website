@@ -1,7 +1,8 @@
+import Image from "next/image";
+
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import HeroAside from "@/components/HeroAside";
-import Image from "next/image";
 
 export default function NotFound() {
   return (
