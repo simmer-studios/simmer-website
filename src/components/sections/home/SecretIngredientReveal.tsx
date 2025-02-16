@@ -1,5 +1,7 @@
 "use client";
 
+import { AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { FC, HTMLProps, useState } from "react";
 
 import MagicInput from "@/components/MagicInput";
