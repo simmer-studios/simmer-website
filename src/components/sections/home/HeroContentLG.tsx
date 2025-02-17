@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { ComponentProps, FC, HTMLProps } from "react";
@@ -13,9 +12,14 @@ import DiagonalText from "@/assets/home/diagonal-text.svg";
 import Egg from "@/assets/home/egg.svg";
 import EggSandwich from "@/assets/home/egg-sandwich.svg";
 import HOVER_Burger from "@/assets/home/hover_burger.svg";
+import HOVER_CreativeKitchen from "@/assets/home/hover_creative-kitchen.svg";
+import HOVER_Cup from "@/assets/home/hover_cup.svg";
+import HOVER_Eggcited from "@/assets/home/hover_eggcited.svg";
 import HOVER_Just from "@/assets/home/hover_just.svg";
 import HOVER_More from "@/assets/home/hover_more.svg";
+import HOVER_SoMuchMore from "@/assets/home/hover_so-much-more.svg";
 import HOVER_Than from "@/assets/home/hover_than.svg";
+import HOVER_ThinkOutside from "@/assets/home/hover_think-outside.svg";
 import HOVER_WeAre from "@/assets/home/hover_we-are.svg";
 import Just from "@/assets/home/just.svg";
 import More from "@/assets/home/more.svg";
@@ -35,11 +39,15 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
       <div className="row flex border-b-2 border-black">
         <div className="container h-full">
           <div className="flex items-center justify-center gap-[2vw] px-8 py-8">
-            <HoverTransition
-              transitionElement={<Image src={HOVER_WeAre} alt="We are" fill />}
-            >
-              <Image src={WeAre} alt="We are" height={160} />
-            </HoverTransition>
+            <div>
+              <HoverTransition
+                transitionElement={
+                  <Image src={HOVER_WeAre} alt="We are" fill />
+                }
+              >
+                <Image src={WeAre} alt="We are" height={160} />
+              </HoverTransition>
+            </div>
             <div className="">
               <HoverTransition
                 transitionElement={<Image src={HOVER_More} alt="More" fill />}
@@ -67,13 +75,14 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
         <VerticalLinks href="#">STRATEGY</VerticalLinks>
       </div>
       {/* JUST A */}
-      <div className="row flex border-b-2 border-black">
+      <div className="row flex overflow-y-hidden border-b-2 border-black">
         <div className="container h-full">
           <div className="flex items-center justify-center divide-x-2 divide-black">
             <div className="px-8 py-8">
               <HoverTransition
+                className="overflow-y-visible"
                 transitionElement={
-                  <Image src={HOVER_Burger} alt="" className="scale-120" fill />
+                  <Image src={HOVER_Burger} alt="" className="scale-125" fill />
                 }
               >
                 <Image src={EggSandwich} alt="" height={160} />
@@ -87,15 +96,33 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
               </HoverTransition>
             </div>
             <div className="px-8 py-8">
-              <Image src={A} alt="" height={160} />
+              <HoverTransition
+                className="overflow-y-visible"
+                transitionElement={
+                  <Image
+                    src={HOVER_Cup}
+                    alt=""
+                    fill
+                    className="-translate-x-5 scale-[1.7]"
+                  />
+                }
+              >
+                <Image src={A} alt="" height={160} />
+              </HoverTransition>
             </div>
             <div className="px-8 py-8">
-              <Image
-                src={DiagonalText}
-                alt=""
-                height={160}
-                className="aspect-square"
-              />
+              <HoverTransition
+                transitionElement={
+                  <Image src={HOVER_ThinkOutside} alt="" fill />
+                }
+              >
+                <Image
+                  src={DiagonalText}
+                  alt=""
+                  height={160}
+                  className="aspect-square"
+                />
+              </HoverTransition>
             </div>
           </div>
         </div>
@@ -105,16 +132,22 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
       <div className="row flex border-b-2 border-black">
         <div className="container h-full">
           <div className="flex items-center justify-center">
-            <div className="px-5 py-5">
-              <Image src={Creative} alt="" height={160} />
+            <div className="overflow-y-hidden px-5 py-5">
+              <HoverTransition
+                className="overflow-y-visible"
+                transitionElement={
+                  <Image
+                    src={HOVER_CreativeKitchen}
+                    alt=""
+                    className="scale-125"
+                    fill
+                  />
+                }
+              >
+                <Image src={Creative} alt="" height={160} />
+              </HoverTransition>
             </div>
-            <Image
-              src={Ampersand}
-              alt=""
-              height={160}
-              width={100}
-              className="h-full"
-            />
+            <Image src={Ampersand} alt="" height={160} width={80} />
             <div className="px-10 py-5">
               <Image src={Branding} alt="" height={160} />
             </div>
@@ -128,13 +161,29 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
         <div className="container flex h-full justify-center">
           <div className="flex items-center justify-center divide-x-2 divide-black">
             <div className="bg-simmer-white px-8 py-8">
-              <Image src={Naruto} alt="" height={160} />
+              <Image src={Naruto} alt="" height={160} className="scale-110" />
+            </div>
+            <div className="overflow-y-hidden bg-simmer-white px-8 py-8">
+              <HoverTransition
+                className="overflow-y-visible"
+                transitionElement={
+                  <Image
+                    src={HOVER_SoMuchMore}
+                    alt=""
+                    className="scale-110"
+                    fill
+                  />
+                }
+              >
+                <Image src={Studio} alt="" height={160} />
+              </HoverTransition>
             </div>
             <div className="bg-simmer-white px-8 py-8">
-              <Image src={Studio} alt="" height={160} />
-            </div>
-            <div className="bg-simmer-white px-8 py-8">
-              <Image src={Egg} alt="" height={160} />
+              <HoverTransition
+                transitionElement={<Image src={HOVER_Eggcited} alt="" fill />}
+              >
+                <Image src={Egg} alt="" height={160} />
+              </HoverTransition>
             </div>
           </div>
           <Link

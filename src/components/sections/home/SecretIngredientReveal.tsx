@@ -42,7 +42,7 @@ const Ticket: FC<HTMLProps<HTMLDivElement> & TicketProps> = ({
   return (
     <motion.div
       exit={{ opacity: 0, x: 1000, rotateY: "45deg", rotateX: "45deg" }}
-      transition={{ duration: 1 }}
+      transition={{ delay: 0.5, type: "tween" }}
       className={cn(
         "relative flex flex-col gap-10 rounded-xl bg-[url('/images/img_ticket-vertical.svg')] bg-cover bg-center px-6 py-12 sm:px-10 sm:py-14 md:px-14 md:py-16 lg:rounded-3xl lg:bg-[url('/images/img_ticket-horizontal.svg')] lg:px-20 lg:py-20 xl:px-28 xl:py-24 2xl:px-32",
         className
