@@ -11,7 +11,7 @@ const SecretIngredientReveal = () => {
   const [revealDiscount, setRevealDiscount] = useState<boolean>(false);
 
   return (
-    <section className="">
+    <section className="overflow-hidden">
       <div className="container relative min-h-[550px] content-center px-10 lg:min-h-[850px] lg:px-20 xl:max-w-[1837px]">
         <DiscountCoupon
           className="absolute bottom-0 left-0 right-0 top-0 z-10 mx-auto min-h-[540px] lg:min-h-[850px]"
@@ -41,8 +41,8 @@ const Ticket: FC<HTMLProps<HTMLDivElement> & TicketProps> = ({
 }) => {
   return (
     <motion.div
-      exit={{ opacity: 0, x: 1000, rotateY: "45deg", rotateX: "45deg" }}
-      transition={{ delay: 0.5, type: "tween" }}
+      exit={{ x: 2000, rotateY: "45deg", rotateX: "45deg" }}
+      transition={{ type: "spring", duration: 2 }}
       className={cn(
         "relative flex flex-col gap-10 rounded-xl bg-[url('/images/img_ticket-vertical.svg')] bg-cover bg-center px-6 py-12 sm:px-10 sm:py-14 md:px-14 md:py-16 lg:rounded-3xl lg:bg-[url('/images/img_ticket-horizontal.svg')] lg:px-20 lg:py-20 xl:px-28 xl:py-24 2xl:px-32",
         className
