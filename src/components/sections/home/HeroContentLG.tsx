@@ -130,9 +130,9 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
       </div>
       {/* CREATIVE & BRANDING */}
       <div className="row flex border-b-2 border-black">
-        <div className="container h-full">
+        <div className="container h-full overflow-y-hidden">
           <div className="flex items-center justify-center">
-            <div className="overflow-y-hidden px-5 py-5">
+            <div className="px-5 py-5">
               <HoverTransition
                 className="overflow-y-visible"
                 transitionElement={
@@ -147,7 +147,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
                 <Image src={Creative} alt="" height={160} />
               </HoverTransition>
             </div>
-            <Image src={Ampersand} alt="" height={160} width={80} />
+            <Image src={Ampersand} alt="" height={160} width={90} />
             <div className="px-10 py-5">
               <Image src={Branding} alt="" height={160} />
             </div>
@@ -158,12 +158,12 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
       {/* STUDIO */}
       <div className="row flex border-b-2 border-black">
         <div className="flex-1 px-8"></div>
-        <div className="container flex h-full justify-center">
+        <div className="container flex h-full justify-center overflow-hidden">
           <div className="flex items-center justify-center divide-x-2 divide-black">
             <div className="bg-simmer-white px-8 py-8">
               <Image src={Naruto} alt="" height={160} className="scale-110" />
             </div>
-            <div className="overflow-y-hidden bg-simmer-white px-8 py-8">
+            <div className="bg-simmer-white px-8 py-8">
               <HoverTransition
                 className="overflow-y-visible"
                 transitionElement={
