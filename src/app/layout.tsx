@@ -1,3 +1,4 @@
+import { CartProvider } from "@/contexts/CartContext";
 import "./globals.css";
 
 interface Props {
@@ -7,7 +8,9 @@ interface Props {
 export default function RootLayout({ children }: Readonly<Props>) {
   return (
     <html lang="en-PH">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <CartProvider>{children}</CartProvider>
+      </body>
     </html>
   );
 }
