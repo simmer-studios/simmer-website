@@ -19,31 +19,85 @@ const MemberCards: FC<HTMLProps<HTMLDivElement>> = ({
           name="RK"
           role="Head Chef"
           avatar="/images/sample_avatar-dimsum.svg"
+          photo="/images/sample_member-photo-2.jpg"
+          catchPhrase="CRAZY BAO'T DESIGN."
           number={1}
         />
         <MemberCard
           name="SJ"
           role="Head Chef"
-          avatar="/images/sample_avatar-dimsum.svg"
+          avatar="/images/sample_avatar-cocktail.svg"
+          photo="/images/sample_member-photo-1.jpg"
+          catchPhrase="SIP HAPPENS."
           number={2}
         />
+
         <MemberCard
-          name="MICA"
-          role="Jr. Art Director"
+          name="RK"
+          role="Head Chef"
           avatar="/images/sample_avatar-dimsum.svg"
-          number={3}
+          photo="/images/sample_member-photo-2.jpg"
+          catchPhrase="CRAZY BAO'T DESIGN."
+          number={1}
         />
         <MemberCard
-          name="MOLIN"
-          role="Hybrid Chef"
+          name="SJ"
+          role="Head Chef"
+          avatar="/images/sample_avatar-cocktail.svg"
+          photo="/images/sample_member-photo-1.jpg"
+          catchPhrase="SIP HAPPENS."
+          number={2}
+        />
+
+        <MemberCard
+          name="RK"
+          role="Head Chef"
           avatar="/images/sample_avatar-dimsum.svg"
-          number={4}
+          photo="/images/sample_member-photo-2.jpg"
+          catchPhrase="CRAZY BAO'T DESIGN."
+          number={1}
         />
         <MemberCard
-          name="CHESCA"
-          role="Writer & Strategist"
+          name="SJ"
+          role="Head Chef"
+          avatar="/images/sample_avatar-cocktail.svg"
+          photo="/images/sample_member-photo-1.jpg"
+          catchPhrase="SIP HAPPENS."
+          number={2}
+        />
+
+        <MemberCard
+          name="RK"
+          role="Head Chef"
           avatar="/images/sample_avatar-dimsum.svg"
-          number={5}
+          photo="/images/sample_member-photo-2.jpg"
+          catchPhrase="CRAZY BAO'T DESIGN."
+          number={1}
+        />
+        <MemberCard
+          name="SJ"
+          role="Head Chef"
+          avatar="/images/sample_avatar-cocktail.svg"
+          photo="/images/sample_member-photo-1.jpg"
+          catchPhrase="SIP HAPPENS."
+          number={2}
+        />
+
+        <MemberCard
+          name="RK"
+          role="Head Chef"
+          avatar="/images/sample_avatar-dimsum.svg"
+          photo="/images/sample_member-photo-2.jpg"
+          catchPhrase="CRAZY BAO'T DESIGN."
+          number={1}
+        />
+        <MemberCard
+          name="SJ"
+          role="Head Chef"
+          avatar="/images/sample_avatar-cocktail.svg"
+          photo="/images/sample_member-photo-1.jpg"
+          catchPhrase="SIP HAPPENS."
+          number={2}
         />
       </div>
       <div className="flex items-center justify-center lg:hidden">
