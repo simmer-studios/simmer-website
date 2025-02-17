@@ -1,6 +1,7 @@
+import { FC } from "react";
+
 import { CustomSVG } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { FC } from "react";
 
 const InformationIcon: FC<CustomSVG> = ({ className, ...props }) => {
   return (

@@ -1,7 +1,9 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { ComponentProps, FC, HTMLProps } from "react";
+
+import { cn } from "@/lib/utils";
+
 import MenuTabDecorLG from "./icons/MenuTabDecorLG";
 import MenuTabDecorSM from "./icons/MenuTabDecorSM";
 import MenuPhaseContent from "./MenuPhaseContent";

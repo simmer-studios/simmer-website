@@ -1,18 +1,18 @@
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { FC, HTMLProps } from "react";
 
 import ARROW_DOWN from "@/assets/snap/arrow-down.svg";
 import CLICK_ONE from "@/assets/snap/click-one.svg";
+import FILTER from "@/assets/snap/filter.svg";
 import PEEKHERE from "@/assets/snap/peek-here.svg";
 import PHOTO from "@/assets/snap/photo.svg";
+import PORTRAITS from "@/assets/snap/portraits.svg";
 import POST from "@/assets/snap/post.svg";
+import PRODUCTS from "@/assets/snap/products.svg";
 import SIMMERING from "@/assets/snap/simmering.svg";
 import SNAPS from "@/assets/snap/snaps.svg";
 import VIDEO from "@/assets/snap/video.svg";
-import PRODUCTS from "@/assets/snap/products.svg";
-import FILTER from "@/assets/snap/filter.svg";
-import PORTRAITS from "@/assets/snap/portraits.svg";
+import { cn } from "@/lib/utils";
 
 const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = ({
   className,

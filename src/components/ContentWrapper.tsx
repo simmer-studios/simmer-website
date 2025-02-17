@@ -1,6 +1,8 @@
+import { FC, HTMLProps, PropsWithChildren } from "react";
+
 import { Theme } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { FC, HTMLProps, PropsWithChildren } from "react";
+
 import StickySidebar from "./StickySidebar";
 
 const ContentWrapper: FC<PropsWithChildren<HTMLProps<HTMLDivElement>>> = ({

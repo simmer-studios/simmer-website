@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import ArrowDown from "./icons/ArrowDown";
 import { FC, HTMLProps, PropsWithChildren } from "react";
+
 import { cn } from "@/lib/utils";
+
+import ArrowDown from "./icons/ArrowDown";
 import ArrowRight from "./icons/ArrowRight";
 import Play from "./icons/Play";
 

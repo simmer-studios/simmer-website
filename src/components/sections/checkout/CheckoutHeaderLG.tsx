@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { FC, HTMLProps } from "react";
-import { cn } from "@/lib/utils";
 
-import STARTHERE from "@/assets/checkout/start-here.svg";
 import ORDER from "@/assets/checkout/order.svg";
+import STARTHERE from "@/assets/checkout/start-here.svg";
+import { cn } from "@/lib/utils";
 
 const CheckoutHeaderLG: FC<HTMLProps<HTMLDivElement>> = ({
   className,

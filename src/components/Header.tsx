@@ -1,11 +1,13 @@
 "use client";
 
-import { Theme } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, HTMLProps } from "react";
 import { FaCaretRight } from "react-icons/fa";
+
+import { Theme } from "@/lib/types";
+import { cn } from "@/lib/utils";
+
 import Cart from "./Cart";
 import FoodDome from "./icons/FoodDome";
 import HeaderHamburger from "./icons/HeaderHamburger";
@@ -42,17 +44,16 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
           <Link
             href="/"
             className={cn(
-              "group flex h-full items-center justify-center hover:bg-simmer-yellow lg:min-w-[224px] lg:border-r-2 lg:border-black",
+              "group flex h-full items-center justify-center lg:min-w-[224px] lg:border-r-2 lg:border-black",
               {
-                "hover:bg-simmer-white lg:border-simmer-white":
-                  theme === "dark",
+                "hover:bg-simmer-yellow": theme === "light",
                 "lg:border-r-0": disableLogoBorder
               }
             )}
           >
             <Logo
               className={cn("h-[40px] lg:h-[50px]", {
-                "fill-simmer-white group-hover:fill-black": theme === "dark"
+                "fill-simmer-white": theme === "dark"
               })}
             />
           </Link>

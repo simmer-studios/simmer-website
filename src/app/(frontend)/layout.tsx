@@ -1,5 +1,6 @@
-import { CartProvider } from "@/contexts/CartContext";
 import "./globals.css";
+
+import { CartProvider } from "@/contexts/CartContext";
 
 interface Props {
   children: React.ReactNode;

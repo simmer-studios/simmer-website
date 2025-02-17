@@ -1,6 +1,7 @@
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { FC, HTMLProps } from "react";
+
+import { cn } from "@/lib/utils";
 
 const BuildingTheBrand: FC<HTMLProps<HTMLImageElement>> = ({ className }) => {
   return (

@@ -1,9 +1,9 @@
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { FC, HTMLProps } from "react";
 
 import PEEKHERE from "@/assets/about/peek-here.svg";
 import ArrowDown from "@/components/icons/ArrowDown";
+import { cn } from "@/lib/utils";
 
 const Hero: FC<HTMLProps<HTMLDivElement>> = ({ className }) => {
   return (

@@ -1,6 +1,7 @@
+import { FC, HTMLProps } from "react";
+
 import PortfolioItem from "@/components/PortfolioItem";
 import { cn } from "@/lib/utils";
-import { FC, HTMLProps } from "react";
 
 interface Props {
   projects: (typeof import("@/lib/mockdata.json"))["portfolios"];

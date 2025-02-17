@@ -1,10 +1,11 @@
-import ArrowDown from "@/components/icons/ArrowDown";
-import ProjectPrimaryDetails from "@/components/ProjectPrimaryDetails";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { FC, HTMLProps, PropsWithChildren } from "react";
 import { GoArrowUpRight } from "react-icons/go";
+
+import ArrowDown from "@/components/icons/ArrowDown";
+import ProjectPrimaryDetails from "@/components/ProjectPrimaryDetails";
+import { cn } from "@/lib/utils";
 
 const Hero: FC<HTMLProps<HTMLElement>> = ({ className }) => {
   return (
