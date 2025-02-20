@@ -12,7 +12,7 @@ export const Media: CollectionConfig = {
     }
   ],
   upload: {
-    mimeTypes: ["image/*"],
+    mimeTypes: ["image/*", "video/*"],
     disableLocalStorage: true
   }
 };
