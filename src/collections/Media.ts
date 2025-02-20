@@ -13,6 +13,7 @@ export const Media: CollectionConfig = {
   ],
   upload: {
     mimeTypes: ["image/*", "video/*"],
-    disableLocalStorage: true
+    disableLocalStorage: true,
+    displayPreview: true
   }
 };
