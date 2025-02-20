@@ -27,19 +27,19 @@ export default buildConfig({
   collections: [Projects, Services, Creatives, Users, Media],
   globals: [Homepage],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || "",
+  secret: process.env.PAYLOAD_SECRET ?? "",
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts")
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || ""
+      connectionString: process.env.DATABASE_URI ?? ""
     }
   }),
   sharp,
   upload: {
     limits: {
-      fieldSize: 10_000_000 // 10 MB
+      fieldSize: 100_000_000 // 100 MB
     }
   },
   plugins: [
