@@ -3,7 +3,8 @@ import { CollectionConfig } from "payload";
 export const Creatives: CollectionConfig = {
   slug: "creatives",
   admin: {
-    useAsTitle: "name"
+    useAsTitle: "name",
+    defaultColumns: ["name", "role", "tagline", "image", "avatar"]
   },
   fields: [
     {
