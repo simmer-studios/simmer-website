@@ -1,14 +1,18 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from "@payloadcms/db-postgres";
-import { payloadCloudPlugin } from "@payloadcms/payload-cloud";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import { s3Storage } from "@payloadcms/storage-s3";
 import path from "path";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
 
+import { Creatives } from "./collections/Creatives";
 import { Media } from "./collections/Media";
+import { Projects } from "./collections/Projects";
+import { Services } from "./collections/Services";
 import { Users } from "./collections/Users";
+import { Homepage } from "./globals/Homepage";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -20,7 +24,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname)
     }
   },
-  collections: [Users, Media],
+  collections: [Projects, Services, Creatives, Users, Media],
+  globals: [Homepage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
@@ -32,8 +37,25 @@ export default buildConfig({
     }
   }),
   sharp,
+  upload: {
+    limits: {
+      fieldSize: 10_000_000 // 10 MB
+    }
+  },
   plugins: [
-    payloadCloudPlugin()
-    // storage-adapter-placeholder
+    s3Storage({
+      collections: {
+        media: true
+      },
+      bucket: process.env.DO_SPACE_BUCKET ?? "",
+      config: {
+        credentials: {
+          accessKeyId: process.env.DO_SPACE_ACCESS_KEY ?? "",
+          secretAccessKey: process.env.DO_SPACE_SECRET_KEY ?? ""
+        },
+        region: process.env.DO_SPACE_REGION ?? "",
+        endpoint: process.env.DO_SPACE_ENDPOINT
+      }
+    })
   ]
 });
