@@ -57,6 +57,11 @@ export const Projects: CollectionConfig = {
             } else {
               return true;
             }
+          },
+          admin: {
+            width: "50%",
+            description:
+              "URL-friendly name of the project. No spaces or special characters e.g. simmer-studios"
           }
         }
       ]

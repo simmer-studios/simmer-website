@@ -137,6 +137,9 @@ export interface Project {
    */
   cover: number | Media;
   name: string;
+  /**
+   * URL-friendly name of the project. No spaces or special characters e.g. simmer-studios
+   */
   slug: string;
   brand: string;
   year: number;
