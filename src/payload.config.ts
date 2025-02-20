@@ -39,7 +39,7 @@ export default buildConfig({
   sharp,
   upload: {
     limits: {
-      fieldSize: 100_000_000 // 100 MB
+      fileSize: 100_000_000 // 100 MB,
     }
   },
   plugins: [
