@@ -13,7 +13,7 @@ const FooterCopyright = () => {
           RESERVED
         </p>
         <p className="text-[2.4rem] font-bold leading-none tracking-tighter">
-          (2024)
+          (2025)
         </p>
       </div>
     </div>
