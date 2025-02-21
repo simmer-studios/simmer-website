@@ -20,7 +20,7 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
 }) => {
   return (
     <div
-      className="min-h-dvh divide-y-2 divide-simmer-white border-b-2 border-simmer-white font-adelle-mono text-simmer-white"
+      className="min-h-dvh divide-y-2 divide-simmer-white font-adelle-mono text-simmer-white"
       {...props}
     >
       <div className="flex h-[100px] items-center px-5">
@@ -59,7 +59,7 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
           <div className="flex flex-1 items-center gap-2 px-5 py-1.5">
             <Link
               href="/"
-              className="inline-block pt-2.5 font-articulat text-6xl"
+              className="inline-block pt-2.5 font-articulat text-7xl leading-none"
               onClick={onClose}
             >
               HOME
@@ -77,7 +77,7 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
         <div className="container flex items-center gap-2 px-5 py-1.5">
           <Link
             href="/works"
-            className="inline-block pt-2.5 font-articulat text-6xl font-medium"
+            className="inline-block pt-2.5 font-articulat text-7xl font-medium leading-none"
             onClick={onClose}
           >
             WORKS
@@ -92,7 +92,7 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
           <div className="flex flex-1 items-center gap-2 px-5 py-1.5">
             <Link
               href="/menu"
-              className="inline-block pt-2.5 font-articulat text-6xl font-extralight italic"
+              className="inline-block pt-2.5 font-articulat text-7xl font-extralight italic leading-none"
               onClick={onClose}
             >
               MENU
@@ -110,7 +110,7 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
         <div className="container flex gap-2 px-5 py-1.5">
           <Link
             href="/about"
-            className="inline-block pt-2.5 font-articulat text-6xl font-bold"
+            className="inline-block pt-2.5 font-articulat text-7xl font-bold leading-none"
             onClick={onClose}
           >
             ABOUT
@@ -124,7 +124,7 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
         <div className="container flex items-center gap-2 px-5 py-1.5">
           <Link
             href="/checkout"
-            className="inline-block pt-2.5 font-articulat text-6xl font-extralight"
+            className="inline-block pt-2.5 font-articulat text-7xl font-extralight leading-none"
             onClick={onClose}
           >
             QUOTE
@@ -144,7 +144,7 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
           <div className="flex items-center gap-2 px-5 py-1.5">
             <Link
               href="/snap"
-              className="inline-block pt-2.5 font-articulat text-6xl font-medium"
+              className="inline-block pt-2.5 font-articulat text-7xl font-medium leading-none"
               onClick={onClose}
             >
               SNAP
@@ -155,7 +155,7 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
           </div>
         </div>
       </div>
-      <div className="row">
+      <div className="row !border-b-2 border-simmer-white">
         <div className="container flex divide-x-2 divide-simmer-white">
           <div className="flex basis-[25%] items-center justify-start px-5">
             <span className="w-[4ch] font-adelle-mono leading-none">
