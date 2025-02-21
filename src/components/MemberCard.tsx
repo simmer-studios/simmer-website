@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import Image from "next/image";
-import { FC, HTMLProps, ImgHTMLAttributes } from "react";
+import { FC, HTMLProps, ImgHTMLAttributes, useState } from "react";
 
 import FLIPMEOVERLG from "@/assets/about/flip-me-over.svg";
 import FLIPMEOVERSM from "@/assets/about/sm_flip-me-over.svg";
@@ -72,9 +72,15 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
               />
             </div>
             <div className="flex items-center justify-end px-2 py-4">
+              {/* avatar */}
               <div className="relative aspect-square w-20 lg:w-28 min-[1537px]:w-40">
                 {avatar && (
-                  <Image src={avatar} alt="" fill className="object-contain" />
+                  <Image
+                    src={avatar}
+                    alt=""
+                    fill
+                    className="object-contain object-right"
+                  />
                 )}
               </div>
             </div>
@@ -97,9 +103,10 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
           >
             <Image
               src={photo as string}
-              alt="SJ"
+              alt={name}
               fill
               className="object-cover object-center"
+              onContextMenu={(e) => e.preventDefault()}
             />
             {catchPhrase && (
               <motion.div
