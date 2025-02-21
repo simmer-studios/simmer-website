@@ -156,7 +156,7 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
       {dropdownOpen && (
         <div
           className={cn(
-            "fixed bottom-0 left-0 right-0 top-0 z-50 hidden bg-black lg:hidden",
+            "fixed bottom-0 left-0 right-0 top-0 z-50 hidden min-h-[100vh] bg-black lg:hidden",
             {
               block: dropdownOpen
             }
