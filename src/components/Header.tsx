@@ -1,14 +1,16 @@
 "use client";
 
+import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FC, HTMLProps } from "react";
+import { FC, HTMLProps, useState } from "react";
 import { FaCaretRight } from "react-icons/fa";
 
 import { Theme } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 import Cart from "./Cart";
+import HeaderMenuContent from "./HeaderMenuContent";
 import FoodDome from "./icons/FoodDome";
 import HeaderHamburger from "./icons/HeaderHamburger";
 import Logo from "./Logo";
@@ -27,10 +29,12 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
 }) => {
   const path = usePathname();
 
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+
   return (
     <header
       className={cn(
-        "border-b-2 border-black bg-simmer-white px-5 font-adelle-mono text-base lg:px-0 lg:pr-20 lg:text-xl",
+        "relative border-b-2 border-black bg-simmer-white px-5 font-adelle-mono text-base lg:px-0 lg:pr-20 lg:text-xl",
         {
           "border-simmer-white bg-black text-simmer-white": theme === "dark"
         },
@@ -135,15 +139,35 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
               <Cart />
             </PopoverContent>
           </Popover>
-          <button className="block lg:hidden">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 1.2 }}
+            className="block lg:hidden"
+            onClick={() => setDropdownOpen((prev) => !prev)}
+          >
             <HeaderHamburger
               className={cn("h-[40px]", {
                 "stroke-simmer-white": theme === "dark"
               })}
             />
-          </button>
+          </motion.button>
         </div>
       </div>
+      {dropdownOpen && (
+        <div
+          className={cn(
+            "fixed bottom-0 left-0 right-0 top-0 z-50 hidden bg-black lg:hidden",
+            {
+              block: dropdownOpen
+            }
+          )}
+        >
+          <HeaderMenuContent
+            currentPath={path}
+            onClose={() => setDropdownOpen(false)}
+          />
+        </div>
+      )}
     </header>
   );
 };
