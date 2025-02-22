@@ -8,9 +8,12 @@ export const Media: CollectionConfig = {
   fields: [
     {
       name: "alt",
-      type: "text",
-      required: true
+      type: "text"
     }
   ],
-  upload: true
+  upload: {
+    mimeTypes: ["image/*", "video/*"],
+    disableLocalStorage: true,
+    displayPreview: true
+  }
 };

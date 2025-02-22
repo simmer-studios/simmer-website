@@ -18,7 +18,7 @@ const MemberCards: FC<HTMLProps<HTMLDivElement>> = ({
         <MemberCard
           name="RK"
           role="Head Chef"
-          avatar="/images/sample_avatar-dimsum.svg"
+          avatar="/images/sample_avatar-dimsum.png"
           photo="/images/sample_member-photo-2.jpg"
           catchPhrase="CRAZY BAO'T DESIGN."
           number={1}
@@ -26,7 +26,7 @@ const MemberCards: FC<HTMLProps<HTMLDivElement>> = ({
         <MemberCard
           name="SJ"
           role="Head Chef"
-          avatar="/images/sample_avatar-cocktail.svg"
+          avatar="/images/sample_avatar-cocktail.png"
           photo="/images/sample_member-photo-1.jpg"
           catchPhrase="SIP HAPPENS."
           number={2}
@@ -35,7 +35,7 @@ const MemberCards: FC<HTMLProps<HTMLDivElement>> = ({
         <MemberCard
           name="RK"
           role="Head Chef"
-          avatar="/images/sample_avatar-dimsum.svg"
+          avatar="/images/sample_avatar-dimsum.png"
           photo="/images/sample_member-photo-2.jpg"
           catchPhrase="CRAZY BAO'T DESIGN."
           number={1}
@@ -43,7 +43,7 @@ const MemberCards: FC<HTMLProps<HTMLDivElement>> = ({
         <MemberCard
           name="SJ"
           role="Head Chef"
-          avatar="/images/sample_avatar-cocktail.svg"
+          avatar="/images/sample_avatar-cocktail.png"
           photo="/images/sample_member-photo-1.jpg"
           catchPhrase="SIP HAPPENS."
           number={2}
@@ -52,7 +52,7 @@ const MemberCards: FC<HTMLProps<HTMLDivElement>> = ({
         <MemberCard
           name="RK"
           role="Head Chef"
-          avatar="/images/sample_avatar-dimsum.svg"
+          avatar="/images/sample_avatar-dimsum.png"
           photo="/images/sample_member-photo-2.jpg"
           catchPhrase="CRAZY BAO'T DESIGN."
           number={1}
@@ -60,7 +60,7 @@ const MemberCards: FC<HTMLProps<HTMLDivElement>> = ({
         <MemberCard
           name="SJ"
           role="Head Chef"
-          avatar="/images/sample_avatar-cocktail.svg"
+          avatar="/images/sample_avatar-cocktail.png"
           photo="/images/sample_member-photo-1.jpg"
           catchPhrase="SIP HAPPENS."
           number={2}
@@ -69,7 +69,7 @@ const MemberCards: FC<HTMLProps<HTMLDivElement>> = ({
         <MemberCard
           name="RK"
           role="Head Chef"
-          avatar="/images/sample_avatar-dimsum.svg"
+          avatar="/images/sample_avatar-dimsum.png"
           photo="/images/sample_member-photo-2.jpg"
           catchPhrase="CRAZY BAO'T DESIGN."
           number={1}
@@ -77,7 +77,7 @@ const MemberCards: FC<HTMLProps<HTMLDivElement>> = ({
         <MemberCard
           name="SJ"
           role="Head Chef"
-          avatar="/images/sample_avatar-cocktail.svg"
+          avatar="/images/sample_avatar-cocktail.png"
           photo="/images/sample_member-photo-1.jpg"
           catchPhrase="SIP HAPPENS."
           number={2}
@@ -86,7 +86,7 @@ const MemberCards: FC<HTMLProps<HTMLDivElement>> = ({
         <MemberCard
           name="RK"
           role="Head Chef"
-          avatar="/images/sample_avatar-dimsum.svg"
+          avatar="/images/sample_avatar-dimsum.png"
           photo="/images/sample_member-photo-2.jpg"
           catchPhrase="CRAZY BAO'T DESIGN."
           number={1}
