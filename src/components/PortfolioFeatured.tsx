@@ -1,19 +1,39 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { FC, HTMLProps, PropsWithChildren } from "react";
 
 import { cn } from "@/lib/utils";
 
+import FilterDropdown from "./FilterDropdown";
 import ArrowDown from "./icons/ArrowDown";
 import ArrowRight from "./icons/ArrowRight";
-import Play from "./icons/Play";
 
 const PortfolioFeatured = () => {
   return (
     <div className="grid grid-cols-1 gap-0.5 bg-black lg:grid-cols-2">
-      <Heading className="col-span-full bg-simmer-white">
-        FEATURED <Play className="w-10 -translate-y-2 lg:translate-y-3" />
-      </Heading>
+      <div className="col-span-1 flex flex-col items-start gap-3 bg-simmer-white px-4 py-4 md:flex-row md:items-center lg:col-span-2 lg:items-center lg:justify-between lg:px-16">
+        <div className="inline-flex items-center gap-2 lg:gap-5">
+          <ArrowDown className="aspect-[0.4/1] h-10 w-5 flex-shrink-0 lg:h-20 lg:w-8" />
+          <span className="translate-y-1.5 text-5xl uppercase lg:text-8xl">
+            FEATURED
+          </span>
+        </div>
+        <FilterDropdown
+          items={[
+            { filterLabel: "Featured", filterId: "featured" },
+            { filterLabel: "Food & Beverage", filterId: "food_beverages" },
+            { filterLabel: "Beauty & Lifestyle", filterId: "beauty_lifestyle" },
+            { filterLabel: "Arts", filterId: "arts" },
+            {
+              filterLabel: "Social Media Focused",
+              filterId: "social_media_focused"
+            },
+            { filterLabel: "Technology", filterId: "technology" }
+          ]}
+        />
+      </div>
       <FeaturedProjectBlock>
         <FeaturedImage />
         <CaptionBlock
@@ -49,8 +69,8 @@ const Heading: FC<PropsWithChildren<HTMLProps<HTMLDivElement>>> = ({
       )}
       {...props}
     >
-      <ArrowDown className="h-12 lg:h-20" />
-      <div className="flex flex-grow translate-y-1.5 justify-between text-6xl uppercase lg:text-8xl">
+      <ArrowDown className="aspect-[0.4/1] h-10 w-5 flex-shrink-0 lg:h-20 lg:w-8" />
+      <div className="flex flex-grow translate-y-1.5 justify-between text-5xl uppercase lg:text-8xl">
         {children}
       </div>
     </div>
