@@ -21,9 +21,6 @@ const EggSpawner = () => {
 
   return (
     <section className="relative flex min-h-dvh overflow-hidden bg-simmer-white">
-      <Suspense fallback={null}>
-        <FallingEggs ref={fallingEggsRef} />
-      </Suspense>
       <div className="container relative mx-auto content-center space-y-5 text-center lg:space-y-8 xl:space-y-10">
         <div className="flex flex-wrap justify-center gap-4 font-adelle-mono text-5xl font-bold sm:text-6xl md:gap-8 md:text-7xl lg:gap-10 lg:text-8xl xl:gap-16 xl:text-9xl">
           <h2 className="px-5">
@@ -42,7 +39,7 @@ const EggSpawner = () => {
         </div>
       </div>
       <Suspense fallback={null}>
-        <FallingEggs />
+        <FallingEggs ref={fallingEggsRef} />
       </Suspense>
     </section>
   );
