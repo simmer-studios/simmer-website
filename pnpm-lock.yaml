@@ -68,6 +68,9 @@ importers:
       matter-js:
         specifier: ^0.20.0
         version: 0.20.0
+      matter-wrap:
+        specifier: ^0.2.0
+        version: 0.2.0
       motion:
         specifier: ^11.17.0
         version: 11.18.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -3303,6 +3306,9 @@ packages:
 
   matter-js@0.20.0:
     resolution: {integrity: sha512-iC9fYR7zVT3HppNnsFsp9XOoQdQN2tUyfaKg4CHLH8bN+j6GT4Gw7IH2rP0tflAebrHFw730RR3DkVSZRX8hwA==}
+
+  matter-wrap@0.2.0:
+    resolution: {integrity: sha512-Gp3tETlN6uZftc1Jnv1sogQd8uB2Xh4c5bQ18qKR6KOMfUlsS8vztrC1vDrZS8eg4MuwE1AgZEcwxI41BSW6oQ==}
 
   md5@2.3.0:
     resolution: {integrity: sha512-T1GITYmFaKuO91vxyoQMFETst+O71VUPEU3ze5GNzDm0OWdP8v1ziTaAEPUr/3kLsY3Sftgz242A1SetQiDL7g==}
@@ -8368,6 +8374,8 @@ snapshots:
   math-intrinsics@1.1.0: {}
 
   matter-js@0.20.0: {}
+
+  matter-wrap@0.2.0: {}
 
   md5@2.3.0:
     dependencies:
