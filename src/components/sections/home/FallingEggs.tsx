@@ -1,6 +1,15 @@
 "use client";
 
-import { Bodies, Composite, Engine, Render, Runner } from "matter-js";
+import {
+  Bodies,
+  Composite,
+  Engine,
+  Mouse,
+  MouseConstraint,
+  Render,
+  Runner,
+  World
+} from "matter-js";
 import { RefObject, useEffect, useRef, useState } from "react";
 
 const FallingEggs = () => {
@@ -35,16 +44,30 @@ const FallingEggs = () => {
 
       // create world elements
       const box = Bodies.rectangle(container.width / 2, 0, 80, 80, {
-        frictionAir: 0.02,
-        restitution: 0.09
+        restitution: 0.2
       });
       const ground = Bodies.rectangle(0, container.height + 2, 4000, 2, {
         isStatic: true
       });
 
       // add all of the bodies into the world
-      Composite.add(world, [box, ground]);
-      compositeRef.current = Composite.add(world, [box, ground]);
+      const composite = Composite.add(world, [ground, box]);
+      compositeRef.current = composite;
+
+      // add mouse control
+      const mouse = Mouse.create(render.canvas);
+      const mouseConstraint = MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: {
+          stiffness: 0.2,
+          render: {
+            visible: false
+          }
+        }
+      });
+
+      World.add(world, mouseConstraint);
+      render.mouse = mouse;
 
       // run the renderer
       Render.run(render);
