@@ -1,9 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { RefObject, Suspense, useRef } from "react";
+import { Suspense, useRef } from "react";
 
-import HalfEgg from "@/components/icons/HalfEgg";
 import { FallingEggsRef } from "@/components/sections/home/FallingEggs";
 
 const FallingEggs = dynamic(
@@ -42,6 +41,9 @@ const EggSpawner = () => {
           </button>
         </div>
       </div>
+      <Suspense fallback={null}>
+        <FallingEggs />
+      </Suspense>
     </section>
   );
 };

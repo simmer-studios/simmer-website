@@ -16,16 +16,7 @@ import Matter, {
 // @ts-ignore-
 import MatterWrap from "matter-wrap"; // needs to disable eslint here because no declaration file is found for matter-wrap
 // eslint-enable
-import {
-  ComponentPropsWithoutRef,
-  ComponentRef,
-  FC,
-  forwardRef,
-  HTMLProps,
-  useEffect,
-  useImperativeHandle,
-  useRef
-} from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 
 const THICCNESS = 100;
 
