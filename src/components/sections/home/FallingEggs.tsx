@@ -9,7 +9,6 @@ import Matter, {
   MouseConstraint,
   Render,
   Runner,
-  Svg,
   Vector,
   World
 } from "matter-js";
@@ -17,13 +16,24 @@ import Matter, {
 // @ts-ignore-
 import MatterWrap from "matter-wrap"; // needs to disable eslint here because no declaration file is found for matter-wrap
 // eslint-enable
-import { useEffect, useRef } from "react";
-
-import Egg from "@/components/icons/HalfEgg";
+import {
+  ComponentPropsWithoutRef,
+  ComponentRef,
+  FC,
+  forwardRef,
+  HTMLProps,
+  useEffect,
+  useImperativeHandle,
+  useRef
+} from "react";
 
 const THICCNESS = 100;
 
-const FallingEggs = () => {
+export type FallingEggsRef = {
+  spawnEgg: () => void;
+};
+
+const FallingEggs = forwardRef<FallingEggsRef>((props, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<Engine>(undefined);
   const compositeRef = useRef<Composite>(undefined);
@@ -54,6 +64,7 @@ const FallingEggs = () => {
     }
   };
 
+  /* scene resize */
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
@@ -61,6 +72,7 @@ const FallingEggs = () => {
     };
   }, []);
 
+  /* scene setup */
   useEffect(() => {
     if (containerRef.current && !engineRef.current) {
       const container = {
@@ -88,27 +100,6 @@ const FallingEggs = () => {
       engine.gravity.scale = 0.00987;
 
       // create world elements
-
-      const box = Bodies.rectangle(
-        container.width / 2,
-        container.height / 2,
-        80,
-        80,
-        {
-          friction: 1,
-          // frictionAir: 0.09,
-          density: 0.1,
-          restitution: 0.6,
-          plugin: {
-            wrap: {
-              min: { x: 0, y: 0 },
-              max: { x: container.width, y: container.height }
-            }
-          },
-          render: {}
-        }
-      );
-
       const leftWall = Bodies.rectangle(
         0 - THICCNESS,
         container.height / 2,
@@ -140,19 +131,13 @@ const FallingEggs = () => {
       );
 
       bodies.current = {
-        box,
         ground,
         leftWall,
         rightWall
       };
 
       // add all of the bodies into the world
-      const composite = Composite.add(world, [
-        ground,
-        leftWall,
-        rightWall,
-        box
-      ]);
+      const composite = Composite.add(world, [ground, leftWall, rightWall]);
       compositeRef.current = composite;
 
       // add mouse control
@@ -165,10 +150,6 @@ const FallingEggs = () => {
             visible: false
           }
         }
-      });
-
-      mouseConstraint.mouse.element.addEventListener("click", (event) => {
-        spawnEgg(mouse.position.x, mouse.position.y);
       });
 
       World.add(world, mouseConstraint);
@@ -186,21 +167,29 @@ const FallingEggs = () => {
     }
   }, [containerRef]);
 
-  const spawnEgg = (x: number, y: number) => {
+  const spawnEgg = () => {
     if (containerRef.current && compositeRef.current && engineRef.current) {
       const container = {
         width: containerRef.current.clientWidth,
         height: containerRef.current.clientHeight
       };
 
-      const egg = Bodies.rectangle(x, y, 80, 80, {
-        friction: 1,
+      const egg = Bodies.circle(Math.random() * container.width, 0, 60, {
+        angle: Math.random() * Math.PI,
+        friction: 0.5,
         density: 0.1,
-        restitution: 0.6,
+        restitution: 1,
         plugin: {
           wrap: {
             min: { x: 0, y: 0 },
             max: { x: container.width, y: container.height }
+          }
+        },
+        render: {
+          sprite: {
+            texture: "images/img_egg.png",
+            xScale: 0.8,
+            yScale: 0.8
           }
         }
       });
@@ -209,12 +198,18 @@ const FallingEggs = () => {
     }
   };
 
+  useImperativeHandle(ref, () => ({
+    spawnEgg
+  }));
+
   return (
     <div
       ref={containerRef}
       className="absolute bottom-0 left-0 right-0 top-0 z-20 h-full w-full"
     />
   );
-};
+});
+
+FallingEggs.displayName = "FallingEggs";
 
 export default FallingEggs;
