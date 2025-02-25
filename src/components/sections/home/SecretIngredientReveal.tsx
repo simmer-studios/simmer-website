@@ -3,9 +3,6 @@
 import { AnimatePresence, motion } from "motion/react";
 import { FC, HTMLProps, useEffect, useRef, useState } from "react";
 
-import FireworksContainer, {
-  FireworksContainerRef
-} from "@/components/FireworksContainer";
 import MagicInput from "@/components/MagicInput";
 import { cn } from "@/lib/utils";
 
@@ -36,17 +33,6 @@ const SecretIngredientReveal = () => {
             />
           )}
         </AnimatePresence>
-        <motion.div
-          animate={{ opacity: revealDiscount ? 1 : 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <FireworksContainer
-            ref={fireworksContainerRef}
-            className={cn("z-0", {
-              "z-20": revealDiscount
-            })}
-          />
-        </motion.div>
       </div>
     </section>
   );
@@ -64,7 +50,7 @@ const Ticket: FC<HTMLProps<HTMLDivElement> & TicketProps> = ({
   return (
     <motion.div
       exit={{ x: 2000, rotateY: "45deg", rotateX: "45deg" }}
-      transition={{ type: "spring", duration: 4, delay: 1.5 }}
+      transition={{ type: "spring", duration: 3, delay: 1 }}
       className={cn(
         "relative flex flex-col gap-10 rounded-xl bg-[url('/images/img_ticket-vertical.svg')] bg-cover bg-center px-6 py-12 sm:px-10 sm:py-14 md:px-14 md:py-16 lg:rounded-3xl lg:bg-[url('/images/img_ticket-horizontal.svg')] lg:px-20 lg:py-20 xl:px-28 xl:py-24 2xl:px-32",
         className
@@ -145,7 +131,7 @@ const DiscountCoupon: FC<HTMLProps<HTMLDivElement> & DiscountCouponProps> = ({
         <hr className="w-[70%] border-black lg:w-[50%]" />
         <div className="">
           <h2 className="font-fionas text-5xl font-medium lg:text-9xl">
-            Here&&apos;s{" "}
+            Here&apos;s{" "}
             <span className="font-semibold underline decoration-2 underline-offset-4 lg:underline-offset-8">
               5%
             </span>{" "}
