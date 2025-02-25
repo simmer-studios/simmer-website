@@ -1,30 +1,52 @@
 "use client";
 
-import { AnimatePresence } from "motion/react";
-import { motion } from "motion/react";
-import { FC, HTMLProps, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { FC, HTMLProps, useEffect, useRef, useState } from "react";
 
+import FireworksContainer, {
+  FireworksContainerRef
+} from "@/components/FireworksContainer";
 import MagicInput from "@/components/MagicInput";
 import { cn } from "@/lib/utils";
 
 const SecretIngredientReveal = () => {
   const [revealDiscount, setRevealDiscount] = useState<boolean>(false);
+  const fireworksContainerRef = useRef<FireworksContainerRef>(null);
+
+  useEffect(() => {
+    if (revealDiscount && fireworksContainerRef.current) {
+      fireworksContainerRef.current.start();
+    }
+  }, [revealDiscount]);
 
   return (
-    <section className="overflow-hidden">
+    <section className="relative overflow-hidden">
       <div className="container relative min-h-[550px] content-center px-10 lg:min-h-[850px] lg:px-20 xl:max-w-[1837px]">
-        <DiscountCoupon
-          className="absolute bottom-0 left-0 right-0 top-0 z-10 mx-auto min-h-[540px] lg:min-h-[850px]"
-          reveal={revealDiscount}
-        />
         <AnimatePresence initial={false}>
+          <DiscountCoupon
+            className="absolute bottom-0 left-0 right-0 top-0 z-10 mx-auto min-h-[540px] lg:min-h-[850px]"
+            reveal={revealDiscount}
+            key="discount-coupon"
+          />
           {!revealDiscount && (
             <Ticket
               className="relative z-20"
               revealDiscountSuccess={() => setRevealDiscount(true)}
+              key="input-reveal"
             />
           )}
         </AnimatePresence>
+        <motion.div
+          animate={{ opacity: revealDiscount ? 1 : 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <FireworksContainer
+            ref={fireworksContainerRef}
+            className={cn("z-0", {
+              "z-20": revealDiscount
+            })}
+          />
+        </motion.div>
       </div>
     </section>
   );
@@ -42,7 +64,7 @@ const Ticket: FC<HTMLProps<HTMLDivElement> & TicketProps> = ({
   return (
     <motion.div
       exit={{ x: 2000, rotateY: "45deg", rotateX: "45deg" }}
-      transition={{ type: "spring", duration: 2 }}
+      transition={{ type: "spring", duration: 4, delay: 1.5 }}
       className={cn(
         "relative flex flex-col gap-10 rounded-xl bg-[url('/images/img_ticket-vertical.svg')] bg-cover bg-center px-6 py-12 sm:px-10 sm:py-14 md:px-14 md:py-16 lg:rounded-3xl lg:bg-[url('/images/img_ticket-horizontal.svg')] lg:px-20 lg:py-20 xl:px-28 xl:py-24 2xl:px-32",
         className
@@ -58,7 +80,11 @@ const Ticket: FC<HTMLProps<HTMLDivElement> & TicketProps> = ({
       </div>
       <div className="flex flex-col gap-6">
         <div>
-          <MagicInput hasRevealed={() => revealDiscountSuccess()} />
+          <MagicInput
+            hasRevealed={() => {
+              revealDiscountSuccess();
+            }}
+          />
         </div>
         <div className="flex flex-col gap-4 lg:flex-row lg:justify-between lg:text-2xl">
           <div className="-leading-[0.9] gap-1 text-center font-articulat font-bold tracking-tight sm:text-2xl md:text-3xl lg:order-2 xl:text-4xl">
@@ -96,7 +122,8 @@ const DiscountCoupon: FC<HTMLProps<HTMLDivElement> & DiscountCouponProps> = ({
   ...props
 }) => {
   return (
-    <div
+    <motion.div
+      layout
       className={cn(
         "container content-center bg-[url(/images/img_discount-coupon-vertical.svg)] bg-contain bg-top bg-no-repeat lg:bg-[url(/images/img_discount-coupon-horizontal.svg)] lg:bg-center",
         className
@@ -131,7 +158,7 @@ const DiscountCoupon: FC<HTMLProps<HTMLDivElement> & DiscountCouponProps> = ({
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

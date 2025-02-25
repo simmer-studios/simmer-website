@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 const secretWord = "Simmering Ideas";
 
@@ -11,6 +11,7 @@ interface Props {
 
 const MagicInput: FC<Props> = ({ hasRevealed }) => {
   const [revealedText, setRevealedText] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const commandKeys = ["Control", "Alt", "Meta", "Shift"];
@@ -36,6 +37,7 @@ const MagicInput: FC<Props> = ({ hasRevealed }) => {
 
   useEffect(() => {
     if (revealedText === secretWord) {
+      inputRef.current?.blur();
       hasRevealed();
     }
   }, [revealedText, hasRevealed]);
@@ -43,6 +45,7 @@ const MagicInput: FC<Props> = ({ hasRevealed }) => {
   return (
     <div className="relative overflow-hidden rounded-xl border-2 border-black lg:rounded-3xl xl:rounded-[3rem]">
       <input
+        ref={inputRef}
         type="text"
         value={revealedText}
         onKeyDown={handleKeyDown}
