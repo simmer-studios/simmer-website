@@ -4,50 +4,20 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
 
-const MAX_DISTANCE = 10;
-
 const InteractiveTaco: FC = () => {
-  /*  const eyesRef = useRef<HTMLImageElement>(null);
-  const [eyePosition, setEyePosition] = useState({ x: 0, y: 0 });
+  const eyesRef = useRef<HTMLDivElement>(null);
 
-  const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
+  useEffect(() => {
+    // animate the taco's eyes to follow the cursor
+    window.addEventListener("mousemove", (event) => {
+      const x = (event.clientX - window.innerWidth / 2) / 50;
+      const y = (event.clientY - window.innerHeight / 2) / 50;
 
-  const moveEyes = (e: MouseEvent) => {
-    if (eyesRef.current) {
-      
-
-      const dy = e.clientY - anchorPoint.y;
-      const dx = e.clientX - anchorPoint.x;
-
-      // Calculate the distance from the center
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      if (distance <= MAX_DISTANCE) {
-        setEyePosition(anchorPoint);
-      } else {
-        const angle = Math.atan2(dy, dx);
-        const limitedX = anchorPoint.x + MAX_DISTANCE * Math.cos(angle);
-        const limitedY = anchorPoint.y + MAX_DISTANCE * Math.sin(angle);
-        setEyePosition({ x: limitedX, y: limitedY });
+      if (eyesRef.current) {
+        eyesRef.current.style.transform = `translateY(${y}px) translateX(${x}px)`;
       }
-    }
-  };
-
-  useEffect(() => {
-    if (eyesRef.current) {
-      const { width, height, left, top } =
-        eyesRef.current.getBoundingClientRect();
-      setAnchorPoint({ x: left + width / 2, y: top + height / 2 });
-    }
+    });
   }, []);
-
-  useEffect(() => {
-    window.addEventListener("mousemove", moveEyes);
-
-    return () => {
-      window.removeEventListener("mousemove", moveEyes);
-    };
-  }, []); */
 
   return (
     <div className="relative h-52 w-64 content-center lg:h-60 lg:w-72">
@@ -60,8 +30,8 @@ const InteractiveTaco: FC = () => {
       />
       {/* eyes */}
       <div
-        className="absolute left-0 right-0 z-20 mx-auto -mt-2 h-8 max-w-max -translate-x-0.5 lg:h-9"
-        // ref={eyesRef}
+        className="absolute left-0 right-0 z-20 mx-auto -mt-2 h-5 max-w-max -translate-x-0.5 lg:h-9"
+        ref={eyesRef}
       >
         <Image
           src="/images/img_taco-eyes.svg"
