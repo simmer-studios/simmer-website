@@ -18,13 +18,15 @@ interface Cart {
   addItem: (item: CartItem) => void;
   removeItem: (itemId: string) => void;
   isVisible: boolean;
+  isDiscounted: boolean;
 }
 
 const CartContext = createContext<Cart>({
   items: [],
   addItem: () => null,
   removeItem: () => null,
-  isVisible: false
+  isVisible: false,
+  isDiscounted: false
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
@@ -63,7 +65,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         items,
         isVisible,
         addItem: addCartItem,
-        removeItem: removeCartItem
+        removeItem: removeCartItem,
+        isDiscounted: false
       }}
     >
       {children}
