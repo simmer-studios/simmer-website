@@ -1,23 +1,97 @@
 "use client";
 
+import {
+  confetti,
+  ConfettiFirstParam,
+  ConfettiOptions
+} from "@tsparticles/confetti";
+import { request } from "http";
 import { AnimatePresence, motion } from "motion/react";
 import { FC, HTMLProps, useEffect, useRef, useState } from "react";
 
 import MagicInput from "@/components/MagicInput";
 import { cn } from "@/lib/utils";
 
+const images = [
+  {
+    src: "/images/confetti-1.png",
+    width: 50,
+    height: 50
+  },
+  {
+    src: "/images/confetti-2.png",
+    width: 50,
+    height: 50
+  },
+  {
+    src: "/images/confetti-3.png",
+    width: 50,
+    height: 50
+  },
+  {
+    src: "/images/confetti-4.png",
+    width: 50,
+    height: 50
+  },
+  {
+    src: "/images/confetti-5.png",
+    width: 50,
+    height: 50
+  },
+  {
+    src: "/images/confetti-6.png",
+    width: 50,
+    height: 50
+  }
+];
+const confettiDefaults: ConfettiOptions = {
+  ticks: 100,
+  count: 3,
+  drift: 4,
+  spread: 60,
+  decay: 0.9,
+  scalar: 2.5,
+  shapes: ["image"],
+  shapeOptions: {
+    image: images
+  }
+};
+
 const SecretIngredientReveal = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [revealDiscount, setRevealDiscount] = useState<boolean>(false);
-  const fireworksContainerRef = useRef<FireworksContainerRef>(null);
 
   useEffect(() => {
-    if (revealDiscount && fireworksContainerRef.current) {
-      fireworksContainerRef.current.start();
+    if (revealDiscount) {
+      const confettiEffect = async () => {
+        await confetti("confettiLeft", {
+          ...confettiDefaults,
+          angle: 60,
+          position: {
+            x: 0,
+            y: 40
+          }
+        });
+
+        await confetti("confettiRight", {
+          ...confettiDefaults,
+          angle: 120,
+          position: { x: 100, y: 40 }
+        });
+      };
+
+      const animationTime = setInterval(() => {
+        requestAnimationFrame(confettiEffect);
+      }, 10);
+
+      setTimeout(() => {
+        clearInterval(animationTime);
+      }, 2000);
     }
   }, [revealDiscount]);
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden" ref={containerRef}>
       <div className="container relative min-h-[550px] content-center px-10 lg:min-h-[850px] lg:px-20 xl:max-w-[1837px]">
         <AnimatePresence initial={false}>
           <DiscountCoupon
@@ -27,7 +101,7 @@ const SecretIngredientReveal = () => {
           />
           {!revealDiscount && (
             <Ticket
-              className="relative z-20"
+              className="relative z-30"
               revealDiscountSuccess={() => setRevealDiscount(true)}
               key="input-reveal"
             />
