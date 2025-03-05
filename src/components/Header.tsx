@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { FC, HTMLProps, useState } from "react";
 import { FaCaretRight } from "react-icons/fa";
 
+import { useCart } from "@/contexts/CartContext";
 import { Theme } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -30,6 +31,7 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
   const path = usePathname();
 
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const { items: cartItems } = useCart();
 
   return (
     <header
@@ -80,7 +82,7 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
         )}
         {/* center */}
         <div className="basis-full lg:px-9">
-          <div className="flex h-full items-center">
+          <div className="hidden h-full items-center sm:flex">
             {path === "/" ? (
               <div className="flex items-center gap-1">
                 <FaCaretRight className="h-[28px]" />
@@ -117,13 +119,18 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
             <PopoverTrigger asChild>
               <button
                 className={cn(
-                  "group hidden h-full items-center justify-center bg-simmer-white hover:brightness-95 lg:flex lg:w-[140px] lg:border-x-2 lg:border-black",
+                  "group relative hidden h-full items-center justify-center bg-simmer-white hover:brightness-95 lg:flex lg:w-[140px] lg:border-x-2 lg:border-black",
                   {
                     "bg-black hover:bg-simmer-white lg:border-simmer-white":
                       theme === "dark"
                   }
                 )}
               >
+                {cartItems && cartItems.length > 0 && (
+                  <span className="absolute right-8 top-9 inline-flex h-[24px] w-[24px] items-center justify-center rounded-full bg-red-600 text-sm text-white">
+                    {cartItems.length}
+                  </span>
+                )}
                 <FoodDome
                   className={cn("h-[50px]", {
                     "fill-simmer-white group-hover:fill-black": theme === "dark"

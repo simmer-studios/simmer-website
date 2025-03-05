@@ -74,17 +74,6 @@ const MenuPhaseContent: FC<
           <MenuService serviceId="g" serviceName="SERVICE NAME" />
         </div>
       </div>
-      <div className="row grid w-full grid-cols-[70px_1fr] divide-x-2 divide-black border-b-2 border-black lg:grid-cols-[100px_1fr]">
-        <button
-          className="flex items-center justify-center bg-simmer-white hover:brightness-95"
-          type="button"
-        >
-          <Check className="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8" />
-        </button>
-        <div className="flex items-center p-5 font-articulat text-2xl font-bold tracking-tighter sm:text-4xl md:font-adelle-mono md:text-3xl md:uppercase lg:p-8 lg:text-5xl xl:p-10">
-          Chef&apos;s choice
-        </div>
-      </div>{" "}
     </>
   );
 };

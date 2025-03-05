@@ -30,7 +30,7 @@ const InteractiveTaco: FC = () => {
       />
       {/* eyes */}
       <div
-        className="absolute left-0 right-0 z-20 mx-auto -mt-2 h-5 max-w-max -translate-x-0.5 lg:h-9"
+        className="absolute left-0 right-0 z-20 mx-auto -mt-2 h-5 max-w-max -translate-x-0.5 scale-95 lg:h-9"
         ref={eyesRef}
       >
         <Image
