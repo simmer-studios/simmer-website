@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import AMPERSAND from "@/assets/checkout/ampersand.svg";
+import { useCart } from "@/contexts/CartContext";
 import { cn } from "@/lib/utils";
 
 import RemoveOrderIcon from "./icons/RemoveOrderIcon";
@@ -28,19 +29,12 @@ const CheckoutForm: FC<HTMLProps<HTMLFormElement>> = ({
   className,
   ...props
 }) => {
-  const [orders, setOrders] = useState<
-    { serviceName: string; serviceId: string }[]
-  >([
-    { serviceName: "BRAND IDENTITY", serviceId: "1" },
-    { serviceName: "LOGO CREATION", serviceId: "2" },
-    { serviceName: "PACKAGING", serviceId: "3" }
-  ]);
+  const { items: orders, removeItem } = useCart();
 
   const [budgetAmount, setBudgetAmount] = useState<string>("$$$$");
 
   const handleRemoveOrder = (serviceId: string) => {
-    const newOrders = orders.filter((order) => order.serviceId !== serviceId);
-    setOrders(newOrders);
+    removeItem(serviceId);
   };
 
   const handleOnBudgetChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -203,11 +197,11 @@ const CheckoutForm: FC<HTMLProps<HTMLFormElement>> = ({
               <div className="max-h-[calc(60px*7)] divide-y-2 divide-simmer-white overflow-y-scroll xl:max-h-[calc(95px*5)]">
                 {orders &&
                   orders.length > 0 &&
-                  orders.map(({ serviceId, serviceName }) => (
+                  orders.map(({ id, name }) => (
                     <Order
-                      serviceName={serviceName}
-                      key={serviceId}
-                      onRemove={() => handleRemoveOrder(serviceId)}
+                      serviceName={name}
+                      key={id}
+                      onRemove={() => handleRemoveOrder(id)}
                     />
                   ))}
               </div>

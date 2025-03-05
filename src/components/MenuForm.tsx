@@ -1,5 +1,6 @@
 "use client";
 
+import { Check } from "lucide-react";
 import { ComponentProps, FC, HTMLProps } from "react";
 
 import { cn } from "@/lib/utils";
@@ -37,6 +38,17 @@ const MenuForm: FC<HTMLProps<HTMLFormElement>> = () => {
           <MenuPhaseContent phaseNumber={3} phaseTitle="Executions" />
         </MenuTabContent>
       </Tabs>
+      <div className="row grid w-full grid-cols-[70px_1fr] divide-x-2 divide-black border-b-2 border-black lg:grid-cols-[100px_1fr]">
+        <button
+          className="flex items-center justify-center bg-simmer-white hover:brightness-95"
+          type="button"
+        >
+          <Check className="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8" />
+        </button>
+        <div className="flex items-center p-5 font-articulat text-2xl font-bold tracking-tighter sm:text-4xl md:font-adelle-mono md:text-3xl md:uppercase lg:p-8 lg:text-5xl xl:p-10">
+          Chef&apos;s choice
+        </div>
+      </div>
       <div className="flex items-center justify-center p-10 lg:py-16">
         <button
           className="rounded-full border-2 border-black px-10 py-2 font-adelle-mono hover:bg-simmer-yellow sm:px-10 sm:py-4 sm:text-2xl md:px-14 md:py-8 lg:px-20 lg:py-12 lg:text-4xl"

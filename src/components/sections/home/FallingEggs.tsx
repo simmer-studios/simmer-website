@@ -21,7 +21,8 @@ import {
   HTMLProps,
   useEffect,
   useImperativeHandle,
-  useRef
+  useRef,
+  WheelEvent
 } from "react";
 
 const THICCNESS = 100;
@@ -148,6 +149,16 @@ const FallingEggs = forwardRef<FallingEggsRef>((props, ref) => {
           }
         }
       });
+
+      if ("mousewheel" in mouseConstraint.mouse) {
+        mouseConstraint.mouse.element.removeEventListener(
+          "wheel",
+          mouseConstraint.mouse.mousewheel as (
+            this: HTMLElement,
+            ev: globalThis.WheelEvent
+          ) => void
+        );
+      }
 
       World.add(world, mouseConstraint);
       render.mouse = mouse;
