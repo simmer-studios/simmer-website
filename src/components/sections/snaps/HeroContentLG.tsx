@@ -3,7 +3,6 @@ import { FC, HTMLProps } from "react";
 
 import ARROW_DOWN from "@/assets/snap/arrow-down.svg";
 import CLICK_ONE from "@/assets/snap/click-one.svg";
-import FILTER from "@/assets/snap/filter.svg";
 import PEEKHERE from "@/assets/snap/peek-here.svg";
 import PHOTO from "@/assets/snap/photo.svg";
 import PORTRAITS from "@/assets/snap/portraits.svg";
@@ -12,6 +11,7 @@ import PRODUCTS from "@/assets/snap/products.svg";
 import SIMMERING from "@/assets/snap/simmering.svg";
 import SNAPS from "@/assets/snap/snaps.svg";
 import VIDEO from "@/assets/snap/video.svg";
+import SnapsFilterDropdown from "@/components/SnapsFilterDropdown";
 import { cn } from "@/lib/utils";
 
 const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = ({
@@ -93,16 +93,12 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = ({
       </div>
       <div className="row">
         <div className="container flex justify-center">
-          <div className="flex border-r-2 border-simmer-white bg-black">
+          <div className="flex bg-black">
             <div className="px-5 py-5">
               <Image src={PRODUCTS} alt="Products" />
             </div>
           </div>
-          <div className="flex basis-[20%] border-r-2 border-simmer-white bg-black">
-            <div className="px-5 py-5">
-              <Image src={FILTER} alt="Filter" width={100} />
-            </div>
-          </div>
+          <SnapsFilterDropdown />
           <div className="flex bg-black">
             <div className="px-5 py-5">
               <Image src={PORTRAITS} alt="Portraits" />
