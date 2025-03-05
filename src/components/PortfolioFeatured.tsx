@@ -6,9 +6,10 @@ import { FC, HTMLProps, PropsWithChildren } from "react";
 
 import { cn } from "@/lib/utils";
 
-import FilterDropdown from "./FilterDropdown";
+import CustomFilterDropdown from "./CustomFilterDropdown";
 import ArrowDown from "./icons/ArrowDown";
 import ArrowRight from "./icons/ArrowRight";
+import ChevronDown from "./icons/ChevronDown";
 
 const PortfolioFeatured = () => {
   return (
@@ -20,8 +21,16 @@ const PortfolioFeatured = () => {
             FEATURED
           </span>
         </div>
-        <FilterDropdown
-          items={[
+        <CustomFilterDropdown
+          trigger={(activeFilter) => (
+            <button className="flex items-center gap-3 rounded-xl bg-black px-3 py-1.5 text-simmer-white">
+              <span className="inline-block font-adelle-mono uppercase">
+                {activeFilter ? activeFilter.filterLabel : "FILTERS"}
+              </span>
+              <ChevronDown className="aspect-square w-4 fill-simmer-white" />
+            </button>
+          )}
+          filters={[
             { filterLabel: "Featured", filterId: "featured" },
             { filterLabel: "Food & Beverage", filterId: "food_beverages" },
             { filterLabel: "Beauty & Lifestyle", filterId: "beauty_lifestyle" },
