@@ -4,9 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { cn } from "@/lib/utils";
 import { Homepage } from "@/payload-types";
 
-import AppetizersContent from "./AppetizersContent";
-import DessertsContent from "./DessertsContent";
-import MainCourseContent from "./MainCourseContent";
+import ServiceCourseContent from "./ServiceCourseContent";
 
 interface CourseTabContentProps {
   category: Homepage["services"]["first"];
@@ -22,13 +20,13 @@ const ServiceMenuCourseTabs: FC<CourseTabContentProps> = ({ category }) => {
           <CourseTitleTab value="desserts">DESERTS</CourseTitleTab>
         </TabsList>
         <CourseTabContent value="appetizers">
-          <AppetizersContent serviceTab={category.appetizers} />
+          <ServiceCourseContent serviceTab={category.appetizers} />
         </CourseTabContent>
         <CourseTabContent value="main-course">
-          <AppetizersContent serviceTab={category.mainCourse} />
+          <ServiceCourseContent serviceTab={category.mainCourse} />
         </CourseTabContent>
         <CourseTabContent value="desserts">
-          <AppetizersContent serviceTab={category.desserts} />
+          <ServiceCourseContent serviceTab={category.desserts} />
         </CourseTabContent>
       </Tabs>
     </section>

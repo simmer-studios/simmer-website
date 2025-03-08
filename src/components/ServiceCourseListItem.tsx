@@ -6,7 +6,7 @@ import Asterisk from "./icons/Asterisk";
 
 interface RowProps {
   text: string;
-  number: string;
+  number: number;
   variant?: "bold" | "thin-italic";
   className?: HTMLProps<HTMLDivElement>["className"];
 }
@@ -27,7 +27,7 @@ const ServiceCourseListItem: FC<RowProps> = ({
         {/* numbering */}
         <div className="order-1">
           <span className="font-adelle-mono-flex min-[500px]:text-lg sm:text-xl md:text-3xl xl:text-4xl">
-            {number}
+            {number < 10 ? "0" + number : number}
           </span>
         </div>
         {/* text */}
@@ -49,7 +49,7 @@ const ServiceText: FC<PropsWithChildren<ServiceTextProps>> = ({
   return (
     <p
       className={cn(
-        "max-w-[15ch] font-articulat text-[2rem] font-bold leading-none min-[500px]:text-[3.8rem] sm:text-[4rem] md:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]",
+        "max-w-[15ch] font-articulat text-[2rem] font-bold uppercase leading-none min-[500px]:text-[3.8rem] sm:text-[4rem] md:text-[4.5rem] lg:text-[5rem] xl:text-[6rem]",
         {
           "font-medium italic": variant === "thin-italic"
         }
