@@ -564,6 +564,26 @@ export interface Homepage {
     title: string;
     description: string;
   };
+  services: {
+    first: {
+      title: string;
+      appetizers: (number | Service)[];
+      mainCourse: (number | Service)[];
+      desserts: (number | Service)[];
+    };
+    second: {
+      title: string;
+      appetizers: (number | Service)[];
+      mainCourse: (number | Service)[];
+      desserts: (number | Service)[];
+    };
+    third: {
+      title: string;
+      appetizers: (number | Service)[];
+      mainCourse: (number | Service)[];
+      desserts: (number | Service)[];
+    };
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -577,6 +597,34 @@ export interface HomepageSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
+      };
+  services?:
+    | T
+    | {
+        first?:
+          | T
+          | {
+              title?: T;
+              appetizers?: T;
+              mainCourse?: T;
+              desserts?: T;
+            };
+        second?:
+          | T
+          | {
+              title?: T;
+              appetizers?: T;
+              mainCourse?: T;
+              desserts?: T;
+            };
+        third?:
+          | T
+          | {
+              title?: T;
+              appetizers?: T;
+              mainCourse?: T;
+              desserts?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
