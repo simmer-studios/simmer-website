@@ -8,13 +8,14 @@ import FLIPMEOVERLG from "@/assets/about/flip-me-over.svg";
 import FLIPMEOVERSM from "@/assets/about/sm_flip-me-over.svg";
 import TICKET from "@/assets/about/ticket.svg";
 import { cn } from "@/lib/utils";
+import { Media } from "@/payload-types";
 
 interface MemberCardProps {
   number: number;
   name: string;
   role: string;
-  avatar: ImgHTMLAttributes<HTMLImageElement>["src"];
-  photo: ImgHTMLAttributes<HTMLImageElement>["src"];
+  avatar: Media;
+  photo: Media;
   catchPhrase?: string;
 }
 
@@ -76,8 +77,8 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
               <div className="relative aspect-square w-20 lg:w-28 min-[1537px]:w-40">
                 {avatar && (
                   <Image
-                    src={avatar}
-                    alt=""
+                    src={avatar.url || ""}
+                    alt={avatar.alt || ""}
                     fill
                     className="object-contain object-right"
                   />
@@ -102,8 +103,8 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
             }}
           >
             <Image
-              src={photo as string}
-              alt={name}
+              src={photo.url || ""}
+              alt={photo.alt || name}
               fill
               className="object-cover object-center"
               onContextMenu={(e) => e.preventDefault()}
