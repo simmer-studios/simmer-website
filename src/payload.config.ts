@@ -26,6 +26,11 @@ export default buildConfig({
       baseDir: path.resolve(dirname)
     }
   },
+  serverURL: "https://simmer-website.vercel.app",
+  csrf: [
+    "https://simmer-website.vercel.app",
+    "https://simmer-studios.sgp1.digitaloceanspaces.com"
+  ],
   cors: [
     "https://simmer-website.vercel.app",
     "https://simmer-studios.sgp1.digitaloceanspaces.com"
