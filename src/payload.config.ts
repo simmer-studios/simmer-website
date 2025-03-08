@@ -7,15 +7,22 @@ import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
 
+import { Clients } from "./collections/Clients";
 import { Creatives } from "./collections/Creatives";
 import { Media } from "./collections/Media";
 import { Projects } from "./collections/Projects";
+import { ServiceCategories } from "./collections/ServiceCategories";
 import { Services } from "./collections/Services";
+import { Snaps } from "./collections/Snaps";
 import { Users } from "./collections/Users";
+import { WEBSITE_URL } from "./constants";
+import { About } from "./globals/About";
 import { Homepage } from "./globals/Homepage";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
+
+const isDevelopment = process.env.NODE_ENV === "development";
 
 export default buildConfig({
   admin: {
@@ -24,8 +31,20 @@ export default buildConfig({
       baseDir: path.resolve(dirname)
     }
   },
-  collections: [Projects, Services, Creatives, Users, Media],
-  globals: [Homepage],
+  serverURL: !isDevelopment ? WEBSITE_URL : undefined,
+  csrf: !isDevelopment ? [WEBSITE_URL] : undefined,
+  cors: !isDevelopment ? [WEBSITE_URL] : undefined,
+  collections: [
+    Projects,
+    Snaps,
+    Services,
+    ServiceCategories,
+    Creatives,
+    Clients,
+    Users,
+    Media
+  ],
+  globals: [Homepage, About],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET ?? "",
   typescript: {

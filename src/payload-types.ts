@@ -67,8 +67,11 @@ export interface Config {
   blocks: {};
   collections: {
     projects: Project;
+    snaps: Snap;
     services: Service;
+    'service-categories': ServiceCategory;
     creatives: Creative;
+    clients: Client;
     users: User;
     media: Media;
     'payload-locked-documents': PayloadLockedDocument;
@@ -78,8 +81,11 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    snaps: SnapsSelect<false> | SnapsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
+    'service-categories': ServiceCategoriesSelect<false> | ServiceCategoriesSelect<true>;
     creatives: CreativesSelect<false> | CreativesSelect<true>;
+    clients: ClientsSelect<false> | ClientsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -91,9 +97,11 @@ export interface Config {
   };
   globals: {
     homepage: Homepage;
+    about: About;
   };
   globalsSelect: {
     homepage: HomepageSelect<false> | HomepageSelect<true>;
+    about: AboutSelect<false> | AboutSelect<true>;
   };
   locale: null;
   user: User & {
@@ -129,6 +137,10 @@ export interface UserAuthOperations {
 export interface Project {
   id: number;
   /**
+   * Only two features projects will be displayed on the works page
+   */
+  featured: boolean;
+  /**
    * Square image
    */
   thumbnail: number | Media;
@@ -142,8 +154,10 @@ export interface Project {
    */
   slug: string;
   brand: string;
+  project: string;
   year: number;
   description: string;
+  featuredServices: string;
   /**
    * Select all applicable services to this project
    */
@@ -267,6 +281,132 @@ export interface Service {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "snaps".
+ */
+export interface Snap {
+  id: number;
+  /**
+   * Square image
+   */
+  thumbnail: number | Media;
+  /**
+   * Landscape image
+   */
+  cover: number | Media;
+  name: string;
+  /**
+   * URL-friendly name of the project. No spaces or special characters e.g. simmer-studios
+   */
+  slug: string;
+  brand: string;
+  project: string;
+  year: number;
+  description: string;
+  featuredServices: string;
+  /**
+   * Select all applicable services to this project
+   */
+  services: (number | Service)[];
+  websiteUrl?: string | null;
+  content?:
+    | (
+        | {
+            /**
+             * Landscape image
+             */
+            image: number | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'FullWidthImage';
+          }
+        | {
+            /**
+             * Square image
+             */
+            image: number | Media;
+            title: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ImageText';
+          }
+        | {
+            first: {
+              /**
+               * Square image
+               */
+              image: number | Media;
+              title: string;
+              description: string;
+            };
+            second: {
+              /**
+               * Square image
+               */
+              image: number | Media;
+              title: string;
+              description: string;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'TwoImageText';
+          }
+        | {
+            /**
+             * Square image
+             */
+            first: number | Media;
+            /**
+             * Square image
+             */
+            second: number | Media;
+            /**
+             * Square image
+             */
+            third: number | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ThreeImages';
+          }
+        | {
+            images: (number | Media)[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'Carousel';
+          }
+        | {
+            text: string;
+            author: string;
+            role?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'Quote';
+          }
+        | {
+            name: string;
+            role: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'Creatives';
+          }
+      )[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "service-categories".
+ */
+export interface ServiceCategory {
+  id: number;
+  name: string;
+  services?: (number | Service)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "creatives".
  */
 export interface Creative {
@@ -286,6 +426,20 @@ export interface Creative {
    * Fun artwork that represents the creative
    */
   avatar?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "clients".
+ */
+export interface Client {
+  id: number;
+  /**
+   * Highlight this client on the about page
+   */
+  featured: boolean;
+  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -318,12 +472,24 @@ export interface PayloadLockedDocument {
         value: number | Project;
       } | null)
     | ({
+        relationTo: 'snaps';
+        value: number | Snap;
+      } | null)
+    | ({
         relationTo: 'services';
         value: number | Service;
       } | null)
     | ({
+        relationTo: 'service-categories';
+        value: number | ServiceCategory;
+      } | null)
+    | ({
         relationTo: 'creatives';
         value: number | Creative;
+      } | null)
+    | ({
+        relationTo: 'clients';
+        value: number | Client;
       } | null)
     | ({
         relationTo: 'users';
@@ -380,13 +546,108 @@ export interface PayloadMigration {
  * via the `definition` "projects_select".
  */
 export interface ProjectsSelect<T extends boolean = true> {
+  featured?: T;
   thumbnail?: T;
   cover?: T;
   name?: T;
   slug?: T;
   brand?: T;
+  project?: T;
   year?: T;
   description?: T;
+  featuredServices?: T;
+  services?: T;
+  websiteUrl?: T;
+  content?:
+    | T
+    | {
+        FullWidthImage?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+              blockName?: T;
+            };
+        ImageText?:
+          | T
+          | {
+              image?: T;
+              title?: T;
+              description?: T;
+              id?: T;
+              blockName?: T;
+            };
+        TwoImageText?:
+          | T
+          | {
+              first?:
+                | T
+                | {
+                    image?: T;
+                    title?: T;
+                    description?: T;
+                  };
+              second?:
+                | T
+                | {
+                    image?: T;
+                    title?: T;
+                    description?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        ThreeImages?:
+          | T
+          | {
+              first?: T;
+              second?: T;
+              third?: T;
+              id?: T;
+              blockName?: T;
+            };
+        Carousel?:
+          | T
+          | {
+              images?: T;
+              id?: T;
+              blockName?: T;
+            };
+        Quote?:
+          | T
+          | {
+              text?: T;
+              author?: T;
+              role?: T;
+              id?: T;
+              blockName?: T;
+            };
+        Creatives?:
+          | T
+          | {
+              name?: T;
+              role?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "snaps_select".
+ */
+export interface SnapsSelect<T extends boolean = true> {
+  thumbnail?: T;
+  cover?: T;
+  name?: T;
+  slug?: T;
+  brand?: T;
+  project?: T;
+  year?: T;
+  description?: T;
+  featuredServices?: T;
   services?: T;
   websiteUrl?: T;
   content?:
@@ -477,6 +738,16 @@ export interface ServicesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "service-categories_select".
+ */
+export interface ServiceCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  services?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "creatives_select".
  */
 export interface CreativesSelect<T extends boolean = true> {
@@ -486,6 +757,16 @@ export interface CreativesSelect<T extends boolean = true> {
   tagline?: T;
   image?: T;
   avatar?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "clients_select".
+ */
+export interface ClientsSelect<T extends boolean = true> {
+  featured?: T;
+  name?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -643,6 +924,30 @@ export interface Homepage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+  id: number;
+  /**
+   * Landscape image
+   */
+  banner: number | Media;
+  /**
+   * Square image
+   */
+  thumbnail: number | Media;
+  /**
+   * Landscape image
+   */
+  cover: number | Media;
+  tagline: string;
+  description: string;
+  clientsDescription: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "homepage_select".
  */
 export interface HomepageSelect<T extends boolean = true> {
@@ -760,6 +1065,21 @@ export interface HomepageSelect<T extends boolean = true> {
                   };
             };
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  banner?: T;
+  thumbnail?: T;
+  cover?: T;
+  tagline?: T;
+  description?: T;
+  clientsDescription?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

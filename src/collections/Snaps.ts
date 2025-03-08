@@ -8,24 +8,12 @@ import { Quote } from "@/blocks/Quote";
 import { ThreeImages } from "@/blocks/ThreeImages";
 import { TwoImageText } from "@/blocks/TwoImageText";
 
-export const Projects: CollectionConfig = {
-  slug: "projects",
+export const Snaps: CollectionConfig = {
+  slug: "snaps",
   admin: {
     useAsTitle: "name"
   },
   fields: [
-    {
-      type: "checkbox",
-      name: "featured",
-      label: "Featured",
-      required: true,
-      defaultValue: false,
-      admin: {
-        width: "50%",
-        description:
-          "Only two features projects will be displayed on the works page"
-      }
-    },
     {
       type: "row",
       fields: [
