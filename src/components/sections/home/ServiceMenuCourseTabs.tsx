@@ -2,35 +2,40 @@ import { ComponentProps, FC } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { cn } from "@/lib/utils";
+import { Homepage } from "@/payload-types";
 
 import AppetizersContent from "./AppetizersContent";
 import DessertsContent from "./DessertsContent";
 import MainCourseContent from "./MainCourseContent";
 
-const ServiceCourses = () => {
+interface CourseTabContentProps {
+  category: Homepage["services"]["first"];
+}
+
+const ServiceMenuCourseTabs: FC<CourseTabContentProps> = ({ category }) => {
   return (
     <section className="min-h-max pb-5">
-      <Tabs defaultValue="account" className="relative flex flex-col">
+      <Tabs defaultValue="appetizers" className="relative flex flex-col">
         <TabsList className="container absolute left-[0] right-[0] top-0 z-10 mx-auto flex justify-center rounded-none px-0 text-simmer-white lg:gap-2 lg:px-10">
-          <SimmerTabs value="account">(APPETIZERS)</SimmerTabs>
-          <SimmerTabs value="main-course">MAIN COURSE</SimmerTabs>
-          <SimmerTabs value="desserts">DESERTS</SimmerTabs>
+          <CourseTitleTab value="appetizers">(APPETIZERS)</CourseTitleTab>
+          <CourseTitleTab value="main-course">MAIN COURSE</CourseTitleTab>
+          <CourseTitleTab value="desserts">DESERTS</CourseTitleTab>
         </TabsList>
-        <SimmerTabsContent value="account">
-          <AppetizersContent />
-        </SimmerTabsContent>
-        <SimmerTabsContent value="main-course">
-          <MainCourseContent />
-        </SimmerTabsContent>
-        <SimmerTabsContent value="desserts">
-          <DessertsContent />
-        </SimmerTabsContent>
+        <CourseTabContent value="appetizers">
+          <AppetizersContent serviceTab={category.appetizers} />
+        </CourseTabContent>
+        <CourseTabContent value="main-course">
+          <AppetizersContent serviceTab={category.mainCourse} />
+        </CourseTabContent>
+        <CourseTabContent value="desserts">
+          <AppetizersContent serviceTab={category.desserts} />
+        </CourseTabContent>
       </Tabs>
     </section>
   );
 };
 
-const SimmerTabs: FC<ComponentProps<typeof TabsTrigger>> = ({
+const CourseTitleTab: FC<ComponentProps<typeof TabsTrigger>> = ({
   className,
   ...props
 }) => {
@@ -47,7 +52,7 @@ const SimmerTabs: FC<ComponentProps<typeof TabsTrigger>> = ({
   );
 };
 
-const SimmerTabsContent: FC<ComponentProps<typeof TabsContent>> = ({
+const CourseTabContent: FC<ComponentProps<typeof TabsContent>> = ({
   className,
   ...props
 }) => {
@@ -64,4 +69,4 @@ const SimmerTabsContent: FC<ComponentProps<typeof TabsContent>> = ({
   );
 };
 
-export default ServiceCourses;
+export default ServiceMenuCourseTabs;
