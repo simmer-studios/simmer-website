@@ -1,7 +1,6 @@
 import { FC, HTMLProps } from "react";
 
 import Asterisk from "./icons/Asterisk";
-import Check from "./icons/Check";
 import MenuService from "./MenuService";
 
 interface MenuPhaseContentProps {
@@ -54,11 +53,17 @@ const MenuPhaseContent: FC<
             </div>
           </div>
           {/* Field Row - Regular */}
-          <MenuService serviceId="a" serviceName="PRODUCTION" />
+          <MenuService
+            serviceId="a"
+            serviceName="PRODUCTION"
+            description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, in. Illum corrupti commodi veniam non voluptatum vero numquam quos libero?"
+          />
+
           <MenuService
             serviceId="b"
             serviceName="PHOTOGRAPHY"
             link={{ label: "GO TO SIMMER SNAP", url: "#" }}
+            description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, in. Illum corrupti commodi veniam non voluptatum vero numquam quos libero?"
           />
           <MenuService
             serviceId="c"
@@ -68,10 +73,21 @@ const MenuPhaseContent: FC<
 										communities, corporations, businesses and government
 										agencies."
           />
-          <MenuService serviceId="d" serviceName="SERVICE NAME" />
-          <MenuService serviceId="e" serviceName="SERVICE NAME" />
-          <MenuService serviceId="f" serviceName="SERVICE NAME" />
-          <MenuService serviceId="g" serviceName="SERVICE NAME" />
+          <MenuService
+            serviceId="d"
+            serviceName="SERVICE NAME"
+            description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, in. Illum corrupti commodi veniam non voluptatum vero numquam quos libero?"
+          />
+          <MenuService
+            serviceId="f"
+            serviceName="SERVICE NAME"
+            description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, in. Illum corrupti commodi veniam non voluptatum vero numquam quos libero?"
+          />
+          <MenuService
+            serviceId="g"
+            serviceName="SERVICE NAME"
+            description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, in. Illum corrupti commodi veniam non voluptatum vero numquam quos libero?"
+          />
         </div>
       </div>
     </>

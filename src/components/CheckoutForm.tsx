@@ -29,7 +29,7 @@ const CheckoutForm: FC<HTMLProps<HTMLFormElement>> = ({
   className,
   ...props
 }) => {
-  const { items: orders, removeItem } = useCart();
+  const { items: orders, removeItem, isDiscounted } = useCart();
 
   const [budgetAmount, setBudgetAmount] = useState<string>("$$$$");
 
@@ -213,8 +213,23 @@ const CheckoutForm: FC<HTMLProps<HTMLFormElement>> = ({
                   }
                 )}
               >
-                <div className="hidden lg:block"></div>
-                <div className="flex h-full basis-full items-center lg:items-end lg:justify-end">
+                {orders && orders.length > 0 && (
+                  <div className="hidden h-full basis-full lg:block"></div>
+                )}
+                <div
+                  className={cn(
+                    "col-span-full flex h-full w-full basis-full items-center lg:items-end lg:justify-end",
+                    {
+                      "col-span-1": orders && orders.length > 0,
+                      "lg:justify-between": isDiscounted
+                    }
+                  )}
+                >
+                  {isDiscounted && (
+                    <div className="px-5 py-2 lg:px-7 lg:py-4">
+                      *5% Discount Applied
+                    </div>
+                  )}
                   <Link
                     href="/menu"
                     className="inline-block px-5 py-2 font-adelle-mono-flex text-simmer-yellow hover:underline hover:underline-offset-4 lg:px-7 lg:py-4"
