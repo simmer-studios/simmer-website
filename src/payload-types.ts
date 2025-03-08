@@ -68,6 +68,7 @@ export interface Config {
   collections: {
     projects: Project;
     services: Service;
+    'service-categories': ServiceCategory;
     creatives: Creative;
     users: User;
     media: Media;
@@ -79,6 +80,7 @@ export interface Config {
   collectionsSelect: {
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
+    'service-categories': ServiceCategoriesSelect<false> | ServiceCategoriesSelect<true>;
     creatives: CreativesSelect<false> | CreativesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -129,6 +131,10 @@ export interface UserAuthOperations {
 export interface Project {
   id: number;
   /**
+   * Only two features projects will be displayed on the works page
+   */
+  featured: boolean;
+  /**
    * Square image
    */
   thumbnail: number | Media;
@@ -142,8 +148,10 @@ export interface Project {
    */
   slug: string;
   brand: string;
+  project: string;
   year: number;
   description: string;
+  featuredServices: string;
   /**
    * Select all applicable services to this project
    */
@@ -267,6 +275,17 @@ export interface Service {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "service-categories".
+ */
+export interface ServiceCategory {
+  id: number;
+  name: string;
+  services?: (number | Service)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "creatives".
  */
 export interface Creative {
@@ -320,6 +339,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'services';
         value: number | Service;
+      } | null)
+    | ({
+        relationTo: 'service-categories';
+        value: number | ServiceCategory;
       } | null)
     | ({
         relationTo: 'creatives';
@@ -380,13 +403,16 @@ export interface PayloadMigration {
  * via the `definition` "projects_select".
  */
 export interface ProjectsSelect<T extends boolean = true> {
+  featured?: T;
   thumbnail?: T;
   cover?: T;
   name?: T;
   slug?: T;
   brand?: T;
+  project?: T;
   year?: T;
   description?: T;
+  featuredServices?: T;
   services?: T;
   websiteUrl?: T;
   content?:
@@ -472,6 +498,16 @@ export interface ProjectsSelect<T extends boolean = true> {
 export interface ServicesSelect<T extends boolean = true> {
   name?: T;
   description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "service-categories_select".
+ */
+export interface ServiceCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  services?: T;
   updatedAt?: T;
   createdAt?: T;
 }
