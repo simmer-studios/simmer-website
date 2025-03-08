@@ -38,7 +38,7 @@ const StickySidebar: FC<HTMLAttributes<HTMLElement> & Props> = ({
           className={cn("flex gap-8")}
           style={{ writingMode: "vertical-lr" }}
         >
-          <SidebarNavLink href="/home">HOME</SidebarNavLink>
+          <SidebarNavLink href="/">HOME</SidebarNavLink>
           <SidebarNavLink href="/checkout">QUOTE</SidebarNavLink>
           <SidebarNavLink href="/menu">MENU</SidebarNavLink>
           <SidebarNavLink
