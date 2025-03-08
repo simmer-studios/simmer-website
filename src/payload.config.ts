@@ -25,6 +25,8 @@ if (!WEBSITE_URL) {
   throw new Error("Environment variable WEBSITE_URL is not set");
 }
 
+const isDevelopment = process.env.NODE_ENV === "development";
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -32,9 +34,9 @@ export default buildConfig({
       baseDir: path.resolve(dirname)
     }
   },
-  serverURL: WEBSITE_URL,
-  csrf: [WEBSITE_URL],
-  cors: [WEBSITE_URL],
+  serverURL: !isDevelopment ? WEBSITE_URL : undefined,
+  csrf: !isDevelopment ? [WEBSITE_URL] : undefined,
+  cors: !isDevelopment ? [WEBSITE_URL] : undefined,
   collections: [
     Projects,
     Snaps,
