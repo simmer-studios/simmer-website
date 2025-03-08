@@ -34,8 +34,6 @@ export default async function AboutPage() {
     catchPhrase: doc.tagline
   }));
 
-  console.log(members);
-
   return (
     <>
       <Header
