@@ -12,6 +12,7 @@ import { Media } from "./collections/Media";
 import { Projects } from "./collections/Projects";
 import { ServiceCategories } from "./collections/ServiceCategories";
 import { Services } from "./collections/Services";
+import { Snaps } from "./collections/Snaps";
 import { Users } from "./collections/Users";
 import { Homepage } from "./globals/Homepage";
 
@@ -25,7 +26,15 @@ export default buildConfig({
       baseDir: path.resolve(dirname)
     }
   },
-  collections: [Projects, Services, ServiceCategories, Creatives, Users, Media],
+  collections: [
+    Projects,
+    Snaps,
+    Services,
+    ServiceCategories,
+    Creatives,
+    Users,
+    Media
+  ],
   globals: [Homepage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET ?? "",

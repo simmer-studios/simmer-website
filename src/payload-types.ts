@@ -67,6 +67,7 @@ export interface Config {
   blocks: {};
   collections: {
     projects: Project;
+    snaps: Snap;
     services: Service;
     'service-categories': ServiceCategory;
     creatives: Creative;
@@ -79,6 +80,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    snaps: SnapsSelect<false> | SnapsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
     'service-categories': ServiceCategoriesSelect<false> | ServiceCategoriesSelect<true>;
     creatives: CreativesSelect<false> | CreativesSelect<true>;
@@ -275,6 +277,121 @@ export interface Service {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "snaps".
+ */
+export interface Snap {
+  id: number;
+  /**
+   * Square image
+   */
+  thumbnail: number | Media;
+  /**
+   * Landscape image
+   */
+  cover: number | Media;
+  name: string;
+  /**
+   * URL-friendly name of the project. No spaces or special characters e.g. simmer-studios
+   */
+  slug: string;
+  brand: string;
+  project: string;
+  year: number;
+  description: string;
+  featuredServices: string;
+  /**
+   * Select all applicable services to this project
+   */
+  services: (number | Service)[];
+  websiteUrl?: string | null;
+  content?:
+    | (
+        | {
+            /**
+             * Landscape image
+             */
+            image: number | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'FullWidthImage';
+          }
+        | {
+            /**
+             * Square image
+             */
+            image: number | Media;
+            title: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ImageText';
+          }
+        | {
+            first: {
+              /**
+               * Square image
+               */
+              image: number | Media;
+              title: string;
+              description: string;
+            };
+            second: {
+              /**
+               * Square image
+               */
+              image: number | Media;
+              title: string;
+              description: string;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'TwoImageText';
+          }
+        | {
+            /**
+             * Square image
+             */
+            first: number | Media;
+            /**
+             * Square image
+             */
+            second: number | Media;
+            /**
+             * Square image
+             */
+            third: number | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ThreeImages';
+          }
+        | {
+            images: (number | Media)[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'Carousel';
+          }
+        | {
+            text: string;
+            author: string;
+            role?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'Quote';
+          }
+        | {
+            name: string;
+            role: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'Creatives';
+          }
+      )[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "service-categories".
  */
 export interface ServiceCategory {
@@ -335,6 +452,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'projects';
         value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'snaps';
+        value: number | Snap;
       } | null)
     | ({
         relationTo: 'services';
@@ -404,6 +525,98 @@ export interface PayloadMigration {
  */
 export interface ProjectsSelect<T extends boolean = true> {
   featured?: T;
+  thumbnail?: T;
+  cover?: T;
+  name?: T;
+  slug?: T;
+  brand?: T;
+  project?: T;
+  year?: T;
+  description?: T;
+  featuredServices?: T;
+  services?: T;
+  websiteUrl?: T;
+  content?:
+    | T
+    | {
+        FullWidthImage?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+              blockName?: T;
+            };
+        ImageText?:
+          | T
+          | {
+              image?: T;
+              title?: T;
+              description?: T;
+              id?: T;
+              blockName?: T;
+            };
+        TwoImageText?:
+          | T
+          | {
+              first?:
+                | T
+                | {
+                    image?: T;
+                    title?: T;
+                    description?: T;
+                  };
+              second?:
+                | T
+                | {
+                    image?: T;
+                    title?: T;
+                    description?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        ThreeImages?:
+          | T
+          | {
+              first?: T;
+              second?: T;
+              third?: T;
+              id?: T;
+              blockName?: T;
+            };
+        Carousel?:
+          | T
+          | {
+              images?: T;
+              id?: T;
+              blockName?: T;
+            };
+        Quote?:
+          | T
+          | {
+              text?: T;
+              author?: T;
+              role?: T;
+              id?: T;
+              blockName?: T;
+            };
+        Creatives?:
+          | T
+          | {
+              name?: T;
+              role?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "snaps_select".
+ */
+export interface SnapsSelect<T extends boolean = true> {
   thumbnail?: T;
   cover?: T;
   name?: T;
