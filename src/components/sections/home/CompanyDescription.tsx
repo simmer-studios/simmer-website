@@ -1,13 +1,20 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
-import { Url } from "url";
+import { FC, HTMLProps, ReactNode, useState } from "react";
+
+import { Homepage } from "@/payload-types";
 
 interface Props {
-  link: string;
+  intro: Homepage["intro"];
 }
 
-const CompanyDescription: FC<Props> = ({ link }) => {
+export type TabKey = keyof Homepage["intro"];
+
+const CompanyDescription: FC<Props> = ({ intro }) => {
+  const [selectedTab, setSelectedTab] = useState<TabKey>("first");
+
   return (
     <section className="mx-auto mb-[24.82px] bg-black px-10 @container/cards-section md:px-20 xl:mb-8 xl:max-w-[1837px]">
       <div className="flex flex-col gap-6 @[75rem]/cards-section:flex-row">
@@ -20,53 +27,47 @@ const CompanyDescription: FC<Props> = ({ link }) => {
               </p>
             </div>
             <div className="mr-8 flex items-center">
-              <Link
-                href={link}
-                className="font-adelle-mono leading-none md:hidden"
-              >
+              <span className="font-adelle-mono leading-none md:hidden">
                 TAP &<br />
                 KNOW MORE
-              </Link>
-              <Link
-                href={link}
-                className="hidden font-adelle-mono leading-none md:inline-block md:text-[1.5rem]"
-              >
+              </span>
+              <span className="hidden font-adelle-mono leading-none md:inline-block md:text-[1.5rem]">
                 CLICK &<br />
                 KNOW MORE
-              </Link>
+              </span>
             </div>
           </div>
           <div className="px-[24px] pb-[42px] pt-[48px] font-adelle-mono text-[2rem] leading-none md:px-[64px] md:pt-[9px] md:text-[4rem] md:leading-tight">
-            <div className="flex border-b-2 border-black py-4 md:py-[1.5rem]">
-              <Link
-                href={"#"}
-                className="relative flex items-center gap-5 after:inline-block after:aspect-square after:w-[20px] after:rounded-full after:bg-simmer-yellow after:content-[''] hover:text-black/80 md:after:w-[30px]"
-              >
-                STUDIO
-              </Link>
-            </div>
-            <div className="flex border-b-2 border-black py-4">
-              <Link href={"#"} className="hover:text-black/80">
-                CLIENTS
-              </Link>
-            </div>
-            <div className="flex border-b-2 border-black py-4">
-              <Link href={"#"} className="hover:text-black/80">
-                IDEAS
-              </Link>
-            </div>
-            <div className="flex border-b-2 border-black py-4">
-              <Link href={"#"} className="hover:text-black/80">
-                SIMMER
-              </Link>
-            </div>
+            <TabTitle
+              active={selectedTab === "first"}
+              onClick={() => setSelectedTab("first")}
+            >
+              {intro.first.title}
+            </TabTitle>
+            <TabTitle
+              active={selectedTab === "second"}
+              onClick={() => setSelectedTab("second")}
+            >
+              {intro.second.title}
+            </TabTitle>
+            <TabTitle
+              active={selectedTab === "third"}
+              onClick={() => setSelectedTab("third")}
+            >
+              {intro.third.title}
+            </TabTitle>
+            <TabTitle
+              active={selectedTab === "fourth"}
+              onClick={() => setSelectedTab("fourth")}
+            >
+              {intro.fourth.title}
+            </TabTitle>
           </div>
         </div>
         {/* card 2 */}
         <div className="w-full space-y-8 rounded-tr-[100px] bg-simmer-white px-[24px] py-[42px] @container/card-2 @[1400px]/cards-section:rounded-tr-[420px] md:relative md:flex md:min-h-[641px] md:flex-col md:justify-between md:px-[64px] md:pb-[64px] md:pt-[74px]">
-          <h2 className="font-articulat text-[2rem] font-bold leading-none md:text-[4rem]">
-            We are a<br />
-            creative kitchen.
+          <h2 className="max-w-[16ch] font-articulat text-[2rem] font-bold leading-none md:text-[4rem]">
+            {intro[selectedTab].heading}
           </h2>
           <div className="right-0 top-0 flex justify-center @[850px]/card-2:absolute">
             <div className="relative aspect-video w-full @[850px]/card-2:h-[263.71px] @[850px]/card-2:w-[402px]">
@@ -78,14 +79,34 @@ const CompanyDescription: FC<Props> = ({ link }) => {
               />
             </div>
           </div>
-          <p className="text-pretty font-articulat text-[0.937rem] font-bold leading-[1.47rem] md:text-[2rem] md:leading-[2.5rem]">
-            From start-ups, local, international, personal brands, communities,
-            corporations, businesses and government agencies— our services has
-            no creative limits.
+          <p className="line-clamp-6 text-pretty font-articulat text-[0.937rem] font-bold leading-[1.47rem] md:text-[2rem] md:leading-[2.5rem]">
+            {intro[selectedTab].description}
           </p>
         </div>
       </div>
     </section>
+  );
+};
+
+interface TabTitleProps {
+  active: boolean;
+  onClick: () => void;
+  children: ReactNode;
+}
+
+const TabTitle: FC<TabTitleProps> = ({ active, onClick, children }) => {
+  return (
+    <div className="group flex items-center gap-5 border-b-2 border-black py-5">
+      <span
+        className="inline-block cursor-pointer font-adelle-mono leading-none hover:text-black/80"
+        onClick={onClick}
+      >
+        {children}
+      </span>
+      {active && (
+        <span className="inline-block h-[20px] w-[20px] rounded-full bg-simmer-yellow content-[''] md:h-[30px] md:w-[30px]" />
+      )}
+    </div>
   );
 };
 

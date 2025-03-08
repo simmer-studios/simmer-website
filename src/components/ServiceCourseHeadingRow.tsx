@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 import InformationIcon from "./icons/InformationIcon";
 
 interface ServiceCourseHeadingProps {
-  mainText: string;
-  subText: string;
+  mainText?: string | null;
+  subText?: string | null;
 }
 
 const ServiceCourseHeading: FC<
