@@ -19,6 +19,12 @@ import { Homepage } from "./globals/Homepage";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+const WEBSITE_URL = process.env.WEBSITE_URL;
+
+if (!WEBSITE_URL) {
+  throw new Error("Environment variable WEBSITE_URL is not set");
+}
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -26,15 +32,9 @@ export default buildConfig({
       baseDir: path.resolve(dirname)
     }
   },
-  serverURL: "https://simmer-website.vercel.app",
-  csrf: [
-    "https://simmer-website.vercel.app",
-    "https://simmer-studios.sgp1.digitaloceanspaces.com"
-  ],
-  cors: [
-    "https://simmer-website.vercel.app",
-    "https://simmer-studios.sgp1.digitaloceanspaces.com"
-  ],
+  serverURL: WEBSITE_URL,
+  csrf: [WEBSITE_URL],
+  cors: [WEBSITE_URL],
   collections: [
     Projects,
     Snaps,
