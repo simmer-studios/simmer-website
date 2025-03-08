@@ -26,7 +26,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname)
     }
   },
-  cors: ["https://simmer-website.vercel.app"],
+  cors: ["https://simmer-studios.sgp1.digitaloceanspaces.com"],
   collections: [
     Projects,
     Snaps,
