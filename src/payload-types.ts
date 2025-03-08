@@ -71,6 +71,7 @@ export interface Config {
     services: Service;
     'service-categories': ServiceCategory;
     creatives: Creative;
+    clients: Client;
     users: User;
     media: Media;
     'payload-locked-documents': PayloadLockedDocument;
@@ -84,6 +85,7 @@ export interface Config {
     services: ServicesSelect<false> | ServicesSelect<true>;
     'service-categories': ServiceCategoriesSelect<false> | ServiceCategoriesSelect<true>;
     creatives: CreativesSelect<false> | CreativesSelect<true>;
+    clients: ClientsSelect<false> | ClientsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -95,9 +97,11 @@ export interface Config {
   };
   globals: {
     homepage: Homepage;
+    about: About;
   };
   globalsSelect: {
     homepage: HomepageSelect<false> | HomepageSelect<true>;
+    about: AboutSelect<false> | AboutSelect<true>;
   };
   locale: null;
   user: User & {
@@ -427,6 +431,20 @@ export interface Creative {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "clients".
+ */
+export interface Client {
+  id: number;
+  /**
+   * Highlight this client on the about page
+   */
+  featured: boolean;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -468,6 +486,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'creatives';
         value: number | Creative;
+      } | null)
+    | ({
+        relationTo: 'clients';
+        value: number | Client;
       } | null)
     | ({
         relationTo: 'users';
@@ -740,6 +762,16 @@ export interface CreativesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "clients_select".
+ */
+export interface ClientsSelect<T extends boolean = true> {
+  featured?: T;
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -892,6 +924,30 @@ export interface Homepage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+  id: number;
+  /**
+   * Landscape image
+   */
+  banner: number | Media;
+  /**
+   * Square image
+   */
+  thumbnail: number | Media;
+  /**
+   * Landscape image
+   */
+  cover: number | Media;
+  tagline: string;
+  description: string;
+  clientsDescription: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "homepage_select".
  */
 export interface HomepageSelect<T extends boolean = true> {
@@ -1009,6 +1065,21 @@ export interface HomepageSelect<T extends boolean = true> {
                   };
             };
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  banner?: T;
+  thumbnail?: T;
+  cover?: T;
+  tagline?: T;
+  description?: T;
+  clientsDescription?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

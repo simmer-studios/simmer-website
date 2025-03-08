@@ -7,6 +7,7 @@ import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
 
+import { Clients } from "./collections/Clients";
 import { Creatives } from "./collections/Creatives";
 import { Media } from "./collections/Media";
 import { Projects } from "./collections/Projects";
@@ -14,16 +15,12 @@ import { ServiceCategories } from "./collections/ServiceCategories";
 import { Services } from "./collections/Services";
 import { Snaps } from "./collections/Snaps";
 import { Users } from "./collections/Users";
+import { WEBSITE_URL } from "./constants";
+import { About } from "./globals/About";
 import { Homepage } from "./globals/Homepage";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
-
-const WEBSITE_URL = process.env.WEBSITE_URL;
-
-if (!WEBSITE_URL) {
-  throw new Error("Environment variable WEBSITE_URL is not set");
-}
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
@@ -43,10 +40,11 @@ export default buildConfig({
     Services,
     ServiceCategories,
     Creatives,
+    Clients,
     Users,
     Media
   ],
-  globals: [Homepage],
+  globals: [Homepage, About],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET ?? "",
   typescript: {
