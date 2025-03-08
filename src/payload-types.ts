@@ -567,21 +567,57 @@ export interface Homepage {
   services: {
     first: {
       title: string;
-      appetizers: (number | Service)[];
-      mainCourse: (number | Service)[];
-      desserts: (number | Service)[];
+      appetizers: {
+        title?: string | null;
+        description?: string | null;
+        services: (number | Service)[];
+      };
+      mainCourse: {
+        title?: string | null;
+        description?: string | null;
+        services: (number | Service)[];
+      };
+      desserts: {
+        title?: string | null;
+        description?: string | null;
+        services: (number | Service)[];
+      };
     };
     second: {
       title: string;
-      appetizers: (number | Service)[];
-      mainCourse: (number | Service)[];
-      desserts: (number | Service)[];
+      appetizers: {
+        title?: string | null;
+        description?: string | null;
+        services: (number | Service)[];
+      };
+      mainCourse: {
+        title?: string | null;
+        description?: string | null;
+        services: (number | Service)[];
+      };
+      desserts: {
+        title?: string | null;
+        description?: string | null;
+        services: (number | Service)[];
+      };
     };
     third: {
       title: string;
-      appetizers: (number | Service)[];
-      mainCourse: (number | Service)[];
-      desserts: (number | Service)[];
+      appetizers: {
+        title?: string | null;
+        description?: string | null;
+        services: (number | Service)[];
+      };
+      mainCourse: {
+        title?: string | null;
+        description?: string | null;
+        services: (number | Service)[];
+      };
+      desserts: {
+        title?: string | null;
+        description?: string | null;
+        services: (number | Service)[];
+      };
     };
   };
   updatedAt?: string | null;
@@ -605,25 +641,79 @@ export interface HomepageSelect<T extends boolean = true> {
           | T
           | {
               title?: T;
-              appetizers?: T;
-              mainCourse?: T;
-              desserts?: T;
+              appetizers?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    services?: T;
+                  };
+              mainCourse?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    services?: T;
+                  };
+              desserts?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    services?: T;
+                  };
             };
         second?:
           | T
           | {
               title?: T;
-              appetizers?: T;
-              mainCourse?: T;
-              desserts?: T;
+              appetizers?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    services?: T;
+                  };
+              mainCourse?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    services?: T;
+                  };
+              desserts?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    services?: T;
+                  };
             };
         third?:
           | T
           | {
               title?: T;
-              appetizers?: T;
-              mainCourse?: T;
-              desserts?: T;
+              appetizers?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    services?: T;
+                  };
+              mainCourse?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    services?: T;
+                  };
+              desserts?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    services?: T;
+                  };
             };
       };
   updatedAt?: T;

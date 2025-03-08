@@ -31,29 +31,80 @@ const SERVICES_FIELDS: Field[] = [
   {
     name: "appetizers",
     label: "Appetizers",
-    type: "relationship",
-    relationTo: "services",
-    hasMany: true,
-    minRows: 1,
-    required: true
+    type: "group",
+    fields: [
+      {
+        name: "title",
+        label: "Title",
+        type: "text"
+      },
+      {
+        name: "description",
+        label: "Description",
+        type: "text"
+      },
+      {
+        name: "services",
+        label: "Services",
+        type: "relationship",
+        relationTo: "services",
+        hasMany: true,
+        minRows: 1,
+        required: true
+      }
+    ]
   },
   {
     name: "mainCourse",
     label: "Main Course",
-    type: "relationship",
-    relationTo: "services",
-    hasMany: true,
-    minRows: 1,
-    required: true
+    type: "group",
+    fields: [
+      {
+        name: "title",
+        label: "Title",
+        type: "text"
+      },
+      {
+        name: "description",
+        label: "Description",
+        type: "text"
+      },
+      {
+        name: "services",
+        label: "Services",
+        type: "relationship",
+        relationTo: "services",
+        hasMany: true,
+        minRows: 1,
+        required: true
+      }
+    ]
   },
   {
     name: "desserts",
     label: "Desserts",
-    type: "relationship",
-    relationTo: "services",
-    hasMany: true,
-    minRows: 1,
-    required: true
+    type: "group",
+    fields: [
+      {
+        name: "title",
+        label: "Title",
+        type: "text"
+      },
+      {
+        name: "description",
+        label: "Description",
+        type: "text"
+      },
+      {
+        name: "services",
+        label: "Services",
+        type: "relationship",
+        relationTo: "services",
+        hasMany: true,
+        minRows: 1,
+        required: true
+      }
+    ]
   }
 ];
 
