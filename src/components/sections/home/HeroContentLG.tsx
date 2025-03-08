@@ -72,7 +72,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             </div>
           </div>
         </div>
-        <VerticalLinks href="#">STRATEGY</VerticalLinks>
+        <VerticalText>STRATEGY</VerticalText>
       </div>
       {/* JUST A */}
       <div className="row flex overflow-y-hidden border-b-2 border-black">
@@ -126,7 +126,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             </div>
           </div>
         </div>
-        <VerticalLinks href="#">IDENTITY</VerticalLinks>
+        <VerticalText>IDENTITY</VerticalText>
       </div>
       {/* CREATIVE & BRANDING */}
       <div className="row flex border-b-2 border-black">
@@ -153,7 +153,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             </div>
           </div>
         </div>
-        <VerticalLinks href="#">EXECUTION</VerticalLinks>
+        <VerticalText>EXECUTION</VerticalText>
       </div>
       {/* STUDIO */}
       <div className="row flex border-b-2 border-black">
@@ -194,21 +194,19 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
           </Link>
         </div>
         <div className="flex-1 border-l-0 border-black px-8 xl:px-0"></div>
-        <VerticalLinks href="#">CLICK ME</VerticalLinks>
+        <VerticalText>CLICK ME</VerticalText>
       </div>
     </div>
   );
 };
 
-const VerticalLinks: FC<ComponentProps<typeof Link>> = ({
-  href,
+const VerticalText: FC<HTMLProps<HTMLDivElement>> = ({
   className,
   children,
   ...props
 }) => {
   return (
-    <Link
-      href={href}
+    <div
       className={cn(
         "hidden min-w-[82px] items-center justify-center border-l-2 border-black bg-simmer-white font-adelle-mono text-2xl uppercase hover:brightness-95 lg:flex",
         className
@@ -217,7 +215,7 @@ const VerticalLinks: FC<ComponentProps<typeof Link>> = ({
       {...props}
     >
       {children}
-    </Link>
+    </div>
   );
 };
 
