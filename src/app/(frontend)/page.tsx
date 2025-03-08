@@ -1,4 +1,6 @@
+import config from "@payload-config";
 import { Metadata } from "next";
+import { getPayload } from "payload";
 
 import ContentWrapper from "@/components/ContentWrapper";
 import Footer from "@/components/Footer";
@@ -7,10 +9,9 @@ import CompanyDescription from "@/components/sections/home/CompanyDescription";
 import EggSpawner from "@/components/sections/home/EggSpawner";
 import Hero from "@/components/sections/home/Hero";
 import HeroDivider from "@/components/sections/home/HeroDivider";
-import PillarServices from "@/components/sections/home/PillarServices";
 import RoundedLinks from "@/components/sections/home/RoundedLinks";
 import SecretIngredientReveal from "@/components/sections/home/SecretIngredientReveal";
-import ServiceCourses from "@/components/sections/home/ServiceCourses";
+import Services from "@/components/sections/home/Services";
 import StickySidebar from "@/components/StickySidebar";
 
 export const metadata: Metadata = {
@@ -18,7 +19,13 @@ export const metadata: Metadata = {
   description: ""
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const payload = await getPayload({ config });
+
+  const homepage = await payload.findGlobal({
+    slug: "homepage"
+  });
+
   return (
     <>
       <Header theme="light" />
@@ -28,10 +35,9 @@ export default function HomePage() {
         <ContentWrapper className="border-b-2 border-black pt-10 lg:pt-16">
           <StickySidebar theme="dark" />
           <div className="basis-full">
-            <CompanyDescription link="#" />
+            <CompanyDescription intro={homepage.intro} />
             <SecretIngredientReveal />
-            <PillarServices />
-            <ServiceCourses />
+            <Services services={homepage.services} />
             <RoundedLinks />
             <EggSpawner />
           </div>
