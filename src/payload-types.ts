@@ -79,7 +79,7 @@ export interface Config {
   collectionsSelect: {
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
-    creatives: CreativesSelect1<false> | CreativesSelect1<true>;
+    creatives: CreativesSelect<false> | CreativesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -223,7 +223,13 @@ export interface Project {
             blockName?: string | null;
             blockType: 'Quote';
           }
-        | Creatives
+        | {
+            name: string;
+            role: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'Creatives';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -258,19 +264,6 @@ export interface Service {
   description?: string | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Creatives".
- */
-export interface Creatives {
-  /**
-   * Select all the creatives that collaborated on this project
-   */
-  creatives: (number | Creative)[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Creatives';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -460,19 +453,17 @@ export interface ProjectsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        Creatives?: T | CreativesSelect<T>;
+        Creatives?:
+          | T
+          | {
+              name?: T;
+              role?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Creatives_select".
- */
-export interface CreativesSelect<T extends boolean = true> {
-  creatives?: T;
-  id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -488,7 +479,7 @@ export interface ServicesSelect<T extends boolean = true> {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "creatives_select".
  */
-export interface CreativesSelect1<T extends boolean = true> {
+export interface CreativesSelect<T extends boolean = true> {
   order?: T;
   name?: T;
   role?: T;
