@@ -560,9 +560,27 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Homepage {
   id: number;
-  about: {
-    title: string;
-    description: string;
+  intro: {
+    first: {
+      title: string;
+      heading: string;
+      description: string;
+    };
+    second: {
+      title: string;
+      heading: string;
+      description: string;
+    };
+    third: {
+      title: string;
+      heading: string;
+      description: string;
+    };
+    fourth: {
+      title: string;
+      heading: string;
+      description: string;
+    };
   };
   services: {
     first: {
@@ -628,11 +646,37 @@ export interface Homepage {
  * via the `definition` "homepage_select".
  */
 export interface HomepageSelect<T extends boolean = true> {
-  about?:
+  intro?:
     | T
     | {
-        title?: T;
-        description?: T;
+        first?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              description?: T;
+            };
+        second?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              description?: T;
+            };
+        third?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              description?: T;
+            };
+        fourth?:
+          | T
+          | {
+              title?: T;
+              heading?: T;
+              description?: T;
+            };
       };
   services?:
     | T
