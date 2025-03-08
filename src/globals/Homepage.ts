@@ -1,26 +1,81 @@
 import { Field, GlobalConfig } from "payload";
 
-const AboutSection: Field = {
-  name: "about",
-  label: "About",
+const INTRO_FIELD: Field[] = [
+  {
+    name: "title",
+    label: "Title",
+    type: "text",
+    required: true
+  },
+  {
+    name: "heading",
+    label: "Heading",
+    type: "text",
+    required: true
+  },
+  {
+    name: "description",
+    label: "Description",
+    type: "textarea",
+    required: true
+  }
+];
+
+const IntroSection: Field = {
+  name: "intro",
+  label: "Intro",
   type: "group",
   fields: [
     {
-      name: "title",
-      label: "Title",
-      type: "text",
-      required: true
+      name: "first",
+      label: "First",
+      type: "group",
+      fields: INTRO_FIELD
     },
     {
-      name: "description",
-      label: "Description",
-      type: "textarea",
-      required: true
+      name: "second",
+      label: "Second",
+      type: "group",
+      fields: INTRO_FIELD
+    },
+    {
+      name: "third",
+      label: "Third",
+      type: "group",
+      fields: INTRO_FIELD
+    },
+    {
+      name: "fourth",
+      label: "Fourth",
+      type: "group",
+      fields: INTRO_FIELD
     }
   ]
 };
 
-const SERVICES_FIELDS: Field[] = [
+const SERVICE_FIELD: Field[] = [
+  {
+    name: "title",
+    label: "Title",
+    type: "text"
+  },
+  {
+    name: "description",
+    label: "Description",
+    type: "text"
+  },
+  {
+    name: "services",
+    label: "Services",
+    type: "relationship",
+    relationTo: "services",
+    hasMany: true,
+    minRows: 1,
+    required: true
+  }
+];
+
+const SERVICES_FIELD: Field[] = [
   {
     name: "title",
     label: "Title",
@@ -32,79 +87,19 @@ const SERVICES_FIELDS: Field[] = [
     name: "appetizers",
     label: "Appetizers",
     type: "group",
-    fields: [
-      {
-        name: "title",
-        label: "Title",
-        type: "text"
-      },
-      {
-        name: "description",
-        label: "Description",
-        type: "text"
-      },
-      {
-        name: "services",
-        label: "Services",
-        type: "relationship",
-        relationTo: "services",
-        hasMany: true,
-        minRows: 1,
-        required: true
-      }
-    ]
+    fields: SERVICE_FIELD
   },
   {
     name: "mainCourse",
     label: "Main Course",
     type: "group",
-    fields: [
-      {
-        name: "title",
-        label: "Title",
-        type: "text"
-      },
-      {
-        name: "description",
-        label: "Description",
-        type: "text"
-      },
-      {
-        name: "services",
-        label: "Services",
-        type: "relationship",
-        relationTo: "services",
-        hasMany: true,
-        minRows: 1,
-        required: true
-      }
-    ]
+    fields: SERVICE_FIELD
   },
   {
     name: "desserts",
     label: "Desserts",
     type: "group",
-    fields: [
-      {
-        name: "title",
-        label: "Title",
-        type: "text"
-      },
-      {
-        name: "description",
-        label: "Description",
-        type: "text"
-      },
-      {
-        name: "services",
-        label: "Services",
-        type: "relationship",
-        relationTo: "services",
-        hasMany: true,
-        minRows: 1,
-        required: true
-      }
-    ]
+    fields: SERVICE_FIELD
   }
 ];
 
@@ -117,19 +112,19 @@ const ServicesSection: Field = {
       name: "first",
       label: "First",
       type: "group",
-      fields: SERVICES_FIELDS
+      fields: SERVICES_FIELD
     },
     {
       name: "second",
       label: "Second",
       type: "group",
-      fields: SERVICES_FIELDS
+      fields: SERVICES_FIELD
     },
     {
       name: "third",
       label: "Third",
       type: "group",
-      fields: SERVICES_FIELDS
+      fields: SERVICES_FIELD
     }
   ]
 };
@@ -137,5 +132,5 @@ const ServicesSection: Field = {
 export const Homepage: GlobalConfig = {
   slug: "homepage",
   label: "Homepage",
-  fields: [AboutSection, ServicesSection]
+  fields: [IntroSection, ServicesSection]
 };
