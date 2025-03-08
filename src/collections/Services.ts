@@ -9,7 +9,8 @@ export const Services: CollectionConfig = {
     {
       name: "name",
       type: "text",
-      required: true
+      required: true,
+      unique: true
     },
     {
       name: "description",
