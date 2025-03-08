@@ -15,6 +15,18 @@ export const Projects: CollectionConfig = {
   },
   fields: [
     {
+      type: "checkbox",
+      name: "featured",
+      label: "Featured",
+      required: true,
+      defaultValue: false,
+      admin: {
+        width: "50%",
+        description:
+          "Only two features projects will be displayed on the works page"
+      }
+    },
+    {
       type: "row",
       fields: [
         {
@@ -75,6 +87,11 @@ export const Projects: CollectionConfig = {
           required: true
         },
         {
+          name: "project",
+          type: "text",
+          required: true
+        },
+        {
           name: "year",
           type: "number",
           required: true
@@ -84,6 +101,12 @@ export const Projects: CollectionConfig = {
     {
       name: "description",
       type: "textarea",
+      required: true
+    },
+    {
+      name: "featuredServices",
+      label: "Featured Services",
+      type: "text",
       required: true
     },
     {
