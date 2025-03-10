@@ -1,5 +1,7 @@
 import "./globals.css";
 
+import SmoothScroll from "@/components/SmoothScroll";
+import { AnimationProvider } from "@/context/AnimationContext";
 import { CartProvider } from "@/contexts/CartContext";
 
 interface Props {
@@ -8,9 +10,13 @@ interface Props {
 
 export default function RootLayout({ children }: Readonly<Props>) {
   return (
-    <html lang="en-PH">
-      <body className="antialiased">
-        <CartProvider>{children}</CartProvider>
+    <html lang="en">
+      <body className={`antialiased`}>
+        <AnimationProvider>
+          <CartProvider>
+            <SmoothScroll>{children}</SmoothScroll>
+          </CartProvider>
+        </AnimationProvider>
       </body>
     </html>
   );
