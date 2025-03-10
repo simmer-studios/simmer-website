@@ -27,6 +27,13 @@ import {
 
 const THICCNESS = 100;
 
+// Extend Matter.js Mouse type to include the event handlers
+interface ExtendedMouse extends Mouse {
+  mousedown: (event: Event) => void;
+  mousemove: (event: Event) => void;
+  mouseup: (event: Event) => void;
+}
+
 export type FallingEggsRef = {
   spawnEgg: () => void;
 };
@@ -38,6 +45,8 @@ const FallingEggs = forwardRef<FallingEggsRef>((props, ref) => {
   const runnerRef = useRef<Runner>(undefined);
   const renderRef = useRef<Render>(undefined);
   const bodies = useRef<Record<string, Body>>(undefined);
+  const touchStartY = useRef<number>(0);
+  const isScrolling = useRef<boolean>(false);
 
   Matter.use(MatterWrap);
 
@@ -139,7 +148,7 @@ const FallingEggs = forwardRef<FallingEggsRef>((props, ref) => {
       compositeRef.current = composite;
 
       // add mouse control
-      const mouse = Mouse.create(render.canvas);
+      const mouse = Mouse.create(render.canvas) as ExtendedMouse;
       const mouseConstraint = MouseConstraint.create(engine, {
         mouse: mouse,
         constraint: {
@@ -149,6 +158,45 @@ const FallingEggs = forwardRef<FallingEggsRef>((props, ref) => {
           }
         }
       });
+
+      // Disable default touch handling from Matter.js
+      if (mouse.element) {
+        mouse.element.removeEventListener("touchstart", mouse.mousedown);
+        mouse.element.removeEventListener("touchmove", mouse.mousemove);
+        mouse.element.removeEventListener("touchend", mouse.mouseup);
+      }
+
+      // Custom touch handling that allows scrolling
+      let touchId: number | null = null;
+
+      render.canvas.addEventListener('touchstart', (e) => {
+        if (touchId === null) {
+          touchId = e.touches[0].identifier;
+          const touch = e.touches[0];
+          mouse.position.x = touch.clientX;
+          mouse.position.y = touch.clientY;
+          mouse.mousedown(e);
+        }
+      }, { passive: true });
+
+      render.canvas.addEventListener('touchmove', (e) => {
+        for (let i = 0; i < e.touches.length; i++) {
+          if (e.touches[i].identifier === touchId) {
+            const touch = e.touches[i];
+            mouse.position.x = touch.clientX;
+            mouse.position.y = touch.clientY;
+            mouse.mousemove(e);
+            break;
+          }
+        }
+      }, { passive: true });
+
+      render.canvas.addEventListener('touchend', (e) => {
+        if (touchId !== null) {
+          touchId = null;
+          mouse.mouseup(e);
+        }
+      }, { passive: true });
 
       if ("mousewheel" in mouseConstraint.mouse) {
         mouseConstraint.mouse.element.removeEventListener(
