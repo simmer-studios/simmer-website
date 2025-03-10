@@ -13,7 +13,9 @@ const Footer = () => {
       <div className="flex flex-col gap-10 pb-12 pt-10 lg:px-20 lg:py-24">
         {/* taco icon row */}
         <div className="flex items-center justify-center lg:order-2">
-          <InteractiveTaco />
+          <div className="relative h-52 w-64 content-center lg:h-60 lg:w-72">
+            <InteractiveTaco />
+          </div>
         </div>
         {/* button row */}
         <div className="flex items-center justify-center lg:order-1 lg:justify-end">
