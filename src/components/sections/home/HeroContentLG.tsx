@@ -187,6 +187,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             </div>
           </div>
           <Link
+            id="play-button"
             href="#"
             className="content-center items-center border-l-2 border-black bg-simmer-yellow hover:brightness-95"
           >
