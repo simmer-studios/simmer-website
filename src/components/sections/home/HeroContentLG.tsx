@@ -24,15 +24,24 @@ import HOVER_WeAre from "@/assets/home/hover_we-are.svg";
 import Just from "@/assets/home/just.svg";
 import More from "@/assets/home/more.svg";
 import Naruto from "@/assets/home/naruto.svg";
+import Pause from "@/assets/home/pause.svg";
 import Play from "@/assets/home/play.svg";
 import Ramen from "@/assets/home/ramen.svg";
 import Studio from "@/assets/home/studio.svg";
 import Than from "@/assets/home/than.svg";
 import WeAre from "@/assets/home/we-are.svg";
 import HoverTransition from "@/components/HoverTransition";
+import { useAnimation } from "@/context/AnimationContext";
 import { cn } from "@/lib/utils";
 
 const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
+  const { isPlaying, setIsPlaying } = useAnimation();
+
+  const handlePlayClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsPlaying(!isPlaying);
+  };
+
   return (
     <div {...props}>
       {/* WE ARE MORE THAN */}
@@ -44,6 +53,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
                 transitionElement={
                   <Image src={HOVER_WeAre} alt="We are" fill />
                 }
+                delay={0}
               >
                 <Image src={WeAre} alt="We are" height={160} />
               </HoverTransition>
@@ -51,6 +61,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             <div className="">
               <HoverTransition
                 transitionElement={<Image src={HOVER_More} alt="More" fill />}
+                delay={100}
               >
                 <Image src={More} alt="" height={160} />
               </HoverTransition>
@@ -66,6 +77,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             <div className="">
               <HoverTransition
                 transitionElement={<Image src={HOVER_Than} alt="Than" fill />}
+                delay={200}
               >
                 <Image src={Than} alt="Than" height={160} />
               </HoverTransition>
@@ -84,6 +96,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
                 transitionElement={
                   <Image src={HOVER_Burger} alt="" className="scale-125" fill />
                 }
+                delay={300}
               >
                 <Image src={EggSandwich} alt="" height={160} />
               </HoverTransition>
@@ -91,6 +104,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             <div className="px-8 py-8">
               <HoverTransition
                 transitionElement={<Image src={HOVER_Just} alt="Just" fill />}
+                delay={400}
               >
                 <Image src={Just} alt="Just" height={160} />
               </HoverTransition>
@@ -106,6 +120,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
                     className="-translate-x-5 scale-[1.7]"
                   />
                 }
+                delay={500}
               >
                 <Image src={A} alt="" height={160} />
               </HoverTransition>
@@ -115,6 +130,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
                 transitionElement={
                   <Image src={HOVER_ThinkOutside} alt="" fill />
                 }
+                delay={600}
               >
                 <Image
                   src={DiagonalText}
@@ -143,6 +159,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
                     fill
                   />
                 }
+                delay={700}
               >
                 <Image src={Creative} alt="" height={160} />
               </HoverTransition>
@@ -174,6 +191,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
                     fill
                   />
                 }
+                delay={800}
               >
                 <Image src={Studio} alt="" height={160} />
               </HoverTransition>
@@ -181,6 +199,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             <div className="bg-simmer-white px-8 py-8">
               <HoverTransition
                 transitionElement={<Image src={HOVER_Eggcited} alt="" fill />}
+                delay={900}
               >
                 <Image src={Egg} alt="" height={160} />
               </HoverTransition>
@@ -190,12 +209,15 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             id="play-button"
             href="#"
             className="content-center items-center border-l-2 border-black bg-simmer-yellow hover:brightness-95"
+            onClick={handlePlayClick}
           >
-            <Image src={Play} alt="" className="" height={200} />
+            <Image src={isPlaying ? Pause : Play} alt="" height={200} />
           </Link>
         </div>
-        <div 
-            id="play-button-pseudo" className="flex-1 border-l-0 border-black px-8 xl:px-0"></div>
+        <div
+          id="play-button-pseudo"
+          className="flex-1 border-l-0 border-black px-8 xl:px-0"
+        ></div>
         <VerticalText>CLICK ME</VerticalText>
       </div>
     </div>
