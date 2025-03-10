@@ -193,7 +193,8 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             <Image src={Play} alt="" className="" height={200} />
           </Link>
         </div>
-        <div className="flex-1 border-l-0 border-black px-8 xl:px-0"></div>
+        <div 
+            id="play-button-pseudo" className="flex-1 border-l-0 border-black px-8 xl:px-0"></div>
         <VerticalText>CLICK ME</VerticalText>
       </div>
     </div>
