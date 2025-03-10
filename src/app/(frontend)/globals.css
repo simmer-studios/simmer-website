@@ -51,6 +51,11 @@
   .infinite-slider {
     animation: 20s infiniteSlider infinite linear;
   }
+
+  #play-button-pseudo {
+    box-shadow: inset 3px 0px 0px -1px #000;
+  }
+
 }
 
 @layer utilities {
