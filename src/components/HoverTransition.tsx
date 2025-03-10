@@ -22,6 +22,13 @@ const HoverTransition: FC<HTMLProps<HTMLDivElement> & Props> = ({
   children
 }) => {
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsMobile("ontouchstart" in window || navigator.maxTouchPoints > 0);
+  }, []);
+
+  const transitionDuration = isMobile ? 1 : 0.13;
 
   return (
     <motion.div
@@ -33,14 +40,14 @@ const HoverTransition: FC<HTMLProps<HTMLDivElement> & Props> = ({
     >
       <motion.div
         animate={{ y: isActive ? "-100%" : "0%", opacity: isActive ? 0 : 1 }}
-        transition={{ type: "spring", duration: 0.13 }}
+        transition={{ type: "spring", duration: transitionDuration }}
       >
         {children}
       </motion.div>
       <motion.div
         className="absolute h-full w-full"
         animate={{ y: isActive ? "-100%" : "0%", opacity: isActive ? 1 : 0 }}
-        transition={{ type: "spring", duration: 0.13 }}
+        transition={{ type: "spring", duration: transitionDuration }}
       >
         {transitionElement}
       </motion.div>

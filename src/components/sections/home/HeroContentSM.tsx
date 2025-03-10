@@ -1,18 +1,29 @@
 import Image from "next/image";
 import { FC, HTMLProps } from "react";
 
+import HOVER_Burger from "@/assets/home/hover_burger.svg";
+import HOVER_CreativeKitchen from "@/assets/home/hover_creative-kitchen.svg";
+import HOVER_Cup from "@/assets/home/hover_cup.svg";
+import HOVER_Eggcited from "@/assets/home/hover_eggcited.svg";
+import HOVER_Just from "@/assets/home/hover_just.svg";
+import HOVER_More from "@/assets/home/hover_more.svg";
+import HOVER_SoMuchMore from "@/assets/home/hover_so-much-more.svg";
+import HOVER_Than from "@/assets/home/hover_than.svg";
+import HOVER_ThinkOutside from "@/assets/home/hover_think-outside.svg";
+import HOVER_WeAre from "@/assets/home/hover_we-are.svg";
 import A from "@/assets/home/sm_A.svg";
-import BRANDING from "@/assets/home/sm_branding.svg";
-import CREATIVE from "@/assets/home/sm_creative.svg";
-import DIAGONALTEXT from "@/assets/home/sm_diagonal-text.svg";
-import EGG from "@/assets/home/sm_egg.svg";
-import EGGSANDWICH from "@/assets/home/sm_egg-sandwich.svg";
-import HAMBURGER from "@/assets/home/sm_hamburger.svg";
-import JUST from "@/assets/home/sm_just.svg";
-import MORE from "@/assets/home/sm_more.svg";
-import STUDIO from "@/assets/home/sm_studio.svg";
-import THAN from "@/assets/home/sm_than.svg";
-import WEARE from "@/assets/home/sm_we-are.svg";
+import Branding from "@/assets/home/sm_branding.svg";
+import Creative from "@/assets/home/sm_creative.svg";
+import DiagonalText from "@/assets/home/sm_diagonal-text.svg";
+import Egg from "@/assets/home/sm_egg.svg";
+import EggSandwich from "@/assets/home/sm_egg-sandwich.svg";
+import Burger from "@/assets/home/sm_hamburger.svg";
+import Just from "@/assets/home/sm_just.svg";
+import More from "@/assets/home/sm_more.svg";
+import Studio from "@/assets/home/sm_studio.svg";
+import Than from "@/assets/home/sm_than.svg";
+import WeAre from "@/assets/home/we-are.svg";
+import HoverTransition from "@/components/HoverTransition";
 import { cn } from "@/lib/utils";
 
 const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
@@ -24,14 +35,27 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
       <div className="row border-b-2 border-black">
         <div className="container">
           <div className="flex divide-x-2 divide-black">
-            <div className="flex flex-1 justify-end px-5">
-              <Image src={WEARE} alt="We are" />
+            <div className="flex flex-1 justify-end px-5 py-5">
+              <HoverTransition
+                transitionElement={<Image src={HOVER_WeAre} alt="We are" />}
+              >
+                <Image src={WeAre} alt="We are" />
+              </HoverTransition>
             </div>
             <div className="flex items-center justify-center px-5 py-5">
-              <Image src={MORE} alt="More" />
+              <HoverTransition
+                transitionElement={<Image src={HOVER_More} alt="More" />}
+              >
+                <Image src={More} alt="" />
+              </HoverTransition>
             </div>
             <div className="flex flex-1 items-center justify-start px-5">
-              <Image src={HAMBURGER} alt="" />
+              <HoverTransition
+                className="overflow-y-visible"
+                transitionElement={<Image src={Egg} alt="" />}
+              >
+                <Image src={Burger} alt="" />
+              </HoverTransition>
             </div>
           </div>
         </div>
@@ -40,10 +64,19 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
         <div className="container">
           <div className="flex divide-x-2 divide-black">
             <div className="flex basis-[44%] justify-end px-5">
-              <Image src={EGGSANDWICH} alt="" />
+              <HoverTransition
+                className="overflow-y-visible"
+                transitionElement={<Image src={HOVER_Burger} alt="" />}
+              >
+                <Image src={EggSandwich} alt="" />
+              </HoverTransition>
             </div>
             <div className="flex flex-1 items-center justify-start px-5 py-5">
-              <Image src={THAN} alt="Than" />
+              <HoverTransition
+                transitionElement={<Image src={HOVER_Than} alt="Than" />}
+              >
+                <Image src={Than} alt="Than" />
+              </HoverTransition>
             </div>
           </div>
         </div>
@@ -52,10 +85,25 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
         <div className="container">
           <div className="flex divide-x-2 divide-black">
             <div className="flex flex-1 items-center justify-end px-5 py-5">
-              <Image src={JUST} alt="Just" />
+              <HoverTransition
+                transitionElement={<Image src={HOVER_Just} alt="Just" />}
+              >
+                <Image src={Just} alt="Just" />
+              </HoverTransition>
             </div>
             <div className="flex flex-1 items-center justify-start px-5">
-              <Image src={A} alt="A" />
+              <HoverTransition
+                className="overflow-y-visible"
+                transitionElement={
+                  <Image
+                    src={HOVER_Cup}
+                    alt=""
+                    className="-translate-x-5 scale-[1.7]"
+                  />
+                }
+              >
+                <Image src={A} alt="" />
+              </HoverTransition>
             </div>
           </div>
         </div>
@@ -65,10 +113,25 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
           <div className="flex divide-x-2 divide-black">
             <div className="flex-1"></div>
             <div className="px-5 py-5">
-              <Image src={CREATIVE} alt="Creative" />
+              <HoverTransition
+                className="overflow-y-visible"
+                transitionElement={
+                  <Image
+                    src={HOVER_CreativeKitchen}
+                    alt=""
+                    className="scale-125"
+                  />
+                }
+              >
+                <Image src={Creative} alt="" />
+              </HoverTransition>
             </div>
             <div className="flex flex-1 items-center justify-start px-5">
-              <Image src={DIAGONALTEXT} alt="MADE-FOR-ALL-KINDS-OF-BRANDS" />
+              <HoverTransition
+                transitionElement={<Image src={HOVER_ThinkOutside} alt="" />}
+              >
+                <Image src={DiagonalText} alt="" className="aspect-square" />
+              </HoverTransition>
             </div>
           </div>
         </div>
@@ -76,7 +139,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
       <div className="row border-b-2 border-black">
         <div className="container">
           <div className="flex items-center justify-center px-5 py-5">
-            <Image src={BRANDING} alt="Branding" />
+            <Image src={Branding} alt="Branding" />
           </div>
         </div>
       </div>
@@ -84,10 +147,14 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
         <div className="container">
           <div className="flex divide-x-2 divide-black">
             <div className="flex basis-[37%] items-center justify-end px-5">
-              <Image src={EGG} alt="" />
+              <HoverTransition
+                transitionElement={<Image src={HOVER_Eggcited} alt="" />}
+              >
+                <Image src={Egg} alt="" />
+              </HoverTransition>
             </div>
             <div className="flex flex-1 items-center justify-start px-5 py-5">
-              <Image src={STUDIO} alt="Studio" />
+              <Image src={Studio} alt="Studio" />
             </div>
           </div>
         </div>
