@@ -55,7 +55,11 @@
   #play-button-pseudo {
     box-shadow: inset 3px 0px 0px -1px #000;
   }
-
+  @media (min-width: 1024px) {
+    .lg\:self-end {
+      align-self: flex-end;
+    }
+  }
 }
 
 @layer utilities {
