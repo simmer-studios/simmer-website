@@ -1,6 +1,6 @@
 import "./globals.css";
 
-import LoadingScreen from "@/components/LoadingScreen";
+import LoadingScreen from "@/app/(frontend)/loading";
 import SmoothScroll from "@/components/SmoothScroll";
 import { AnimationProvider } from "@/context/AnimationContext";
 import { CartProvider } from "@/contexts/CartContext";
