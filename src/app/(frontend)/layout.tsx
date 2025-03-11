@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import LoadingScreen from "@/components/LoadingScreen";
 import SmoothScroll from "@/components/SmoothScroll";
 import { AnimationProvider } from "@/context/AnimationContext";
 import { CartProvider } from "@/contexts/CartContext";
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: Readonly<Props>) {
       <body className={`antialiased`}>
         <AnimationProvider>
           <CartProvider>
+            <LoadingScreen />
             <SmoothScroll>{children}</SmoothScroll>
           </CartProvider>
         </AnimationProvider>

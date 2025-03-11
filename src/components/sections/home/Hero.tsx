@@ -10,7 +10,7 @@ import HeroContentSM from "./HeroContentSM";
 
 const Hero: FC<HTMLProps<HTMLDivElement>> = ({ className, ...props }) => {
   return (
-    <section className={cn("bg-simmer-white", className)} {...props}>
+    <section className={cn("bg-simmer-white", className)} {...props} id="hero">
       <div className="grid divide-black xl:grid-cols-[max(222px)_1fr] xl:divide-x-2">
         <div className="hidden xl:block">
           <HeroAside />
