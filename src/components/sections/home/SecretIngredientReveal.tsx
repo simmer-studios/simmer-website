@@ -5,8 +5,8 @@ import {
   ConfettiFirstParam,
   ConfettiOptions
 } from "@tsparticles/confetti";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import { request } from "http";
-import { AnimatePresence, motion } from "motion/react";
 import { FC, HTMLProps, useEffect, useRef, useState } from "react";
 
 import MagicInput from "@/components/MagicInput";
@@ -59,6 +59,7 @@ const confettiDefaults: ConfettiOptions = {
 
 const SecretIngredientReveal = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true });
   const [revealDiscount, setRevealDiscount] = useState<boolean>(false);
 
   useEffect(() => {
@@ -91,7 +92,13 @@ const SecretIngredientReveal = () => {
   }, [revealDiscount]);
 
   return (
-    <section className="relative overflow-hidden" ref={containerRef}>
+    <motion.section
+      ref={containerRef}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="relative overflow-hidden"
+    >
       <div className="container relative min-h-[550px] content-center px-10 lg:min-h-[850px] lg:px-20 xl:max-w-[1837px]">
         <AnimatePresence initial={false}>
           <DiscountCoupon
@@ -108,7 +115,7 @@ const SecretIngredientReveal = () => {
           )}
         </AnimatePresence>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
@@ -212,7 +219,7 @@ const DiscountCoupon: FC<HTMLProps<HTMLDivElement> & DiscountCouponProps> = ({
             discount
           </h2>
         </div>
-        <div className="mt-4 flex self-end">
+        <div className="mt-4 flex lg:self-end">
           <button className="content-center rounded-full border-2 border-black bg-simmer-white px-4 py-1.5 font-adelle-mono">
             APPLY TO CHECKOUT
           </button>
