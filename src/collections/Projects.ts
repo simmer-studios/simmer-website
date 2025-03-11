@@ -7,6 +7,7 @@ import { ImageText } from "@/blocks/ImageText";
 import { Quote } from "@/blocks/Quote";
 import { ThreeImages } from "@/blocks/ThreeImages";
 import { TwoImageText } from "@/blocks/TwoImageText";
+import { validateUrl } from "@/lib/utils";
 
 export const Projects: CollectionConfig = {
   slug: "projects",
@@ -121,20 +122,9 @@ export const Projects: CollectionConfig = {
     },
     {
       name: "websiteUrl",
-      label: "Website URL",
+      label: "Link to their website or social media",
       type: "text",
-      validate: (value: unknown) => {
-        if (typeof value !== "string") {
-          return "Please enter a valid URL";
-        }
-
-        try {
-          new URL(value);
-          return true;
-        } catch (e) {
-          return "Please enter a valid URL";
-        }
-      },
+      validate: validateUrl,
       admin: {
         width: "50%"
       }
