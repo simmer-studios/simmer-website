@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { FC, HTMLProps, useState } from "react";
 
 import { Homepage } from "@/payload-types";
@@ -33,7 +34,14 @@ const Services: FC<ServicesProps> = ({ services }) => {
         onCategoryClick={updateSelectedServiceCategory}
         selectedCategory={selectedServiceCategory}
       />
-      <ServiceMenuCourseTabs category={services[selectedServiceCategory]} />
+      <motion.div
+        key={selectedServiceCategory}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        <ServiceMenuCourseTabs category={services[selectedServiceCategory]} />
+      </motion.div>
     </>
   );
 };
