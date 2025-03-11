@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { ComponentProps, FC } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
@@ -12,24 +13,57 @@ interface CourseTabContentProps {
 
 const ServiceMenuCourseTabs: FC<CourseTabContentProps> = ({ category }) => {
   return (
-    <section className="min-h-max pb-5">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+    >
       <Tabs defaultValue="appetizers" className="relative flex flex-col">
-        <TabsList className="container absolute left-[0] right-[0] top-0 z-10 mx-auto flex justify-center rounded-none px-0 text-simmer-white lg:gap-2 lg:px-10">
-          <CourseTitleTab value="appetizers">(APPETIZERS)</CourseTitleTab>
-          <CourseTitleTab value="main-course">MAIN COURSE</CourseTitleTab>
-          <CourseTitleTab value="desserts">DESERTS</CourseTitleTab>
+        <TabsList className="z-1 container absolute left-[0] right-[0] top-0 mx-auto flex justify-center rounded-none px-0 text-simmer-white lg:gap-2 lg:px-10">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+            className="basis-full"
+          >
+            <CourseTitleTab value="appetizers">(APPETIZERS)</CourseTitleTab>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 }}
+            className="basis-full"
+          >
+            <CourseTitleTab value="main-course">MAIN COURSE</CourseTitleTab>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5 }}
+            className="basis-full"
+          >
+            <CourseTitleTab value="desserts">DESERTS</CourseTitleTab>
+          </motion.div>
         </TabsList>
-        <CourseTabContent value="appetizers">
-          <ServiceCourseContent serviceTab={category.appetizers} />
-        </CourseTabContent>
-        <CourseTabContent value="main-course">
-          <ServiceCourseContent serviceTab={category.mainCourse} />
-        </CourseTabContent>
-        <CourseTabContent value="desserts">
-          <ServiceCourseContent serviceTab={category.desserts} />
-        </CourseTabContent>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          <CourseTabContent value="appetizers">
+            <ServiceCourseContent serviceTab={category.appetizers} />
+          </CourseTabContent>
+          <CourseTabContent value="main-course">
+            <ServiceCourseContent serviceTab={category.mainCourse} />
+          </CourseTabContent>
+          <CourseTabContent value="desserts">
+            <ServiceCourseContent serviceTab={category.desserts} />
+          </CourseTabContent>
+        </motion.div>
       </Tabs>
-    </section>
+    </motion.div>
   );
 };
 
@@ -41,13 +75,18 @@ const CourseTitleTab: FC<ComponentProps<typeof TabsTrigger>> = ({
     <TabsTrigger
       {...props}
       className={cn(
-        "basis-full translate-y-0.5 rounded-none rounded-t-xl border-2 border-simmer-white bg-black py-3 font-adelle-mono text-sm data-[state=active]:bg-simmer-white data-[state=active]:text-black md:text-xl lg:min-h-[100px] lg:rounded-2xl lg:text-2xl xl:text-3xl",
+        "w-full translate-y-0.5 rounded-none rounded-t-xl border-2 border-simmer-white bg-black py-3 font-adelle-mono text-sm data-[state=active]:bg-simmer-white data-[state=active]:text-black md:text-xl lg:min-h-[100px] lg:rounded-t-2xl lg:text-2xl xl:text-3xl",
         className
       )}
     >
       {props.children}
     </TabsTrigger>
   );
+};
+
+const tabContentVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
 };
 
 const CourseTabContent: FC<ComponentProps<typeof TabsContent>> = ({
@@ -62,7 +101,15 @@ const CourseTabContent: FC<ComponentProps<typeof TabsContent>> = ({
       )}
       {...props}
     >
-      {props.children}
+      <motion.div
+        variants={tabContentVariants}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        transition={{ duration: 0.4 }}
+      >
+        {props.children}
+      </motion.div>
     </TabsContent>
   );
 };
