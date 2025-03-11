@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { FC, HTMLProps, ReactNode, useState } from "react";
@@ -14,6 +15,12 @@ export type TabKey = keyof Homepage["intro"];
 
 const CompanyDescription: FC<Props> = ({ intro }) => {
   const [selectedTab, setSelectedTab] = useState<TabKey>("first");
+
+  const textVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -20 }
+  };
 
   return (
     <section className="mx-auto mb-[24.82px] bg-black px-10 @container/cards-section md:px-20 xl:mb-8 xl:max-w-[1837px]">
@@ -65,10 +72,26 @@ const CompanyDescription: FC<Props> = ({ intro }) => {
           </div>
         </div>
         {/* card 2 */}
-        <div className="w-full space-y-8 rounded-tr-[100px] bg-simmer-white px-[24px] py-[42px] @container/card-2 @[1400px]/cards-section:rounded-tr-[420px] md:relative md:flex md:min-h-[641px] md:flex-col md:justify-between md:px-[64px] md:pb-[64px] md:pt-[74px]">
-          <h2 className="max-w-[16ch] font-articulat text-[2rem] font-bold leading-none md:text-[4rem]">
-            {intro[selectedTab].heading}
-          </h2>
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="w-full space-y-8 rounded-tr-[100px] bg-simmer-white px-[24px] py-[42px] @container/card-2 @[1400px]/cards-section:rounded-tr-[420px] md:relative md:flex md:min-h-[641px] md:flex-col md:justify-between md:px-[64px] md:pb-[64px] md:pt-[74px]"
+        >
+          <AnimatePresence mode="wait">
+            <motion.h2
+              key={`heading-${selectedTab}`}
+              variants={textVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{ duration: 0.4 }}
+              className="max-w-[16ch] font-articulat text-[2rem] font-bold leading-none md:text-[4rem]"
+            >
+              {intro[selectedTab].heading}
+            </motion.h2>
+          </AnimatePresence>
           <div className="right-0 top-0 flex justify-center @[850px]/card-2:absolute">
             <div className="relative aspect-video w-full @[850px]/card-2:h-[263.71px] @[850px]/card-2:w-[402px]">
               <Image
@@ -79,10 +102,20 @@ const CompanyDescription: FC<Props> = ({ intro }) => {
               />
             </div>
           </div>
-          <p className="line-clamp-6 text-pretty font-articulat text-[0.937rem] font-bold leading-[1.47rem] md:text-[2rem] md:leading-[2.5rem]">
-            {intro[selectedTab].description}
-          </p>
-        </div>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={`description-${selectedTab}`}
+              variants={textVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="line-clamp-6 text-pretty font-articulat text-[0.937rem] font-bold leading-[1.47rem] md:text-[2rem] md:leading-[2.5rem]"
+            >
+              {intro[selectedTab].description}
+            </motion.p>
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );
@@ -96,16 +129,27 @@ interface TabTitleProps {
 
 const TabTitle: FC<TabTitleProps> = ({ active, onClick, children }) => {
   return (
-    <div className="group flex items-center gap-5 border-b-2 border-black py-5">
-      <span
-        className="inline-block cursor-pointer font-adelle-mono leading-none hover:text-black/80"
-        onClick={onClick}
-      >
-        {children}
-      </span>
-      {active && (
-        <span className="inline-block h-[20px] w-[20px] rounded-full bg-simmer-yellow content-[''] md:h-[30px] md:w-[30px]" />
-      )}
+    <div className="group border-b-2 border-black py-5">
+      <div className="relative inline-flex items-center">
+        <span
+          className="inline-block cursor-pointer font-adelle-mono leading-none hover:text-black/80"
+          onClick={onClick}
+        >
+          {children}
+        </span>
+        <AnimatePresence>
+          {active && (
+            <motion.span
+              layoutId="activeTabIndicator"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="ml-5 inline-block h-[20px] w-[20px] rounded-full bg-simmer-yellow content-[''] md:h-[30px] md:w-[30px]"
+            />
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };
