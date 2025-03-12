@@ -11,7 +11,7 @@ interface Props {
 export default function RootLayout({ children }: Readonly<Props>) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>
+      <body className="antialiased">
         <AnimationProvider>
           <CartProvider>
             <SmoothScroll>{children}</SmoothScroll>
