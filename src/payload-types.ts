@@ -98,10 +98,12 @@ export interface Config {
   globals: {
     homepage: Homepage;
     about: About;
+    'brand-questionnaire': BrandQuestionnaire;
   };
   globalsSelect: {
     homepage: HomepageSelect<false> | HomepageSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
+    'brand-questionnaire': BrandQuestionnaireSelect<false> | BrandQuestionnaireSelect<true>;
   };
   locale: null;
   user: User & {
@@ -276,6 +278,7 @@ export interface Service {
   id: number;
   name: string;
   description?: string | null;
+  linkTo?: ('snap' | 'stories') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -733,6 +736,7 @@ export interface SnapsSelect<T extends boolean = true> {
 export interface ServicesSelect<T extends boolean = true> {
   name?: T;
   description?: T;
+  linkTo?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -948,6 +952,30 @@ export interface About {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brand-questionnaire".
+ */
+export interface BrandQuestionnaire {
+  id: number;
+  description: string;
+  brandAttributes?:
+    | {
+        left: string;
+        right: string;
+        id?: string | null;
+      }[]
+    | null;
+  questions?:
+    | {
+        question: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "homepage_select".
  */
 export interface HomepageSelect<T extends boolean = true> {
@@ -1080,6 +1108,30 @@ export interface AboutSelect<T extends boolean = true> {
   tagline?: T;
   description?: T;
   clientsDescription?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brand-questionnaire_select".
+ */
+export interface BrandQuestionnaireSelect<T extends boolean = true> {
+  description?: T;
+  brandAttributes?:
+    | T
+    | {
+        left?: T;
+        right?: T;
+        id?: T;
+      };
+  questions?:
+    | T
+    | {
+        question?: T;
+        description?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

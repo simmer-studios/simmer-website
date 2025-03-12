@@ -17,6 +17,7 @@ import { Snaps } from "./collections/Snaps";
 import { Users } from "./collections/Users";
 import { WEBSITE_URL } from "./constants";
 import { About } from "./globals/About";
+import { BrandQuestionnaire } from "./globals/BrandQuestionnaire";
 import { Homepage } from "./globals/Homepage";
 
 const filename = fileURLToPath(import.meta.url);
@@ -44,7 +45,7 @@ export default buildConfig({
     Users,
     Media
   ],
-  globals: [Homepage, About],
+  globals: [Homepage, About, BrandQuestionnaire],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET ?? "",
   typescript: {
