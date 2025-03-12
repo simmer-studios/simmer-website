@@ -1,9 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { HTMLMotionProps, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ChangeEvent, FC, HTMLProps, useState } from "react";
+import { ChangeEvent, FC, HTMLProps, ReactElement, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -28,7 +29,7 @@ const formSchema = z.object({
 const CheckoutForm: FC<HTMLProps<HTMLFormElement>> = ({
   className,
   ...props
-}) => {
+}): ReactElement => {
   const { items: orders, removeItem, isDiscounted } = useCart();
 
   const [budgetAmount, setBudgetAmount] = useState<string>("$$$$");
@@ -61,14 +62,37 @@ const CheckoutForm: FC<HTMLProps<HTMLFormElement>> = ({
     console.log(values);
   };
 
+  const formAnimation = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const containerAnimation = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
   return (
     <Form {...form}>
-      <form
+      <motion.form
+        initial="hidden"
+        animate="visible"
+        variants={containerAnimation}
         className="text-simmer-white"
         onSubmit={form.handleSubmit(onSubmit)}
+        {...(props as HTMLMotionProps<"form">)}
       >
         {/* full width field */}
-        <div className="relative flex divide-x-2 divide-simmer-white border-b-2 border-simmer-white">
+        <motion.div
+          variants={formAnimation}
+          className="relative flex divide-x-2 divide-simmer-white border-b-2 border-simmer-white"
+        >
           <label
             htmlFor="name"
             className="px-5 py-3 text-3xl leading-none sm:text-5xl lg:px-7 lg:py-4 lg:text-8xl"
@@ -94,9 +118,12 @@ const CheckoutForm: FC<HTMLProps<HTMLFormElement>> = ({
               </FormItem>
             )}
           />
-        </div>
+        </motion.div>
         {/* grid 1 */}
-        <div className="grid border-b-2 border-simmer-white lg:grid-cols-[1fr_40%] lg:divide-x-2 lg:divide-simmer-white">
+        <motion.div
+          variants={formAnimation}
+          className="grid border-b-2 border-simmer-white lg:grid-cols-[1fr_40%] lg:divide-x-2 lg:divide-simmer-white"
+        >
           {/* LEFT - field list */}
           <div className="divide-y-2 divide-simmer-white">
             <FormField
@@ -240,9 +267,12 @@ const CheckoutForm: FC<HTMLProps<HTMLFormElement>> = ({
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
         {/* grid 2 */}
-        <div className="grid lg:grid-cols-[1fr_40%] lg:divide-x-2 lg:divide-simmer-white">
+        <motion.div
+          variants={formAnimation}
+          className="grid lg:grid-cols-[1fr_40%] lg:divide-x-2 lg:divide-simmer-white"
+        >
           <div className="grid min-h-[60px] items-center gap-2 text-2xl leading-none sm:text-3xl lg:gap-5 lg:text-xl">
             <span className="block translate-y-0.5 border-b-2 border-simmer-white px-5 py-2.5 font-adelle-mono-flex lg:border-none lg:pb-0 lg:pt-5 lg:font-articulat lg:font-bold">
               WHERE DID YOU FIND US?
@@ -275,25 +305,28 @@ const CheckoutForm: FC<HTMLProps<HTMLFormElement>> = ({
               LET&apos;S GET COOKING
             </button>
           </div>
-        </div>
-      </form>
+        </motion.div>
+      </motion.form>
     </Form>
   );
 };
 
-interface OrderProps {
+interface OrderProps extends HTMLMotionProps<"div"> {
   serviceName: string;
   onRemove: () => void;
 }
 
-const Order: FC<HTMLProps<HTMLDivElement> & OrderProps> = ({
+const Order: FC<OrderProps> = ({
   serviceName,
   onRemove,
   className,
   ...props
 }) => {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 20 }}
       className={cn(
         "grid grid-cols-[70px_1fr] divide-x-2 divide-simmer-white",
         className
@@ -312,7 +345,7 @@ const Order: FC<HTMLProps<HTMLDivElement> & OrderProps> = ({
           {serviceName}
         </span>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
