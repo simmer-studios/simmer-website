@@ -9,7 +9,7 @@ export default function LandingPageSM() {
         src={LandingPageIMG}
         alt="Loading"
         fill
-        className="object-contain"
+        className="object-cover"
         priority
       />
     </div>

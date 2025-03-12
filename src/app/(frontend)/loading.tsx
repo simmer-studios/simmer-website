@@ -27,8 +27,8 @@ export default function LoadingScreen() {
         !isLoading ? "-translate-y-full" : ""
       }`}
     >
-      <LandingPageLG />
-      <LandingPageSM />
+      {/* <LandingPageLG /> */}
+      {/* <LandingPageSM /> */}
     </div>
   );
 }
