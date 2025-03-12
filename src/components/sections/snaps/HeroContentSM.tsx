@@ -1,5 +1,8 @@
+"use client";
+
+import { HTMLMotionProps, motion } from "framer-motion";
 import Image from "next/image";
-import { FC, HTMLProps } from "react";
+import { FC } from "react";
 
 import CLICKONE from "@/assets/snap/sm_click-one.svg";
 import FILTER from "@/assets/snap/sm_filter.svg";
@@ -11,13 +14,40 @@ import SNAPS from "@/assets/snap/sm_snaps.svg";
 import VIDEO from "@/assets/snap/sm_video.svg";
 import { cn } from "@/lib/utils";
 
-const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
-  className,
-  ...props
-}) => {
+const HeroContentSM: FC<HTMLMotionProps<"div">> = ({ className, ...props }) => {
+  const container = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
+
   return (
-    <div className={cn("divide-y-2 divide-black", className)} {...props}>
-      <div className="row flex">
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className={cn("divide-y-2 divide-black", className)}
+      {...props}
+    >
+      <motion.div variants={item} className="row flex">
         <div className="left flex-1 divide-y-2 divide-black border-r-2 border-black">
           <div className="video-row flex">
             <div className="border-r-2 border-black px-2 py-2">
@@ -34,8 +64,8 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
           </div>
         </div>
         <div className="right basis-[20%]"></div>
-      </div>
-      <div className="row flex">
+      </motion.div>
+      <motion.div variants={item} className="row flex">
         <div className="left flex basis-[18%] justify-center border-r-2 border-black px-2 py-5">
           <Image src={SIMMERSNAP} alt="Simmer Snap" />
         </div>
@@ -48,13 +78,13 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
             </div>
           </div>
         </div>
-      </div>
-      <div className="row flex">
+      </motion.div>
+      <motion.div variants={item} className="row flex">
         <div className="px-5 py-5">
           <Image src={SNAPS} alt="Snaps" />
         </div>
-      </div>
-      <div className="row flex">
+      </motion.div>
+      <motion.div variants={item} className="row flex">
         <div className="left flex basis-[18%] items-end justify-start border-r-2 border-black px-5 py-3">
           <Image src={FILTER} alt="Filter" />
         </div>
@@ -72,8 +102,8 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
             <div className="basis-[30%]"></div>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
