@@ -205,14 +205,13 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
               </HoverTransition>
             </div>
           </div>
-          <Link
+          <button
             id="play-button"
-            href="#"
             className="content-center items-center border-l-2 border-black bg-simmer-yellow hover:brightness-95"
             onClick={handlePlayClick}
           >
             <Image src={isPlaying ? Pause : Play} alt="" height={200} />
-          </Link>
+          </button>
         </div>
         <div
           id="play-button-pseudo"
