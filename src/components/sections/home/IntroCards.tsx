@@ -12,7 +12,7 @@ interface Props {
 
 export type TabKey = keyof Homepage["intro"];
 
-const CompanyDescription: FC<Props> = ({ intro }) => {
+const IntroCards: FC<Props> = ({ intro }) => {
   const [selectedTab, setSelectedTab] = useState<TabKey>("first");
 
   const textVariants = {
@@ -165,4 +165,4 @@ const TabTitle: FC<TabTitleProps> = ({ active, onClick, children }) => {
   );
 };
 
-export default CompanyDescription;
+export default IntroCards;
