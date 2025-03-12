@@ -15,6 +15,21 @@ export const Services: CollectionConfig = {
     {
       name: "description",
       type: "textarea"
+    },
+    {
+      name: "linkTo",
+      label: "Link to",
+      type: "radio",
+      options: [
+        {
+          label: "Snap",
+          value: "snap"
+        },
+        {
+          label: "Simmer Stories",
+          value: "stories"
+        }
+      ]
     }
   ]
 };
