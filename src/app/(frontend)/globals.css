@@ -51,6 +51,11 @@
   .infinite-slider {
     animation: 20s infiniteSlider infinite linear;
   }
+  @media (min-width: 1024px) {
+    .lg\:self-end {
+      align-self: flex-end;
+    }
+  }
 }
 
 @layer utilities {
