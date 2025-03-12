@@ -23,8 +23,11 @@ export default function SimmerSnapsPage() {
         <ContentWrapper className="border-b-2 border-black">
           <StickySidebar className="border-0" theme="dark" />
           <div className="basis-full border-t-2 border-black">
-            <div className="h-full w-full columns-4">
-              <div className="relative mb-4 min-h-[500px] w-full">
+            <div
+              className="columns-1 gap-4 space-y-4 md:columns-2 lg:columns-3 xl:columns-4"
+              id="masonry-snaps"
+            >
+              <div className="relative break-inside-avoid">
                 <Image
                   alt=""
                   src="/images/img_placeholder.jpg"
@@ -48,7 +51,7 @@ export default function SimmerSnapsPage() {
                   className="object-cover"
                 />
               </div>
-              <div className="relative mb-4 min-h-[600px] w-full">
+              <div className="relative break-inside-avoid">
                 <Image
                   alt=""
                   src="/images/img_placeholder.jpg"
@@ -56,7 +59,7 @@ export default function SimmerSnapsPage() {
                   className="object-cover"
                 />
               </div>
-              <div className="relative mb-4 min-h-[300px] w-full">
+              <div className="relative break-inside-avoid">
                 <Image
                   alt=""
                   src="/images/img_placeholder.jpg"
@@ -64,7 +67,7 @@ export default function SimmerSnapsPage() {
                   className="object-cover"
                 />
               </div>
-              <div className="relative mb-4 min-h-[100px] w-full">
+              <div className="relative break-inside-avoid">
                 <Image
                   alt=""
                   src="/images/img_placeholder.jpg"
@@ -72,7 +75,7 @@ export default function SimmerSnapsPage() {
                   className="object-cover"
                 />
               </div>
-              <div className="relative mb-4 min-h-[400px] w-full">
+              <div className="relative break-inside-avoid">
                 <Image
                   alt=""
                   src="/images/img_placeholder.jpg"
@@ -80,7 +83,7 @@ export default function SimmerSnapsPage() {
                   className="object-cover"
                 />
               </div>
-              <div className="relative mb-4 min-h-[320px] w-full">
+              <div className="relative break-inside-avoid">
                 <Image
                   alt=""
                   src="/images/img_placeholder.jpg"
@@ -88,7 +91,7 @@ export default function SimmerSnapsPage() {
                   className="object-cover"
                 />
               </div>
-              <div className="relative mb-4 min-h-[550px] w-full">
+              <div className="relative break-inside-avoid">
                 <Image
                   alt=""
                   src="/images/img_placeholder.jpg"
@@ -96,7 +99,7 @@ export default function SimmerSnapsPage() {
                   className="object-cover"
                 />
               </div>
-              <div className="relative mb-4 min-h-[300px] w-full">
+              <div className="relative break-inside-avoid">
                 <Image
                   alt=""
                   src="/images/img_placeholder.jpg"
