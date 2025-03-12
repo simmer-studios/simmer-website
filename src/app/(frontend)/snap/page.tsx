@@ -29,82 +29,82 @@ export default function SimmerSnapsPage() {
             >
               <div className="relative break-inside-avoid">
                 <Image
-                  alt=""
-                  src="/images/img_placeholder.jpg"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="relative mb-4 min-h-[200px] w-full">
-                <Image
-                  alt=""
-                  src="/images/img_placeholder.jpg"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="relative mb-4 min-h-[400px] w-full">
-                <Image
-                  alt=""
-                  src="/images/img_placeholder.jpg"
-                  fill
-                  className="object-cover"
+                  alt="Simmer Studios Snap"
+                  src="/images/snaps/image 11.png"
+                  width={461}
+                  height={643}
+                  className="w-full border-2 border-black object-cover"
+                  loading="lazy"
                 />
               </div>
               <div className="relative break-inside-avoid">
                 <Image
-                  alt=""
-                  src="/images/img_placeholder.jpg"
-                  fill
-                  className="object-cover"
+                  alt="Simmer Studios Snap"
+                  src="/images/snaps/image 8.png"
+                  width={463}
+                  height={463}
+                  className="w-full border-2 border-black object-cover"
+                  loading="lazy"
                 />
               </div>
               <div className="relative break-inside-avoid">
                 <Image
-                  alt=""
-                  src="/images/img_placeholder.jpg"
-                  fill
-                  className="object-cover"
+                  alt="Simmer Studios Snap"
+                  src="/images/snaps/image 9.png"
+                  width={462}
+                  height={438}
+                  className="w-full border-2 border-black object-cover"
+                  loading="lazy"
                 />
               </div>
               <div className="relative break-inside-avoid">
                 <Image
-                  alt=""
-                  src="/images/img_placeholder.jpg"
-                  fill
-                  className="object-cover"
+                  alt="Simmer Studios Snap"
+                  src="/images/snaps/image 5.png"
+                  width={462}
+                  height={344}
+                  className="w-full border-2 border-black object-cover"
+                  loading="lazy"
                 />
               </div>
               <div className="relative break-inside-avoid">
                 <Image
-                  alt=""
-                  src="/images/img_placeholder.jpg"
-                  fill
-                  className="object-cover"
+                  alt="Simmer Studios Snap"
+                  src="/images/snaps/image 10.png"
+                  width={462}
+                  height={273}
+                  className="w-full border-2 border-black object-cover"
+                  loading="lazy"
                 />
               </div>
               <div className="relative break-inside-avoid">
                 <Image
-                  alt=""
-                  src="/images/img_placeholder.jpg"
-                  fill
-                  className="object-cover"
+                  alt="Simmer Studios Snap"
+                  src="/images/snaps/image 4.png"
+                  width={463}
+                  height={261}
+                  className="w-full border-2 border-black object-cover"
+                  loading="lazy"
                 />
               </div>
               <div className="relative break-inside-avoid">
                 <Image
-                  alt=""
-                  src="/images/img_placeholder.jpg"
-                  fill
-                  className="object-cover"
+                  alt="Simmer Studios Snap"
+                  src="/images/snaps/image 7.png"
+                  width={462}
+                  height={261}
+                  className="w-full border-2 border-black object-cover"
+                  loading="lazy"
                 />
               </div>
               <div className="relative break-inside-avoid">
                 <Image
-                  alt=""
-                  src="/images/img_placeholder.jpg"
-                  fill
-                  className="object-cover"
+                  alt="Simmer Studios Snap"
+                  src="/images/snaps/image 4-1.png"
+                  width={461}
+                  height={249}
+                  className="w-full border-2 border-black object-cover"
+                  loading="lazy"
                 />
               </div>
             </div>
