@@ -10,35 +10,59 @@ import {
   useState
 } from "react";
 
+import { useAnimation } from "@/context/AnimationContext";
 import { cn } from "@/lib/utils";
 
 interface Props {
   transitionElement: ReactNode;
+  delay?: number;
 }
 
 const HoverTransition: FC<HTMLProps<HTMLDivElement> & Props> = ({
   transitionElement,
   className,
-  children
+  children,
+  delay = 0
 }) => {
-  const [hovered, setHovered] = useState<boolean>(false);
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const { isPlaying } = useAnimation();
+
+  useEffect(() => {
+    setIsMobile("ontouchstart" in window || navigator.maxTouchPoints > 0);
+  }, []);
+
+  useEffect(() => {
+    if (isPlaying) {
+      const timer = setTimeout(() => {
+        setIsActive(true);
+      }, delay);
+      return () => clearTimeout(timer);
+    } else {
+      setIsActive(false);
+    }
+  }, [isPlaying, delay]);
+
+  const transitionDuration = isMobile ? 1 : 0.13;
 
   return (
     <motion.div
-      className={cn("relative overflow-y-hidden", className)}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
+      className={cn("relative cursor-pointer overflow-y-hidden", className)}
+      onHoverStart={() => !isPlaying && setIsActive(true)}
+      onHoverEnd={() => !isPlaying && setIsActive(false)}
+      whileTap={{ scale: 0.98 }}
+      onClick={() => !isPlaying && setIsActive(!isActive)}
     >
       <motion.div
-        animate={{ y: hovered ? "-100%" : "0%", opacity: hovered ? 0 : 1 }}
-        transition={{ type: "spring", duration: 0.13 }}
+        animate={{ y: isActive ? "-100%" : "0%", opacity: isActive ? 0 : 1 }}
+        transition={{ type: "spring", duration: transitionDuration }}
       >
         {children}
       </motion.div>
       <motion.div
         className="absolute h-full w-full"
-        animate={{ y: hovered ? "-100%" : "0%", opacity: hovered ? 1 : 0 }}
-        transition={{ type: "spring", duration: 0.13 }}
+        animate={{ y: isActive ? "-100%" : "0%", opacity: isActive ? 1 : 0 }}
+        transition={{ type: "spring", duration: transitionDuration }}
       >
         {transitionElement}
       </motion.div>
