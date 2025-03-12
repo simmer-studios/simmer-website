@@ -1,9 +1,8 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
-import Link from "next/link";
-import { FC, HTMLProps, ReactNode, useState } from "react";
+import { FC, ReactNode, useState } from "react";
 
 import { Homepage } from "@/payload-types";
 
@@ -23,10 +22,22 @@ const CompanyDescription: FC<Props> = ({ intro }) => {
   };
 
   return (
-    <section className="mx-auto mb-[24.82px] bg-black px-10 @container/cards-section md:px-20 xl:mb-8 xl:max-w-[1837px]">
+    <motion.section
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="mx-auto mb-[24.82px] bg-black px-10 @container/cards-section md:px-20 xl:mb-8 xl:max-w-[1837px]"
+    >
       <div className="flex flex-col gap-6 @[75rem]/cards-section:flex-row">
         {/* card 1 */}
-        <div className="rounded-b-2xl bg-[url('/images/img_wavy-card.svg')] bg-cover bg-top md:min-w-[544px] md:rounded-b-[20px] lg:pt-10">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="rounded-b-2xl bg-[url('/images/img_wavy-card.svg')] bg-cover bg-top md:min-w-[544px] md:rounded-b-[20px] lg:pt-10"
+        >
           <div className="flex justify-between gap-5 pt-[28px]">
             <div className="flex items-center rounded-r-full bg-black px-8 py-2 md:px-16 md:py-4">
               <p className="font-adelle-mono-flex leading-none text-simmer-white md:text-[1.5rem]">
@@ -70,7 +81,7 @@ const CompanyDescription: FC<Props> = ({ intro }) => {
               {intro.fourth.title}
             </TabTitle>
           </div>
-        </div>
+        </motion.div>
         {/* card 2 */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
@@ -117,7 +128,7 @@ const CompanyDescription: FC<Props> = ({ intro }) => {
           </AnimatePresence>
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
