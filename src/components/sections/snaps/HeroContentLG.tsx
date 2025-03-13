@@ -2,7 +2,7 @@
 
 import { HTMLMotionProps, motion } from "motion/react";
 import Image from "next/image";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import ARROW_DOWN from "@/assets/snap/arrow-down.svg";
 import CLICK_ONE from "@/assets/snap/click-one.svg";
@@ -15,9 +15,21 @@ import SIMMERING from "@/assets/snap/simmering.svg";
 import SNAPS from "@/assets/snap/snaps.svg";
 import VIDEO from "@/assets/snap/video.svg";
 import SnapsFilterDropdown from "@/components/SnapsFilterDropdown";
+import { Filter } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { SnapsGlobal } from "@/payload-types";
 
-const HeroContentLG: FC<HTMLMotionProps<"div">> = ({ className, ...props }) => {
+interface Props {
+  productCategories: SnapsGlobal["productCategories"];
+  portraitCategories: SnapsGlobal["portraitCategories"];
+}
+
+const HeroContentLG: FC<HTMLMotionProps<"div"> & Props> = ({
+  productCategories,
+  portraitCategories,
+  className,
+  ...props
+}) => {
   const container = {
     hidden: { opacity: 0, y: 20 },
     show: {
@@ -41,6 +53,24 @@ const HeroContentLG: FC<HTMLMotionProps<"div">> = ({ className, ...props }) => {
       }
     }
   };
+
+  const [selectedType, setSelectedType] = useState<"product" | "portrait">(
+    "product"
+  );
+
+  const productFilters = productCategories
+    .filter((category) => typeof category !== "number")
+    .map((filter) => ({
+      label: filter.name,
+      id: filter.id
+    }));
+
+  const portraitFilters = portraitCategories
+    .filter((category) => typeof category !== "number")
+    .map((filter) => ({
+      label: filter.name,
+      id: filter.id
+    }));
 
   return (
     <motion.div
@@ -123,17 +153,31 @@ const HeroContentLG: FC<HTMLMotionProps<"div">> = ({ className, ...props }) => {
       </motion.div>
       <motion.div variants={item} className="row">
         <div className="container flex justify-center">
-          <div className="flex bg-black">
+          <button
+            className={cn("flex border-l-2 border-black bg-black", {
+              "bg-simmer-yellow": selectedType === "product"
+            })}
+            onClick={() => setSelectedType("product")}
+          >
             <div className="px-5 py-5">
               <Image src={PRODUCTS} alt="Products" />
             </div>
-          </div>
-          <SnapsFilterDropdown />
-          <div className="flex bg-black">
+          </button>
+          {selectedType === "product" ? (
+            <SnapsFilterDropdown filters={productFilters} />
+          ) : (
+            <SnapsFilterDropdown filters={portraitFilters} />
+          )}
+          <button
+            className={cn("flex border-r-2 border-black bg-black", {
+              "bg-simmer-yellow": selectedType === "portrait"
+            })}
+            onClick={() => setSelectedType("portrait")}
+          >
             <div className="px-5 py-5">
               <Image src={PORTRAITS} alt="Portraits" />
             </div>
-          </div>
+          </button>
         </div>
       </motion.div>
     </motion.div>

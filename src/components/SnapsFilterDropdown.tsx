@@ -1,13 +1,19 @@
 "use client";
 
 import Image from "next/image";
+import { FC } from "react";
 
 import FILTER from "@/assets/snap/filter.svg";
+import { Filter } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 import CustomFilterDropdown from "./CustomFilterDropdown";
 
-const SnapsFilterDropdown = () => {
+interface Props {
+  filters: Filter[];
+}
+
+const SnapsFilterDropdown: FC<Props> = ({ filters }) => {
   return (
     <CustomFilterDropdown
       trigger={(activeFilter) => (
@@ -30,20 +36,7 @@ const SnapsFilterDropdown = () => {
           </div>
         </button>
       )}
-      filters={[
-        { label: "Featured", id: "featured" },
-        { label: "Food & Beverage", id: "food_beverages" },
-        {
-          label: "Beauty & Lifestyle",
-          id: "beauty_lifestyle"
-        },
-        { label: "Arts", id: "arts" },
-        {
-          label: "Social Media Focused",
-          id: "social_media_focused"
-        },
-        { label: "Technology", id: "technology" }
-      ]}
+      filters={filters}
     />
   );
 };

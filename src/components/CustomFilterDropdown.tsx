@@ -34,9 +34,16 @@ const CustomFilterDropdown: FC<Props> = ({
     }
   };
 
+  /* call the onFilterChange callback when the active filter changes */
   useEffect(() => {
     if (onFilterChange) onFilterChange(activeFilter);
-  }, [activeFilter, onFilterChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeFilter]);
+
+  /* if the filters change, reset the active filter */
+  useEffect(() => {
+    setActiveFilter(null);
+  }, [filters]);
 
   return (
     <DropdownMenu>
