@@ -6,6 +6,10 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function validateUrl(value: unknown): string | true {
+  if (!value) {
+    return true;
+  }
+
   if (typeof value !== "string") {
     return "Please enter a valid URL";
   }
