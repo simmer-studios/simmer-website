@@ -54,7 +54,13 @@ export default async function AboutPage() {
         <ContentWrapper className="border-b-2 border-black">
           <StickySidebar theme="dark" className="mt-32 border-r-0" />
           <div className="basis-full space-y-10 overflow-hidden bg-simmer-white pb-20 lg:rounded-tl-[8rem]">
-            <Hero bannerImage={aboutPage.banner as Media} />
+            <Hero
+              banner={aboutPage.banner}
+              thumbnail={aboutPage.thumbnail}
+              cover={aboutPage.cover}
+              tagline={aboutPage.tagline}
+              description={aboutPage.description}
+            />
             <MemberCards members={members} />
             <ClientList
               clients={clients}
