@@ -97,11 +97,13 @@ export interface Config {
   };
   globals: {
     homepage: Homepage;
+    menu: Menu;
     about: About;
     'brand-questionnaire': BrandQuestionnaire;
   };
   globalsSelect: {
     homepage: HomepageSelect<false> | HomepageSelect<true>;
+    menu: MenuSelect<false> | MenuSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
     'brand-questionnaire': BrandQuestionnaireSelect<false> | BrandQuestionnaireSelect<true>;
   };
@@ -928,6 +930,36 @@ export interface Homepage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu".
+ */
+export interface Menu {
+  id: number;
+  strategy: {
+    title: string;
+    heading: string;
+    description: string;
+    services: (number | Service)[];
+  };
+  identity: {
+    title: string;
+    heading: string;
+    description: string;
+    services: (number | Service)[];
+  };
+  executions: {
+    title: string;
+    heading: string;
+    description: string;
+    services: (number | Service)[];
+  };
+  chefsChoice: {
+    description: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about".
  */
 export interface About {
@@ -966,6 +998,7 @@ export interface BrandQuestionnaire {
     | null;
   questions?:
     | {
+        isRequired?: boolean | null;
         question: string;
         description: string;
         id?: string | null;
@@ -1099,6 +1132,44 @@ export interface HomepageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu_select".
+ */
+export interface MenuSelect<T extends boolean = true> {
+  strategy?:
+    | T
+    | {
+        title?: T;
+        heading?: T;
+        description?: T;
+        services?: T;
+      };
+  identity?:
+    | T
+    | {
+        title?: T;
+        heading?: T;
+        description?: T;
+        services?: T;
+      };
+  executions?:
+    | T
+    | {
+        title?: T;
+        heading?: T;
+        description?: T;
+        services?: T;
+      };
+  chefsChoice?:
+    | T
+    | {
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about_select".
  */
 export interface AboutSelect<T extends boolean = true> {
@@ -1128,6 +1199,7 @@ export interface BrandQuestionnaireSelect<T extends boolean = true> {
   questions?:
     | T
     | {
+        isRequired?: T;
         question?: T;
         description?: T;
         id?: T;
