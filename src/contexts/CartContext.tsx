@@ -8,29 +8,30 @@ import {
   useState
 } from "react";
 
-export type CartItem = {
-  id: string;
-  name: string;
-};
-
 interface Cart {
-  items: CartItem[];
-  addItem: (item: CartItem) => void;
-  removeItem: (itemId: string) => void;
+  items: string[];
   isVisible: boolean;
   isDiscounted: boolean;
+  isChefChoiceSelected: boolean;
+  addItem: (item: string) => void;
+  removeItem: (itemId: string) => void;
+  toggleDiscount: () => void;
+  toggleChefChoice: () => void;
 }
 
 const CartContext = createContext<Cart>({
   items: [],
+  isVisible: false,
+  isDiscounted: false,
+  isChefChoiceSelected: false,
   addItem: () => null,
   removeItem: () => null,
-  isVisible: false,
-  isDiscounted: false
+  toggleDiscount: () => null,
+  toggleChefChoice: () => null
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [items, setItems] = useState<CartItem[]>(() => {
+  const [items, setItems] = useState<string[]>(() => {
     if (typeof window !== "undefined") {
       const cart = localStorage.getItem("simmer-cart");
       if (cart) {
@@ -42,22 +43,26 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isDiscounted, setIsDiscounted] = useState<boolean>(false);
+  const [isChefChoiceSelected, setIsChefChoiceSelected] =
+    useState<boolean>(false);
 
-  const addCartItem = (item: CartItem) => {
-    /* check if item is already included in the cart */
-    if (items.find((i) => item.id === i.id)) {
-      return;
-    } else {
-      setItems((prev) => [...prev, { id: item.id, name: item.name }]);
+  const addCartItem = (item: string) => {
+    if (!items.includes(item)) {
+      setItems((prev) => [...prev, item]);
     }
   };
 
-  const removeCartItem = (itemId: string) => {
-    if (items.find((i) => i.id === itemId)) {
-      setItems((prev) => prev.filter((item) => item.id !== itemId));
-    } else {
-      return;
-    }
+  const removeCartItem = (itemToRemove: string) => {
+    setItems((prev) => prev.filter((item) => item !== itemToRemove));
+  };
+
+  const toggleDiscount = () => {
+    setIsDiscounted((prev) => !prev);
+  };
+
+  const toggleChefChoice = () => {
+    setIsChefChoiceSelected((prev) => !prev);
   };
 
   useEffect(() => {
@@ -71,9 +76,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       value={{
         items,
         isVisible,
+        isDiscounted: false,
+        isChefChoiceSelected: false,
         addItem: addCartItem,
         removeItem: removeCartItem,
-        isDiscounted: false
+        toggleDiscount,
+        toggleChefChoice
       }}
     >
       {children}

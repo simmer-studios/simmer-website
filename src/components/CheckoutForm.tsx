@@ -2,9 +2,10 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, HTMLMotionProps, motion } from "motion/react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { ChangeEvent, FC, HTMLProps, ReactElement, useState } from "react";
+import { ChangeEvent, FC, HTMLProps, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -16,6 +17,11 @@ import { cn } from "@/lib/utils";
 
 import RemoveOrderIcon from "./icons/RemoveOrderIcon";
 import { Form, FormControl, FormField, FormItem } from "./ui/Form";
+
+const CheckoutItemList = dynamic(() => import("./CheckoutItemList"), {
+  ssr: false,
+  loading: () => <p>Loading checkout item list...</p>
+});
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -37,10 +43,6 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
 
   const [budgetAmount, setBudgetAmount] = useState<string>("$$$$");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleRemoveOrder = (serviceId: string) => {
-    removeItem(serviceId);
-  };
 
   const handleOnBudgetChange = (e: ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value.replace(/[^0-9]/g, "");
@@ -269,15 +271,13 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
               </div>
               <div className="flex basis-full flex-col border-t-2 border-simmer-white">
                 <div className="max-h-[calc(60px*7)] divide-y-2 divide-simmer-white overflow-y-scroll xl:max-h-[calc(95px*5)]">
-                  {orders &&
-                    orders.length > 0 &&
-                    orders.map(({ id, name }) => (
-                      <Order
-                        serviceName={name}
-                        key={id}
-                        onRemove={() => handleRemoveOrder(id)}
-                      />
-                    ))}
+                  {orders.map((name) => (
+                    <Order
+                      serviceName={name}
+                      key={name}
+                      onRemove={() => removeItem(name)}
+                    />
+                  ))}
                 </div>
                 <div
                   className={cn(

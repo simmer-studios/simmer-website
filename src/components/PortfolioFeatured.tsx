@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC, HTMLProps, PropsWithChildren } from "react";
 
+import { useMagneticHover } from "@/hooks/useMagneticHover";
 import { cn } from "@/lib/utils";
 import { Project } from "@/payload-types";
 
@@ -12,17 +13,46 @@ import ArrowDown from "./icons/ArrowDown";
 import ArrowRight from "./icons/ArrowRight";
 import ChevronDown from "./icons/ChevronDown";
 
-interface Props {
+interface FeaturedImageProps {
+  heading: string;
+  url: string;
+}
+
+const FeaturedImage: FC<FeaturedImageProps> = ({ heading, url }) => {
+  const magneticRef = useMagneticHover(100);
+
+  return (
+    <Link
+      href={"/"}
+      className="group relative block aspect-square flex-1 overflow-hidden bg-gray-100 transition duration-300 ease-in-out"
+    >
+      <Image
+        className="object-cover transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:brightness-90"
+        src={url}
+        alt={heading}
+        fill
+      />
+      <div
+        ref={magneticRef}
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-[3px] border-black bg-simmer-white px-14 py-6 text-center transition-all duration-300 ease-out will-change-transform"
+      >
+        <span className="pointer-events-none block w-min font-adelle-mono text-2xl font-bold uppercase tracking-tight">
+          {heading}
+        </span>
+      </div>
+    </Link>
+  );
+};
+
+interface PortfolioFeaturedProps {
   featuredProject1: Project;
   featuredProject2: Project;
 }
 
-const PortfolioFeatured: FC<Props> = ({
+const PortfolioFeatured: FC<PortfolioFeaturedProps> = ({
   featuredProject1,
   featuredProject2
 }) => {
-  if (!featuredProject1 || !featuredProject2) return null;
-
   return (
     <div className="grid grid-cols-1 gap-0.5 bg-black lg:grid-cols-2">
       <div className="col-span-1 flex flex-col items-start gap-3 bg-simmer-white px-4 py-4 md:flex-row md:items-center lg:col-span-2 lg:items-center lg:justify-between lg:px-16">
@@ -56,21 +86,27 @@ const PortfolioFeatured: FC<Props> = ({
       </div>
       {/* Featured Project 1 */}
       <FeaturedProjectBlock>
-        <FeaturedImage />
+        <FeaturedImage
+          heading="Rebranding"
+          url="/images/works/24-chicken.png"
+        />
         <CaptionBlock
-          heading={featuredProject1.name}
-          caption={featuredProject1.description}
-          year={String(featuredProject1.year)}
+          heading="24 Chicken"
+          caption="24 Chicken is one of Philippine's Chicken Joint. Rebranded by Simmer."
+          year="2022"
         />
         <Heading className="hidden lg:flex">FAVORITES</Heading>
       </FeaturedProjectBlock>
       {/* Featured Project 2 */}
       <FeaturedProjectBlock className="lg:flex-col-reverse lg:divide-y-reverse">
-        <FeaturedImage />
+        <FeaturedImage
+          heading="Johnnie Walker"
+          url="/images/works/johnnie-walker.png"
+        />
         <CaptionBlock
-          heading={featuredProject2.name}
-          caption={featuredProject2.description}
-          year={String(featuredProject2.year)}
+          heading="Johnnie Walker"
+          caption="Appetizers - what you need before you start anything."
+          year="2022"
         />
         <Heading className="lg:hidden">FAVORITES</Heading>
       </FeaturedProjectBlock>
@@ -146,22 +182,6 @@ const CaptionBlock: FC<CaptionBlockProps> = ({ heading, caption, year }) => {
         )}
         <ArrowRight className="h-5" />
       </div>
-    </Link>
-  );
-};
-
-const FeaturedImage = () => {
-  return (
-    <Link
-      href={"/"}
-      className="relative block aspect-square flex-1 bg-gray-100 transition duration-300 ease-in-out hover:brightness-90"
-    >
-      <Image
-        className="object-cover"
-        src={"/images/img_placeholder.jpg"}
-        alt=""
-        fill
-      />
     </Link>
   );
 };

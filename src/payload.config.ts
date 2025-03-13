@@ -7,11 +7,11 @@ import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
 
+import { Categories } from "./app/(payload)/collections/Categories";
 import { Clients } from "./app/(payload)/collections/Clients";
 import { Creatives } from "./app/(payload)/collections/Creatives";
 import { Media } from "./app/(payload)/collections/Media";
 import { Projects } from "./app/(payload)/collections/Projects";
-import { ServiceCategories } from "./app/(payload)/collections/ServiceCategories";
 import { Services } from "./app/(payload)/collections/Services";
 import { Snaps } from "./app/(payload)/collections/Snaps";
 import { Users } from "./app/(payload)/collections/Users";
@@ -19,6 +19,8 @@ import { About } from "./app/(payload)/globals/About";
 import { BrandQuestionnaire } from "./app/(payload)/globals/BrandQuestionnaire";
 import { Homepage } from "./app/(payload)/globals/Homepage";
 import { Menu } from "./app/(payload)/globals/Menu";
+import { SnapsGlobal } from "./app/(payload)/globals/SnapsGlobal";
+import { WorksGlobal } from "./app/(payload)/globals/WorksGlobal";
 import { WEBSITE_URL } from "./constants";
 
 const filename = fileURLToPath(import.meta.url);
@@ -40,13 +42,20 @@ export default buildConfig({
     Projects,
     Snaps,
     Services,
-    ServiceCategories,
+    Categories,
     Creatives,
     Clients,
     Users,
     Media
   ],
-  globals: [Homepage, Menu, About, BrandQuestionnaire],
+  globals: [
+    Homepage,
+    WorksGlobal,
+    SnapsGlobal,
+    Menu,
+    About,
+    BrandQuestionnaire
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET ?? "",
   typescript: {
