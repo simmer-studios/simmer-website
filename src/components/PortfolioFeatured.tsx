@@ -4,12 +4,44 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC, HTMLProps, PropsWithChildren } from "react";
 
+import { useMagneticHover } from "@/hooks/useMagneticHover";
 import { cn } from "@/lib/utils";
 
 import CustomFilterDropdown from "./CustomFilterDropdown";
 import ArrowDown from "./icons/ArrowDown";
 import ArrowRight from "./icons/ArrowRight";
 import ChevronDown from "./icons/ChevronDown";
+
+interface FeaturedImageProps {
+  heading: string;
+  url: string;
+}
+
+const FeaturedImage: FC<FeaturedImageProps> = ({ heading, url }) => {
+  const magneticRef = useMagneticHover(100);
+
+  return (
+    <Link
+      href={"/"}
+      className="group relative block aspect-square flex-1 overflow-hidden bg-gray-100 transition duration-300 ease-in-out"
+    >
+      <Image
+        className="object-cover transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:brightness-90"
+        src={url}
+        alt={heading}
+        fill
+      />
+      <div
+        ref={magneticRef}
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-[3px] border-black bg-simmer-white px-14 py-6 transition-all duration-300 ease-out will-change-transform"
+      >
+        <span className="pointer-events-none block w-min text-center font-adelle-mono text-2xl font-bold uppercase tracking-[0.02em]">
+          {heading}
+        </span>
+      </div>
+    </Link>
+  );
+};
 
 const PortfolioFeatured = () => {
   return (
@@ -44,7 +76,10 @@ const PortfolioFeatured = () => {
         />
       </div>
       <FeaturedProjectBlock>
-        <FeaturedImage />
+        <FeaturedImage
+          heading="Rebranding"
+          url="/images/works/24-chicken.png"
+        />
         <CaptionBlock
           heading="24 Chicken"
           caption="24 Chicken is one of Philippine's Chicken Joint. Rebranded by Simmer."
@@ -53,7 +88,10 @@ const PortfolioFeatured = () => {
         <Heading className="hidden lg:flex">FAVORITES</Heading>
       </FeaturedProjectBlock>
       <FeaturedProjectBlock className="lg:flex-col-reverse lg:divide-y-reverse">
-        <FeaturedImage />
+        <FeaturedImage
+          heading="Johnnie Walker"
+          url="/images/works/johnnie-walker.png"
+        />
         <CaptionBlock
           heading="Johnnie Walker"
           caption="Appetizers - what you need before you start anything."
@@ -133,22 +171,6 @@ const CaptionBlock: FC<CaptionBlockProps> = ({ heading, caption, year }) => {
         )}
         <ArrowRight className="h-5" />
       </div>
-    </Link>
-  );
-};
-
-const FeaturedImage = () => {
-  return (
-    <Link
-      href={"/"}
-      className="relative block aspect-square flex-1 bg-gray-100 transition duration-300 ease-in-out hover:brightness-90"
-    >
-      <Image
-        className="object-cover"
-        src={"/images/img_placeholder.jpg"}
-        alt=""
-        fill
-      />
     </Link>
   );
 };
