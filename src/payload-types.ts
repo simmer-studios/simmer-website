@@ -258,8 +258,13 @@ export interface Project {
             blockType: 'Quote';
           }
         | {
-            name: string;
-            role: string;
+            creatives?:
+              | {
+                  name: string;
+                  role: string;
+                  id?: string | null;
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'Creatives';
@@ -427,8 +432,13 @@ export interface Snap {
             blockType: 'Quote';
           }
         | {
-            name: string;
-            role: string;
+            creatives?:
+              | {
+                  name: string;
+                  role: string;
+                  id?: string | null;
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'Creatives';
@@ -668,8 +678,13 @@ export interface ProjectsSelect<T extends boolean = true> {
         Creatives?:
           | T
           | {
-              name?: T;
-              role?: T;
+              creatives?:
+                | T
+                | {
+                    name?: T;
+                    role?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -771,8 +786,13 @@ export interface SnapsSelect<T extends boolean = true> {
         Creatives?:
           | T
           | {
-              name?: T;
-              role?: T;
+              creatives?:
+                | T
+                | {
+                    name?: T;
+                    role?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };

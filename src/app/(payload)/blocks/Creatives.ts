@@ -4,14 +4,20 @@ export const Creatives: Block = {
   slug: "Creatives",
   fields: [
     {
-      name: "name",
-      type: "text",
-      required: true
-    },
-    {
-      name: "role",
-      type: "text",
-      required: true
+      type: "array",
+      name: "creatives",
+      fields: [
+        {
+          name: "name",
+          type: "text",
+          required: true
+        },
+        {
+          name: "role",
+          type: "text",
+          required: true
+        }
+      ]
     }
   ]
 };
