@@ -22,16 +22,14 @@ const CheckoutItemList: FC<HTMLProps<HTMLDivElement>> = ({
       )}
       data-lenis-prevent
     >
-      <div className="max-h-[calc(60px*7)] divide-y-2 divide-simmer-white overflow-y-scroll xl:max-h-[calc(95px*5)]">
-        {orders &&
-          orders.length > 0 &&
-          orders.map((order) => (
-            <Order
-              serviceName={order}
-              key={order}
-              onRemove={() => removeItem(order)}
-            />
-          ))}
+      <div className="max-h-[calc(60px*7)] divide-y-2 divide-simmer-white overflow-y-auto xl:max-h-[calc(95px*5)]">
+        {orders.map((order) => (
+          <Order
+            serviceName={order}
+            key={order}
+            onRemove={() => removeItem(order)}
+          />
+        ))}
       </div>
       <div
         className={cn(
