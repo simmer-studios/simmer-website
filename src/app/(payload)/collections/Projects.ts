@@ -95,8 +95,8 @@ export const Projects: CollectionConfig = {
           required: true
         },
         {
-          name: "year",
-          type: "number",
+          name: "date",
+          type: "date",
           required: true
         }
       ]
