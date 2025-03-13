@@ -22,6 +22,10 @@ export const Services: CollectionConfig = {
       type: "radio",
       options: [
         {
+          label: "None",
+          value: "none"
+        },
+        {
           label: "Snap",
           value: "snap"
         },

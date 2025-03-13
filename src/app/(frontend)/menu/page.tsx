@@ -19,6 +19,11 @@ export function generateMetadata() {
 export default async function MenuPage() {
   const payload = await getPayload({ config });
 
+  const menuForm = await payload.findGlobal({
+    slug: "menu",
+    showHiddenFields: true
+  });
+
   return (
     <>
       <Header theme="dark" />
@@ -28,7 +33,14 @@ export default async function MenuPage() {
           <StickySidebar theme="dark" className="border-0" />
           <div className="basis-full">
             <Suspense fallback={<p>Loading form...</p>}>
-              <MenuForm services={[]} />
+              {menuForm && (
+                <MenuForm
+                  chefsChoice={menuForm.chefsChoice}
+                  executions={menuForm.executions}
+                  identity={menuForm.identity}
+                  strategy={menuForm.strategy}
+                />
+              )}
             </Suspense>
           </div>
         </ContentWrapper>

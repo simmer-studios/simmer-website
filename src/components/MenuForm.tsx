@@ -1,103 +1,80 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ComponentProps, FC, useState } from "react";
 
 import { cn } from "@/lib/utils";
-import { Service } from "@/payload-types";
+import { Menu, Service } from "@/payload-types";
 
-import Check from "./icons/Check";
-import ChevronDown from "./icons/ChevronDown";
 import MenuTabDecorLG from "./icons/MenuTabDecorLG";
 import MenuTabDecorSM from "./icons/MenuTabDecorSM";
 import MenuPhaseContent from "./MenuPhaseContent";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger
-} from "./ui/Collapsible";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/Tabs";
 
+const ChefChoiceCheckbox = dynamic(() => import("./ChefChoiceCheckbox"), {
+  ssr: false
+});
+
 interface Props {
-  services: Service[];
+  strategy: Menu["strategy"];
+  identity: Menu["identity"];
+  executions: Menu["executions"];
+  chefsChoice: Menu["chefsChoice"];
 }
 
-const MenuForm: FC<Props> = ({ services }) => {
-  const [chefChoiceSelected, setChefChoiceSelected] = useState<boolean>(false);
-  const [chefChoiceIsExpanded, setChefChoiceIsExpanded] =
-    useState<boolean>(false);
-
+const MenuForm: FC<Props> = ({
+  executions,
+  identity,
+  strategy,
+  chefsChoice
+}) => {
   return (
     <div>
       <Tabs
-        defaultValue="STRATEGY"
+        defaultValue="strategy"
         className="relative flex flex-col divide-y-2 divide-black border-t-2 border-black"
       >
         <TabsList className="grid h-full grid-cols-3 divide-x-2 divide-black p-0">
-          <MenuFormTab value="STRATEGY" alias="APPETIZERS">
+          <MenuFormTab value="strategy" alias="APPETIZERS">
             STRATEGY
           </MenuFormTab>
-          <MenuFormTab value="IDENTITY" alias="MAIN COURSE">
+          <MenuFormTab value="identity" alias="MAIN COURSE">
             *IDENTITY
           </MenuFormTab>
-          <MenuFormTab value="EXECUTIONS" alias="DESSERTS">
+          <MenuFormTab value="executions" alias="DESSERTS">
             EXECUTIONS
           </MenuFormTab>
         </TabsList>
-        <MenuTabContent value="STRATEGY">
+        <MenuTabContent value="strategy">
           <MenuPhaseContent
             phaseNumber={1}
-            phaseTitle="Brand Strategy"
-            fields={[]}
+            phaseTitle={strategy.title}
+            heading={strategy.heading}
+            description={strategy.description}
+            fields={strategy.services as Service[]}
           />
         </MenuTabContent>
-        <MenuTabContent value="IDENTITY">
-          <MenuPhaseContent phaseNumber={2} phaseTitle="Identity" fields={[]} />
+        <MenuTabContent value="identity">
+          <MenuPhaseContent
+            phaseNumber={2}
+            phaseTitle={identity.title}
+            heading={identity.heading}
+            description={identity.description}
+            fields={identity.services as Service[]}
+          />
         </MenuTabContent>
-        <MenuTabContent value="EXECUTIONS">
+        <MenuTabContent value="executions">
           <MenuPhaseContent
             phaseNumber={3}
-            phaseTitle="Executions"
-            fields={[]}
+            phaseTitle={executions.title}
+            heading={executions.heading}
+            description={executions.description}
+            fields={executions.services as Service[]}
           />
         </MenuTabContent>
       </Tabs>
-      <div className="row grid w-full grid-cols-[70px_1fr] divide-x-2 divide-black border-b-2 border-black lg:grid-cols-[100px_1fr]">
-        <button
-          className="flex items-center justify-center bg-simmer-white hover:brightness-95"
-          type="button"
-          onClick={() => setChefChoiceSelected((prev) => !prev)}
-        >
-          {chefChoiceSelected && (
-            <Check className="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8" />
-          )}
-        </button>
-        <div className="flex items-center p-5 font-articulat text-2xl font-bold tracking-tighter sm:text-4xl md:font-adelle-mono md:text-3xl md:uppercase lg:p-8 lg:text-5xl xl:p-10">
-          <Collapsible className="w-full space-y-4">
-            <CollapsibleTrigger
-              asChild
-              onClick={() => setChefChoiceIsExpanded((prev) => !prev)}
-            >
-              <div className="flex cursor-pointer select-none items-center gap-2">
-                <span>Chef&apos;s choice</span>
-                <ChevronDown
-                  className={cn("h-3 w-3 transition-all duration-150", {
-                    "rotate-180": chefChoiceIsExpanded
-                  })}
-                />
-              </div>
-            </CollapsibleTrigger>
-            <CollapsibleContent asChild>
-              <p className="font-articulat text-sm font-normal normal-case leading-tight tracking-normal sm:text-base sm:leading-normal lg:text-lg">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
-                nulla accusamus quisquam cupiditate corrupti expedita id tenetur
-                rem veniam, cumque nam saepe excepturi mollitia, suscipit fuga
-                debitis velit quasi necessitatibus.
-              </p>
-            </CollapsibleContent>
-          </Collapsible>
-        </div>
-      </div>
+      <ChefChoiceCheckbox description={chefsChoice.description} />
       <div className="flex items-center justify-center p-10 lg:py-16">
         <Link
           href="/checkout"
