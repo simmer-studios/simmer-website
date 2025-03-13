@@ -2,7 +2,7 @@ import type { CollectionConfig } from "payload";
 
 import { Carousel } from "@/app/(payload)/blocks/Carousel";
 import { Creatives } from "@/app/(payload)/blocks/Creatives";
-import { FullWidthImage } from "@/app/(payload)/blocks/FullWidthImage";
+import { FullWidthMedia } from "@/app/(payload)/blocks/FullWidthMedia";
 import { ImageText } from "@/app/(payload)/blocks/ImageText";
 import { Quote } from "@/app/(payload)/blocks/Quote";
 import { ThreeImages } from "@/app/(payload)/blocks/ThreeImages";
@@ -110,6 +110,17 @@ export const Snaps: CollectionConfig = {
       }
     },
     {
+      name: "categories",
+      type: "relationship",
+      relationTo: "categories",
+      hasMany: true,
+      required: true,
+      admin: {
+        description:
+          "Select the categories this Snap will show up on when filtered"
+      }
+    },
+    {
       name: "websiteUrl",
       label: "Website URL",
       type: "text",
@@ -133,7 +144,7 @@ export const Snaps: CollectionConfig = {
       name: "content",
       type: "blocks",
       blocks: [
-        FullWidthImage,
+        FullWidthMedia,
         HeadingDescription,
         ImageText,
         TwoImageText,

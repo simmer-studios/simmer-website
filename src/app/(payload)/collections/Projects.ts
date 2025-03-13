@@ -2,7 +2,7 @@ import type { CollectionConfig } from "payload";
 
 import { Carousel } from "@/app/(payload)/blocks/Carousel";
 import { Creatives } from "@/app/(payload)/blocks/Creatives";
-import { FullWidthImage } from "@/app/(payload)/blocks/FullWidthImage";
+import { FullWidthMedia } from "@/app/(payload)/blocks/FullWidthMedia";
 import { ImageText } from "@/app/(payload)/blocks/ImageText";
 import { Quote } from "@/app/(payload)/blocks/Quote";
 import { ThreeImages } from "@/app/(payload)/blocks/ThreeImages";
@@ -123,6 +123,17 @@ export const Projects: CollectionConfig = {
       }
     },
     {
+      name: "categories",
+      type: "relationship",
+      relationTo: "categories",
+      hasMany: true,
+      required: true,
+      admin: {
+        description:
+          "Select the categories this Project will show up on when filtered"
+      }
+    },
+    {
       name: "websiteUrl",
       label: "Link to their website or social media",
       type: "text",
@@ -135,7 +146,7 @@ export const Projects: CollectionConfig = {
       name: "content",
       type: "blocks",
       blocks: [
-        FullWidthImage,
+        FullWidthMedia,
         HeadingDescription,
         ImageText,
         TwoImageText,
