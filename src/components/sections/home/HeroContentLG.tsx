@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { ComponentProps, FC, HTMLProps } from "react";
+import { FC, HTMLProps } from "react";
 
 import A from "@/assets/home/A.svg";
 import Ampersand from "@/assets/home/ampersand.svg";
