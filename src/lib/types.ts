@@ -5,6 +5,6 @@ export type CustomSVG = SVGProps<SVGSVGElement>;
 export type Theme = "dark" | "light";
 
 export type Filter = {
-  filterId: string;
-  filterLabel: string;
+  label: string;
+  id: number;
 };

@@ -22,7 +22,7 @@ const SnapsFilterDropdown = () => {
           <div className="flex px-5 py-5">
             {activeFilter ? (
               <span className="text-start font-articulat text-xl font-bold uppercase text-black">
-                {activeFilter.filterLabel}
+                {activeFilter.label}
               </span>
             ) : (
               <Image src={FILTER} alt="Filter" width={100} />
@@ -31,18 +31,18 @@ const SnapsFilterDropdown = () => {
         </button>
       )}
       filters={[
-        { filterLabel: "Featured", filterId: "featured" },
-        { filterLabel: "Food & Beverage", filterId: "food_beverages" },
+        { label: "Featured", id: "featured" },
+        { label: "Food & Beverage", id: "food_beverages" },
         {
-          filterLabel: "Beauty & Lifestyle",
-          filterId: "beauty_lifestyle"
+          label: "Beauty & Lifestyle",
+          id: "beauty_lifestyle"
         },
-        { filterLabel: "Arts", filterId: "arts" },
+        { label: "Arts", id: "arts" },
         {
-          filterLabel: "Social Media Focused",
-          filterId: "social_media_focused"
+          label: "Social Media Focused",
+          id: "social_media_focused"
         },
-        { filterLabel: "Technology", filterId: "technology" }
+        { label: "Technology", id: "technology" }
       ]}
     />
   );

@@ -56,8 +56,9 @@ const PortfolioGrid: FC<HTMLProps<HTMLDivElement> & Props> = ({
             <motion.div key={project.id} variants={item}>
               <PortfolioItem
                 slug={project.slug}
-                name={project.title}
-                category={project.category}
+                name={project.name}
+                category={project.project}
+                image={project.thumbnail}
               />
             </motion.div>
           ))}

@@ -43,7 +43,7 @@ const ServiceMenuCourseTabs: FC<CourseTabContentProps> = ({ category }) => {
             transition={{ delay: 0.5 }}
             className="basis-full"
           >
-            <CourseTitleTab value="desserts">DESERTS</CourseTitleTab>
+            <CourseTitleTab value="desserts">DESSERTS</CourseTitleTab>
           </motion.div>
         </TabsList>
 

@@ -1,7 +1,7 @@
 import ContentWrapper from "@/components/ContentWrapper";
 import CreditsBlock from "@/components/Credits";
 import Footer from "@/components/Footer";
-import FullWidthImage from "@/components/FullWidthImage";
+import FullWidthMedia from "@/components/FullWidthImage";
 import FullWidthImageHeadingCaption from "@/components/FullWidthImageHeadingCaption";
 import Header from "@/components/Header";
 import IconHeadingCaptionCombo from "@/components/IconHeadingCaptionCombo";
@@ -26,7 +26,7 @@ export default function SimmerSnapsInvidiualPage() {
           <StickySidebar theme="dark" className="mt-32 border-r-0" />
           <div className="basis-full space-y-20 overflow-hidden bg-simmer-white pb-20 lg:rounded-tl-[8rem]">
             <Hero />
-            <FullWidthImage src={"/images/img_placeholder.jpg"} alt="" />
+            <FullWidthMedia src={"/images/img_placeholder.jpg"} alt="" />
             <IconHeadingCaptionCombo
               icon={<BuildingTheBrand />}
               heading="Building the Brand For The Dapper Bro"

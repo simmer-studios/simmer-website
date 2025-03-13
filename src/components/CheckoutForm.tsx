@@ -132,6 +132,7 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
           variants={containerAnimation}
           className="text-simmer-white"
           onSubmit={handleSubmit}
+          id="checkout-form"
         >
           {/* full width field */}
           <motion.div

@@ -23,7 +23,8 @@ export default async function PortfolioPage() {
       featured: {
         equals: false
       }
-    }
+    },
+    sort: ["-year"]
   });
 
   const featuredProjects = await payload.find({
@@ -36,12 +37,17 @@ export default async function PortfolioPage() {
     }
   });
 
+  const worksPage = await payload.findGlobal({
+    slug: "works-global"
+  });
+
   return (
     <>
       <Header theme="light" />
       <AnimatedContent
         projects={projects.docs}
         featuredProjects={featuredProjects.docs}
+        categories={worksPage.categories}
       />
       <Footer />
     </>

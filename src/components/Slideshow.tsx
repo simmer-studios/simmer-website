@@ -4,16 +4,13 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { FC, HTMLProps, useEffect } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn, isValidImage } from "@/lib/utils";
+import { Media } from "@/payload-types";
 
 import ArrowRight from "./icons/ArrowRight";
 
 interface Props {
-  images: {
-    id: string;
-    url: string;
-    altText: string;
-  }[];
+  images: (number | Media)[];
 }
 
 const Slideshow: FC<HTMLProps<HTMLDivElement> & Props> = ({
@@ -39,21 +36,20 @@ const Slideshow: FC<HTMLProps<HTMLDivElement> & Props> = ({
     if (emblaApi) emblaApi.scrollNext();
   };
 
-  if (!images) {
-    return null;
-  }
+  /* filter out invalid images */
+  const validImages = images.filter(isValidImage);
 
   return (
     <section className={cn("", className)}>
       <div className="block max-w-full overflow-hidden" ref={emblaRef}>
         <div className="grid auto-cols-[100%] grid-flow-col px-10 lg:gap-10 lg:px-16">
-          {images.length &&
-            images.map((image) => (
+          {validImages.length > 0 &&
+            validImages.map((image) => (
               <div className="relative aspect-video" key={image.id}>
                 <Image
                   src={image.url || "/images/img_placeholder.jpg"}
                   className="object-cover lg:rounded-xl"
-                  alt={image.altText || ""}
+                  alt={image.alt || ""}
                   fill
                 />
               </div>

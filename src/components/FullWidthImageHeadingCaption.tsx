@@ -1,21 +1,35 @@
 import Image from "next/image";
 import { FC, HTMLProps } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn, isValidImage } from "@/lib/utils";
+import { Media } from "@/payload-types";
 
 import BuildingTheBrand from "./icons/BuildingTheBrand";
 
-const FullWidthImageHeadingCaption: FC<HTMLProps<HTMLDivElement>> = ({
+interface Props {
+  image: number | Media;
+  title: string;
+  description: string;
+}
+
+const FullWidthImageHeadingCaption: FC<HTMLProps<HTMLDivElement> & Props> = ({
+  image,
+  title,
+  description,
   className,
   ...props
 }) => {
+  if (!isValidImage(image)) {
+    return null;
+  }
+
   return (
     <section className={cn("", className)} {...props}>
       <div className="grid divide-black border-black lg:grid-cols-2 lg:divide-x-2 lg:border-y-2">
         <div className="relative aspect-square lg:aspect-auto">
           <Image
-            src="/images/img_placeholder.jpg"
-            alt=""
+            src={image.url}
+            alt={image.alt || ""}
             fill
             className="object-cover"
           />
@@ -24,17 +38,9 @@ const FullWidthImageHeadingCaption: FC<HTMLProps<HTMLDivElement>> = ({
           <div className="max-h-max space-y-4 lg:space-y-8">
             <BuildingTheBrand />
             <h2 className="text-pretty text-4xl font-bold tracking-tight lg:text-6xl">
-              Building the Brand For The Dapper Bro
+              {title}
             </h2>
-            <p className="text-lg">
-              The Bourbon Bros combines premium quality with a fun and
-              approachable personality, making it an excellent choice for those
-              looking for a high-quality bourbon that doesn&apos;t take itself
-              too seriously. The Bourbon Bros combines premium quality with a
-              fun and approachable personality, making it an excellent choice
-              for those looking for a high-quality bourbon that doesn&apos;t
-              take itself too seriously.
-            </p>
+            <p className="text-lg">{description}</p>
           </div>
         </div>
       </div>

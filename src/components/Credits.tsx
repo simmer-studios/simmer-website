@@ -4,15 +4,18 @@ import { cn } from "@/lib/utils";
 
 interface Props {
   title: string;
-  people: {
-    title: string;
-    name: string;
-  }[];
+  creatives?:
+    | {
+        name: string;
+        role: string;
+        id?: string | null;
+      }[]
+    | null;
 }
 
 const CreditsBlock: FC<HTMLProps<HTMLDivElement> & Props> = ({
   title,
-  people,
+  creatives,
   className,
   ...props
 }) => {
@@ -20,17 +23,17 @@ const CreditsBlock: FC<HTMLProps<HTMLDivElement> & Props> = ({
     <section className={cn("px-10", className)} {...props}>
       <div className="container flex max-w-max flex-col items-center justify-center gap-4">
         {/* BRAND NAME */}
-        <h2 className="text-center font-adelle-mono text-5xl font-bold leading-none tracking-tight lg:text-6xl xl:text-8xl">
+        <h2 className="text-center font-adelle-mono text-5xl font-bold uppercase leading-none tracking-tight lg:text-6xl xl:text-8xl">
           {title}
         </h2>
         {/* CREDITS */}
         <div className="w-full divide-y-2 divide-black border-y-2 border-black">
-          {people &&
-            people.length > 0 &&
-            people.map((person) => (
+          {creatives &&
+            creatives.length > 0 &&
+            creatives.map((person) => (
               <Credit
                 key={person.name}
-                title={person.title}
+                title={person.role}
                 name={person.name}
               />
             ))}

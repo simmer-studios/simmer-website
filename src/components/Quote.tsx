@@ -5,21 +5,12 @@ import { cn } from "@/lib/utils";
 interface Props {
   quote: string;
   author: string;
-  authorDetails: string;
+  authorDetails?: string | null;
 }
 
-const QuoteBlock: FC<HTMLProps<HTMLDivElement> & Props> = ({
-  quote,
-  author,
-  authorDetails,
-  className,
-  ...props
-}) => {
+const QuoteBlock: FC<Props> = ({ quote, author, authorDetails }) => {
   return (
-    <section
-      className={cn("w-full px-10 font-articulat", className)}
-      {...props}
-    >
+    <section className="w-full px-10 font-articulat">
       <div className="container space-y-4 text-center lg:space-y-8">
         <h2 className="mx-auto max-w-[826px] text-pretty text-2xl font-bold lg:text-5xl">
           “{quote}”

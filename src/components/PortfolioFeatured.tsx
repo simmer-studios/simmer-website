@@ -6,7 +6,7 @@ import { FC, HTMLProps, PropsWithChildren } from "react";
 
 import { useMagneticHover } from "@/hooks/useMagneticHover";
 import { cn } from "@/lib/utils";
-import { Project } from "@/payload-types";
+import { Media, Project } from "@/payload-types";
 
 import CustomFilterDropdown from "./CustomFilterDropdown";
 import ArrowDown from "./icons/ArrowDown";
@@ -15,10 +15,10 @@ import ChevronDown from "./icons/ChevronDown";
 
 interface FeaturedImageProps {
   heading: string;
-  url: string;
+  image: Media;
 }
 
-const FeaturedImage: FC<FeaturedImageProps> = ({ heading, url }) => {
+const FeaturedImage: FC<FeaturedImageProps> = ({ heading, image }) => {
   const magneticRef = useMagneticHover(100);
 
   return (
@@ -28,15 +28,15 @@ const FeaturedImage: FC<FeaturedImageProps> = ({ heading, url }) => {
     >
       <Image
         className="object-cover transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:brightness-90"
-        src={url}
-        alt={heading}
+        src={image.url || "/images/img_placeholder.jpg"}
+        alt={image.alt || ""}
         fill
       />
       <div
         ref={magneticRef}
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-[3px] border-black bg-simmer-white px-14 py-6 text-center transition-all duration-300 ease-out will-change-transform"
+        className="pointer-events-none invisible absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-[3px] border-black bg-simmer-white px-14 py-6 text-center will-change-transform group-hover:visible"
       >
-        <span className="pointer-events-none block w-min font-adelle-mono text-2xl font-bold uppercase tracking-tight">
+        <span className="pointer-events-none block max-w-[16ch] font-adelle-mono text-2xl font-bold uppercase tracking-tight">
           {heading}
         </span>
       </div>
@@ -53,60 +53,38 @@ const PortfolioFeatured: FC<PortfolioFeaturedProps> = ({
   featuredProject1,
   featuredProject2
 }) => {
+  if (
+    typeof featuredProject1.thumbnail === "number" ||
+    typeof featuredProject2.thumbnail === "number"
+  ) {
+    return null;
+  }
+
   return (
     <div className="grid grid-cols-1 gap-0.5 bg-black lg:grid-cols-2">
-      <div className="col-span-1 flex flex-col items-start gap-3 bg-simmer-white px-4 py-4 md:flex-row md:items-center lg:col-span-2 lg:items-center lg:justify-between lg:px-16">
-        <div className="inline-flex items-center gap-2 lg:gap-5">
-          <ArrowDown className="aspect-[0.4/1] h-10 w-5 flex-shrink-0 lg:h-20 lg:w-8" />
-          <span className="translate-y-1.5 text-5xl uppercase lg:text-8xl">
-            FEATURED
-          </span>
-        </div>
-        <CustomFilterDropdown
-          trigger={(activeFilter) => (
-            <button className="flex items-center gap-3 rounded-xl bg-black px-3 py-1.5 text-simmer-white">
-              <span className="inline-block font-adelle-mono uppercase">
-                {activeFilter ? activeFilter.filterLabel : "FILTERS"}
-              </span>
-              <ChevronDown className="aspect-square w-4 fill-simmer-white" />
-            </button>
-          )}
-          filters={[
-            { filterLabel: "Featured", filterId: "featured" },
-            { filterLabel: "Food & Beverage", filterId: "food_beverages" },
-            { filterLabel: "Beauty & Lifestyle", filterId: "beauty_lifestyle" },
-            { filterLabel: "Arts", filterId: "arts" },
-            {
-              filterLabel: "Social Media Focused",
-              filterId: "social_media_focused"
-            },
-            { filterLabel: "Technology", filterId: "technology" }
-          ]}
-        />
-      </div>
       {/* Featured Project 1 */}
       <FeaturedProjectBlock>
         <FeaturedImage
-          heading="Rebranding"
-          url="/images/works/24-chicken.png"
+          heading={featuredProject1.name}
+          image={featuredProject1.thumbnail}
         />
         <CaptionBlock
-          heading="24 Chicken"
-          caption="24 Chicken is one of Philippine's Chicken Joint. Rebranded by Simmer."
-          year="2022"
+          heading={featuredProject1.name}
+          caption={featuredProject1.description}
+          year={String(featuredProject1.year)}
         />
         <Heading className="hidden lg:flex">FAVORITES</Heading>
       </FeaturedProjectBlock>
       {/* Featured Project 2 */}
       <FeaturedProjectBlock className="lg:flex-col-reverse lg:divide-y-reverse">
         <FeaturedImage
-          heading="Johnnie Walker"
-          url="/images/works/johnnie-walker.png"
+          heading={featuredProject2.name}
+          image={featuredProject2.thumbnail}
         />
         <CaptionBlock
-          heading="Johnnie Walker"
-          caption="Appetizers - what you need before you start anything."
-          year="2022"
+          heading={featuredProject2.name}
+          caption={featuredProject2.description}
+          year={String(featuredProject2.year)}
         />
         <Heading className="lg:hidden">FAVORITES</Heading>
       </FeaturedProjectBlock>

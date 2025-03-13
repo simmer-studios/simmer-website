@@ -4,21 +4,22 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { useMagneticHover } from "@/hooks/useMagneticHover";
+import { isValidImage } from "@/lib/utils";
+import { Media, Project } from "@/payload-types";
 
 interface Props {
   slug: string;
   name: string;
   category: string;
-  imageUrl?: string;
+  image: Project["thumbnail"];
 }
 
-const PortfolioItem: React.FC<Props> = ({
-  slug,
-  name,
-  category,
-  imageUrl = "/images/img_placeholder.jpg"
-}) => {
+const PortfolioItem: React.FC<Props> = ({ slug, name, category, image }) => {
   const magneticRef = useMagneticHover(100);
+
+  if (!isValidImage(image)) {
+    return null;
+  }
 
   return (
     <Link
@@ -27,8 +28,8 @@ const PortfolioItem: React.FC<Props> = ({
     >
       <Image
         className="object-cover transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:brightness-90"
-        src={imageUrl}
-        alt={name}
+        src={image.url}
+        alt={image.alt || ""}
         fill
       />
       <div

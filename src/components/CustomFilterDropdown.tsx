@@ -26,11 +26,11 @@ const CustomFilterDropdown: FC<Props> = ({
 }) => {
   const [activeFilter, setActiveFilter] = useState<Filter | null>(null);
 
-  const handleToggleFilter = ({ filterId, filterLabel }: Filter) => {
-    if (filterId === activeFilter?.filterId) {
+  const handleToggleFilter = ({ id, label }: Filter) => {
+    if (id === activeFilter?.id) {
       setActiveFilter(null);
     } else {
-      setActiveFilter({ filterId, filterLabel });
+      setActiveFilter({ id, label });
     }
   };
 
@@ -49,18 +49,18 @@ const CustomFilterDropdown: FC<Props> = ({
         className="rounded-xl border-none bg-black px-5 py-8 font-adelle-mono tracking-normal text-simmer-white"
       >
         {filters
-          ? filters.map(({ filterId, filterLabel }) => (
+          ? filters.map(({ id, label }) => (
               <DropdownMenuItem
-                key={filterId}
-                onClick={() => handleToggleFilter({ filterId, filterLabel })}
+                key={id}
+                onClick={() => handleToggleFilter({ id, label })}
                 className={cn(
                   "underline underline-offset-2 hover:text-simmer-yellow",
                   {
-                    "text-simmer-yellow": activeFilter?.filterId === filterId
+                    "text-simmer-yellow": activeFilter?.id === id
                   }
                 )}
               >
-                {filterLabel}
+                {label}
               </DropdownMenuItem>
             ))
           : null}
