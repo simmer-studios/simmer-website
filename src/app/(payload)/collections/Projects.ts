@@ -66,7 +66,7 @@ export const Projects: CollectionConfig = {
           type: "text",
           required: true,
           validate: (value: unknown) => {
-            const matcher = /[a-zA-Z\-_0-9]+/;
+            const matcher = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
             if (typeof value !== "string" || !matcher.test(value)) {
               return "Please enter a valid slug";
             } else {
@@ -95,8 +95,8 @@ export const Projects: CollectionConfig = {
           required: true
         },
         {
-          name: "year",
-          type: "number",
+          name: "date",
+          type: "date",
           required: true
         }
       ]

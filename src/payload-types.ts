@@ -163,7 +163,7 @@ export interface Project {
   slug: string;
   brand: string;
   project: string;
-  year: number;
+  date: string;
   description: string;
   featuredServices: string;
   /**
@@ -332,7 +332,7 @@ export interface Snap {
   slug: string;
   brand: string;
   project: string;
-  year: number;
+  date: string;
   description: string;
   featuredServices: string;
   /**
@@ -586,7 +586,7 @@ export interface ProjectsSelect<T extends boolean = true> {
   slug?: T;
   brand?: T;
   project?: T;
-  year?: T;
+  date?: T;
   description?: T;
   featuredServices?: T;
   services?: T;
@@ -689,7 +689,7 @@ export interface SnapsSelect<T extends boolean = true> {
   slug?: T;
   brand?: T;
   project?: T;
-  year?: T;
+  date?: T;
   description?: T;
   featuredServices?: T;
   services?: T;
