@@ -20,12 +20,21 @@ export function generateMetadata() {
 export default async function AboutPage() {
   const payload = await getPayload({ config });
 
-  const { docs } = await payload.find({
-    collection: "creatives",
-    showHiddenFields: true
+  const aboutPage = await payload.findGlobal({
+    slug: "about"
   });
 
-  const members = docs.map((doc) => ({
+  const { docs: creatives } = await payload.find({
+    collection: "creatives"
+  });
+
+  const { docs: clients } = await payload.find({
+    collection: "clients",
+    showHiddenFields: true,
+    sort: ["-name"]
+  });
+
+  const members = creatives.map((doc) => ({
     id: doc.id.toString(),
     name: doc.name,
     role: doc.role,
@@ -45,9 +54,12 @@ export default async function AboutPage() {
         <ContentWrapper className="border-b-2 border-black">
           <StickySidebar theme="dark" className="mt-32 border-r-0" />
           <div className="basis-full space-y-10 overflow-hidden bg-simmer-white pb-20 lg:rounded-tl-[8rem]">
-            <Hero />
+            <Hero bannerImage={aboutPage.banner as Media} />
             <MemberCards members={members} />
-            <ClientList />
+            <ClientList
+              clients={clients}
+              description={aboutPage.clientsDescription}
+            />
           </div>
         </ContentWrapper>
       </main>
