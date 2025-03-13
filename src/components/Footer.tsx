@@ -1,5 +1,9 @@
+"use client";
+
+import { motion, useInView } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
 
 import FooterCopyright from "./FooterCopyright";
 import InteractiveFooterButtons from "./InteractiveFooterButtons";
@@ -7,6 +11,44 @@ import InteractiveTaco from "./InteractiveTaco";
 import MarqueeText from "./MarqueeText";
 
 const Footer = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const itemLeft = {
+    hidden: { opacity: 0, x: -20 },
+    show: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const itemRight = {
+    hidden: { opacity: 0, x: 20 },
+    show: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
     <footer className="bg-black font-adelle-mono text-simmer-white">
       <MarqueeText />
@@ -25,19 +67,28 @@ const Footer = () => {
           </Link>
         </div>
         {/* button + copyright row */}
-        <div className="order-3 mt-32 flex flex-col items-center gap-20 lg:mt-0 lg:flex-row lg:items-end lg:justify-between">
-          <div className="flex flex-col items-center gap-5 lg:items-start">
+        <motion.div
+          ref={ref}
+          variants={container}
+          initial="hidden"
+          animate={isInView ? "show" : "hidden"}
+          className="order-3 mt-32 flex flex-col items-center gap-20 lg:mt-0 lg:flex-row lg:items-end lg:justify-between"
+        >
+          <motion.div
+            variants={itemLeft}
+            className="flex flex-col items-center gap-5 lg:items-start"
+          >
             <span className="inline-block max-w-max text-center text-xl leading-none lg:text-left">
               READY TO&nbsp;
               <br />
               COOK WITH US?
             </span>
             <InteractiveFooterButtons />
-          </div>
-          <div>
+          </motion.div>
+          <motion.div variants={itemRight}>
             <FooterCopyright />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </footer>
   );
