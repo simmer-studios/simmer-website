@@ -64,6 +64,7 @@ const CheckoutForm: FC<HTMLProps<HTMLFormElement>> = ({
   return (
     <Form {...form}>
       <form
+        id="checkout-form"
         className="text-simmer-white"
         onSubmit={form.handleSubmit(onSubmit)}
       >
