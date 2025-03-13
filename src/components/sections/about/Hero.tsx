@@ -4,8 +4,18 @@ import { FC, HTMLProps } from "react";
 import PEEKHERE from "@/assets/about/peek-here.svg";
 import ArrowDown from "@/components/icons/ArrowDown";
 import { cn } from "@/lib/utils";
+import { Media } from "@/payload-types";
 
-const Hero: FC<HTMLProps<HTMLDivElement>> = ({ className }) => {
+interface Props {
+  bannerImage: Media;
+  description?: string;
+}
+
+const Hero: FC<HTMLProps<HTMLDivElement> & Props> = ({
+  bannerImage,
+  description,
+  className
+}) => {
   return (
     <section
       className={cn(
@@ -13,14 +23,16 @@ const Hero: FC<HTMLProps<HTMLDivElement>> = ({ className }) => {
         className
       )}
     >
-      <div className="relative aspect-square border-b-2 border-black sm:aspect-video lg:order-2 lg:h-dvh lg:border-y-2">
-        <Image
-          src="/images/img_placeholder.jpg"
-          alt=""
-          fill
-          className="object-cover"
-        />
-      </div>
+      {bannerImage && bannerImage.mimeType?.includes("image/") && (
+        <div className="relative aspect-square border-b-2 border-black sm:aspect-video lg:order-2 lg:h-dvh lg:border-y-2">
+          <Image
+            src="/images/img_placeholder.jpg"
+            alt=""
+            fill
+            className="object-cover"
+          />
+        </div>
+      )}
       <div className="mx-auto grid max-w-[1920px] lg:order-1 lg:grid-cols-[1fr_40%] lg:gap-8 lg:px-16">
         <div className="flex items-center justify-center px-5 py-5 lg:items-start lg:justify-start lg:px-0 lg:py-16">
           <h1 className="max-w-[8ch] text-center font-adelle-mono text-6xl font-bold tracking-tighter min-[425px]:text-7xl sm:text-8xl lg:text-left lg:text-[clamp(1rem,9vw,200px)]">
@@ -40,10 +52,8 @@ const Hero: FC<HTMLProps<HTMLDivElement>> = ({ className }) => {
               SOMETHING ABOUT
             </p>
             <p className="text-pretty lg:text-lg lg:leading-snug xl:text-xl xl:leading-[clamp(1rem,1.8vw,40px)] min-[1440px]:text-[clamp(1rem,1.1vw,25px)]">
-              The Bourbon Bros combines premium quality with a fun and
-              approachable personality, making it an excellent choice for those
-              looking for a high-quality bourbon that doesn&apos;t take itself
-              too seriously.
+              {description ??
+                "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum repellat dolores distinctio nisi. Sed, dolorem. Atque non eum libero esse."}
             </p>
           </div>
         </div>
