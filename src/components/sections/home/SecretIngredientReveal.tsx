@@ -2,10 +2,18 @@
 
 import { confetti, ConfettiOptions } from "@tsparticles/confetti";
 import { AnimatePresence, motion, useInView } from "motion/react";
+import dynamic from "next/dynamic";
 import { FC, HTMLProps, useEffect, useRef, useState } from "react";
 
 import MagicInput from "@/components/MagicInput";
 import { cn } from "@/lib/utils";
+
+const ApplyDiscountButton = dynamic(
+  () => import("@/components/ApplyDiscountButton"),
+  {
+    ssr: false
+  }
+);
 
 const images = [
   {
@@ -222,9 +230,7 @@ const DiscountCoupon: FC<HTMLProps<HTMLDivElement> & DiscountCouponProps> = ({
           </h2>
         </div>
         <div className="mt-4 flex lg:self-end">
-          <button className="content-center rounded-full border-2 border-black bg-simmer-white px-4 py-1.5 font-adelle-mono">
-            APPLY TO CHECKOUT
-          </button>
+          <ApplyDiscountButton />
         </div>
       </div>
     </motion.div>

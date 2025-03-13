@@ -14,7 +14,7 @@ interface Cart {
   isChefChoiceSelected: boolean;
   addItem: (item: string) => void;
   removeItem: (itemId: string) => void;
-  toggleDiscount: () => void;
+  applyDiscount: () => void;
   toggleChefChoice: () => void;
 }
 
@@ -24,21 +24,12 @@ const CartContext = createContext<Cart>({
   isChefChoiceSelected: false,
   addItem: () => null,
   removeItem: () => null,
-  toggleDiscount: () => null,
+  applyDiscount: () => null,
   toggleChefChoice: () => null
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [items, setItems] = useState<string[]>(() => {
-    if (typeof window !== "undefined") {
-      const cart = localStorage.getItem("simmer-cart");
-      if (cart) {
-        return JSON.parse(cart);
-      }
-    }
-
-    return [];
-  });
+  const [items, setItems] = useState<string[]>([]);
   const [isDiscounted, setIsDiscounted] = useState<boolean>(false);
   const [isChefChoiceSelected, setIsChefChoiceSelected] =
     useState<boolean>(false);
@@ -53,8 +44,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setItems((prev) => prev.filter((item) => item !== itemToRemove));
   };
 
-  const toggleDiscount = () => {
-    setIsDiscounted((prev) => !prev);
+  const applyDiscount = () => {
+    setIsDiscounted(true);
   };
 
   const toggleChefChoice = () => {
@@ -63,9 +54,25 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
+      const simmerDiscount = localStorage.getItem("simmer-discount");
+      const cart = localStorage.getItem("simmer-cart");
+
+      setIsDiscounted(simmerDiscount === "true");
+      setItems(cart ? JSON.parse(cart) : []);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
       localStorage.setItem("simmer-cart", JSON.stringify(items));
     }
   }, [items]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("simmer-discount", isDiscounted ? "true" : "false");
+    }
+  }, [isDiscounted]);
 
   return (
     <CartContext.Provider
@@ -75,7 +82,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         isChefChoiceSelected,
         addItem: addCartItem,
         removeItem: removeCartItem,
-        toggleDiscount,
+        applyDiscount,
         toggleChefChoice
       }}
     >
