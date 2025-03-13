@@ -15,6 +15,8 @@ const EggSpawner = () => {
 
   const handleClick = () => {
     if (fallingEggsRef.current) {
+      const audio = new Audio("/pop.mp3");
+      audio.play();
       fallingEggsRef.current.spawnEgg();
     }
   };
