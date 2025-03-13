@@ -14,7 +14,11 @@ import { HeadingDescription } from "../blocks/HeadingDescription";
 export const Projects: CollectionConfig = {
   slug: "projects",
   admin: {
-    useAsTitle: "name"
+    useAsTitle: "name",
+    preview: ({ slug }) => `/works/${slug}`,
+    livePreview: {
+      url: ({ data }) => `/works/${data.slug}`
+    }
   },
   fields: [
     {
