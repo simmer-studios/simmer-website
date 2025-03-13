@@ -34,9 +34,9 @@ const FeaturedImage: FC<FeaturedImageProps> = ({ heading, url }) => {
       />
       <div
         ref={magneticRef}
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-[3px] border-black bg-simmer-white px-14 py-6 transition-all duration-300 ease-out will-change-transform"
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-[3px] border-black bg-simmer-white px-14 py-6 text-center transition-all duration-300 ease-out will-change-transform"
       >
-        <span className="pointer-events-none block w-min text-center font-adelle-mono text-2xl font-bold uppercase tracking-[0.02em]">
+        <span className="pointer-events-none block w-min font-adelle-mono text-2xl font-bold uppercase tracking-tight">
           {heading}
         </span>
       </div>
