@@ -49,7 +49,8 @@ const confettiDefaults: ConfettiOptions = {
   shapes: ["image"],
   shapeOptions: {
     image: images
-  }
+  },
+  zIndex: 100
 };
 
 const SecretIngredientReveal = () => {
@@ -58,6 +59,12 @@ const SecretIngredientReveal = () => {
   const [revealDiscount, setRevealDiscount] = useState<boolean>(false);
 
   useEffect(() => {
+    // Add style for confetti elements
+    const style = document.createElement("style");
+    style.textContent =
+      "#confettiLeft, #confettiRight { pointer-events: none; }";
+    document.head.appendChild(style);
+
     if (revealDiscount) {
       const confettiEffect = async () => {
         await confetti("confettiLeft", {
