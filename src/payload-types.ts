@@ -179,6 +179,14 @@ export interface Project {
             blockType: 'FullWidthImage';
           }
         | {
+            icon: number | Media;
+            heading: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'HeadingDescription';
+          }
+        | {
             /**
              * Square image
              */
@@ -323,6 +331,14 @@ export interface Snap {
             id?: string | null;
             blockName?: string | null;
             blockType: 'FullWidthImage';
+          }
+        | {
+            icon: number | Media;
+            heading: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'HeadingDescription';
           }
         | {
             /**
@@ -573,6 +589,15 @@ export interface ProjectsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        HeadingDescription?:
+          | T
+          | {
+              icon?: T;
+              heading?: T;
+              description?: T;
+              id?: T;
+              blockName?: T;
+            };
         ImageText?:
           | T
           | {
@@ -662,6 +687,15 @@ export interface SnapsSelect<T extends boolean = true> {
           | T
           | {
               image?: T;
+              id?: T;
+              blockName?: T;
+            };
+        HeadingDescription?:
+          | T
+          | {
+              icon?: T;
+              heading?: T;
+              description?: T;
               id?: T;
               blockName?: T;
             };

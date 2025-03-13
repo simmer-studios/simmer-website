@@ -8,6 +8,8 @@ import { Quote } from "@/app/(payload)/blocks/Quote";
 import { ThreeImages } from "@/app/(payload)/blocks/ThreeImages";
 import { TwoImageText } from "@/app/(payload)/blocks/TwoImageText";
 
+import { HeadingDescription } from "../blocks/HeadingDescription";
+
 export const Snaps: CollectionConfig = {
   slug: "snaps",
   admin: {
@@ -132,6 +134,7 @@ export const Snaps: CollectionConfig = {
       type: "blocks",
       blocks: [
         FullWidthImage,
+        HeadingDescription,
         ImageText,
         TwoImageText,
         ThreeImages,

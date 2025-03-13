@@ -9,6 +9,8 @@ import { ThreeImages } from "@/app/(payload)/blocks/ThreeImages";
 import { TwoImageText } from "@/app/(payload)/blocks/TwoImageText";
 import { validateUrl } from "@/lib/utils";
 
+import { HeadingDescription } from "../blocks/HeadingDescription";
+
 export const Projects: CollectionConfig = {
   slug: "projects",
   admin: {
@@ -134,6 +136,7 @@ export const Projects: CollectionConfig = {
       type: "blocks",
       blocks: [
         FullWidthImage,
+        HeadingDescription,
         ImageText,
         TwoImageText,
         ThreeImages,
