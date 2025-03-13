@@ -13,7 +13,11 @@ import { HeadingDescription } from "../blocks/HeadingDescription";
 export const Snaps: CollectionConfig = {
   slug: "snaps",
   admin: {
-    useAsTitle: "name"
+    useAsTitle: "name",
+    preview: ({ slug }) => `/snap/${slug}`,
+    livePreview: {
+      url: ({ data }) => `/snap/${data.slug}`
+    }
   },
   fields: [
     {
