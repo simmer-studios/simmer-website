@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { FC, HTMLProps, useState } from "react";
+import { motion } from "motion/react";
+import { FC, useState } from "react";
 
 import { Homepage } from "@/payload-types";
 

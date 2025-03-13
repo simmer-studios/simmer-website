@@ -169,34 +169,46 @@ const FallingEggs = forwardRef<FallingEggsRef>((props, ref) => {
       // Custom touch handling that allows scrolling
       let touchId: number | null = null;
 
-      render.canvas.addEventListener('touchstart', (e) => {
-        if (touchId === null) {
-          touchId = e.touches[0].identifier;
-          const touch = e.touches[0];
-          mouse.position.x = touch.clientX;
-          mouse.position.y = touch.clientY;
-          mouse.mousedown(e);
-        }
-      }, { passive: true });
-
-      render.canvas.addEventListener('touchmove', (e) => {
-        for (let i = 0; i < e.touches.length; i++) {
-          if (e.touches[i].identifier === touchId) {
-            const touch = e.touches[i];
+      render.canvas.addEventListener(
+        "touchstart",
+        (e) => {
+          if (touchId === null) {
+            touchId = e.touches[0].identifier;
+            const touch = e.touches[0];
             mouse.position.x = touch.clientX;
             mouse.position.y = touch.clientY;
-            mouse.mousemove(e);
-            break;
+            mouse.mousedown(e);
           }
-        }
-      }, { passive: true });
+        },
+        { passive: true }
+      );
 
-      render.canvas.addEventListener('touchend', (e) => {
-        if (touchId !== null) {
-          touchId = null;
-          mouse.mouseup(e);
-        }
-      }, { passive: true });
+      render.canvas.addEventListener(
+        "touchmove",
+        (e) => {
+          for (let i = 0; i < e.touches.length; i++) {
+            if (e.touches[i].identifier === touchId) {
+              const touch = e.touches[i];
+              mouse.position.x = touch.clientX;
+              mouse.position.y = touch.clientY;
+              mouse.mousemove(e);
+              break;
+            }
+          }
+        },
+        { passive: true }
+      );
+
+      render.canvas.addEventListener(
+        "touchend",
+        (e) => {
+          if (touchId !== null) {
+            touchId = null;
+            mouse.mouseup(e);
+          }
+        },
+        { passive: true }
+      );
 
       if ("mousewheel" in mouseConstraint.mouse) {
         mouseConstraint.mouse.element.removeEventListener(

@@ -1,5 +1,5 @@
-import { HTMLMotionProps, motion } from "framer-motion";
-import { FC, HTMLProps, MouseEventHandler, PropsWithChildren } from "react";
+import { HTMLMotionProps, motion } from "motion/react";
+import { FC, HTMLProps, PropsWithChildren } from "react";
 
 import { cn } from "@/lib/utils";
 import { Homepage } from "@/payload-types";

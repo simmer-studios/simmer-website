@@ -1,12 +1,7 @@
 "use client";
 
-import {
-  confetti,
-  ConfettiFirstParam,
-  ConfettiOptions
-} from "@tsparticles/confetti";
-import { AnimatePresence, motion, useInView } from "framer-motion";
-import { request } from "http";
+import { confetti, ConfettiOptions } from "@tsparticles/confetti";
+import { AnimatePresence, motion, useInView } from "motion/react";
 import { FC, HTMLProps, useEffect, useRef, useState } from "react";
 
 import MagicInput from "@/components/MagicInput";
