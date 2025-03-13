@@ -5,14 +5,27 @@ export const SnapsGlobal: GlobalConfig = {
   label: "Snaps Page",
   fields: [
     {
-      name: "categories",
-      label: "Categories",
+      name: "productCategories",
+      label: "Product Categories",
       type: "relationship",
       relationTo: "categories",
       hasMany: true,
       required: true,
       admin: {
-        description: "Select the categories to show as filters on Snaps page"
+        description:
+          "Select the categories to show as filters when Products are selected"
+      }
+    },
+    {
+      name: "portraitCategories",
+      label: "Portrait Categories",
+      type: "relationship",
+      relationTo: "categories",
+      hasMany: true,
+      required: true,
+      admin: {
+        description:
+          "Select the categories to show as filters when Portraits are selected"
       }
     }
   ]

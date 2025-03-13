@@ -324,6 +324,7 @@ export interface Snap {
    * Landscape image
    */
   cover: number | Media;
+  type: 'product' | 'portrait';
   name: string;
   /**
    * URL-friendly name of the project. No spaces or special characters e.g. simmer-studios
@@ -683,6 +684,7 @@ export interface ProjectsSelect<T extends boolean = true> {
 export interface SnapsSelect<T extends boolean = true> {
   thumbnail?: T;
   cover?: T;
+  type?: T;
   name?: T;
   slug?: T;
   brand?: T;
@@ -994,9 +996,13 @@ export interface WorksGlobal {
 export interface SnapsGlobal {
   id: number;
   /**
-   * Select the categories to show as filters on Snaps page
+   * Select the categories to show as filters when Products are selected
    */
-  categories: (number | Category)[];
+  productCategories: (number | Category)[];
+  /**
+   * Select the categories to show as filters when Portraits are selected
+   */
+  portraitCategories: (number | Category)[];
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1213,7 +1219,8 @@ export interface WorksGlobalSelect<T extends boolean = true> {
  * via the `definition` "snaps-global_select".
  */
 export interface SnapsGlobalSelect<T extends boolean = true> {
-  categories?: T;
+  productCategories?: T;
+  portraitCategories?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

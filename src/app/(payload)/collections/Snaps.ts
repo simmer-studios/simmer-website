@@ -41,6 +41,22 @@ export const Snaps: CollectionConfig = {
       ]
     },
     {
+      type: "radio",
+      name: "type",
+      label: "Type",
+      required: true,
+      options: [
+        {
+          label: "Product",
+          value: "product"
+        },
+        {
+          label: "Portrait",
+          value: "portrait"
+        }
+      ]
+    },
+    {
       type: "row",
       fields: [
         {
