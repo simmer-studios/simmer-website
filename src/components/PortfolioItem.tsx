@@ -3,13 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { Media } from "@/payload-types";
+
 interface Props {
   slug: string;
   name: string;
   category: string;
+  image: Media;
 }
 
-const PortfolioItem: React.FC<Props> = ({ slug, name, category }) => {
+const PortfolioItem: React.FC<Props> = ({ slug, name, category, image }) => {
   return (
     <Link
       href={`/works/${slug}`}
@@ -18,12 +21,14 @@ const PortfolioItem: React.FC<Props> = ({ slug, name, category }) => {
       <div className="relative min-h-max">
         {/* image */}
         <div className="relative aspect-square w-full overflow-hidden">
-          <Image
-            className="object-cover object-center transition duration-300 ease-in-out group-hover/portfolio-item:scale-110"
-            src={"/images/img_placeholder.jpg"}
-            alt=""
-            fill
-          />
+          {image && (
+            <Image
+              className="object-cover object-center transition duration-300 ease-in-out group-hover/portfolio-item:scale-110"
+              src={image.url || ""}
+              alt=""
+              fill
+            />
+          )}
         </div>
         {/* project name and category */}
         <div className="space-y-3 bg-black px-10 py-6 text-simmer-white lg:hidden">

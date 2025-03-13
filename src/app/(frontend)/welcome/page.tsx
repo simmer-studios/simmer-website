@@ -1,4 +1,6 @@
+import config from "@payload-config";
 import Image from "next/image";
+import { getPayload } from "payload";
 
 import DIGIN from "@/assets/branding/dig-in.svg";
 import BrandingForm from "@/components/BrandingForm";
@@ -14,7 +16,13 @@ export function generateMetadata() {
   };
 }
 
-export default function BrandingPage() {
+export default async function BrandingPage() {
+  const payload = await getPayload({ config });
+
+  const brandingPage = await payload.findGlobal({
+    slug: "brand-questionnaire"
+  });
+
   return (
     <>
       <Header theme="dark" disableLogoBorder />
@@ -27,15 +35,17 @@ export default function BrandingPage() {
             </div>
             <div className="grid items-end gap-5 px-5 py-5 lg:grid-cols-[1fr_40%] lg:px-16 lg:py-10">
               <div>
-                <p className="text-sm tracking-wide sm:text-lg lg:text-xl">
-                  We&apos;d love to know your secret recipe. Your story. We
-                  start getting things simmering by obtaining our key
-                  ingredients. This is how we know we&apos;re truly catering
-                  designs suited to your taste. The purpose of this
-                  questionnaire is to help us know you better and will serve as
-                  our guideline in crafting the perfect branding recipe that is
-                  true to your brand&apos;s identity
-                </p>
+                {brandingPage.description ? (
+                  <p className="text-sm tracking-wide sm:text-lg lg:text-xl">
+                    {brandingPage.description}
+                  </p>
+                ) : (
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Necessitatibus amet quas tempore, ad fugiat alias minus
+                    commodi modi sapiente exercitationem.
+                  </p>
+                )}
               </div>
               <div className="flex h-full items-end lg:justify-end">
                 <span className="inline-block text-lg font-bold leading-none lg:text-2xl">

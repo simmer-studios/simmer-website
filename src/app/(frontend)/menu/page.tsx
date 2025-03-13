@@ -1,3 +1,5 @@
+import config from "@payload-config";
+import { getPayload } from "payload";
 import { Suspense } from "react";
 
 import ContentWrapper from "@/components/ContentWrapper";
@@ -14,8 +16,9 @@ export function generateMetadata() {
   };
 }
 
-/* MENU PAGE */
-export default function MenuPage() {
+export default async function MenuPage() {
+  const payload = await getPayload({ config });
+
   return (
     <>
       <Header theme="dark" />
@@ -25,7 +28,7 @@ export default function MenuPage() {
           <StickySidebar theme="dark" className="border-0" />
           <div className="basis-full">
             <Suspense fallback={<p>Loading form...</p>}>
-              <MenuForm />
+              <MenuForm services={[]} />
             </Suspense>
           </div>
         </ContentWrapper>

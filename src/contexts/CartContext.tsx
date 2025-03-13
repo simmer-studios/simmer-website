@@ -30,8 +30,16 @@ const CartContext = createContext<Cart>({
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  /* TODO: load persisted cart value from local storage if available */
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>(() => {
+    if (typeof window !== "undefined") {
+      const cart = localStorage.getItem("simmer-cart");
+      if (cart) {
+        return JSON.parse(cart);
+      }
+    }
+
+    return [];
+  });
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
@@ -52,11 +60,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  /* TODO: persist cart items to local storage */
-  // useEffect(() => {}, [items]);
-
   useEffect(() => {
-    console.log(items);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("simmer-cart", JSON.stringify(items));
+    }
   }, [items]);
 
   return (

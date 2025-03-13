@@ -122,7 +122,7 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
                 }}
                 className="absolute bottom-0 z-10 mb-10 w-[70%] border-2 border-black bg-simmer-white px-3 py-3 font-adelle-mono"
               >
-                <span className="max-w-[10ch]">{catchPhrase}</span>
+                <span className="max-w-[10ch] uppercase">{catchPhrase}</span>
               </motion.div>
             )}
           </motion.div>

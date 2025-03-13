@@ -1,4 +1,9 @@
-import { FC, HTMLProps } from "react";
+"use client";
+
+import { FC, HTMLProps, useEffect, useRef, useState } from "react";
+
+import { CartItem, useCart } from "@/contexts/CartContext";
+import { Service } from "@/payload-types";
 
 import Asterisk from "./icons/Asterisk";
 import MenuService from "./MenuService";
@@ -6,11 +11,14 @@ import MenuService from "./MenuService";
 interface MenuPhaseContentProps {
   phaseNumber: number;
   phaseTitle: string;
+  fields: Service[];
 }
 
 const MenuPhaseContent: FC<
   HTMLProps<HTMLDivElement> & MenuPhaseContentProps
 > = ({ phaseNumber, phaseTitle }) => {
+  const { items } = useCart();
+
   return (
     <>
       <div className="grid border-b-2 border-black md:grid-cols-[1fr_1.2fr] md:divide-x-2 md:divide-black">
