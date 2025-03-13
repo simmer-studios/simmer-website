@@ -1,21 +1,27 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 
 interface AnimationContextType {
   isPlaying: boolean;
   setIsPlaying: (value: boolean) => void;
 }
 
-const AnimationContext = createContext<AnimationContextType | undefined>(
-  undefined
-);
+const AnimationContext = createContext<AnimationContextType | null>(null);
 
 export function AnimationProvider({ children }: { children: React.ReactNode }) {
   const [isPlaying, setIsPlaying] = useState(false);
 
+  const memoizedValue = useMemo(
+    () => ({
+      isPlaying,
+      setIsPlaying
+    }),
+    [isPlaying]
+  );
+
   return (
-    <AnimationContext.Provider value={{ isPlaying, setIsPlaying }}>
+    <AnimationContext.Provider value={memoizedValue}>
       {children}
     </AnimationContext.Provider>
   );
@@ -23,7 +29,7 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
 
 export function useAnimation() {
   const context = useContext(AnimationContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error("useAnimation must be used within an AnimationProvider");
   }
   return context;

@@ -1,16 +1,9 @@
 "use client";
 
-import { HTMLMotionProps, motion } from "motion/react";
-import {
-  FC,
-  HTMLProps,
-  PropsWithChildren,
-  ReactNode,
-  useEffect,
-  useState
-} from "react";
+import { motion } from "motion/react";
+import { FC, HTMLProps, ReactNode, useEffect, useState } from "react";
 
-import { useAnimation } from "@/context/AnimationContext";
+import { useAnimation } from "@/contexts/AnimationContext";
 import { cn } from "@/lib/utils";
 
 interface Props {
