@@ -23,7 +23,7 @@ interface MenuServiceProps {
   serviceId: string;
   serviceName: string;
   description: string;
-  defaultChecked?: boolean;
+  checked?: boolean;
 }
 
 const MenuService: FC<HTMLProps<HTMLDivElement> & MenuServiceProps> = ({
@@ -31,17 +31,17 @@ const MenuService: FC<HTMLProps<HTMLDivElement> & MenuServiceProps> = ({
   description,
   serviceId,
   serviceName,
-  defaultChecked = false,
+  checked = false,
   ...props
 }) => {
-  const [checked, setChecked] = useState(defaultChecked || false);
+  const [isChecked, setIsChecked] = useState(checked || false);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const { addItem, removeItem } = useCart();
 
   const handleOnTick = (value: boolean) => {
     /* set checkmark visibility */
-    setChecked((prev) => !prev);
+    setIsChecked((prev) => !prev);
     /* add or remove to cart */
     if (value === true) {
       addItem({
@@ -54,7 +54,7 @@ const MenuService: FC<HTMLProps<HTMLDivElement> & MenuServiceProps> = ({
   };
 
   return (
-    <MenuItem checked={checked} onChangeHandler={handleOnTick} {...props}>
+    <MenuItem checked={isChecked} onChangeHandler={handleOnTick} {...props}>
       <div className="flex items-center p-5 font-adelle-mono-flex text-xl tracking-tighter sm:text-2xl md:text-xl lg:text-3xl xl:text-4xl">
         <Collapsible className="w-full space-y-4">
           <CollapsibleTrigger

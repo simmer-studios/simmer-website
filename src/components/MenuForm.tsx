@@ -1,18 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { ComponentProps, FC, HTMLProps, useState } from "react";
+import { ComponentProps, FC, useState } from "react";
 
 import { cn } from "@/lib/utils";
+import { Service } from "@/payload-types";
 
 import Check from "./icons/Check";
+import ChevronDown from "./icons/ChevronDown";
 import MenuTabDecorLG from "./icons/MenuTabDecorLG";
 import MenuTabDecorSM from "./icons/MenuTabDecorSM";
 import MenuPhaseContent from "./MenuPhaseContent";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger
+} from "./ui/Collapsible";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/Tabs";
 
-const MenuForm: FC<HTMLProps<HTMLFormElement>> = () => {
+interface Props {
+  services: Service[];
+}
+
+const MenuForm: FC<Props> = ({ services }) => {
   const [chefChoiceSelected, setChefChoiceSelected] = useState<boolean>(false);
+  const [chefChoiceIsExpanded, setChefChoiceIsExpanded] =
+    useState<boolean>(false);
 
   return (
     <div>
@@ -32,13 +45,21 @@ const MenuForm: FC<HTMLProps<HTMLFormElement>> = () => {
           </MenuFormTab>
         </TabsList>
         <MenuTabContent value="STRATEGY">
-          <MenuPhaseContent phaseNumber={1} phaseTitle="Brand Strategy" />
+          <MenuPhaseContent
+            phaseNumber={1}
+            phaseTitle="Brand Strategy"
+            fields={[]}
+          />
         </MenuTabContent>
         <MenuTabContent value="IDENTITY">
-          <MenuPhaseContent phaseNumber={2} phaseTitle="Identity" />
+          <MenuPhaseContent phaseNumber={2} phaseTitle="Identity" fields={[]} />
         </MenuTabContent>
         <MenuTabContent value="EXECUTIONS">
-          <MenuPhaseContent phaseNumber={3} phaseTitle="Executions" />
+          <MenuPhaseContent
+            phaseNumber={3}
+            phaseTitle="Executions"
+            fields={[]}
+          />
         </MenuTabContent>
       </Tabs>
       <div className="row grid w-full grid-cols-[70px_1fr] divide-x-2 divide-black border-b-2 border-black lg:grid-cols-[100px_1fr]">
@@ -52,7 +73,29 @@ const MenuForm: FC<HTMLProps<HTMLFormElement>> = () => {
           )}
         </button>
         <div className="flex items-center p-5 font-articulat text-2xl font-bold tracking-tighter sm:text-4xl md:font-adelle-mono md:text-3xl md:uppercase lg:p-8 lg:text-5xl xl:p-10">
-          Chef&apos;s choice
+          <Collapsible className="w-full space-y-4">
+            <CollapsibleTrigger
+              asChild
+              onClick={() => setChefChoiceIsExpanded((prev) => !prev)}
+            >
+              <div className="flex cursor-pointer select-none items-center gap-2">
+                <span>Chef&apos;s choice</span>
+                <ChevronDown
+                  className={cn("h-3 w-3 transition-all duration-150", {
+                    "rotate-180": chefChoiceIsExpanded
+                  })}
+                />
+              </div>
+            </CollapsibleTrigger>
+            <CollapsibleContent asChild>
+              <p className="font-articulat text-sm font-normal normal-case leading-tight tracking-normal sm:text-base sm:leading-normal lg:text-lg">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio
+                nulla accusamus quisquam cupiditate corrupti expedita id tenetur
+                rem veniam, cumque nam saepe excepturi mollitia, suscipit fuga
+                debitis velit quasi necessitatibus.
+              </p>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
       </div>
       <div className="flex items-center justify-center p-10 lg:py-16">
