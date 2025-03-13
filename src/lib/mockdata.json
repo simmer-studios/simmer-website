@@ -144,7 +144,8 @@
       "slug": "project-name",
       "description": "Appetizers - what you need before you start anything.",
       "favorite": true,
-      "category": "category"
+      "category": "category",
+      "imageUrl": "/images/works/24-chicken.png"
     },
     {
       "id": 2,
@@ -152,7 +153,8 @@
       "slug": "project-name",
       "description": "Appetizers - what you need before you start anything.",
       "favorite": true,
-      "category": "category"
+      "category": "category",
+      "imageUrl": "/images/works/johnnie-walker.png"
     },
     {
       "id": 3,
@@ -160,7 +162,8 @@
       "slug": "project-name",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, magnam.",
       "favorite": true,
-      "category": "category"
+      "category": "category",
+      "imageUrl": "/images/project-3.jpg"
     },
     {
       "id": 4,
@@ -168,7 +171,8 @@
       "slug": "project-name",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, magnam.",
       "favorite": true,
-      "category": "category"
+      "category": "category",
+      "imageUrl": "/images/project-4.jpg"
     },
     {
       "id": 5,
@@ -176,7 +180,8 @@
       "slug": "project-name",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, magnam.",
       "favorite": true,
-      "category": "category"
+      "category": "category",
+      "imageUrl": "/images/project-5.jpg"
     },
     {
       "id": 6,
@@ -184,7 +189,8 @@
       "slug": "project-name",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, magnam.",
       "favorite": true,
-      "category": "category"
+      "category": "category",
+      "imageUrl": "/images/project-6.jpg"
     },
     {
       "id": 7,
@@ -192,7 +198,8 @@
       "slug": "project-name",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, magnam.",
       "favorite": true,
-      "category": "category"
+      "category": "category",
+      "imageUrl": "/images/project-7.jpg"
     },
     {
       "id": 8,
@@ -200,7 +207,8 @@
       "slug": "project-name",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, magnam.",
       "favorite": true,
-      "category": "category"
+      "category": "category",
+      "imageUrl": "/images/project-8.jpg"
     },
     {
       "id": 9,
@@ -208,7 +216,8 @@
       "slug": "project-name",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, magnam.",
       "favorite": true,
-      "category": "category"
+      "category": "category",
+      "imageUrl": "/images/project-9.jpg"
     },
     {
       "id": 10,
@@ -216,7 +225,8 @@
       "slug": "project-name",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, magnam.",
       "favorite": true,
-      "category": "category"
+      "category": "category",
+      "imageUrl": "/images/project-10.jpg"
     },
     {
       "id": 11,
@@ -224,7 +234,8 @@
       "slug": "project-name",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, magnam.",
       "favorite": true,
-      "category": "category"
+      "category": "category",
+      "imageUrl": "/images/project-11.jpg"
     }
   ]
 }
