@@ -16,14 +16,15 @@ import ChevronDown from "./icons/ChevronDown";
 interface FeaturedImageProps {
   heading: string;
   image: Media;
+  slug: string;
 }
 
-const FeaturedImage: FC<FeaturedImageProps> = ({ heading, image }) => {
+const FeaturedImage: FC<FeaturedImageProps> = ({ heading, image, slug }) => {
   const magneticRef = useMagneticHover(100);
 
   return (
     <Link
-      href={"/"}
+      href={`/works/${slug}`}
       className="group relative block aspect-square flex-1 overflow-hidden bg-gray-100 transition duration-300 ease-in-out"
     >
       <Image
@@ -67,11 +68,13 @@ const PortfolioFeatured: FC<PortfolioFeaturedProps> = ({
         <FeaturedImage
           heading={featuredProject1.name}
           image={featuredProject1.thumbnail}
+          slug={featuredProject1.slug}
         />
         <CaptionBlock
           heading={featuredProject1.name}
           caption={featuredProject1.description}
-          year={String(featuredProject1.year)}
+          date={featuredProject1.date}
+          slug={featuredProject1.slug}
         />
         <Heading className="hidden lg:flex">FAVORITES</Heading>
       </FeaturedProjectBlock>
@@ -80,11 +83,13 @@ const PortfolioFeatured: FC<PortfolioFeaturedProps> = ({
         <FeaturedImage
           heading={featuredProject2.name}
           image={featuredProject2.thumbnail}
+          slug={featuredProject2.slug}
         />
         <CaptionBlock
           heading={featuredProject2.name}
           caption={featuredProject2.description}
-          year={String(featuredProject2.year)}
+          date={featuredProject2.date}
+          slug={featuredProject2.slug}
         />
         <Heading className="lg:hidden">FAVORITES</Heading>
       </FeaturedProjectBlock>
@@ -129,15 +134,21 @@ const FeaturedProjectBlock: FC<
 };
 
 interface CaptionBlockProps {
-  heading?: string;
-  caption?: string;
-  year?: string;
+  heading: string;
+  caption: string;
+  date: string;
+  slug: string;
 }
 
-const CaptionBlock: FC<CaptionBlockProps> = ({ heading, caption, year }) => {
+const CaptionBlock: FC<CaptionBlockProps> = ({
+  heading,
+  caption,
+  date,
+  slug
+}) => {
   return (
     <Link
-      href={"#"}
+      href={`/works/${slug}`}
       className="min-h-[150px] space-y-4 p-6 font-articulat lg:p-10"
     >
       {heading && (
@@ -151,10 +162,10 @@ const CaptionBlock: FC<CaptionBlockProps> = ({ heading, caption, year }) => {
         </p>
       )}
       <div className="flex items-center justify-between lg:hidden">
-        {year && (
+        {date && (
           <div className="inline-block border-[2.5px] border-black px-2">
             <span className="inline-block translate-y-[1px] font-adelle-mono">
-              {year}
+              {new Date(date).getFullYear()}
             </span>
           </div>
         )}
