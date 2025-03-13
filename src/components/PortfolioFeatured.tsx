@@ -44,7 +44,15 @@ const FeaturedImage: FC<FeaturedImageProps> = ({ heading, url }) => {
   );
 };
 
-const PortfolioFeatured = () => {
+interface PortfolioFeaturedProps {
+  featuredProject1: Project;
+  featuredProject2: Project;
+}
+
+const PortfolioFeatured: FC<PortfolioFeaturedProps> = ({
+  featuredProject1,
+  featuredProject2
+}) => {
   return (
     <div className="grid grid-cols-1 gap-0.5 bg-black lg:grid-cols-2">
       <div className="col-span-1 flex flex-col items-start gap-3 bg-simmer-white px-4 py-4 md:flex-row md:items-center lg:col-span-2 lg:items-center lg:justify-between lg:px-16">

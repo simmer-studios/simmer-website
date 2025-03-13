@@ -1,9 +1,9 @@
+import config from "@payload-config";
+import { getPayload } from "payload";
+
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import AnimatedContent from "@/components/sections/works/AnimatedContent";
-import data from "@/lib/mockdata.json";
-import { cn } from "@/lib/utils";
-import { Project } from "@/payload-types";
 
 export function generateMetadata() {
   return {
@@ -28,6 +28,7 @@ export default async function PortfolioPage() {
 
   const featuredProjects = await payload.find({
     collection: "projects",
+    limit: 2,
     where: {
       featured: {
         equals: true
@@ -38,7 +39,10 @@ export default async function PortfolioPage() {
   return (
     <>
       <Header theme="light" />
-      <AnimatedContent projects={projects} />
+      <AnimatedContent
+        projects={projects.docs}
+        featuredProjects={featuredProjects.docs}
+      />
       <Footer />
     </>
   );
