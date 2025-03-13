@@ -280,7 +280,7 @@ export interface Service {
   id: number;
   name: string;
   description?: string | null;
-  linkTo?: ('snap' | 'stories') | null;
+  linkTo?: ('none' | 'snap' | 'stories') | null;
   updatedAt: string;
   createdAt: string;
 }
