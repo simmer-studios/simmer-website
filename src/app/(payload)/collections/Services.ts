@@ -33,8 +33,7 @@ export const Services: CollectionConfig = {
           label: "Simmer Stories",
           value: "stories"
         }
-      ],
-      defaultValue: "none"
+      ]
     }
   ]
 };
