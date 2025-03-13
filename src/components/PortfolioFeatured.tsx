@@ -5,13 +5,24 @@ import Link from "next/link";
 import { FC, HTMLProps, PropsWithChildren } from "react";
 
 import { cn } from "@/lib/utils";
+import { Project } from "@/payload-types";
 
 import CustomFilterDropdown from "./CustomFilterDropdown";
 import ArrowDown from "./icons/ArrowDown";
 import ArrowRight from "./icons/ArrowRight";
 import ChevronDown from "./icons/ChevronDown";
 
-const PortfolioFeatured = () => {
+interface Props {
+  featuredProject1: Project;
+  featuredProject2: Project;
+}
+
+const PortfolioFeatured: FC<Props> = ({
+  featuredProject1,
+  featuredProject2
+}) => {
+  if (!featuredProject1 || !featuredProject2) return null;
+
   return (
     <div className="grid grid-cols-1 gap-0.5 bg-black lg:grid-cols-2">
       <div className="col-span-1 flex flex-col items-start gap-3 bg-simmer-white px-4 py-4 md:flex-row md:items-center lg:col-span-2 lg:items-center lg:justify-between lg:px-16">
@@ -43,21 +54,23 @@ const PortfolioFeatured = () => {
           ]}
         />
       </div>
+      {/* Featured Project 1 */}
       <FeaturedProjectBlock>
         <FeaturedImage />
         <CaptionBlock
-          heading="24 Chicken"
-          caption="24 Chicken is one of Philippine's Chicken Joint. Rebranded by Simmer."
-          year="2022"
+          heading={featuredProject1.name}
+          caption={featuredProject1.description}
+          year={String(featuredProject1.year)}
         />
         <Heading className="hidden lg:flex">FAVORITES</Heading>
       </FeaturedProjectBlock>
+      {/* Featured Project 2 */}
       <FeaturedProjectBlock className="lg:flex-col-reverse lg:divide-y-reverse">
         <FeaturedImage />
         <CaptionBlock
-          heading="Johnnie Walker"
-          caption="Appetizers - what you need before you start anything."
-          year="2022"
+          heading={featuredProject2.name}
+          caption={featuredProject2.description}
+          year={String(featuredProject2.year)}
         />
         <Heading className="lg:hidden">FAVORITES</Heading>
       </FeaturedProjectBlock>

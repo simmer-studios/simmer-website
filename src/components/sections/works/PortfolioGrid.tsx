@@ -2,9 +2,10 @@ import { FC, HTMLProps } from "react";
 
 import PortfolioItem from "@/components/PortfolioItem";
 import { cn } from "@/lib/utils";
+import { Media, Project } from "@/payload-types";
 
 interface Props {
-  projects: (typeof import("@/lib/mockdata.json"))["portfolios"];
+  projects: Project[];
 }
 
 const PortfolioGrid: FC<HTMLProps<HTMLDivElement> & Props> = ({
@@ -20,8 +21,9 @@ const PortfolioGrid: FC<HTMLProps<HTMLDivElement> & Props> = ({
             <PortfolioItem
               key={project.id}
               slug={project.slug}
-              name={project.title}
-              category={project.category}
+              name={project.name}
+              category={project.name}
+              image={project.thumbnail as Media}
             />
           ))}
       </div>
