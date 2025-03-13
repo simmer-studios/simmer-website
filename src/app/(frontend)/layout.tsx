@@ -1,7 +1,7 @@
 import "./globals.css";
 
 import SmoothScroll from "@/components/SmoothScroll";
-import { AnimationProvider } from "@/context/AnimationContext";
+import { AnimationProvider } from "@/contexts/AnimationContext";
 import { CartProvider } from "@/contexts/CartContext";
 
 interface Props {

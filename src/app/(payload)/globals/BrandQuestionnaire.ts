@@ -40,6 +40,11 @@ export const BrandQuestionnaire: GlobalConfig = {
       type: "array",
       fields: [
         {
+          name: "isRequired",
+          label: "Required",
+          type: "checkbox"
+        },
+        {
           name: "question",
           label: "Question",
           type: "text",
