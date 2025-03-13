@@ -1,29 +1,50 @@
 "use client";
 
-import { FC, HTMLProps, useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
+import { FC, HTMLProps } from "react";
 
-import { CartItem, useCart } from "@/contexts/CartContext";
+import { useCart } from "@/contexts/CartContext";
 import { Service } from "@/payload-types";
 
 import Asterisk from "./icons/Asterisk";
-import MenuService from "./MenuService";
+
+const MenuService = dynamic(() => import("./MenuService"), {
+  ssr: false
+});
 
 interface MenuPhaseContentProps {
   phaseNumber: number;
   phaseTitle: string;
+  heading: string;
+  description: string;
   fields: Service[];
 }
 
 const MenuPhaseContent: FC<
   HTMLProps<HTMLDivElement> & MenuPhaseContentProps
-> = ({ phaseNumber, phaseTitle }) => {
-  const { items } = useCart();
+> = ({ phaseNumber, phaseTitle, heading, description, fields }) => {
+  const { items, addItem, removeItem } = useCart();
+
+  const services = fields.map((field) => ({
+    id: String(field.id),
+    name: field.name,
+    description: field.description,
+    linkTo: field.linkTo
+  }));
+
+  const updateCartItems = (item: string) => {
+    if (items.includes(item)) {
+      removeItem(item);
+    } else {
+      addItem(item);
+    }
+  };
 
   return (
     <>
       <div className="grid border-b-2 border-black md:grid-cols-[1fr_1.2fr] md:divide-x-2 md:divide-black">
         {/* left */}
-        <div className="grid grid-cols-2 gap-8 border-b-2 border-black p-4 md:grid-cols-1 md:border-b-0 md:p-0">
+        <div className="grid grid-cols-2 border-b-2 border-black p-4 md:flex md:flex-col md:justify-between md:border-b-0 md:p-0">
           <div className="flex flex-col space-y-2 md:space-y-0">
             <h2 className="order-1 max-w-[8ch] text-4xl capitalize tracking-tight md:order-2 md:p-10 md:text-6xl lg:text-7xl xl:text-8xl">
               {phaseTitle}
@@ -38,21 +59,19 @@ const MenuPhaseContent: FC<
               </div>
             </div>
           </div>
-          <div className="max-h-max space-y-1 md:space-y-4 md:p-[40px_40px_0_40px]">
+          <div className="max-h-max space-y-1 md:space-y-4 md:p-[40px]">
             <p className="text-md font-adelle-mono font-bold tracking-tighter sm:text-lg md:text-2xl lg:text-3xl">
-              PHASE I
+              {heading}
             </p>
             <p className="font-articulat text-[10px] font-semibold sm:text-sm md:text-lg md:font-medium lg:text-xl">
-              From start-ups, local, international, personal brands,
-              communities, corporations, businesses and government agencies— our
-              services has no creative limits.
+              {description}
             </p>
           </div>
         </div>
         {/* right */}
-        <div className="min-h-[500px] divide-y-2 divide-black">
+        <div className="min-h-[500px]">
           {/* Heading Row */}
-          <div className="row grid grid-cols-[70px_1fr] divide-x-2 divide-black lg:grid-cols-[100px_1fr]">
+          <div className="row grid grid-cols-[70px_1fr] divide-x-2 divide-black outline outline-1 outline-black lg:grid-cols-[100px_1fr]">
             <div className="flex translate-y-1 items-center justify-center p-5 font-fionas text-5xl font-semibold leading-none sm:text-6xl md:text-7xl lg:text-8xl">
               {phaseNumber}
             </div>
@@ -60,42 +79,18 @@ const MenuPhaseContent: FC<
               Tick your orders.
             </div>
           </div>
-          {/* Field Row - Regular */}
-          <MenuService
-            serviceId="a"
-            serviceName="PRODUCTION"
-            description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, in. Illum corrupti commodi veniam non voluptatum vero numquam quos libero?"
-          />
-
-          <MenuService
-            serviceId="b"
-            serviceName="PHOTOGRAPHY"
-            link={{ label: "GO TO SIMMER SNAP", url: "#" }}
-            description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, in. Illum corrupti commodi veniam non voluptatum vero numquam quos libero?"
-          />
-          <MenuService
-            serviceId="c"
-            serviceName="VIDEOGRAPHY"
-            link={{ label: "GO TO SIMMER SNAP", url: "#" }}
-            description="From start-ups, local, international, personal brands,
-										communities, corporations, businesses and government
-										agencies."
-          />
-          <MenuService
-            serviceId="d"
-            serviceName="SERVICE NAME"
-            description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, in. Illum corrupti commodi veniam non voluptatum vero numquam quos libero?"
-          />
-          <MenuService
-            serviceId="f"
-            serviceName="SERVICE NAME"
-            description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, in. Illum corrupti commodi veniam non voluptatum vero numquam quos libero?"
-          />
-          <MenuService
-            serviceId="g"
-            serviceName="SERVICE NAME"
-            description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, in. Illum corrupti commodi veniam non voluptatum vero numquam quos libero?"
-          />
+          {services && services.length > 0
+            ? services.map(({ id, name, description, linkTo }) => (
+                <MenuService
+                  key={id}
+                  name={name}
+                  description={description}
+                  linkTo={linkTo}
+                  checked={items.includes(name)}
+                  onClick={() => updateCartItems(name)}
+                />
+              ))
+            : null}
         </div>
       </div>
     </>
