@@ -58,7 +58,18 @@ export default async function IndividualProject({ params }: Props) {
         <ContentWrapper>
           <StickySidebar theme="dark" className="mt-32 border-r-0" />
           <div className="basis-full space-y-20 overflow-hidden bg-simmer-white pb-10 lg:rounded-tl-[8rem]">
-            <Hero />
+            <Hero
+              thumbnail={project.thumbnail}
+              cover={project.cover}
+              name={project.name}
+              brand={project.brand}
+              project={project.project}
+              date={project.date}
+              description={project.description}
+              websiteUrl={project.websiteUrl}
+              featuredServices={project.featuredServices}
+              services={project.services}
+            />
             {content?.map((c) => {
               if (c.blockType === "FullWidthImage") {
                 return <FullWidthMedia key={c.id} media={c.image} />;
