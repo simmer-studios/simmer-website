@@ -1,6 +1,6 @@
 import { Block } from "payload";
 
-export const FullWidthImage: Block = {
+export const FullWidthMedia: Block = {
   slug: "FullWidthImage",
   fields: [
     {
