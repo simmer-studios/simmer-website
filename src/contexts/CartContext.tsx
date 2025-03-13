@@ -10,7 +10,6 @@ import {
 
 interface Cart {
   items: string[];
-  isVisible: boolean;
   isDiscounted: boolean;
   isChefChoiceSelected: boolean;
   addItem: (item: string) => void;
@@ -21,7 +20,6 @@ interface Cart {
 
 const CartContext = createContext<Cart>({
   items: [],
-  isVisible: false,
   isDiscounted: false,
   isChefChoiceSelected: false,
   addItem: () => null,
@@ -41,8 +39,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     return [];
   });
-
-  const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isDiscounted, setIsDiscounted] = useState<boolean>(false);
   const [isChefChoiceSelected, setIsChefChoiceSelected] =
     useState<boolean>(false);
@@ -75,9 +71,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     <CartContext.Provider
       value={{
         items,
-        isVisible,
-        isDiscounted: false,
-        isChefChoiceSelected: false,
+        isDiscounted,
+        isChefChoiceSelected,
         addItem: addCartItem,
         removeItem: removeCartItem,
         toggleDiscount,
