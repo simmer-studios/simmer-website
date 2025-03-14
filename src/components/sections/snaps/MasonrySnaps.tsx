@@ -53,7 +53,7 @@ const MasonryBlock: FC<MasonryBlockProps> = ({
       viewport={{ once: true, margin: "-100px" }}
       className="group relative break-inside-avoid"
     >
-      <Link href={`/snap/${slug}`} target="_blank">
+      <Link href={`/snap/${slug}`}>
         <Image
           src={src}
           alt={alt || ""}
