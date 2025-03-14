@@ -177,25 +177,13 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = memo(
 
               <button
                 id="play-button"
-                className="content-center items-center bg-simmer-yellow hover:brightness-95"
+                className="flex items-center justify-center bg-simmer-yellow hover:brightness-95"
                 onClick={handlePlayClick}
               >
                 <Image src={isPlaying ? Pause : Play} alt="" width={70} />
               </button>
               <div className="flex flex-1 border-l-2 border-black"></div>
             </div>
-            <div className="flex items-center justify-start px-5 py-5">
-              <Image src={Studio} alt="Studio" />
-            </div>
-
-            <button
-              id="play-button"
-              className="flex items-center justify-center bg-simmer-yellow hover:brightness-95"
-              onClick={handlePlayClick}
-            >
-              <Image src={isPlaying ? Pause : Play} alt="" width={70} />
-            </button>
-            <div className="flex flex-1 border-l-2 border-black"></div>
           </div>
         </div>
       </div>
