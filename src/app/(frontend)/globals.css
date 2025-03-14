@@ -41,6 +41,7 @@
   }
 
   body {
+    background-color: rgb(var(--simmer-white));
   }
 
   .marquee:hover .infinite-slider {
