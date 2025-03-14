@@ -86,12 +86,14 @@ export default async function IndividualProject({ params }: Props) {
               }
 
               if (c.blockType === "ThreeImages") {
-                <ThreePanelGallery
-                  key={c.id}
-                  firstImage={c.first}
-                  secondImage={c.second}
-                  thirdImage={c.third}
-                />;
+                return (
+                  <ThreePanelGallery
+                    key={c.id}
+                    firstImage={c.first}
+                    secondImage={c.second}
+                    thirdImage={c.third}
+                  />
+                );
               }
 
               if (c.blockType === "Carousel") {
