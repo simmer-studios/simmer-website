@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { FC, HTMLProps } from "react";
 
@@ -11,6 +13,8 @@ import HOVER_SoMuchMore from "@/assets/home/hover_so-much-more.svg";
 import HOVER_Than from "@/assets/home/hover_than.svg";
 import HOVER_ThinkOutside from "@/assets/home/hover_think-outside.svg";
 import HOVER_WeAre from "@/assets/home/hover_we-are.svg";
+import Pause from "@/assets/home/pause.svg";
+import Play from "@/assets/home/play.svg";
 import A from "@/assets/home/sm_A.svg";
 import Branding from "@/assets/home/sm_branding.svg";
 import Creative from "@/assets/home/sm_creative.svg";
@@ -24,12 +28,20 @@ import Studio from "@/assets/home/sm_studio.svg";
 import Than from "@/assets/home/sm_than.svg";
 import WeAre from "@/assets/home/we-are.svg";
 import HoverTransition from "@/components/HoverTransition";
+import { useAnimation } from "@/contexts/AnimationContext";
 import { cn } from "@/lib/utils";
 
 const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
   className,
   ...props
 }) => {
+  const { isPlaying, setIsPlaying } = useAnimation();
+
+  const handlePlayClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsPlaying(!isPlaying);
+  };
+
   return (
     <div className={className} {...props}>
       <div className="row border-b-2 border-black">
@@ -40,6 +52,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
                 transitionElement={
                   <Image src={HOVER_WeAre} alt="We are" width={65} />
                 }
+                delay={0}
               >
                 <Image src={WeAre} alt="We are" width={70} />
               </HoverTransition>
@@ -47,6 +60,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
             <div className="flex items-center justify-center px-5 py-5">
               <HoverTransition
                 transitionElement={<Image src={HOVER_More} alt="More" />}
+                delay={100}
               >
                 <Image src={More} alt="" />
               </HoverTransition>
@@ -55,6 +69,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
               <HoverTransition
                 className="overflow-y-hidden"
                 transitionElement={<Image src={Egg} alt="" />}
+                delay={200}
               >
                 <Image src={Burger} alt="" />
               </HoverTransition>
@@ -69,6 +84,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
               <HoverTransition
                 className="overflow-y-visible"
                 transitionElement={<Image src={HOVER_Burger} alt="" />}
+                delay={300}
               >
                 <Image src={EggSandwich} alt="" />
               </HoverTransition>
@@ -76,6 +92,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
             <div className="flex flex-1 items-center justify-start px-5 py-5">
               <HoverTransition
                 transitionElement={<Image src={HOVER_Than} alt="Than" />}
+                delay={400}
               >
                 <Image src={Than} alt="Than" />
               </HoverTransition>
@@ -89,6 +106,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
             <div className="flex flex-1 items-center justify-end px-5 py-5">
               <HoverTransition
                 transitionElement={<Image src={HOVER_Just} alt="Just" />}
+                delay={500}
               >
                 <Image src={Just} alt="Just" />
               </HoverTransition>
@@ -99,6 +117,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
                 transitionElement={
                   <Image src={HOVER_Cup} alt="" className="scale-150" />
                 }
+                delay={600}
               >
                 <Image src={A} alt="" />
               </HoverTransition>
@@ -120,6 +139,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
                     className="-mt-2.5"
                   />
                 }
+                delay={700}
               >
                 <Image src={Creative} alt="" />
               </HoverTransition>
@@ -127,6 +147,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
             <div className="flex flex-1 items-center justify-start px-5">
               <HoverTransition
                 transitionElement={<Image src={HOVER_ThinkOutside} alt="" />}
+                delay={800}
               >
                 <Image src={DiagonalText} alt="" className="aspect-square" />
               </HoverTransition>
@@ -149,13 +170,23 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
                 transitionElement={
                   <Image src={HOVER_Eggcited} alt="" width={45} />
                 }
+                delay={900}
               >
                 <Image src={Egg} alt="" />
               </HoverTransition>
             </div>
-            <div className="flex flex-1 items-center justify-start px-5 py-5">
+            <div className="flex items-center justify-start px-5 py-5">
               <Image src={Studio} alt="Studio" />
             </div>
+
+            <button
+              id="play-button"
+              className="content-center items-center bg-simmer-yellow hover:brightness-95"
+              onClick={handlePlayClick}
+            >
+              <Image src={isPlaying ? Pause : Play} alt="" width={70} />
+            </button>
+            <div className="flex flex-1 border-l-2 border-black"></div>
           </div>
         </div>
       </div>
