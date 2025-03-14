@@ -18,7 +18,7 @@ const FullWidthMedia: FC<Props> = ({ media }) => {
   }
 
   return (
-    <section className="relative min-h-dvh overflow-hidden">
+    <section className="relative min-h-screen overflow-hidden">
       <Image
         src={media.url}
         alt={media.alt || ""}

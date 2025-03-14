@@ -25,7 +25,7 @@ const Hero: FC<HTMLProps<HTMLDivElement> & Props> = ({
   return (
     <section
       className={cn(
-        "flex min-h-dvh flex-col bg-[url(/images/dash-lines.svg)] bg-bottom bg-repeat-x lg:bg-none",
+        "flex min-h-screen flex-col bg-[url(/images/dash-lines.svg)] bg-bottom bg-repeat-x lg:bg-none",
         className
       )}
     >
