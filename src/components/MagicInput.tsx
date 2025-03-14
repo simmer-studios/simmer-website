@@ -50,8 +50,8 @@ const MagicInput: FC<Props> = ({ hasRevealed }) => {
         value={revealedText}
         onKeyDown={handleKeyDown}
         onChange={() => {}} // Prevent user from manually editing
-        className="min-w-[500px]:text-6xl placeholder:-leading-[0.7] w-full bg-simmer-white px-3 py-4 font-fionas text-4xl font-medium placeholder:text-black focus:outline-none sm:px-6 sm:py-5 sm:text-5xl md:px-8 md:py-6 md:text-6xl lg:px-9 lg:py-7 lg:text-8xl xl:px-11 xl:text-9xl"
-        placeholder="Click"
+        className="min-w-[500px]:text-6xl placeholder:-leading-[0.7] w-full bg-simmer-white px-3 py-4 font-fionas text-4xl font-medium placeholder:text-gray-400 focus:outline-none sm:px-6 sm:py-5 sm:text-5xl md:px-8 md:py-6 md:text-6xl lg:px-9 lg:py-7 lg:text-7xl xl:px-11 xl:text-8xl"
+        placeholder="Type away"
       />
       <div className="absolute bottom-[50%] right-2 top-[50%] z-10 aspect-square h-16 -translate-y-[50%] sm:h-20 md:h-24 lg:h-32 xl:h-36">
         <Image

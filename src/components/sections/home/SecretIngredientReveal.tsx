@@ -171,7 +171,7 @@ const Ticket: FC<HTMLProps<HTMLDivElement> & TicketProps> = ({
               &#91;don&apos;t think&#93;
             </span>
             &nbsp;
-            <span className="inline-block">COME ON, JUST TYPE!</span>
+            <span className="inline-block">COME ON, JUST TYPE</span>
           </div>
           <div className="flex items-center justify-center gap-2 lg:order-1">
             <span className="font-lora text-4xl font-semibold lg:text-6xl">
