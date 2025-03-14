@@ -1,5 +1,4 @@
 import config from "@payload-config";
-import { unstable_cache } from "next/cache";
 import { getPayload } from "payload";
 
 import ContentWrapper from "@/components/ContentWrapper";
@@ -10,40 +9,38 @@ import Hero from "@/components/sections/about/Hero";
 import MemberCards from "@/components/sections/about/MemberCards";
 import StickySidebar from "@/components/StickySidebar";
 
-const getPageData = unstable_cache(
-  async () => {
-    const payload = await getPayload({ config });
+export const revalidate = 3600; // 1 hour
 
-    const aboutPagePromise = payload.findGlobal({
-      slug: "about"
-    });
+const getPageData = async () => {
+  const payload = await getPayload({ config });
 
-    const creativesPromise = payload.find({
-      collection: "creatives",
-      sort: ["+order"]
-    });
+  const aboutPagePromise = payload.findGlobal({
+    slug: "about"
+  });
 
-    const clientsPromise = payload.find({
-      collection: "clients",
-      showHiddenFields: true,
-      sort: ["-name"]
-    });
+  const creativesPromise = payload.find({
+    collection: "creatives",
+    sort: ["+order"]
+  });
 
-    const [aboutPage, creativesData, clientsData] = await Promise.all([
-      aboutPagePromise,
-      creativesPromise,
-      clientsPromise
-    ]);
+  const clientsPromise = payload.find({
+    collection: "clients",
+    showHiddenFields: true,
+    sort: ["-name"]
+  });
 
-    return {
-      aboutPage,
-      clients: clientsData.docs,
-      creatives: creativesData.docs
-    };
-  },
-  ["about-page"],
-  { revalidate: 10, tags: ["about-page"] }
-);
+  const [aboutPage, creativesData, clientsData] = await Promise.all([
+    aboutPagePromise,
+    creativesPromise,
+    clientsPromise
+  ]);
+
+  return {
+    aboutPage,
+    clients: clientsData.docs,
+    creatives: creativesData.docs
+  };
+};
 
 export function generateMetadata() {
   return {

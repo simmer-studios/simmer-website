@@ -8,13 +8,17 @@ import Hero from "@/components/sections/snaps/Hero";
 import MasonrySnaps from "@/components/sections/snaps/MasonrySnaps";
 import StickySidebar from "@/components/StickySidebar";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // 1 hour
 
 export default async function SimmerSnapsPage() {
   const payload = await getPayload({ config });
 
   const snapsPage = await payload.findGlobal({
     slug: "snaps-global"
+  });
+
+  const snaps = await payload.find({
+    collection: "snaps"
   });
 
   return (
@@ -24,7 +28,7 @@ export default async function SimmerSnapsPage() {
         <Hero pageData={snapsPage} />
         <ContentWrapper className="border-b-2 border-black">
           <StickySidebar className="border-0" theme="dark" />
-          <MasonrySnaps />
+          <MasonrySnaps snaps={snaps.docs} />
         </ContentWrapper>
       </main>
       <Footer />

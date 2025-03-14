@@ -2,20 +2,28 @@ import { HTMLMotionProps, motion } from "motion/react";
 import { FC, HTMLProps, PropsWithChildren } from "react";
 
 import { cn } from "@/lib/utils";
-import { Homepage } from "@/payload-types";
 
-import { ServiceCategoryKey } from "./Services";
+import { TabKey } from "./Services";
 
 interface ServiceCategoriesProps {
-  categories: Homepage["services"];
-  selectedCategory: ServiceCategoryKey;
-  onCategoryClick: (category: ServiceCategoryKey) => void;
+  firstLabel: string;
+  secondLabel: string;
+  thirdLabel: string;
+  activeTab: TabKey;
+  onLabelClick: (tab: TabKey) => void;
 }
 
 const ServiceCategories: FC<
   Omit<HTMLMotionProps<"section">, keyof ServiceCategoriesProps> &
     ServiceCategoriesProps
-> = ({ categories, selectedCategory, onCategoryClick, ...props }) => {
+> = ({
+  firstLabel,
+  secondLabel,
+  thirdLabel,
+  activeTab,
+  onLabelClick,
+  ...props
+}) => {
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -42,23 +50,23 @@ const ServiceCategories: FC<
       {/* pillars row */}
       <CategoryList>
         <Row
-          text={categories.first.title}
+          text={firstLabel}
           number="01"
-          onClick={() => onCategoryClick("first")}
-          active={selectedCategory === "first"}
+          onClick={() => onLabelClick("appetizers")}
+          active={activeTab === "appetizers"}
         />
         <Row
-          text={categories.second.title}
+          text={secondLabel}
           number="02"
           variant="thin-italic"
-          onClick={() => onCategoryClick("second")}
-          active={selectedCategory === "second"}
+          onClick={() => onLabelClick("mainCourse")}
+          active={activeTab === "mainCourse"}
         />
         <Row
-          text={categories.third.title}
+          text={thirdLabel}
           number="03"
-          onClick={() => onCategoryClick("third")}
-          active={selectedCategory === "third"}
+          onClick={() => onLabelClick("desserts")}
+          active={activeTab === "desserts"}
         />
       </CategoryList>
     </motion.section>

@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { Field, GlobalConfig } from "payload";
 
 const INTRO_FIELD: Field[] = [
@@ -75,56 +76,46 @@ const SERVICE_FIELD: Field[] = [
   }
 ];
 
-const SERVICES_FIELD: Field[] = [
-  {
-    name: "title",
-    label: "Title",
-    type: "text",
-    required: true,
-    defaultValue: "Title"
-  },
-  {
-    name: "appetizers",
-    label: "Appetizers",
-    type: "group",
-    fields: SERVICE_FIELD
-  },
-  {
-    name: "mainCourse",
-    label: "Main Course",
-    type: "group",
-    fields: SERVICE_FIELD
-  },
-  {
-    name: "desserts",
-    label: "Desserts",
-    type: "group",
-    fields: SERVICE_FIELD
-  }
-];
-
 const ServicesSection: Field = {
   name: "services",
   label: "Services",
   type: "group",
   fields: [
     {
-      name: "first",
-      label: "First",
-      type: "group",
-      fields: SERVICES_FIELD
+      name: "firstLabel",
+      label: "First Label",
+      type: "text",
+      required: true
     },
     {
-      name: "second",
-      label: "Second",
-      type: "group",
-      fields: SERVICES_FIELD
+      name: "secondLabel",
+      label: "Second Label",
+      type: "text",
+      required: true
     },
     {
-      name: "third",
-      label: "Third",
+      name: "thirdLabel",
+      label: "Third Label",
+      type: "text",
+      required: true
+    },
+    {
+      name: "appetizers",
+      label: "Appetizers",
       type: "group",
-      fields: SERVICES_FIELD
+      fields: SERVICE_FIELD
+    },
+    {
+      name: "mainCourse",
+      label: "Main Course",
+      type: "group",
+      fields: SERVICE_FIELD
+    },
+    {
+      name: "desserts",
+      label: "Desserts",
+      type: "group",
+      fields: SERVICE_FIELD
     }
   ]
 };
@@ -132,5 +123,12 @@ const ServicesSection: Field = {
 export const Homepage: GlobalConfig = {
   slug: "homepage",
   label: "Homepage",
+  hooks: {
+    afterChange: [
+      () => {
+        revalidatePath("/");
+      }
+    ]
+  },
   fields: [IntroSection, ServicesSection]
 };

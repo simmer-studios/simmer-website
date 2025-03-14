@@ -14,7 +14,7 @@ import SecretIngredientReveal from "@/components/sections/home/SecretIngredientR
 import Services from "@/components/sections/home/Services";
 import StickySidebar from "@/components/StickySidebar";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // 1 hour
 
 export const metadata: Metadata = {
   title: "Simmer Studios",
@@ -39,7 +39,7 @@ export default async function HomePage() {
           <div className="basis-full">
             <IntroCards intro={homepage.intro} />
             <SecretIngredientReveal />
-            <Services services={homepage.services} />
+            <Services servicesSection={homepage.services} />
             <RoundedLinks />
             <EggSpawner />
           </div>

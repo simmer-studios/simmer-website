@@ -1,9 +1,22 @@
+import { revalidatePath } from "next/cache";
 import type { CollectionConfig } from "payload";
 
 export const Clients: CollectionConfig = {
   slug: "clients",
   admin: {
     useAsTitle: "name"
+  },
+  hooks: {
+    afterChange: [
+      () => {
+        revalidatePath("/about");
+      }
+    ],
+    afterDelete: [
+      () => {
+        revalidatePath("/about");
+      }
+    ]
   },
   fields: [
     {

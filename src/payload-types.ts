@@ -299,6 +299,10 @@ export interface Media {
  */
 export interface Service {
   id: number;
+  /**
+   * Mark this service as a specialty on the menu
+   */
+  specialty?: boolean | null;
   name: string;
   description?: string | null;
   linkTo?: ('none' | 'snap' | 'stories') | null;
@@ -805,6 +809,7 @@ export interface SnapsSelect<T extends boolean = true> {
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
+  specialty?: T;
   name?: T;
   description?: T;
   linkTo?: T;
@@ -938,59 +943,23 @@ export interface Homepage {
     };
   };
   services: {
-    first: {
-      title: string;
-      appetizers: {
-        title?: string | null;
-        description?: string | null;
-        services: (number | Service)[];
-      };
-      mainCourse: {
-        title?: string | null;
-        description?: string | null;
-        services: (number | Service)[];
-      };
-      desserts: {
-        title?: string | null;
-        description?: string | null;
-        services: (number | Service)[];
-      };
+    firstLabel: string;
+    secondLabel: string;
+    thirdLabel: string;
+    appetizers: {
+      title?: string | null;
+      description?: string | null;
+      services: (number | Service)[];
     };
-    second: {
-      title: string;
-      appetizers: {
-        title?: string | null;
-        description?: string | null;
-        services: (number | Service)[];
-      };
-      mainCourse: {
-        title?: string | null;
-        description?: string | null;
-        services: (number | Service)[];
-      };
-      desserts: {
-        title?: string | null;
-        description?: string | null;
-        services: (number | Service)[];
-      };
+    mainCourse: {
+      title?: string | null;
+      description?: string | null;
+      services: (number | Service)[];
     };
-    third: {
-      title: string;
-      appetizers: {
-        title?: string | null;
-        description?: string | null;
-        services: (number | Service)[];
-      };
-      mainCourse: {
-        title?: string | null;
-        description?: string | null;
-        services: (number | Service)[];
-      };
-      desserts: {
-        title?: string | null;
-        description?: string | null;
-        services: (number | Service)[];
-      };
+    desserts: {
+      title?: string | null;
+      description?: string | null;
+      services: (number | Service)[];
     };
   };
   updatedAt?: string | null;
@@ -1141,83 +1110,29 @@ export interface HomepageSelect<T extends boolean = true> {
   services?:
     | T
     | {
-        first?:
+        firstLabel?: T;
+        secondLabel?: T;
+        thirdLabel?: T;
+        appetizers?:
           | T
           | {
               title?: T;
-              appetizers?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                    services?: T;
-                  };
-              mainCourse?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                    services?: T;
-                  };
-              desserts?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                    services?: T;
-                  };
+              description?: T;
+              services?: T;
             };
-        second?:
+        mainCourse?:
           | T
           | {
               title?: T;
-              appetizers?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                    services?: T;
-                  };
-              mainCourse?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                    services?: T;
-                  };
-              desserts?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                    services?: T;
-                  };
+              description?: T;
+              services?: T;
             };
-        third?:
+        desserts?:
           | T
           | {
               title?: T;
-              appetizers?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                    services?: T;
-                  };
-              mainCourse?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                    services?: T;
-                  };
-              desserts?:
-                | T
-                | {
-                    title?: T;
-                    description?: T;
-                    services?: T;
-                  };
+              description?: T;
+              services?: T;
             };
       };
   updatedAt?: T;

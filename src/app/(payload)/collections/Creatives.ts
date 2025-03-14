@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { CollectionConfig } from "payload";
 
 export const Creatives: CollectionConfig = {
@@ -5,6 +6,18 @@ export const Creatives: CollectionConfig = {
   admin: {
     useAsTitle: "name",
     defaultColumns: ["name", "role", "tagline", "image", "avatar"]
+  },
+  hooks: {
+    afterChange: [
+      () => {
+        revalidatePath("/about");
+      }
+    ],
+    afterDelete: [
+      () => {
+        revalidatePath("/about");
+      }
+    ]
   },
   fields: [
     {

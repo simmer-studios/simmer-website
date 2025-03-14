@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import type { CollectionConfig } from "payload";
 
 export const Services: CollectionConfig = {
@@ -5,7 +6,25 @@ export const Services: CollectionConfig = {
   admin: {
     useAsTitle: "name"
   },
+  hooks: {
+    afterChange: [
+      () => {
+        revalidatePath("/");
+        revalidatePath("/menu");
+        revalidatePath("/works", "layout");
+        revalidatePath("/snap");
+      }
+    ]
+  },
   fields: [
+    {
+      name: "specialty",
+      label: "Specialty",
+      type: "checkbox",
+      admin: {
+        description: "Mark this service as a specialty on the menu"
+      }
+    },
     {
       name: "name",
       type: "text",
