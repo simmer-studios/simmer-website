@@ -26,17 +26,24 @@ const CustomFilterDropdown: FC<Props> = ({
 }) => {
   const [activeFilter, setActiveFilter] = useState<Filter | null>(null);
 
-  const handleToggleFilter = ({ filterId, filterLabel }: Filter) => {
-    if (filterId === activeFilter?.filterId) {
+  const handleToggleFilter = ({ id, label }: Filter) => {
+    if (id === activeFilter?.id) {
       setActiveFilter(null);
     } else {
-      setActiveFilter({ filterId, filterLabel });
+      setActiveFilter({ id, label });
     }
   };
 
+  /* call the onFilterChange callback when the active filter changes */
   useEffect(() => {
     if (onFilterChange) onFilterChange(activeFilter);
-  }, [activeFilter, onFilterChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeFilter]);
+
+  /* if the filters change, reset the active filter */
+  useEffect(() => {
+    setActiveFilter(null);
+  }, [filters]);
 
   return (
     <DropdownMenu>
@@ -49,18 +56,18 @@ const CustomFilterDropdown: FC<Props> = ({
         className="rounded-xl border-none bg-black px-5 py-8 font-adelle-mono tracking-normal text-simmer-white"
       >
         {filters
-          ? filters.map(({ filterId, filterLabel }) => (
+          ? filters.map(({ id, label }) => (
               <DropdownMenuItem
-                key={filterId}
-                onClick={() => handleToggleFilter({ filterId, filterLabel })}
+                key={id}
+                onClick={() => handleToggleFilter({ id, label })}
                 className={cn(
                   "underline underline-offset-2 hover:text-simmer-yellow",
                   {
-                    "text-simmer-yellow": activeFilter?.filterId === filterId
+                    "text-simmer-yellow": activeFilter?.id === id
                   }
                 )}
               >
-                {filterLabel}
+                {label}
               </DropdownMenuItem>
             ))
           : null}

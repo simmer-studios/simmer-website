@@ -69,7 +69,7 @@ export interface Config {
     projects: Project;
     snaps: Snap;
     services: Service;
-    'service-categories': ServiceCategory;
+    categories: Category;
     creatives: Creative;
     clients: Client;
     users: User;
@@ -83,7 +83,7 @@ export interface Config {
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     snaps: SnapsSelect<false> | SnapsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
-    'service-categories': ServiceCategoriesSelect<false> | ServiceCategoriesSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
     creatives: CreativesSelect<false> | CreativesSelect<true>;
     clients: ClientsSelect<false> | ClientsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -97,11 +97,17 @@ export interface Config {
   };
   globals: {
     homepage: Homepage;
+    'works-global': WorksGlobal;
+    'snaps-global': SnapsGlobal;
+    menu: Menu;
     about: About;
     'brand-questionnaire': BrandQuestionnaire;
   };
   globalsSelect: {
     homepage: HomepageSelect<false> | HomepageSelect<true>;
+    'works-global': WorksGlobalSelect<false> | WorksGlobalSelect<true>;
+    'snaps-global': SnapsGlobalSelect<false> | SnapsGlobalSelect<true>;
+    menu: MenuSelect<false> | MenuSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
     'brand-questionnaire': BrandQuestionnaireSelect<false> | BrandQuestionnaireSelect<true>;
   };
@@ -157,13 +163,17 @@ export interface Project {
   slug: string;
   brand: string;
   project: string;
-  year: number;
+  date: string;
   description: string;
   featuredServices: string;
   /**
    * Select all applicable services to this project
    */
   services: (number | Service)[];
+  /**
+   * Select the categories this Project will show up on when filtered
+   */
+  categories: (number | Category)[];
   websiteUrl?: string | null;
   content?:
     | (
@@ -175,6 +185,14 @@ export interface Project {
             id?: string | null;
             blockName?: string | null;
             blockType: 'FullWidthImage';
+          }
+        | {
+            icon: number | Media;
+            heading: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'HeadingDescription';
           }
         | {
             /**
@@ -240,8 +258,13 @@ export interface Project {
             blockType: 'Quote';
           }
         | {
-            name: string;
-            role: string;
+            creatives?:
+              | {
+                  name: string;
+                  role: string;
+                  id?: string | null;
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'Creatives';
@@ -278,7 +301,17 @@ export interface Service {
   id: number;
   name: string;
   description?: string | null;
-  linkTo?: ('snap' | 'stories') | null;
+  linkTo?: ('none' | 'snap' | 'stories') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -296,6 +329,7 @@ export interface Snap {
    * Landscape image
    */
   cover: number | Media;
+  type: 'product' | 'portrait';
   name: string;
   /**
    * URL-friendly name of the project. No spaces or special characters e.g. simmer-studios
@@ -303,13 +337,17 @@ export interface Snap {
   slug: string;
   brand: string;
   project: string;
-  year: number;
+  date: string;
   description: string;
   featuredServices: string;
   /**
    * Select all applicable services to this project
    */
   services: (number | Service)[];
+  /**
+   * Select the categories this Snap will show up on when filtered
+   */
+  categories: (number | Category)[];
   websiteUrl?: string | null;
   content?:
     | (
@@ -321,6 +359,14 @@ export interface Snap {
             id?: string | null;
             blockName?: string | null;
             blockType: 'FullWidthImage';
+          }
+        | {
+            icon: number | Media;
+            heading: string;
+            description: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'HeadingDescription';
           }
         | {
             /**
@@ -386,25 +432,19 @@ export interface Snap {
             blockType: 'Quote';
           }
         | {
-            name: string;
-            role: string;
+            creatives?:
+              | {
+                  name: string;
+                  role: string;
+                  id?: string | null;
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'Creatives';
           }
       )[]
     | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "service-categories".
- */
-export interface ServiceCategory {
-  id: number;
-  name: string;
-  services?: (number | Service)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -428,7 +468,7 @@ export interface Creative {
   /**
    * Fun artwork that represents the creative
    */
-  avatar?: (number | null) | Media;
+  avatar: number | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -483,8 +523,8 @@ export interface PayloadLockedDocument {
         value: number | Service;
       } | null)
     | ({
-        relationTo: 'service-categories';
-        value: number | ServiceCategory;
+        relationTo: 'categories';
+        value: number | Category;
       } | null)
     | ({
         relationTo: 'creatives';
@@ -556,10 +596,11 @@ export interface ProjectsSelect<T extends boolean = true> {
   slug?: T;
   brand?: T;
   project?: T;
-  year?: T;
+  date?: T;
   description?: T;
   featuredServices?: T;
   services?: T;
+  categories?: T;
   websiteUrl?: T;
   content?:
     | T
@@ -568,6 +609,15 @@ export interface ProjectsSelect<T extends boolean = true> {
           | T
           | {
               image?: T;
+              id?: T;
+              blockName?: T;
+            };
+        HeadingDescription?:
+          | T
+          | {
+              icon?: T;
+              heading?: T;
+              description?: T;
               id?: T;
               blockName?: T;
             };
@@ -628,8 +678,13 @@ export interface ProjectsSelect<T extends boolean = true> {
         Creatives?:
           | T
           | {
-              name?: T;
-              role?: T;
+              creatives?:
+                | T
+                | {
+                    name?: T;
+                    role?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -644,14 +699,16 @@ export interface ProjectsSelect<T extends boolean = true> {
 export interface SnapsSelect<T extends boolean = true> {
   thumbnail?: T;
   cover?: T;
+  type?: T;
   name?: T;
   slug?: T;
   brand?: T;
   project?: T;
-  year?: T;
+  date?: T;
   description?: T;
   featuredServices?: T;
   services?: T;
+  categories?: T;
   websiteUrl?: T;
   content?:
     | T
@@ -660,6 +717,15 @@ export interface SnapsSelect<T extends boolean = true> {
           | T
           | {
               image?: T;
+              id?: T;
+              blockName?: T;
+            };
+        HeadingDescription?:
+          | T
+          | {
+              icon?: T;
+              heading?: T;
+              description?: T;
               id?: T;
               blockName?: T;
             };
@@ -720,8 +786,13 @@ export interface SnapsSelect<T extends boolean = true> {
         Creatives?:
           | T
           | {
-              name?: T;
-              role?: T;
+              creatives?:
+                | T
+                | {
+                    name?: T;
+                    role?: T;
+                    id?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -742,11 +813,10 @@ export interface ServicesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "service-categories_select".
+ * via the `definition` "categories_select".
  */
-export interface ServiceCategoriesSelect<T extends boolean = true> {
+export interface CategoriesSelect<T extends boolean = true> {
   name?: T;
-  services?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -928,6 +998,66 @@ export interface Homepage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "works-global".
+ */
+export interface WorksGlobal {
+  id: number;
+  /**
+   * Select the categories to show as filters on Works page
+   */
+  categories: (number | Category)[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "snaps-global".
+ */
+export interface SnapsGlobal {
+  id: number;
+  /**
+   * Select the categories to show as filters when Products are selected
+   */
+  productCategories: (number | Category)[];
+  /**
+   * Select the categories to show as filters when Portraits are selected
+   */
+  portraitCategories: (number | Category)[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu".
+ */
+export interface Menu {
+  id: number;
+  strategy: {
+    title: string;
+    heading: string;
+    description: string;
+    services: (number | Service)[];
+  };
+  identity: {
+    title: string;
+    heading: string;
+    description: string;
+    services: (number | Service)[];
+  };
+  executions: {
+    title: string;
+    heading: string;
+    description: string;
+    services: (number | Service)[];
+  };
+  chefsChoice: {
+    description: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about".
  */
 export interface About {
@@ -957,20 +1087,17 @@ export interface About {
 export interface BrandQuestionnaire {
   id: number;
   description: string;
-  brandAttributes?:
-    | {
-        left: string;
-        right: string;
-        id?: string | null;
-      }[]
-    | null;
-  questions?:
-    | {
-        question: string;
-        description: string;
-        id?: string | null;
-      }[]
-    | null;
+  brandAttributes: {
+    left: string;
+    right: string;
+    id?: string | null;
+  }[];
+  questions: {
+    isRequired?: boolean | null;
+    question: string;
+    description: string;
+    id?: string | null;
+  }[];
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1099,6 +1226,65 @@ export interface HomepageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "works-global_select".
+ */
+export interface WorksGlobalSelect<T extends boolean = true> {
+  categories?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "snaps-global_select".
+ */
+export interface SnapsGlobalSelect<T extends boolean = true> {
+  productCategories?: T;
+  portraitCategories?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "menu_select".
+ */
+export interface MenuSelect<T extends boolean = true> {
+  strategy?:
+    | T
+    | {
+        title?: T;
+        heading?: T;
+        description?: T;
+        services?: T;
+      };
+  identity?:
+    | T
+    | {
+        title?: T;
+        heading?: T;
+        description?: T;
+        services?: T;
+      };
+  executions?:
+    | T
+    | {
+        title?: T;
+        heading?: T;
+        description?: T;
+        services?: T;
+      };
+  chefsChoice?:
+    | T
+    | {
+        description?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about_select".
  */
 export interface AboutSelect<T extends boolean = true> {
@@ -1128,6 +1314,7 @@ export interface BrandQuestionnaireSelect<T extends boolean = true> {
   questions?:
     | T
     | {
+        isRequired?: T;
         question?: T;
         description?: T;
         id?: T;

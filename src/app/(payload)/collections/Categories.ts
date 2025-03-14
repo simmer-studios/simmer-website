@@ -1,7 +1,7 @@
 import type { CollectionConfig } from "payload";
 
-export const ServiceCategories: CollectionConfig = {
-  slug: "service-categories",
+export const Categories: CollectionConfig = {
+  slug: "categories",
   admin: {
     useAsTitle: "name"
   },
@@ -11,12 +11,6 @@ export const ServiceCategories: CollectionConfig = {
       type: "text",
       required: true,
       unique: true
-    },
-    {
-      name: "services",
-      type: "relationship",
-      relationTo: "services",
-      hasMany: true
     }
   ]
 };

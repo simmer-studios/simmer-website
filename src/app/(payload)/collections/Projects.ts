@@ -1,18 +1,24 @@
 import type { CollectionConfig } from "payload";
 
-import { Carousel } from "@/blocks/Carousel";
-import { Creatives } from "@/blocks/Creatives";
-import { FullWidthImage } from "@/blocks/FullWidthImage";
-import { ImageText } from "@/blocks/ImageText";
-import { Quote } from "@/blocks/Quote";
-import { ThreeImages } from "@/blocks/ThreeImages";
-import { TwoImageText } from "@/blocks/TwoImageText";
+import { Carousel } from "@/app/(payload)/blocks/Carousel";
+import { Creatives } from "@/app/(payload)/blocks/Creatives";
+import { FullWidthMedia } from "@/app/(payload)/blocks/FullWidthMedia";
+import { ImageText } from "@/app/(payload)/blocks/ImageText";
+import { Quote } from "@/app/(payload)/blocks/Quote";
+import { ThreeImages } from "@/app/(payload)/blocks/ThreeImages";
+import { TwoImageText } from "@/app/(payload)/blocks/TwoImageText";
 import { validateUrl } from "@/lib/utils";
+
+import { HeadingDescription } from "../blocks/HeadingDescription";
 
 export const Projects: CollectionConfig = {
   slug: "projects",
   admin: {
-    useAsTitle: "name"
+    useAsTitle: "name",
+    preview: ({ slug }) => `/works/${slug}`,
+    livePreview: {
+      url: ({ data }) => `/works/${data.slug}`
+    }
   },
   fields: [
     {
@@ -64,7 +70,7 @@ export const Projects: CollectionConfig = {
           type: "text",
           required: true,
           validate: (value: unknown) => {
-            const matcher = /[a-zA-Z\-_0-9]+/;
+            const matcher = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
             if (typeof value !== "string" || !matcher.test(value)) {
               return "Please enter a valid slug";
             } else {
@@ -93,8 +99,8 @@ export const Projects: CollectionConfig = {
           required: true
         },
         {
-          name: "year",
-          type: "number",
+          name: "date",
+          type: "date",
           required: true
         }
       ]
@@ -121,6 +127,17 @@ export const Projects: CollectionConfig = {
       }
     },
     {
+      name: "categories",
+      type: "relationship",
+      relationTo: "categories",
+      hasMany: true,
+      required: true,
+      admin: {
+        description:
+          "Select the categories this Project will show up on when filtered"
+      }
+    },
+    {
       name: "websiteUrl",
       label: "Link to their website or social media",
       type: "text",
@@ -133,7 +150,8 @@ export const Projects: CollectionConfig = {
       name: "content",
       type: "blocks",
       blocks: [
-        FullWidthImage,
+        FullWidthMedia,
+        HeadingDescription,
         ImageText,
         TwoImageText,
         ThreeImages,

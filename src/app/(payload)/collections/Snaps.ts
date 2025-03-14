@@ -1,17 +1,23 @@
 import type { CollectionConfig } from "payload";
 
-import { Carousel } from "@/blocks/Carousel";
-import { Creatives } from "@/blocks/Creatives";
-import { FullWidthImage } from "@/blocks/FullWidthImage";
-import { ImageText } from "@/blocks/ImageText";
-import { Quote } from "@/blocks/Quote";
-import { ThreeImages } from "@/blocks/ThreeImages";
-import { TwoImageText } from "@/blocks/TwoImageText";
+import { Carousel } from "@/app/(payload)/blocks/Carousel";
+import { Creatives } from "@/app/(payload)/blocks/Creatives";
+import { FullWidthMedia } from "@/app/(payload)/blocks/FullWidthMedia";
+import { ImageText } from "@/app/(payload)/blocks/ImageText";
+import { Quote } from "@/app/(payload)/blocks/Quote";
+import { ThreeImages } from "@/app/(payload)/blocks/ThreeImages";
+import { TwoImageText } from "@/app/(payload)/blocks/TwoImageText";
+
+import { HeadingDescription } from "../blocks/HeadingDescription";
 
 export const Snaps: CollectionConfig = {
   slug: "snaps",
   admin: {
-    useAsTitle: "name"
+    useAsTitle: "name",
+    preview: ({ slug }) => `/snap/${slug}`,
+    livePreview: {
+      url: ({ data }) => `/snap/${data.slug}`
+    }
   },
   fields: [
     {
@@ -39,6 +45,22 @@ export const Snaps: CollectionConfig = {
       ]
     },
     {
+      type: "radio",
+      name: "type",
+      label: "Type",
+      required: true,
+      options: [
+        {
+          label: "Product",
+          value: "product"
+        },
+        {
+          label: "Portrait",
+          value: "portrait"
+        }
+      ]
+    },
+    {
       type: "row",
       fields: [
         {
@@ -51,7 +73,7 @@ export const Snaps: CollectionConfig = {
           type: "text",
           required: true,
           validate: (value: unknown) => {
-            const matcher = /[a-zA-Z\-_0-9]+/;
+            const matcher = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
             if (typeof value !== "string" || !matcher.test(value)) {
               return "Please enter a valid slug";
             } else {
@@ -80,8 +102,8 @@ export const Snaps: CollectionConfig = {
           required: true
         },
         {
-          name: "year",
-          type: "number",
+          name: "date",
+          type: "date",
           required: true
         }
       ]
@@ -108,6 +130,17 @@ export const Snaps: CollectionConfig = {
       }
     },
     {
+      name: "categories",
+      type: "relationship",
+      relationTo: "categories",
+      hasMany: true,
+      required: true,
+      admin: {
+        description:
+          "Select the categories this Snap will show up on when filtered"
+      }
+    },
+    {
       name: "websiteUrl",
       label: "Website URL",
       type: "text",
@@ -131,7 +164,8 @@ export const Snaps: CollectionConfig = {
       name: "content",
       type: "blocks",
       blocks: [
-        FullWidthImage,
+        FullWidthMedia,
+        HeadingDescription,
         ImageText,
         TwoImageText,
         ThreeImages,

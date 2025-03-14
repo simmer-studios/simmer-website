@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { ComponentProps, FC, HTMLProps } from "react";
+import { FC, HTMLProps } from "react";
 
 import A from "@/assets/home/A.svg";
 import Ampersand from "@/assets/home/ampersand.svg";
@@ -31,7 +30,7 @@ import Studio from "@/assets/home/studio.svg";
 import Than from "@/assets/home/than.svg";
 import WeAre from "@/assets/home/we-are.svg";
 import HoverTransition from "@/components/HoverTransition";
-import { useAnimation } from "@/context/AnimationContext";
+import { useAnimation } from "@/contexts/AnimationContext";
 import { cn } from "@/lib/utils";
 
 const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {

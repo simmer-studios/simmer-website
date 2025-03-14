@@ -61,7 +61,12 @@ const Hero: FC<HTMLProps<HTMLElement>> = ({ className }) => {
         {/* Project Details & Description + Link */}
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-24">
           <div className="basis-full justify-center">
-            <ProjectPrimaryDetails />
+            <ProjectPrimaryDetails
+              date="2022-01-01"
+              brand="The Bourbon Bros"
+              project="Rebranding"
+              services={[0]}
+            />
           </div>
           <div className="basis-full">
             <div className="space-y-3 text-center lg:max-w-prose lg:text-left">

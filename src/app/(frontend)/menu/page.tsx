@@ -1,3 +1,5 @@
+import config from "@payload-config";
+import { getPayload } from "payload";
 import { Suspense } from "react";
 
 import ContentWrapper from "@/components/ContentWrapper";
@@ -7,6 +9,8 @@ import MenuForm from "@/components/MenuForm";
 import Hero from "@/components/sections/menu/Hero";
 import StickySidebar from "@/components/StickySidebar";
 
+export const dynamic = "force-dynamic";
+
 export function generateMetadata() {
   return {
     title: "Menu | Simmer Studios",
@@ -14,8 +18,14 @@ export function generateMetadata() {
   };
 }
 
-/* MENU PAGE */
-export default function MenuPage() {
+export default async function MenuPage() {
+  const payload = await getPayload({ config });
+
+  const menuForm = await payload.findGlobal({
+    slug: "menu",
+    showHiddenFields: true
+  });
+
   return (
     <>
       <Header theme="dark" />
@@ -25,7 +35,14 @@ export default function MenuPage() {
           <StickySidebar theme="dark" className="border-0" />
           <div className="basis-full">
             <Suspense fallback={<p>Loading form...</p>}>
-              <MenuForm />
+              {menuForm && (
+                <MenuForm
+                  chefsChoice={menuForm.chefsChoice}
+                  executions={menuForm.executions}
+                  identity={menuForm.identity}
+                  strategy={menuForm.strategy}
+                />
+              )}
             </Suspense>
           </div>
         </ContentWrapper>

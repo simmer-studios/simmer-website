@@ -1,4 +1,5 @@
 import config from "@payload-config";
+import { unstable_cache } from "next/cache";
 import { getPayload } from "payload";
 
 import ContentWrapper from "@/components/ContentWrapper";
@@ -8,7 +9,41 @@ import ClientList from "@/components/sections/about/ClientList";
 import Hero from "@/components/sections/about/Hero";
 import MemberCards from "@/components/sections/about/MemberCards";
 import StickySidebar from "@/components/StickySidebar";
-import { Media } from "@/payload-types";
+
+const getPageData = unstable_cache(
+  async () => {
+    const payload = await getPayload({ config });
+
+    const aboutPagePromise = payload.findGlobal({
+      slug: "about"
+    });
+
+    const creativesPromise = payload.find({
+      collection: "creatives",
+      sort: ["+order"]
+    });
+
+    const clientsPromise = payload.find({
+      collection: "clients",
+      showHiddenFields: true,
+      sort: ["-name"]
+    });
+
+    const [aboutPage, creativesData, clientsData] = await Promise.all([
+      aboutPagePromise,
+      creativesPromise,
+      clientsPromise
+    ]);
+
+    return {
+      aboutPage,
+      clients: clientsData.docs,
+      creatives: creativesData.docs
+    };
+  },
+  ["about-page"],
+  { revalidate: 10, tags: ["about-page"] }
+);
 
 export function generateMetadata() {
   return {
@@ -18,21 +53,7 @@ export function generateMetadata() {
 }
 
 export default async function AboutPage() {
-  const payload = await getPayload({ config });
-
-  const { docs } = await payload.find({
-    collection: "creatives",
-    showHiddenFields: true
-  });
-
-  const members = docs.map((doc) => ({
-    id: doc.id.toString(),
-    name: doc.name,
-    role: doc.role,
-    avatar: doc.avatar as Media,
-    photo: doc.image as Media,
-    catchPhrase: doc.tagline
-  }));
+  const { aboutPage, clients, creatives } = await getPageData();
 
   return (
     <>
@@ -45,9 +66,18 @@ export default async function AboutPage() {
         <ContentWrapper className="border-b-2 border-black">
           <StickySidebar theme="dark" className="mt-32 border-r-0" />
           <div className="basis-full space-y-10 overflow-hidden bg-simmer-white pb-20 lg:rounded-tl-[8rem]">
-            <Hero />
-            <MemberCards members={members} />
-            <ClientList />
+            <Hero
+              banner={aboutPage.banner}
+              thumbnail={aboutPage.thumbnail}
+              cover={aboutPage.cover}
+              tagline={aboutPage.tagline}
+              description={aboutPage.description}
+            />
+            <MemberCards creatives={creatives} />
+            <ClientList
+              clients={clients}
+              description={aboutPage.clientsDescription}
+            />
           </div>
         </ContentWrapper>
       </main>

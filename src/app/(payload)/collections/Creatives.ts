@@ -57,6 +57,7 @@ export const Creatives: CollectionConfig = {
           name: "avatar",
           type: "upload",
           relationTo: "media",
+          required: true,
           admin: {
             description: "Fun artwork that represents the creative"
           }

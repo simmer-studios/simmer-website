@@ -8,65 +8,82 @@ import {
   useState
 } from "react";
 
-export type CartItem = {
-  id: string;
-  name: string;
-};
-
 interface Cart {
-  items: CartItem[];
-  addItem: (item: CartItem) => void;
-  removeItem: (itemId: string) => void;
-  isVisible: boolean;
+  items: string[];
   isDiscounted: boolean;
+  isChefChoiceSelected: boolean;
+  addItem: (item: string) => void;
+  removeItem: (itemId: string) => void;
+  applyDiscount: () => void;
+  toggleChefChoice: () => void;
 }
 
 const CartContext = createContext<Cart>({
   items: [],
+  isDiscounted: false,
+  isChefChoiceSelected: false,
   addItem: () => null,
   removeItem: () => null,
-  isVisible: false,
-  isDiscounted: false
+  applyDiscount: () => null,
+  toggleChefChoice: () => null
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  /* TODO: load persisted cart value from local storage if available */
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<string[]>([]);
+  const [isDiscounted, setIsDiscounted] = useState<boolean>(false);
+  const [isChefChoiceSelected, setIsChefChoiceSelected] =
+    useState<boolean>(false);
 
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-
-  const addCartItem = (item: CartItem) => {
-    /* check if item is already included in the cart */
-    if (items.find((i) => item.id === i.id)) {
-      return;
-    } else {
-      setItems((prev) => [...prev, { id: item.id, name: item.name }]);
+  const addCartItem = (item: string) => {
+    if (!items.includes(item)) {
+      setItems((prev) => [...prev, item]);
     }
   };
 
-  const removeCartItem = (itemId: string) => {
-    if (items.find((i) => i.id === itemId)) {
-      setItems((prev) => prev.filter((item) => item.id !== itemId));
-    } else {
-      return;
-    }
+  const removeCartItem = (itemToRemove: string) => {
+    setItems((prev) => prev.filter((item) => item !== itemToRemove));
   };
 
-  /* TODO: persist cart items to local storage */
-  // useEffect(() => {}, [items]);
+  const applyDiscount = () => {
+    setIsDiscounted(true);
+  };
+
+  const toggleChefChoice = () => {
+    setIsChefChoiceSelected((prev) => !prev);
+  };
 
   useEffect(() => {
-    console.log(items);
+    if (typeof window !== "undefined") {
+      const simmerDiscount = localStorage.getItem("simmer-discount");
+      const cart = localStorage.getItem("simmer-cart");
+
+      setIsDiscounted(simmerDiscount === "true");
+      setItems(cart ? JSON.parse(cart) : []);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("simmer-cart", JSON.stringify(items));
+    }
   }, [items]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("simmer-discount", isDiscounted ? "true" : "false");
+    }
+  }, [isDiscounted]);
 
   return (
     <CartContext.Provider
       value={{
         items,
-        isVisible,
+        isDiscounted,
+        isChefChoiceSelected,
         addItem: addCartItem,
         removeItem: removeCartItem,
-        isDiscounted: false
+        applyDiscount,
+        toggleChefChoice
       }}
     >
       {children}

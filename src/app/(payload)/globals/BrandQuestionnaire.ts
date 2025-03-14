@@ -14,6 +14,8 @@ export const BrandQuestionnaire: GlobalConfig = {
       name: "brandAttributes",
       label: "Brand Attributes",
       type: "array",
+      required: true,
+      minRows: 1,
       fields: [
         {
           type: "row",
@@ -38,7 +40,14 @@ export const BrandQuestionnaire: GlobalConfig = {
       name: "questions",
       label: "Questions",
       type: "array",
+      required: true,
+      minRows: 1,
       fields: [
+        {
+          name: "isRequired",
+          label: "Required",
+          type: "checkbox"
+        },
         {
           name: "question",
           label: "Question",

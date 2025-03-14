@@ -4,20 +4,16 @@ import Check from "./icons/Check";
 
 interface MenuItemProps {
   checked: boolean;
-  onChangeHandler: (value: boolean) => void;
+  onClick: () => void;
   children: ReactNode;
 }
 
-const MenuItem: FC<MenuItemProps> = ({
-  checked,
-  onChangeHandler,
-  children
-}) => {
+const MenuItem: FC<MenuItemProps> = ({ checked, onClick, children }) => {
   return (
-    <div className="grid grid-cols-[70px_1fr] divide-x-2 divide-black lg:grid-cols-[100px_1fr]">
+    <div className="grid grid-cols-[70px_1fr] divide-x-2 divide-black border-b-2 border-black lg:grid-cols-[100px_1fr]">
       <button
         className="flex items-center justify-center bg-simmer-white hover:brightness-95"
-        onClick={() => onChangeHandler(!checked)}
+        onClick={onClick}
         type="button"
       >
         {checked && (
