@@ -38,7 +38,7 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
   return (
     <header
       className={cn(
-        "relative border-b-2 border-black bg-simmer-white px-5 font-adelle-mono text-base lg:px-0 lg:pr-20 lg:text-xl",
+        "sticky top-0 z-50 border-b-2 border-black bg-simmer-white px-5 font-adelle-mono text-base lg:relative lg:px-0 lg:pr-20 lg:text-xl",
         {
           "border-simmer-white bg-black text-simmer-white": theme === "dark"
         },
