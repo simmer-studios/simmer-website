@@ -39,7 +39,7 @@ export default async function HomePage() {
           <div className="basis-full">
             <IntroCards intro={homepage.intro} />
             <SecretIngredientReveal />
-            <Services services={homepage.services} />
+            <Services servicesSection={homepage.services} />
             <RoundedLinks />
             <EggSpawner />
           </div>

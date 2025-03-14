@@ -18,6 +18,14 @@ export const Services: CollectionConfig = {
   },
   fields: [
     {
+      name: "specialty",
+      label: "Specialty",
+      type: "checkbox",
+      admin: {
+        description: "Mark this service as a specialty on the menu"
+      }
+    },
+    {
       name: "name",
       type: "text",
       required: true,

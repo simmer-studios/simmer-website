@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { ComponentProps, FC } from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
@@ -6,12 +6,23 @@ import { cn } from "@/lib/utils";
 import { Homepage } from "@/payload-types";
 
 import ServiceCourseContent from "./ServiceCourseContent";
+import { TabKey } from "./Services";
 
 interface CourseTabContentProps {
-  category: Homepage["services"]["first"];
+  activeTab: TabKey;
+  appetizers: Homepage["services"]["appetizers"];
+  mainCourse: Homepage["services"]["mainCourse"];
+  desserts: Homepage["services"]["desserts"];
+  onTabClick: (tab: TabKey) => void;
 }
 
-const ServiceMenuCourseTabs: FC<CourseTabContentProps> = ({ category }) => {
+const ServiceMenuCourseTabs: FC<CourseTabContentProps> = ({
+  activeTab,
+  appetizers,
+  mainCourse,
+  desserts,
+  onTabClick
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -19,7 +30,7 @@ const ServiceMenuCourseTabs: FC<CourseTabContentProps> = ({ category }) => {
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
     >
-      <Tabs defaultValue="appetizers" className="relative flex flex-col">
+      <Tabs value={activeTab} className="relative flex flex-col">
         <TabsList className="z-1 container absolute left-[0] right-[0] top-0 mx-auto flex justify-center rounded-none px-0 text-simmer-white lg:gap-2 lg:px-10">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -27,7 +38,12 @@ const ServiceMenuCourseTabs: FC<CourseTabContentProps> = ({ category }) => {
             transition={{ delay: 0.3 }}
             className="basis-full"
           >
-            <CourseTitleTab value="appetizers">(APPETIZERS)</CourseTitleTab>
+            <CourseTitleTab
+              value="appetizers"
+              onClick={() => onTabClick("appetizers")}
+            >
+              (APPETIZERS)
+            </CourseTitleTab>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -35,7 +51,12 @@ const ServiceMenuCourseTabs: FC<CourseTabContentProps> = ({ category }) => {
             transition={{ delay: 0.4 }}
             className="basis-full"
           >
-            <CourseTitleTab value="main-course">MAIN COURSE</CourseTitleTab>
+            <CourseTitleTab
+              value="mainCourse"
+              onClick={() => onTabClick("mainCourse")}
+            >
+              MAIN COURSE
+            </CourseTitleTab>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -43,7 +64,12 @@ const ServiceMenuCourseTabs: FC<CourseTabContentProps> = ({ category }) => {
             transition={{ delay: 0.5 }}
             className="basis-full"
           >
-            <CourseTitleTab value="desserts">DESSERTS</CourseTitleTab>
+            <CourseTitleTab
+              value="desserts"
+              onClick={() => onTabClick("desserts")}
+            >
+              DESSERTS
+            </CourseTitleTab>
           </motion.div>
         </TabsList>
 
@@ -53,13 +79,13 @@ const ServiceMenuCourseTabs: FC<CourseTabContentProps> = ({ category }) => {
           transition={{ delay: 0.6 }}
         >
           <CourseTabContent value="appetizers">
-            <ServiceCourseContent serviceTab={category.appetizers} />
+            <ServiceCourseContent serviceTab={appetizers} />
           </CourseTabContent>
-          <CourseTabContent value="main-course">
-            <ServiceCourseContent serviceTab={category.mainCourse} />
+          <CourseTabContent value="mainCourse">
+            <ServiceCourseContent serviceTab={mainCourse} />
           </CourseTabContent>
           <CourseTabContent value="desserts">
-            <ServiceCourseContent serviceTab={category.desserts} />
+            <ServiceCourseContent serviceTab={desserts} />
           </CourseTabContent>
         </motion.div>
       </Tabs>
