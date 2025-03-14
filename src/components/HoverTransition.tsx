@@ -57,6 +57,7 @@ const HoverTransition: FC<HTMLProps<HTMLDivElement> & Props> = memo(
           onClick={() => !isPlaying && setIsActive(!isActive)}
         >
           <motion.div
+            className="transform-gpu will-change-transform"
             animate={{
               y: isActive ? "-100%" : "0%",
               opacity: isActive ? 0 : 1
@@ -66,7 +67,7 @@ const HoverTransition: FC<HTMLProps<HTMLDivElement> & Props> = memo(
             {children}
           </motion.div>
           <motion.div
-            className="absolute h-full w-full"
+            className="absolute h-full w-full transform-gpu will-change-transform"
             animate={{
               y: isActive ? "-100%" : "0%",
               opacity: isActive ? 1 : 0
