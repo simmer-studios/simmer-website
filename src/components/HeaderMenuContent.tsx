@@ -20,7 +20,7 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
 }) => {
   return (
     <div
-      className="min-h-dvh divide-y-2 divide-simmer-white font-adelle-mono text-simmer-white"
+      className="min-h-screen divide-y-2 divide-simmer-white font-adelle-mono text-simmer-white"
       {...props}
     >
       <div className="flex h-[100px] items-center px-5">

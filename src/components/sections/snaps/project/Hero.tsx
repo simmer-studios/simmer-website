@@ -11,7 +11,7 @@ const Hero: FC<HTMLProps<HTMLElement>> = ({ className }) => {
   return (
     <section
       className={cn(
-        "flex min-h-dvh flex-col gap-8 md:pb-16 lg:gap-12",
+        "flex min-h-screen flex-col gap-8 md:pb-16 lg:gap-12",
         className
       )}
     >
