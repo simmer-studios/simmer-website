@@ -206,7 +206,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
           </div>
           <button
             id="play-button"
-            className="content-center items-center border-l-2 border-black bg-simmer-yellow hover:brightness-95"
+            className="flex items-center justify-center border-l-2 border-black bg-simmer-yellow hover:brightness-95"
             onClick={handlePlayClick}
           >
             <Image src={isPlaying ? Pause : Play} alt="" height={200} />

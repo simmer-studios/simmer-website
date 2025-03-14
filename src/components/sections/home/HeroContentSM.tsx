@@ -181,7 +181,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
 
             <button
               id="play-button"
-              className="content-center items-center bg-simmer-yellow hover:brightness-95"
+              className="flex items-center justify-center bg-simmer-yellow hover:brightness-95"
               onClick={handlePlayClick}
             >
               <Image src={isPlaying ? Pause : Play} alt="" width={70} />
