@@ -19,7 +19,8 @@ const getPageData = unstable_cache(
     });
 
     const creativesPromise = payload.find({
-      collection: "creatives"
+      collection: "creatives",
+      sort: ["+order"]
     });
 
     const clientsPromise = payload.find({
