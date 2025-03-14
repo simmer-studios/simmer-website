@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FC, HTMLProps } from "react";
+import { FC, HTMLProps, useEffect } from "react";
 
 import HOVER_Burger from "@/assets/home/hover_burger.svg";
 import HOVER_CreativeKitchen from "@/assets/home/hover_creative-kitchen.svg";
@@ -36,6 +36,24 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
   ...props
 }) => {
   const { isPlaying, setIsPlaying } = useAnimation();
+
+  useEffect(() => {
+    // Start playing after 2 seconds
+    const playTimeoutId = setTimeout(() => {
+      setIsPlaying(true);
+    }, 2000);
+
+    // Set timeout to pause after 5 seconds from when play starts
+    const pauseTimeoutId = setTimeout(() => {
+      setIsPlaying(false);
+    }, 7000); // 2000ms initial delay + 5000ms play duration
+
+    // Cleanup timeouts on unmount
+    return () => {
+      clearTimeout(playTimeoutId);
+      clearTimeout(pauseTimeoutId);
+    };
+  }, []); // Empty dependency array means this runs once on mount
 
   const handlePlayClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -176,7 +194,14 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
               </HoverTransition>
             </div>
             <div className="flex items-center justify-start px-5 py-5">
-              <Image src={Studio} alt="Studio" />
+              <HoverTransition
+                transitionElement={
+                  <Image src={HOVER_SoMuchMore} alt="" height={160} />
+                }
+                delay={1000}
+              >
+                <Image src={Studio} alt="" height={50} />
+              </HoverTransition>
             </div>
 
             <button
