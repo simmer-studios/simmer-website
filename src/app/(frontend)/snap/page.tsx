@@ -5,9 +5,10 @@ import ContentWrapper from "@/components/ContentWrapper";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/sections/snaps/Hero";
-import HeroContentSM from "@/components/sections/snaps/HeroContentSM";
 import MasonrySnaps from "@/components/sections/snaps/MasonrySnaps";
 import StickySidebar from "@/components/StickySidebar";
+
+export const dynamic = "force-dynamic";
 
 export default async function SimmerSnapsPage() {
   const payload = await getPayload({ config });

@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import AnimatedContent from "@/components/sections/works/AnimatedContent";
 
+export const dynamic = "force-dynamic";
+
 export function generateMetadata() {
   return {
     title: "Works | Simmer Studios",

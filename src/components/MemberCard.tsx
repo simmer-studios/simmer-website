@@ -2,20 +2,20 @@
 
 import { motion } from "motion/react";
 import Image from "next/image";
-import { FC, HTMLProps, ImgHTMLAttributes, useState } from "react";
+import { FC, HTMLProps } from "react";
 
 import FLIPMEOVERLG from "@/assets/about/flip-me-over.svg";
 import FLIPMEOVERSM from "@/assets/about/sm_flip-me-over.svg";
 import TICKET from "@/assets/about/ticket.svg";
-import { cn } from "@/lib/utils";
+import { cn, isValidImage } from "@/lib/utils";
 import { Media } from "@/payload-types";
 
 interface MemberCardProps {
   number: number;
   name: string;
   role: string;
-  avatar: Media;
-  photo: Media;
+  avatar: Media | number;
+  photo: Media | number;
   catchPhrase?: string;
 }
 
@@ -77,8 +77,11 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
               <div className="relative aspect-square w-20 lg:w-28 min-[1537px]:w-40">
                 {avatar && (
                   <Image
-                    src={avatar.url || ""}
-                    alt={avatar.alt || ""}
+                    src={
+                      (isValidImage(avatar) && avatar.url) ||
+                      "/images/img_placeholder.jpg"
+                    }
+                    alt={(isValidImage(avatar) && avatar.alt) || ""}
                     fill
                     className="object-contain object-right"
                   />
@@ -103,8 +106,11 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
             }}
           >
             <Image
-              src={photo.url || ""}
-              alt={photo.alt || name}
+              src={
+                (isValidImage(photo) && photo.url) ||
+                "/images/img_placeholder.jpg"
+              }
+              alt={(isValidImage(photo) && photo.alt) || ""}
               fill
               className="object-cover object-center"
               onContextMenu={(e) => e.preventDefault()}

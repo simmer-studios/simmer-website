@@ -9,6 +9,8 @@ import MenuForm from "@/components/MenuForm";
 import Hero from "@/components/sections/menu/Hero";
 import StickySidebar from "@/components/StickySidebar";
 
+export const dynamic = "force-dynamic";
+
 export function generateMetadata() {
   return {
     title: "Menu | Simmer Studios",

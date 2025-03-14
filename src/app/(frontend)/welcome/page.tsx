@@ -9,6 +9,8 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import StickySidebar from "@/components/StickySidebar";
 
+export const dynamic = "force-dynamic";
+
 export function generateMetadata() {
   return {
     title: "Branding Questionnaire | Simmer Studios",

@@ -468,7 +468,7 @@ export interface Creative {
   /**
    * Fun artwork that represents the creative
    */
-  avatar?: (number | null) | Media;
+  avatar: number | Media;
   updatedAt: string;
   createdAt: string;
 }

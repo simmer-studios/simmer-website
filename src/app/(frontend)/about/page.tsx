@@ -1,4 +1,5 @@
 import config from "@payload-config";
+import { unstable_cache } from "next/cache";
 import { getPayload } from "payload";
 
 import ContentWrapper from "@/components/ContentWrapper";
@@ -8,7 +9,40 @@ import ClientList from "@/components/sections/about/ClientList";
 import Hero from "@/components/sections/about/Hero";
 import MemberCards from "@/components/sections/about/MemberCards";
 import StickySidebar from "@/components/StickySidebar";
-import { Media } from "@/payload-types";
+
+const getPageData = unstable_cache(
+  async () => {
+    const payload = await getPayload({ config });
+
+    const aboutPagePromise = payload.findGlobal({
+      slug: "about"
+    });
+
+    const creativesPromise = payload.find({
+      collection: "creatives"
+    });
+
+    const clientsPromise = payload.find({
+      collection: "clients",
+      showHiddenFields: true,
+      sort: ["-name"]
+    });
+
+    const [aboutPage, creativesData, clientsData] = await Promise.all([
+      aboutPagePromise,
+      creativesPromise,
+      clientsPromise
+    ]);
+
+    return {
+      aboutPage,
+      clients: clientsData.docs,
+      creatives: creativesData.docs
+    };
+  },
+  ["about-page"],
+  { revalidate: 10, tags: ["about-page"] }
+);
 
 export function generateMetadata() {
   return {
@@ -18,30 +52,7 @@ export function generateMetadata() {
 }
 
 export default async function AboutPage() {
-  const payload = await getPayload({ config });
-
-  const aboutPage = await payload.findGlobal({
-    slug: "about"
-  });
-
-  const { docs: creatives } = await payload.find({
-    collection: "creatives"
-  });
-
-  const { docs: clients } = await payload.find({
-    collection: "clients",
-    showHiddenFields: true,
-    sort: ["-name"]
-  });
-
-  const members = creatives.map((doc) => ({
-    id: doc.id.toString(),
-    name: doc.name,
-    role: doc.role,
-    avatar: doc.avatar as Media,
-    photo: doc.image as Media,
-    catchPhrase: doc.tagline
-  }));
+  const { aboutPage, clients, creatives } = await getPageData();
 
   return (
     <>
@@ -61,7 +72,7 @@ export default async function AboutPage() {
               tagline={aboutPage.tagline}
               description={aboutPage.description}
             />
-            <MemberCards members={members} />
+            <MemberCards creatives={creatives} />
             <ClientList
               clients={clients}
               description={aboutPage.clientsDescription}
