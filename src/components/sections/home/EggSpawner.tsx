@@ -36,7 +36,7 @@ const EggSpawner = () => {
             onClick={handleClick}
             className="relative z-30 min-h-11 rounded-full border-2 border-black bg-simmer-white px-6 py-2 font-adelle-mono text-lg active:brightness-95"
           >
-            TAP FOR EGGS
+            TAP HERE FOR EGGS
           </button>
         </div>
       </div>
