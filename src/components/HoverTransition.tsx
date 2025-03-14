@@ -40,11 +40,15 @@ const HoverTransition: FC<HTMLProps<HTMLDivElement> & Props> = ({
 
   return (
     <motion.div
-      className={cn("relative cursor-pointer overflow-y-hidden", className)}
+      className={cn(
+        "relative transform-gpu cursor-pointer overflow-y-hidden will-change-transform",
+        className
+      )}
       onHoverStart={() => !isPlaying && setIsActive(true)}
       onHoverEnd={() => !isPlaying && setIsActive(false)}
       whileTap={{ scale: 0.98 }}
       onClick={() => !isPlaying && setIsActive(!isActive)}
+      style={{ backfaceVisibility: "hidden" }}
     >
       <motion.div
         animate={{ y: isActive ? "-100%" : "0%", opacity: isActive ? 0 : 1 }}
