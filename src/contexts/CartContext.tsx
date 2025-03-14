@@ -58,6 +58,27 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       const cart = localStorage.getItem("simmer-cart");
 
       setIsDiscounted(simmerDiscount === "true");
+
+      if (!cart) {
+        setItems([]);
+      } else {
+        try {
+          const parsedCart = JSON.parse(cart);
+          if (
+            Array.isArray(parsedCart) &&
+            parsedCart.every((item) => typeof item === "string")
+          ) {
+            setItems(parsedCart);
+          } else {
+            console.warn("Invalid cart format in localStorage, resetting cart");
+            setItems([]);
+          }
+        } catch (error) {
+          console.error("Failed to parse cart from localStorage:", error);
+          setItems([]);
+        }
+      }
+
       setItems(cart ? JSON.parse(cart) : []);
     }
   }, []);
