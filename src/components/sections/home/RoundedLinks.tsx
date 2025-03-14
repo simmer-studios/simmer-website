@@ -48,7 +48,7 @@ const Pill: FC<ComponentProps<typeof Link>> = ({
     <Link
       {...props}
       className={cn(
-        "inline-block h-[40px] content-center rounded-full border-2 border-black bg-simmer-yellow px-4 text-center font-adelle-mono leading-none hover:bg-black hover:text-simmer-white active:brightness-95 lg:h-[50px] lg:px-5 lg:text-2xl",
+        "inline-flex h-[40px] items-center rounded-full border-2 border-black bg-simmer-yellow px-4 text-center font-adelle-mono leading-none hover:bg-black hover:text-simmer-white active:brightness-95 lg:h-[50px] lg:px-5 lg:text-2xl",
         className
       )}
     >

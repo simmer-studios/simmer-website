@@ -61,7 +61,7 @@ const Footer = () => {
         <div className="flex items-center justify-center lg:order-1 lg:justify-end">
           <Link
             href="/menu"
-            className="block h-12 content-center rounded-full bg-simmer-white px-10 text-xl text-black hover:border-2 hover:border-simmer-white hover:bg-black hover:text-simmer-white"
+            className="inline-flex h-12 items-center justify-center rounded-full bg-simmer-white px-10 text-xl text-black hover:border-2 hover:border-simmer-white hover:bg-black hover:text-simmer-white"
           >
             ADD TO PLATE
           </Link>

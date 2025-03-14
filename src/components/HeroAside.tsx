@@ -48,7 +48,7 @@ const HeroAside: FC<HTMLProps<HTMLDivElement> & Props> = ({
           <Link
             href="/works"
             className={cn(
-              "inline-block h-11 w-24 content-center rounded-xl bg-black text-center font-adelle-mono text-xl text-simmer-white hover:bg-black/90",
+              "inline-flex h-11 w-24 items-center justify-center rounded-xl bg-black text-center font-adelle-mono text-xl text-simmer-white hover:bg-black/90",
               {
                 "bg-simmer-white text-black hover:border-2 hover:border-simmer-white hover:bg-black hover:text-simmer-white":
                   variant === "menu"
@@ -60,7 +60,7 @@ const HeroAside: FC<HTMLProps<HTMLDivElement> & Props> = ({
           <Link
             href="/menu"
             className={cn(
-              "inline-block h-11 w-24 content-center rounded-xl bg-black text-center font-adelle-mono text-xl text-simmer-white hover:bg-black/90",
+              "inline-flex h-11 w-24 items-center justify-center rounded-xl bg-black text-center font-adelle-mono text-xl text-simmer-white hover:bg-black/90",
               {
                 "bg-simmer-white text-black hover:border-2 hover:border-simmer-white hover:bg-black hover:text-simmer-white":
                   variant === "menu"
@@ -72,7 +72,7 @@ const HeroAside: FC<HTMLProps<HTMLDivElement> & Props> = ({
           <Link
             href="/about"
             className={cn(
-              "inline-block h-11 w-24 content-center rounded-xl bg-black text-center font-adelle-mono text-xl text-simmer-white hover:bg-black/90",
+              "inline-flex h-11 w-24 items-center justify-center rounded-xl bg-black text-center font-adelle-mono text-xl text-simmer-white hover:bg-black/90",
               {
                 "bg-simmer-white text-black hover:border-2 hover:border-simmer-white hover:bg-black hover:text-simmer-white":
                   variant === "menu"

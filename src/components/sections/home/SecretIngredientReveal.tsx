@@ -109,7 +109,7 @@ const SecretIngredientReveal = () => {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="relative overflow-hidden"
     >
-      <div className="container relative min-h-[550px] content-center px-10 lg:min-h-[850px] lg:px-20 xl:max-w-[1837px]">
+      <div className="container relative flex min-h-[550px] items-center justify-center px-10 lg:min-h-[850px] lg:px-20 xl:max-w-[1837px]">
         <AnimatePresence initial={false}>
           <DiscountCoupon
             className="absolute bottom-0 left-0 right-0 top-0 z-10 mx-auto min-h-[540px] lg:min-h-[850px]"
@@ -202,7 +202,7 @@ const DiscountCoupon: FC<HTMLProps<HTMLDivElement> & DiscountCouponProps> = ({
     <motion.div
       layout
       className={cn(
-        "container content-center bg-[url(/images/img_discount-coupon-vertical.svg)] bg-contain bg-top bg-no-repeat lg:bg-[url(/images/img_discount-coupon-horizontal.svg)] lg:bg-center",
+        "container flex items-center justify-center bg-[url(/images/img_discount-coupon-vertical.svg)] bg-contain bg-top bg-no-repeat lg:bg-[url(/images/img_discount-coupon-horizontal.svg)] lg:bg-center",
         className
       )}
     >

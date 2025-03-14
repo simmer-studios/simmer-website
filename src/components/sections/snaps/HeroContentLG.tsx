@@ -154,7 +154,7 @@ const HeroContentLG: FC<HTMLMotionProps<"div"> & Props> = ({
       <motion.div variants={item} className="row">
         <div className="container flex justify-center">
           <button
-            className={cn("flex border-l-2 border-black bg-black", {
+            className={cn("flex select-none border-l-2 border-black bg-black", {
               "bg-simmer-yellow": selectedType === "product"
             })}
             onClick={() => setSelectedType("product")}
@@ -169,7 +169,7 @@ const HeroContentLG: FC<HTMLMotionProps<"div"> & Props> = ({
             <SnapsFilterDropdown filters={portraitFilters} />
           )}
           <button
-            className={cn("flex border-r-2 border-black bg-black", {
+            className={cn("flex select-none border-r-2 border-black bg-black", {
               "bg-simmer-yellow": selectedType === "portrait"
             })}
             onClick={() => setSelectedType("portrait")}

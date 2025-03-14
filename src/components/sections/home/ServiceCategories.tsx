@@ -43,7 +43,7 @@ const ServiceCategories: FC<
           "container mx-auto hidden pl-28 pr-20 lg:flex lg:items-center lg:justify-between xl:max-w-[1700px]"
         )}
       >
-        <span className="inline-block h-[50px] content-center rounded-full bg-simmer-white px-10 font-adelle-mono text-[1.12rem] text-black">
+        <span className="inline-flex h-[50px] items-center justify-center rounded-full bg-simmer-white px-10 font-adelle-mono text-[1.12rem] text-black">
           CLICK TO KNOW
         </span>
       </motion.div>

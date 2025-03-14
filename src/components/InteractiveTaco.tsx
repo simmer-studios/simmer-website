@@ -20,7 +20,7 @@ const InteractiveTaco: FC = () => {
   }, []);
 
   return (
-    <div className="relative h-52 w-64 content-center lg:h-60 lg:w-72">
+    <div className="relative inline-flex h-52 w-64 items-center justify-center lg:h-60 lg:w-72">
       <Image
         src="/images/taco_eyes_bg.svg"
         alt="Taco Eyes"
