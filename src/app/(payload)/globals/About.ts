@@ -1,8 +1,16 @@
+import { revalidatePath } from "next/cache";
 import { GlobalConfig } from "payload";
 
 export const About: GlobalConfig = {
   slug: "about",
   label: "About",
+  hooks: {
+    afterChange: [
+      () => {
+        revalidatePath("/about");
+      }
+    ]
+  },
   fields: [
     {
       name: "banner",

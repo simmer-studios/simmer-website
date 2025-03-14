@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { Field, GlobalConfig } from "payload";
 
 const INTRO_FIELD: Field[] = [
@@ -132,5 +133,12 @@ const ServicesSection: Field = {
 export const Homepage: GlobalConfig = {
   slug: "homepage",
   label: "Homepage",
+  hooks: {
+    afterChange: [
+      () => {
+        revalidatePath("/");
+      }
+    ]
+  },
   fields: [IntroSection, ServicesSection]
 };

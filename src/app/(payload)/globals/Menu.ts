@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { Field, GlobalConfig } from "payload";
 
 const FIELDS: Field[] = [
@@ -32,6 +33,13 @@ const FIELDS: Field[] = [
 export const Menu: GlobalConfig = {
   slug: "menu",
   label: "Menu",
+  hooks: {
+    afterChange: [
+      () => {
+        revalidatePath("/menu");
+      }
+    ]
+  },
   fields: [
     {
       name: "strategy",

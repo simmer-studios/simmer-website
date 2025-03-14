@@ -8,7 +8,7 @@ import Hero from "@/components/sections/snaps/Hero";
 import MasonrySnaps from "@/components/sections/snaps/MasonrySnaps";
 import StickySidebar from "@/components/StickySidebar";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // 1 hour
 
 export default async function SimmerSnapsPage() {
   const payload = await getPayload({ config });

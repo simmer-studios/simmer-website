@@ -1,5 +1,4 @@
 import config from "@payload-config";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
@@ -10,20 +9,20 @@ import FullWidthMedia from "@/components/FullWidthImage";
 import FullWidthImageHeadingCaption from "@/components/FullWidthImageHeadingCaption";
 import Header from "@/components/Header";
 import IconHeadingCaptionCombo from "@/components/IconHeadingCaptionCombo";
-import BuildingTheBrand from "@/components/icons/BuildingTheBrand";
 import QuoteBlock from "@/components/Quote";
 import Hero from "@/components/sections/project/Hero";
 import Slideshow from "@/components/Slideshow";
 import StickySidebar from "@/components/StickySidebar";
 import ThreePanelGallery from "@/components/ThreePanelGallery";
 import TwoImageText from "@/components/TwoImageText";
-import { getMediaType } from "@/lib/utils";
 
 interface Props {
   params: Promise<{
     slug: string;
   }>;
 }
+
+export const revalidate = 3600; // 1 hour
 
 export default async function IndividualProject({ params }: Props) {
   const { slug } = await params;

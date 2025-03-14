@@ -14,7 +14,7 @@ import SecretIngredientReveal from "@/components/sections/home/SecretIngredientR
 import Services from "@/components/sections/home/Services";
 import StickySidebar from "@/components/StickySidebar";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // 1 hour
 
 export const metadata: Metadata = {
   title: "Simmer Studios",
