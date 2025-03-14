@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import type { CollectionConfig } from "payload";
 
 import { Carousel } from "@/app/(payload)/blocks/Carousel";
@@ -18,6 +19,18 @@ export const Snaps: CollectionConfig = {
     livePreview: {
       url: ({ data }) => `/snap/${data.slug}`
     }
+  },
+  hooks: {
+    afterChange: [
+      () => {
+        revalidatePath("/snap");
+      }
+    ],
+    afterDelete: [
+      () => {
+        revalidatePath("/snap");
+      }
+    ]
   },
   fields: [
     {

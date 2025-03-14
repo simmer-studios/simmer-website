@@ -1,8 +1,16 @@
+import { revalidatePath } from "next/cache";
 import { GlobalConfig } from "payload";
 
 export const BrandQuestionnaire: GlobalConfig = {
   slug: "brand-questionnaire",
   label: "Brand Questionnaire",
+  hooks: {
+    afterChange: [
+      () => {
+        revalidatePath("/welcome");
+      }
+    ]
+  },
   fields: [
     {
       name: "description",

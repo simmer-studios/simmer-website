@@ -1,8 +1,16 @@
+import { revalidatePath } from "next/cache";
 import { GlobalConfig } from "payload";
 
 export const SnapsGlobal: GlobalConfig = {
   slug: "snaps-global",
   label: "Snaps Page",
+  hooks: {
+    afterChange: [
+      () => {
+        revalidatePath("/snap");
+      }
+    ]
+  },
   fields: [
     {
       name: "productCategories",

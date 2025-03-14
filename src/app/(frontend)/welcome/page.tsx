@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import StickySidebar from "@/components/StickySidebar";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 86400; // 24 hours
 
 export function generateMetadata() {
   return {
