@@ -37,9 +37,11 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
           <div className="flex divide-x-2 divide-black">
             <div className="flex flex-1 justify-end px-5 py-5">
               <HoverTransition
-                transitionElement={<Image src={HOVER_WeAre} alt="We are" />}
+                transitionElement={
+                  <Image src={HOVER_WeAre} alt="We are" width={65} />
+                }
               >
-                <Image src={WeAre} alt="We are" />
+                <Image src={WeAre} alt="We are" width={70} />
               </HoverTransition>
             </div>
             <div className="flex items-center justify-center px-5 py-5">
@@ -51,7 +53,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
             </div>
             <div className="flex flex-1 items-center justify-start px-5">
               <HoverTransition
-                className="overflow-y-visible"
+                className="overflow-y-hidden"
                 transitionElement={<Image src={Egg} alt="" />}
               >
                 <Image src={Burger} alt="" />
@@ -95,11 +97,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
               <HoverTransition
                 className="overflow-y-visible"
                 transitionElement={
-                  <Image
-                    src={HOVER_Cup}
-                    alt=""
-                    className="-translate-x-5 scale-[1.7]"
-                  />
+                  <Image src={HOVER_Cup} alt="" className="scale-150" />
                 }
               >
                 <Image src={A} alt="" />
@@ -119,7 +117,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
                   <Image
                     src={HOVER_CreativeKitchen}
                     alt=""
-                    className="scale-125"
+                    className="-mt-2.5"
                   />
                 }
               >
@@ -148,7 +146,9 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
           <div className="flex divide-x-2 divide-black">
             <div className="flex basis-[37%] items-center justify-end px-5">
               <HoverTransition
-                transitionElement={<Image src={HOVER_Eggcited} alt="" />}
+                transitionElement={
+                  <Image src={HOVER_Eggcited} alt="" width={45} />
+                }
               >
                 <Image src={Egg} alt="" />
               </HoverTransition>
