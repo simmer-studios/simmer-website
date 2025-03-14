@@ -17,6 +17,10 @@ export default async function SimmerSnapsPage() {
     slug: "snaps-global"
   });
 
+  const snaps = await payload.find({
+    collection: "snaps"
+  });
+
   return (
     <>
       <Header theme="light" />
@@ -24,7 +28,7 @@ export default async function SimmerSnapsPage() {
         <Hero pageData={snapsPage} />
         <ContentWrapper className="border-b-2 border-black">
           <StickySidebar className="border-0" theme="dark" />
-          <MasonrySnaps />
+          <MasonrySnaps snaps={snaps.docs} />
         </ContentWrapper>
       </main>
       <Footer />
