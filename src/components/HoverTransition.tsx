@@ -36,11 +36,14 @@ const HoverTransition: FC<HTMLProps<HTMLDivElement> & Props> = ({
     }
   }, [isPlaying, delay]);
 
-  const transitionDuration = isMobile ? 1 : 0.13;
+  const transitionDuration = isMobile ? 0.5 : 0.13;
 
   return (
     <motion.div
-      className={cn("relative cursor-pointer overflow-y-hidden", className)}
+      className={cn(
+        "relative transform-gpu cursor-pointer overflow-y-hidden will-change-transform",
+        className
+      )}
       onHoverStart={() => !isPlaying && setIsActive(true)}
       onHoverEnd={() => !isPlaying && setIsActive(false)}
       whileTap={{ scale: 0.98 }}
