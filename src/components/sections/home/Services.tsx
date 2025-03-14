@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import { FC, useState } from "react";
 
 import { Homepage } from "@/payload-types";
@@ -8,40 +7,35 @@ import { Homepage } from "@/payload-types";
 import ServiceCategories from "./ServiceCategories";
 import ServiceMenuCourseTabs from "./ServiceMenuCourseTabs";
 
-export type ServiceCategoryKey = keyof Homepage["services"];
-export type ServiceTabKey = keyof Omit<
-  Homepage["services"][ServiceCategoryKey],
-  "title"
->;
+export type TabKey = "appetizers" | "mainCourse" | "desserts";
 
 interface ServicesProps {
-  services: Homepage["services"];
+  servicesSection: Homepage["services"];
 }
 
-const Services: FC<ServicesProps> = ({ services }) => {
-  /* uses number as the unique selector of each service category */
-  const [selectedServiceCategory, setSelectedServiceCategory] =
-    useState<ServiceCategoryKey>("first");
+const Services: FC<ServicesProps> = ({ servicesSection }) => {
+  const [activeTab, setActiveTab] = useState<TabKey>("appetizers");
 
-  const updateSelectedServiceCategory = (category: ServiceCategoryKey) => {
-    setSelectedServiceCategory(category);
+  const updateActiveTab = (tab: TabKey) => {
+    setActiveTab(tab);
   };
 
   return (
     <>
       <ServiceCategories
-        categories={services}
-        onCategoryClick={updateSelectedServiceCategory}
-        selectedCategory={selectedServiceCategory}
+        firstLabel={servicesSection.firstLabel}
+        secondLabel={servicesSection.secondLabel}
+        thirdLabel={servicesSection.thirdLabel}
+        activeTab={activeTab}
+        onLabelClick={updateActiveTab}
       />
-      <motion.div
-        key={selectedServiceCategory}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-      >
-        <ServiceMenuCourseTabs category={services[selectedServiceCategory]} />
-      </motion.div>
+      <ServiceMenuCourseTabs
+        activeTab={activeTab}
+        appetizers={servicesSection.appetizers}
+        mainCourse={servicesSection.mainCourse}
+        desserts={servicesSection.desserts}
+        onTabClick={updateActiveTab}
+      />
     </>
   );
 };

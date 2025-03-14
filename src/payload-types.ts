@@ -299,6 +299,10 @@ export interface Media {
  */
 export interface Service {
   id: number;
+  /**
+   * Mark this service as a specialty on the menu
+   */
+  specialty?: boolean | null;
   name: string;
   description?: string | null;
   linkTo?: ('none' | 'snap' | 'stories') | null;
@@ -805,6 +809,7 @@ export interface SnapsSelect<T extends boolean = true> {
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
+  specialty?: T;
   name?: T;
   description?: T;
   linkTo?: T;
