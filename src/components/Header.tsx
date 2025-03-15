@@ -102,7 +102,7 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
           </div>
         </div>
         {/* right */}
-        <div className="flex h-full items-center pr-5 lg:pr-0">
+        <div className="flex h-full items-center">
           <Link
             href="/checkout"
             className={cn(
@@ -121,7 +121,7 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 1.2 }}
-            className="block lg:hidden"
+            className="block pl-8 pr-2 lg:px-3"
             onClick={() => setDropdownOpen((prev) => !prev)}
           >
             <HeaderHamburger
@@ -135,7 +135,7 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
       {dropdownOpen && (
         <div
           className={cn(
-            "fixed bottom-0 left-0 right-0 top-0 z-50 hidden min-h-[100vh] bg-black lg:hidden",
+            "fixed bottom-0 left-0 right-0 top-0 z-50 hidden min-h-[100vh] bg-black",
             {
               block: dropdownOpen
             }
