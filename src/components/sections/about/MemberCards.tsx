@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "motion/react";
 import { FC, HTMLProps } from "react";
 
 import MemberCard from "@/components/MemberCard";
@@ -13,6 +16,29 @@ const MemberCards: FC<HTMLProps<HTMLDivElement> & Props> = ({
   className,
   ...props
 }) => {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
     <section className={cn("space-y-10", className)} {...props}>
       <div className="container px-8">
@@ -20,19 +46,28 @@ const MemberCards: FC<HTMLProps<HTMLDivElement> & Props> = ({
           FLIP.ME — &#91;OVER&#93;
         </h2>
       </div>
-      <div className="container grid grid-cols-2 gap-x-4 gap-y-6 px-8 sm:grid-cols-3 md:gap-x-8 md:gap-y-12 lg:grid-cols-4">
+
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={container}
+        className="container grid grid-cols-2 gap-x-4 gap-y-6 px-8 sm:grid-cols-3 md:gap-x-8 md:gap-y-12 lg:grid-cols-4"
+      >
         {creatives.map(({ id, name, role, avatar, tagline, image }, index) => (
-          <MemberCard
-            key={id}
-            name={name}
-            role={role}
-            avatar={avatar}
-            photo={image}
-            catchPhrase={tagline}
-            number={index + 1}
-          />
+          <motion.div key={id} variants={item}>
+            <MemberCard
+              name={name}
+              role={role}
+              avatar={avatar}
+              photo={image}
+              catchPhrase={tagline}
+              number={index + 1}
+            />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
+
       <div className="flex items-center justify-center lg:hidden">
         <button className="rounded-full border-2 border-black bg-simmer-white px-7 py-1 active:bg-simmer-yellow">
           <span className="inline-block pt-1 font-adelle-mono">LOAD MORE</span>

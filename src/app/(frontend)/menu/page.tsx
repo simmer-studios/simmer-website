@@ -2,6 +2,7 @@ import config from "@payload-config";
 import { getPayload } from "payload";
 import { Suspense } from "react";
 
+import AnimatedMain from "@/components/AnimatedMain";
 import ContentWrapper from "@/components/ContentWrapper";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -29,7 +30,7 @@ export default async function MenuPage() {
   return (
     <>
       <Header theme="dark" />
-      <main>
+      <AnimatedMain>
         <Hero />
         <ContentWrapper className="border-b-2 border-black bg-simmer-white">
           <StickySidebar theme="dark" className="border-0" />
@@ -46,7 +47,7 @@ export default async function MenuPage() {
             </Suspense>
           </div>
         </ContentWrapper>
-      </main>
+      </AnimatedMain>
       <Footer />
     </>
   );
