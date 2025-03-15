@@ -37,15 +37,9 @@ export default async function BrandingPage() {
             </div>
             <div className="grid items-end gap-5 px-5 py-5 lg:grid-cols-[1fr_40%] lg:px-16 lg:py-10">
               <div>
-                {brandingPage.description ? (
+                {brandingPage.description && (
                   <p className="text-sm tracking-wide sm:text-lg lg:text-xl">
                     {brandingPage.description}
-                  </p>
-                ) : (
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Necessitatibus amet quas tempore, ad fugiat alias minus
-                    commodi modi sapiente exercitationem.
                   </p>
                 )}
               </div>
@@ -57,7 +51,10 @@ export default async function BrandingPage() {
                 </span>
               </div>
             </div>
-            <BrandingForm />
+            <BrandingForm
+              questions={brandingPage.questions}
+              sliders={brandingPage.brandAttributes}
+            />
           </div>
         </ContentWrapper>
       </main>

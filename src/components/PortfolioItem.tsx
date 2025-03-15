@@ -25,6 +25,7 @@ const PortfolioItem: React.FC<Props> = ({ slug, name, category, image }) => {
     <Link
       href={`/works/${slug}`}
       className="group relative block aspect-square overflow-hidden bg-gray-100 transition duration-300 ease-in-out"
+      scroll={true}
     >
       <Image
         className="object-cover transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:brightness-90"

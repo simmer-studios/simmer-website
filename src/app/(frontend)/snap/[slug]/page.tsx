@@ -17,13 +17,13 @@ interface Props {
 
 export const revalidate = 3600; // 1 hour
 
-export default async function IndividualProject({ params }: Props) {
+export default async function SimmerSnapsInvidiualPage({ params }: Props) {
   const { slug } = await params;
 
   const payload = await getPayload({ config });
 
-  const projects = await payload.find({
-    collection: "projects",
+  const snaps = await payload.find({
+    collection: "snaps",
     where: {
       slug: {
         equals: slug
@@ -31,13 +31,13 @@ export default async function IndividualProject({ params }: Props) {
     }
   });
 
-  const project = projects.docs[0];
+  const snap = snaps.docs[0];
 
-  if (!project) {
+  if (!snap) {
     return notFound();
   }
 
-  const content = project.content;
+  const content = snap.content;
 
   return (
     <>
@@ -46,23 +46,23 @@ export default async function IndividualProject({ params }: Props) {
         disableLogoBorder
         className="absolute top-0 z-50 w-full border-b-0 bg-black/45 lg:static lg:z-0 lg:bg-black"
       />
-      <main className="bg-black">
+      <main className="border-b-2 border-black bg-black">
         <ContentWrapper>
           <StickySidebar theme="dark" className="mt-32 border-r-0" />
-          <div className="basis-full space-y-20 overflow-hidden bg-simmer-white pb-10 lg:rounded-tl-[8rem]">
+          <div className="basis-full space-y-20 overflow-hidden bg-simmer-white pb-20 lg:rounded-tl-[8rem]">
             <DetailedPageHero
-              thumbnail={project.thumbnail}
-              cover={project.cover}
-              name={project.name}
-              brand={project.brand}
-              project={project.project}
-              date={project.date}
-              description={project.description}
-              websiteUrl={project.websiteUrl}
-              featuredServices={project.featuredServices}
-              services={project.services}
+              thumbnail={snap.thumbnail}
+              cover={snap.cover}
+              name={snap.name}
+              brand={snap.brand}
+              project={snap.project}
+              date={snap.date}
+              description={snap.description}
+              websiteUrl={snap.websiteUrl}
+              featuredServices={snap.featuredServices}
+              services={snap.services}
             />
-            <Content name={project.name} content={content} />
+            <Content name={snap.name} content={content} />
           </div>
         </ContentWrapper>
       </main>
