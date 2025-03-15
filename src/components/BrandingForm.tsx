@@ -5,7 +5,29 @@ import { cn } from "@/lib/utils";
 import ArrowDown from "./icons/ArrowDown";
 import ScaleInput from "./ScaleInput";
 
-const BrandingForm: FC<HTMLProps<HTMLFormElement>> = () => {
+interface BrandingFormProps {
+  questions: {
+    isRequired?: boolean | null;
+    question: string;
+    description: string;
+    id?: string | null;
+  }[];
+  sliders: {
+    left: string;
+    right: string;
+    id?: string | null;
+  }[];
+}
+
+interface BrandingScaleProps {
+  sliders: {
+    left: string;
+    right: string;
+    id?: string | null;
+  }[];
+}
+
+const BrandingForm: FC<BrandingFormProps> = ({ questions, sliders }) => {
   return (
     <form action="" className="">
       <div className="divide-y-2 divide-simmer-white pb-20">
@@ -26,37 +48,15 @@ const BrandingForm: FC<HTMLProps<HTMLFormElement>> = () => {
           placeholder="*Your brand in 3-5 sentences"
           required
         />
-        <BrandingScale />
-        <MultiLineFormField
-          label="YOUR TARGET MARKET"
-          placeholder="Who are you talking to? What is their age, class, interests, etc.?"
-          required
-        />
-        <MultiLineFormField
-          label="DEMOGRAPHICS"
-          placeholder="Who are you talking to? What is their age, class, interests, etc.?"
-          required
-        />
-        <MultiLineFormField
-          label="YOUR TARGET MARKET"
-          placeholder="Who are you talking to? What is their age, class, interests, etc.?"
-          required
-        />
-        <MultiLineFormField
-          label="YOUR TARGET MARKET"
-          placeholder="Who are you talking to? What is their age, class, interests, etc.?"
-          required
-        />
-        <MultiLineFormField
-          label="YOUR TARGET MARKET"
-          placeholder="Who are you talking to? What is their age, class, interests, etc.?"
-          required
-        />
-        <MultiLineFormField
-          label="YOUR TARGET MARKET"
-          placeholder="Who are you talking to? What is their age, class, interests, etc.?"
-          required
-        />
+        <BrandingScale sliders={sliders} />
+        {questions.map((question) => (
+          <MultiLineFormField
+            key={question.id}
+            label={question.question}
+            placeholder={question.description}
+            required={Boolean(question.isRequired)}
+          />
+        ))}
       </div>
       <div className="flex items-center justify-center py-20">
         <button
@@ -138,7 +138,7 @@ const MultiLineFormField: FC<HTMLProps<HTMLInputElement>> = ({
   );
 };
 
-const BrandingScale = () => {
+const BrandingScale: FC<BrandingScaleProps> = ({ sliders }) => {
   return (
     <div>
       <div className="flex min-h-[60px] flex-shrink-0 items-center border-b-2 border-simmer-white px-3 py-2.5 text-3xl font-bold leading-none sm:text-5xl md:px-7 md:py-4 lg:min-h-[95px] lg:text-6xl xl:px-16">
@@ -147,46 +147,14 @@ const BrandingScale = () => {
         </span>
       </div>
       <div className="space-y-10 px-7 py-5 md:px-16 md:py-10 xl:px-24 xl:py-16">
-        <ScaleInput
-          leftLabel="MASCULINE"
-          rightLabel="FEMININE"
-          name="masculineFeminine"
-        />
-        <ScaleInput
-          leftLabel="NECESSITY"
-          rightLabel="LUXURY"
-          name="necessityLuxury"
-        />
-        <ScaleInput
-          leftLabel="NECESSITY"
-          rightLabel="LUXURY"
-          name="necessityLuxury"
-        />
-        <ScaleInput
-          leftLabel="NECESSITY"
-          rightLabel="LUXURY"
-          name="necessityLuxury"
-        />
-        <ScaleInput
-          leftLabel="NECESSITY"
-          rightLabel="LUXURY"
-          name="necessityLuxury"
-        />
-        <ScaleInput
-          leftLabel="ABSTRACT"
-          rightLabel="STRAIGHTFORWARD"
-          name="abstractStraightforward"
-        />
-        <ScaleInput
-          leftLabel="ABSTRACT"
-          rightLabel="STRAIGHTFORWARD"
-          name="abstractStraightforward"
-        />
-        <ScaleInput
-          leftLabel="ABSTRACT"
-          rightLabel="STRAIGHTFORWARD"
-          name="abstractStraightforward"
-        />
+        {sliders.map((slider) => (
+          <ScaleInput
+            key={slider.id}
+            leftLabel={slider.left}
+            rightLabel={slider.right}
+            name={String(slider.id)}
+          />
+        ))}
       </div>
     </div>
   );
