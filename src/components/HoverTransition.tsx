@@ -71,7 +71,7 @@ const HoverTransition: FC<HTMLProps<HTMLDivElement> & Props> = memo(
             {children}
           </motion.div>
           <motion.div
-            className="absolute h-full w-full"
+            className="absolute flex h-full w-full items-center"
             animate={{
               opacity: isActive ? 1 : 0
             }}
