@@ -35,7 +35,7 @@ const HoverTransition: FC<HTMLProps<HTMLDivElement> & Props> = memo(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPlaying]);
 
-    const transitionDuration = isMobile ? 1 : 0.13;
+    const transitionDuration = isMobile ? 0.2 : 0.13;
 
     return (
       <motion.div
@@ -50,29 +50,31 @@ const HoverTransition: FC<HTMLProps<HTMLDivElement> & Props> = memo(
         style={{ backfaceVisibility: "hidden" }}
       >
         <motion.div
-          className={cn("relative cursor-pointer overflow-y-hidden", className)}
+          className={cn(
+            "relative transform-gpu cursor-pointer overflow-y-visible will-change-transform",
+            className
+          )}
           onHoverStart={() => !isPlaying && setIsActive(true)}
           onHoverEnd={() => !isPlaying && setIsActive(false)}
           whileTap={{ scale: 0.98 }}
           onClick={() => !isPlaying && setIsActive(!isActive)}
+          animate={{
+            y: isActive ? "-100%" : "0%"
+          }}
+          transition={{ type: "spring", duration: transitionDuration }}
         >
           <motion.div
-            className="transform-gpu will-change-transform"
             animate={{
-              y: isActive ? "-100%" : "0%",
               opacity: isActive ? 0 : 1
             }}
-            transition={{ type: "spring", duration: transitionDuration }}
           >
             {children}
           </motion.div>
           <motion.div
-            className="absolute h-full w-full transform-gpu will-change-transform"
+            className="absolute h-full w-full"
             animate={{
-              y: isActive ? "-100%" : "0%",
               opacity: isActive ? 1 : 0
             }}
-            transition={{ type: "spring", duration: transitionDuration }}
           >
             {transitionElement}
           </motion.div>

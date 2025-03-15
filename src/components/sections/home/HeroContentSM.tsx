@@ -3,16 +3,6 @@
 import Image from "next/image";
 import { FC, HTMLProps, useEffect } from "react";
 
-import HOVER_Burger from "@/assets/home/hover_burger.svg";
-import HOVER_CreativeKitchen from "@/assets/home/hover_creative-kitchen.svg";
-import HOVER_Cup from "@/assets/home/hover_cup.svg";
-import HOVER_Eggcited from "@/assets/home/hover_eggcited.svg";
-import HOVER_Just from "@/assets/home/hover_just.svg";
-import HOVER_More from "@/assets/home/hover_more.svg";
-import HOVER_SoMuchMore from "@/assets/home/hover_so-much-more.svg";
-import HOVER_Than from "@/assets/home/hover_than.svg";
-import HOVER_ThinkOutside from "@/assets/home/hover_think-outside.svg";
-import HOVER_WeAre from "@/assets/home/hover_we-are.svg";
 import Pause from "@/assets/home/pause.svg";
 import Play from "@/assets/home/play.svg";
 import A from "@/assets/home/sm_A.svg";
@@ -22,6 +12,16 @@ import DiagonalText from "@/assets/home/sm_diagonal-text.svg";
 import Egg from "@/assets/home/sm_egg.svg";
 import EggSandwich from "@/assets/home/sm_egg-sandwich.svg";
 import Burger from "@/assets/home/sm_hamburger.svg";
+import HOVER_Burger from "@/assets/home/sm_hover_burger.svg";
+import HOVER_CreativeKitchen from "@/assets/home/sm_hover_creative-kitchen.svg";
+import HOVER_Cup from "@/assets/home/sm_hover_cup.svg";
+import HOVER_Eggcited from "@/assets/home/sm_hover_eggcited.svg";
+import HOVER_Just from "@/assets/home/sm_hover_just.svg";
+import HOVER_More from "@/assets/home/sm_hover_more.svg";
+import HOVER_SoMuchMore from "@/assets/home/sm_hover_so-much-more.svg";
+import HOVER_Than from "@/assets/home/sm_hover_than.svg";
+import HOVER_ThinkOutside from "@/assets/home/sm_hover_think-outside.svg";
+import HOVER_WeAre from "@/assets/home/sm_hover_we-are.svg";
 import Just from "@/assets/home/sm_just.svg";
 import More from "@/assets/home/sm_more.svg";
 import Studio from "@/assets/home/sm_studio.svg";
@@ -84,8 +84,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
             </div>
             <div className="flex flex-1 items-center justify-start px-5">
               <HoverTransition
-                className="overflow-y-hidden"
-                transitionElement={<Image src={Egg} alt="" />}
+                transitionElement={<Image src={Egg} alt="" width={45} />}
                 delay={200}
               >
                 <Image src={Burger} alt="" />
