@@ -29,7 +29,8 @@ const MenuPhaseContent: FC<
     id: String(field.id),
     name: field.name,
     description: field.description,
-    linkTo: field.linkTo
+    linkTo: field.linkTo,
+    specialty: field.specialty
   }));
 
   const updateCartItems = (item: string) => {
@@ -53,9 +54,9 @@ const MenuPhaseContent: FC<
               <span className="rounded bg-black px-3 py-0.5 text-simmer-white lg:rounded-lg">
                 LEGEND
               </span>
-              <div className="inline-flex items-center gap-1 tracking-tighter">
+              <div className="inline-flex items-center gap-2 tracking-tighter">
                 <Asterisk className="h-2 w-2 rotate-90 md:w-3" />
-                CHEF&apos;S CHOICE
+                SPECIALTY
               </div>
             </div>
           </div>
@@ -80,12 +81,13 @@ const MenuPhaseContent: FC<
             </div>
           </div>
           {services && services.length > 0
-            ? services.map(({ id, name, description, linkTo }) => (
+            ? services.map(({ id, name, description, linkTo, specialty }) => (
                 <MenuService
                   key={id}
                   name={name}
                   description={description}
                   linkTo={linkTo}
+                  specialty={specialty}
                   checked={items.includes(name)}
                   onClick={() => updateCartItems(name)}
                 />
