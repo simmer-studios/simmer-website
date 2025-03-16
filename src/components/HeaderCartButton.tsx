@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, HTMLProps } from "react";
 
 import { useCart } from "@/contexts/CartContext";
 import { Theme } from "@/lib/types";
@@ -22,20 +22,19 @@ const HeaderCartButton: FC<Props> = ({ theme }) => {
       <PopoverTrigger asChild>
         <button
           className={cn(
-            "group relative h-full items-center justify-center bg-simmer-white px-5 hover:brightness-95 lg:flex lg:w-[140px] lg:border-x-2 lg:border-black lg:px-0",
+            "group relative flex h-full w-[70px] items-center justify-center bg-simmer-white hover:brightness-95 lg:flex lg:w-[140px] lg:border-x-2 lg:border-black lg:px-0",
             {
               "bg-black hover:bg-simmer-white lg:border-simmer-white":
                 theme === "dark"
             }
           )}
         >
-          {cartItems && cartItems.length > 0 && (
-            <span className="absolute right-8 top-9 inline-flex h-[24px] w-[24px] items-center justify-center rounded-full bg-red-600 text-sm text-white">
-              {cartItems.length}
-            </span>
-          )}
+          <ItemCountBadge
+            className="absolute right-1 top-5 z-10 sm:right-1 sm:top-7 lg:right-7 lg:top-9"
+            count={cartItems.length}
+          />
           <FoodDome
-            className={cn("h-[50px]", {
+            className={cn("h-[30px] -translate-y-0.5 lg:h-[50px]", {
               "fill-simmer-white group-hover:fill-black": theme === "dark"
             })}
           />
@@ -50,6 +49,27 @@ const HeaderCartButton: FC<Props> = ({ theme }) => {
       </PopoverContent>
     </Popover>
   );
+};
+
+interface ItemCountBadgeProps extends HTMLProps<HTMLSpanElement> {
+  count: number;
+}
+
+const ItemCountBadge: FC<ItemCountBadgeProps> = ({ count, className }) => {
+  if (count > 0) {
+    return (
+      <span
+        className={cn(
+          "inline-flex h-[24px] w-[24px] items-center justify-center rounded-full bg-red-600 text-sm text-white",
+          className
+        )}
+      >
+        {count}
+      </span>
+    );
+  }
+
+  return null;
 };
 
 export default HeaderCartButton;
