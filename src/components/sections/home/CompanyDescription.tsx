@@ -1,8 +1,9 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { FC, ReactNode, useState } from "react";
+import Link from "next/link";
+import { FC, HTMLProps, ReactNode, useState } from "react";
 
 import { Homepage } from "@/payload-types";
 
@@ -12,7 +13,7 @@ interface Props {
 
 export type TabKey = keyof Homepage["intro"];
 
-const IntroCards: FC<Props> = ({ intro }) => {
+const CompanyDescription: FC<Props> = ({ intro }) => {
   const [selectedTab, setSelectedTab] = useState<TabKey>("first");
 
   const textVariants = {
@@ -165,4 +166,4 @@ const TabTitle: FC<TabTitleProps> = ({ active, onClick, children }) => {
   );
 };
 
-export default IntroCards;
+export default CompanyDescription;
