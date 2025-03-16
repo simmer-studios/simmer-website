@@ -17,6 +17,7 @@ interface BrandingFormProps {
     right: string;
     id?: string | null;
   }[];
+  onSubmit?: () => Promise<void>;
 }
 
 interface BrandingScaleProps {
@@ -27,9 +28,20 @@ interface BrandingScaleProps {
   }[];
 }
 
-const BrandingForm: FC<BrandingFormProps> = ({ questions, sliders }) => {
+const BrandingForm: FC<BrandingFormProps> = ({
+  questions,
+  sliders,
+  onSubmit
+}) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (onSubmit) {
+      await onSubmit();
+    }
+  };
+
   return (
-    <form action="" className="">
+    <form onSubmit={handleSubmit} className="">
       <div className="divide-y-2 divide-simmer-white pb-20">
         <SingleLineFormField label="NAME" placeholder="*Name Here" required />
         <SingleLineFormField label="MOBILE" placeholder="*+63" required />
