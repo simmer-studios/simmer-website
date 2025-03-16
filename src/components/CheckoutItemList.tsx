@@ -44,7 +44,7 @@ const CheckoutItemList: FC<HTMLProps<HTMLDivElement>> = ({
         )}
         <div
           className={cn(
-            "col-span-full flex h-full w-full basis-full items-center lg:items-end lg:justify-end",
+            "col-span-full flex h-full w-full basis-full items-center justify-between lg:items-end lg:justify-end",
             {
               "col-span-1": orders && orders.length > 0,
               "lg:justify-between": isDiscounted
@@ -52,13 +52,13 @@ const CheckoutItemList: FC<HTMLProps<HTMLDivElement>> = ({
           )}
         >
           {isDiscounted && (
-            <div className="px-5 py-2 lg:px-7 lg:py-4">
+            <div className="px-5 py-2 text-sm sm:text-base lg:px-7 lg:py-4 lg:text-xl">
               *5% Discount Applied
             </div>
           )}
           <Link
             href="/menu"
-            className="inline-block px-5 py-2 font-adelle-mono-flex text-simmer-yellow hover:underline hover:underline-offset-4 lg:px-7 lg:py-4"
+            className="inline-block min-w-max px-5 py-2 font-adelle-mono-flex text-sm text-simmer-yellow hover:underline hover:underline-offset-4 sm:text-base lg:px-7 lg:py-4 lg:text-xl xl:text-2xl"
           >
             CLICK ADD MORE
           </Link>
