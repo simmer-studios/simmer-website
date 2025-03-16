@@ -3,8 +3,8 @@ import { FC } from "react";
 import { Project } from "@/payload-types";
 
 import CreditsBlock from "./Credits";
-import FullWidthMedia from "./FullWidthImage";
 import FullWidthImageHeadingCaption from "./FullWidthImageHeadingCaption";
+import FullWidthMedia from "./FullWidthMedia";
 import IconHeadingCaptionCombo from "./IconHeadingCaptionCombo";
 import QuoteBlock from "./Quote";
 import Slideshow from "./Slideshow";

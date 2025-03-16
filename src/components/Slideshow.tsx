@@ -7,6 +7,7 @@ import { FC, HTMLProps, useEffect } from "react";
 import { cn, isValidImage } from "@/lib/utils";
 import { Media } from "@/payload-types";
 
+import CMSMedia from "./CMSMedia";
 import ArrowRight from "./icons/ArrowRight";
 
 interface Props {
@@ -36,24 +37,22 @@ const Slideshow: FC<HTMLProps<HTMLDivElement> & Props> = ({
     if (emblaApi) emblaApi.scrollNext();
   };
 
-  /* filter out invalid images */
-  const validImages = images.filter(isValidImage);
-
   return (
     <section className={cn("", className)}>
       <div className="block max-w-full overflow-hidden" ref={emblaRef}>
         <div className="grid auto-cols-[100%] grid-flow-col px-10 lg:gap-10 lg:px-16">
-          {validImages.length > 0 &&
-            validImages.map((image) => (
-              <div className="relative aspect-video" key={image.id}>
-                <Image
-                  src={image.url || "/images/img_placeholder.jpg"}
-                  className="object-cover lg:rounded-xl"
-                  alt={image.alt || ""}
-                  fill
-                />
-              </div>
-            ))}
+          {images.length > 0 &&
+            images.map((image) =>
+              typeof image !== "number" ? (
+                <div className="relative aspect-video" key={image.id}>
+                  <CMSMedia
+                    media={image}
+                    controls={false}
+                    className="absolute h-full w-full object-cover lg:rounded-xl"
+                  />
+                </div>
+              ) : null
+            )}
         </div>
       </div>
       <div className="mx-auto flex max-w-[1800px] justify-between p-4">

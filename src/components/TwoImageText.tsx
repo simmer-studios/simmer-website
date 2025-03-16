@@ -4,6 +4,8 @@ import { FC, HTMLProps } from "react";
 import { cn, isValidImage } from "@/lib/utils";
 import { Media } from "@/payload-types";
 
+import CMSMedia from "./CMSMedia";
+
 interface Props {
   first: {
     image: number | Media;
@@ -22,21 +24,16 @@ const TwoImageText: FC<HTMLProps<HTMLDivElement> & Props> = ({
   second,
   className
 }) => {
-  if (!isValidImage(first.image) || !isValidImage(second.image)) {
-    return null;
-  }
-
   return (
     <section className={cn("px-10 lg:px-20", className)}>
       <div className="container grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-20 lg:gap-32">
         {/* first image - left */}
         <div>
           <div className="relative aspect-square w-full overflow-hidden rounded-2xl border-2 border-black">
-            <Image
-              src={first.image.url}
-              alt={first.image.alt || ""}
-              fill
-              className="object-cover"
+            <CMSMedia
+              media={first.image}
+              className="absolute h-full w-full object-cover"
+              controls={false}
             />
           </div>
           <div className="space-y-4 py-5 font-articulat">
@@ -47,11 +44,10 @@ const TwoImageText: FC<HTMLProps<HTMLDivElement> & Props> = ({
         {/* second image - right */}
         <div>
           <div className="relative aspect-square w-full overflow-hidden rounded-2xl border-2 border-black">
-            <Image
-              src={second.image.url}
-              alt={second.image.alt || ""}
-              fill
-              className="object-cover"
+            <CMSMedia
+              media={second.image}
+              className="absolute h-full w-full object-cover"
+              controls={false}
             />
           </div>
           <div className="space-y-4 py-5 font-articulat">

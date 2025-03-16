@@ -4,6 +4,7 @@ import { FC, HTMLProps } from "react";
 import { cn, isValidImage } from "@/lib/utils";
 import { Media } from "@/payload-types";
 
+import CMSMedia from "./CMSMedia";
 import BuildingTheBrand from "./icons/BuildingTheBrand";
 
 interface Props {
@@ -19,19 +20,14 @@ const FullWidthImageHeadingCaption: FC<HTMLProps<HTMLDivElement> & Props> = ({
   className,
   ...props
 }) => {
-  if (!isValidImage(image)) {
-    return null;
-  }
-
   return (
     <section className={cn("", className)} {...props}>
       <div className="grid divide-black border-black lg:grid-cols-2 lg:divide-x-2 lg:border-y-2">
         <div className="relative aspect-square lg:aspect-auto">
-          <Image
-            src={image.url}
-            alt={image.alt || ""}
-            fill
-            className="object-cover"
+          <CMSMedia
+            media={image}
+            className="absolute h-full w-full object-cover"
+            controls={false}
           />
         </div>
         <div className="flex items-center justify-center px-10 pt-10 lg:aspect-square lg:p-20">
