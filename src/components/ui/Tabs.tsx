@@ -10,16 +10,24 @@ const Tabs = TabsPrimitive.Root;
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.List
-    ref={ref}
-    className={cn(
-      "bg-muted text-muted-foreground inline-flex h-10 items-start justify-center rounded-md p-1",
-      className
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  // Extract any items-* class from the provided className
+  const itemsClass = className
+    ?.split(" ")
+    .find((cls) => cls.startsWith("items-"));
+
+  return (
+    <TabsPrimitive.List
+      ref={ref}
+      className={cn(
+        "bg-muted text-muted-foreground inline-flex h-10 justify-center rounded-md p-1",
+        itemsClass || "items-center", // Use provided items-* class or default to items-center
+        className
+      )}
+      {...props}
+    />
+  );
+});
 TabsList.displayName = TabsPrimitive.List.displayName;
 
 const TabsTrigger = React.forwardRef<

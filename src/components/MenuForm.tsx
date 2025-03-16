@@ -35,7 +35,7 @@ const MenuForm: FC<Props> = ({
         defaultValue="strategy"
         className="relative flex flex-col divide-y-2 divide-black border-t-2 border-black"
       >
-        <TabsList className="grid h-full grid-cols-3 divide-x-2 divide-black p-0">
+        <TabsList className="grid h-full grid-cols-3 items-start divide-x-2 divide-black p-0">
           <MenuFormTab value="strategy" alias="APPETIZERS">
             STRATEGY
           </MenuFormTab>
