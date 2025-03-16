@@ -38,7 +38,7 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b-2 border-black bg-simmer-white px-5 font-adelle-mono text-base lg:relative lg:px-0 lg:pr-20 lg:text-xl",
+        "sticky top-0 z-50 border-b-2 border-black bg-simmer-white px-5 font-adelle-mono text-base lg:relative lg:px-0 lg:pr-0 lg:text-xl",
         {
           "border-simmer-white bg-black text-simmer-white": theme === "dark"
         },
@@ -121,7 +121,7 @@ const Header: FC<HTMLProps<HTMLElement> & Props> = ({
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 1.2 }}
-            className="block pl-8 pr-2 lg:px-3"
+            className="block pr-2 lg:px-3"
             onClick={() => setDropdownOpen((prev) => !prev)}
           >
             <HeaderHamburger
