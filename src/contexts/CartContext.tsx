@@ -97,6 +97,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       localStorage.setItem("simmer-cart", JSON.stringify(items));
+      if (items.includes("Chef's Choice")) {
+        setIsChefChoiceSelected(true);
+      } else {
+        setIsChefChoiceSelected(false);
+      }
     }
   }, [items]);
 
