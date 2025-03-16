@@ -136,9 +136,8 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
           initial="hidden"
           animate="visible"
           variants={containerAnimation}
-          className="text-simmer-white"
+          className="auto-fill-none text-simmer-white"
           onSubmit={handleSubmit}
-          id="checkout-form"
         >
           {/* full width field */}
           <motion.div
