@@ -36,7 +36,7 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
         transition={{ duration: 0.3 }}
       >
         <motion.div
-          className="aspect-[51.233333333333/77.11] @container-normal"
+          className="aspect-[51.233333333333/77.11] select-none @container-normal"
           style={{
             position: "relative",
             transformStyle: "preserve-3d"
@@ -112,7 +112,7 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
               }
               alt={(isValidImage(photo) && photo.alt) || ""}
               fill
-              className="object-cover object-center"
+              className="select-none object-cover object-center"
               onContextMenu={(e) => e.preventDefault()}
             />
             {catchPhrase && (
@@ -126,7 +126,7 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
                   repeatType: "loop", // Repeat in a loop
                   ease: "easeInOut" // Smooth easing function for bouncy effect
                 }}
-                className="absolute bottom-0 z-10 mb-10 w-[70%] border-2 border-black bg-simmer-white px-3 py-3 font-adelle-mono"
+                className="absolute bottom-0 z-10 mb-10 w-[70%] select-none border-2 border-black bg-simmer-white px-3 py-3 font-adelle-mono"
               >
                 <span className="max-w-[10ch] select-none uppercase">
                   {catchPhrase}
