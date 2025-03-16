@@ -107,7 +107,7 @@ const CompanyDescription: FC<Props> = ({ intro }) => {
           <div className="right-0 top-0 flex justify-center @[850px]/card-2:absolute">
             <div className="relative aspect-video w-full @[850px]/card-2:h-[263.71px] @[850px]/card-2:w-[402px]">
               <Image
-                src="/images/img_wine-glass.svg"
+                src="/images/opti/img_wine-glass.svg"
                 className="object-contain"
                 alt=""
                 fill
