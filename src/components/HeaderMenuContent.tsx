@@ -3,10 +3,8 @@ import Link from "next/link";
 import { FC, HTMLProps } from "react";
 import { FaCaretRight } from "react-icons/fa";
 
-import { cn } from "@/lib/utils";
-
 import Cross from "./icons/Cross";
-import Logo from "./Logo";
+import SimmerLogo from "./SimmerLogo";
 
 interface Props {
   currentPath?: string;
@@ -24,14 +22,7 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
       {...props}
     >
       <div className="flex h-[100px] items-center px-5">
-        <div className="flex">
-          <Link
-            href="/"
-            className={"group flex h-full items-center justify-center"}
-          >
-            <Logo className="h-[40px] fill-simmer-white" />
-          </Link>
-        </div>
+        <SimmerLogo theme="dark" disableLogoBorder />
         <div className="flex-1">
           <div className="flex items-center gap-1">
             <FaCaretRight className="h-[24px]" />
