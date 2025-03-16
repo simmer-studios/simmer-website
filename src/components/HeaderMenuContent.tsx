@@ -156,14 +156,16 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
           <div className="flex-1 divide-y-2 divide-simmer-white">
             <div className="flex px-5">
               <Link
-                href="#space"
+                href="https://simmerspace.com/"
+                target="_blank"
                 className="pt-1.5 font-articulat text-2xl font-semibold italic"
               >
                 SPACE
               </Link>
             </div>
             <Link
-              href="#supply"
+              href="https://simmerspace.com/"
+              target="_blank"
               className="flex items-center justify-between px-5"
             >
               <span className="pt-1.5 font-articulat text-2xl">SUPPLY</span>
