@@ -24,7 +24,7 @@ const HeaderCartButton: FC<Props> = ({ theme }) => {
           className={cn(
             "group relative flex h-full w-[70px] items-center justify-center bg-simmer-white hover:brightness-95 lg:flex lg:w-[140px] lg:border-x-2 lg:border-black lg:px-0",
             {
-              "bg-black hover:bg-simmer-white lg:border-simmer-white":
+              "bg-transparent lg:border-simmer-white lg:hover:bg-simmer-white":
                 theme === "dark"
             }
           )}
@@ -35,7 +35,8 @@ const HeaderCartButton: FC<Props> = ({ theme }) => {
           />
           <FoodDome
             className={cn("h-[30px] -translate-y-0.5 lg:h-[50px]", {
-              "fill-simmer-white group-hover:fill-black": theme === "dark"
+              "fill-simmer-white group-hover:fill-simmer-yellow lg:group-hover:fill-black":
+                theme === "dark"
             })}
           />
         </button>
