@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "motion/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { ChangeEvent, FC, HTMLProps, useState } from "react";
+import { ChangeEvent, FC, HTMLProps, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -39,6 +39,12 @@ interface CheckoutFormProps {
 const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
   const [budgetAmount, setBudgetAmount] = useState<string>("$$$$");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (isSubmitting) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [isSubmitting]);
 
   const handleOnBudgetChange = (e: ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value.replace(/[^0-9]/g, "");
