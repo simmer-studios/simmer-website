@@ -115,7 +115,7 @@ const Row: FC<RowProps> = ({
             animate={{ scale: 1 }}
             exit={{ scale: 0.8 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="absolute right-2 top-0 inline-block aspect-square h-[20px] translate-y-4 rounded-full bg-simmer-yellow sm:left-2 md:left-5 md:h-[25px] lg:top-4"
+            className="absolute right-4 top-4 inline-block aspect-square h-[20px] translate-y-4 rounded-full bg-simmer-yellow sm:left-2 md:left-5 md:h-[25px] lg:top-4"
           />
         )}
         {/* numbering */}
