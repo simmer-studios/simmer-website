@@ -53,6 +53,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
+    if (isChefChoiceSelected) {
+      addCartItem("Chef's Choice");
+    } else {
+      removeCartItem("Chef's Choice");
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isChefChoiceSelected]);
+
+  useEffect(() => {
     if (typeof window !== "undefined") {
       const simmerDiscount = localStorage.getItem("simmer-discount");
       const cart = localStorage.getItem("simmer-cart");
@@ -69,6 +79,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             parsedCart.every((item) => typeof item === "string")
           ) {
             setItems(parsedCart);
+            setIsChefChoiceSelected(parsedCart.includes("Chef's Choice"));
           } else {
             console.warn("Invalid cart format in localStorage, resetting cart");
             setItems([]);
