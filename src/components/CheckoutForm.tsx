@@ -305,7 +305,7 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
             </div>
             <div className="flex items-center justify-center bg-simmer-white py-5 lg:bg-black">
               <button
-                className="-translate-y-16 rounded-full border-2 border-black bg-simmer-white px-10 pb-5 pt-6 font-adelle-mono text-xl text-black lg:translate-y-0"
+                className="-translate-y-16 rounded-full border-2 border-black bg-simmer-white px-10 pb-5 pt-6 font-adelle-mono text-xl text-black hover:border-simmer-white hover:bg-black hover:text-simmer-white lg:translate-y-0"
                 type="submit"
                 disabled={isSubmitting}
               >
