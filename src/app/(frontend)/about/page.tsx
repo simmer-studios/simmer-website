@@ -20,7 +20,8 @@ const getPageData = async () => {
 
   const creativesPromise = payload.find({
     collection: "creatives",
-    sort: ["+order"]
+    sort: ["order"],
+    limit: 100
   });
 
   const clientsPromise = payload.find({

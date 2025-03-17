@@ -68,11 +68,12 @@ const MemberCards: FC<HTMLProps<HTMLDivElement> & Props> = ({
         ))}
       </motion.div>
 
-      <div className="flex items-center justify-center lg:hidden">
+      {/* Uncomment if load more is integrated */}
+      {/* <div className="flex items-center justify-center hidden">
         <button className="rounded-full border-2 border-black bg-simmer-white px-7 py-1 active:bg-simmer-yellow">
           <span className="inline-block pt-1 font-adelle-mono">LOAD MORE</span>
         </button>
-      </div>
+      </div> */}
     </section>
   );
 };
