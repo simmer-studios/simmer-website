@@ -45,7 +45,7 @@ const ButtonLink: FC<ComponentProps<typeof Link>> = ({
 );
 
 const SpecialtyAsterisk = () => (
-  <Asterisk className="absolute left-[-14] top-[45%] h-2 w-2 translate-y-[-50%] rotate-90 md:w-3" />
+  <Asterisk className="absolute left-[-14px] top-[45%] h-2 w-2 translate-y-[-50%] rotate-90 md:w-3" />
 );
 
 const MenuService: FC<HTMLProps<HTMLDivElement> & MenuServiceProps> = ({
