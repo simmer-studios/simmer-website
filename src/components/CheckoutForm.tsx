@@ -268,8 +268,8 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
                       <MultiLineFormField
                         {...field}
                         label="BRAND DETAILS*"
-                        required
                         placeholder="Tell us something about your brand here."
+                        required
                       />
                     </FormControl>
                   </FormItem>

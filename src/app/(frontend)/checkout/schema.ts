@@ -84,10 +84,6 @@ export const checkoutSchema = z.object({
       invalid_type_error: "Budget must be a string"
     })
     .trim()
-    .min(
-      CONFIG.string.min,
-      `Budget must be at least ${CONFIG.string.min} characters`
-    )
     .max(
       CONFIG.string.max,
       `Budget must not be more than ${CONFIG.string.max} characters`
@@ -95,13 +91,13 @@ export const checkoutSchema = z.object({
     .optional(),
   referralSource: z
     .string({
+      required_error: "Referral source is required",
       invalid_type_error: "Referral source must be a string"
     })
     .max(
       CONFIG.string.max,
       `Referral source must not be more than ${CONFIG.string.max} characters`
-    )
-    .optional(),
+    ),
   orders: z
     .string({
       required_error: "Item name is required",
