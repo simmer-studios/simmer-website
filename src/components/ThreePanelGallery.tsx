@@ -27,7 +27,7 @@ const ThreePanelGallery: FC<HTMLProps<HTMLDivElement> & Props> = ({
 
   return (
     <section className={cn("", className)}>
-      <div className="grid grid-cols-1 gap-4 divide-black border-y-2 border-black lg:grid-cols-3 lg:gap-0 lg:divide-x-2">
+      <div className="grid grid-cols-1 gap-4 divide-black border-black lg:grid-cols-3 lg:gap-0 lg:divide-x-2 lg:border-y-2">
         <div
           className="relative aspect-[3/4] lg:aspect-square"
           key={firstImage.id}

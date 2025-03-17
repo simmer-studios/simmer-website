@@ -58,13 +58,13 @@ const Slideshow: FC<HTMLProps<HTMLDivElement> & Props> = ({
       <div className="mx-auto flex max-w-[1800px] justify-between p-4">
         <button
           onClick={scrollPrev}
-          className="rounded-lg px-4 py-2 hover:bg-black/10"
+          className="rounded-lg px-4 py-2 active:bg-black/10"
         >
           <ArrowRight className="w-10 rotate-180 lg:w-16" />
         </button>
         <button
           onClick={scrollNext}
-          className="rounded-lg px-4 py-2 hover:bg-black/10"
+          className="rounded-lg px-4 py-2 active:bg-black/10"
         >
           <ArrowRight className="w-10 lg:w-16" />
         </button>
