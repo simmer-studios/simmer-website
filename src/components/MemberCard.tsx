@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import Image from "next/image";
-import { FC, HTMLProps } from "react";
+import { FC, HTMLProps, useState } from "react";
 
 import FLIPMEOVERLG from "@/assets/about/flip-me-over.svg";
 import FLIPMEOVERSM from "@/assets/about/sm_flip-me-over.svg";
@@ -28,8 +28,14 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
   number,
   className
 }) => {
+  const [showBackface, setShowBackface] = useState<boolean>(false);
+
   return (
-    <div>
+    <div
+      onMouseOver={() => setShowBackface(true)}
+      onMouseOut={() => setShowBackface(false)}
+      onTouchStart={() => setShowBackface((prev) => !prev)}
+    >
       <motion.div
         className={cn("card", className)}
         style={{ perspective: "1000px" }}
@@ -41,12 +47,7 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
             position: "relative",
             transformStyle: "preserve-3d"
           }}
-          whileTap={{
-            rotateY: 180
-          }}
-          whileHover={{
-            rotateY: 180
-          }}
+          animate={{ rotateY: showBackface ? 180 : 0 }}
         >
           {/* front face */}
           <motion.div
@@ -102,6 +103,7 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
             className="back-face absolute flex h-full w-full justify-center overflow-hidden rounded-3xl border-2 border-black bg-simmer-white xl:rounded-[3rem]"
             style={{
               backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
               transform: "rotateY(180deg)"
             }}
           >
@@ -112,7 +114,7 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
               }
               alt={(isValidImage(photo) && photo.alt) || ""}
               fill
-              className="select-none object-cover object-center"
+              className="disable-context-menu select-none object-cover object-center"
               onContextMenu={(e) => e.preventDefault()}
             />
             {catchPhrase && (
@@ -126,9 +128,9 @@ const MemberCard: FC<HTMLProps<HTMLDivElement> & MemberCardProps> = ({
                   repeatType: "loop", // Repeat in a loop
                   ease: "easeInOut" // Smooth easing function for bouncy effect
                 }}
-                className="absolute bottom-0 z-10 mb-10 w-[70%] select-none border-2 border-black bg-simmer-white px-3 py-3 font-adelle-mono"
+                className="disable-context-menu absolute bottom-0 z-10 mb-10 w-[70%] select-none border-2 border-black bg-simmer-white px-3 py-3 font-adelle-mono text-sm lg:text-base"
               >
-                <span className="max-w-[10ch] select-none uppercase">
+                <span className="disable-context-menu max-w-[20ch] select-none uppercase">
                   {catchPhrase}
                 </span>
               </motion.div>
