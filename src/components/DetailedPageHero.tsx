@@ -1,12 +1,13 @@
-import Image from "next/image";
 import Link from "next/link";
-import { FC, HTMLProps, PropsWithChildren } from "react";
+import { FC, HTMLProps } from "react";
 import { GoArrowUpRight } from "react-icons/go";
 
 import ArrowDown from "@/components/icons/ArrowDown";
 import ProjectPrimaryDetails from "@/components/ProjectPrimaryDetails";
-import { cn, isValidImage } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Media, Service } from "@/payload-types";
+
+import CMSMedia from "./CMSMedia";
 
 interface Props {
   thumbnail: number | Media;
@@ -40,33 +41,25 @@ const DetailedPageHero: FC<HTMLProps<HTMLElement> & Props> = ({
     >
       <div className="row order-1 flex min-h-[400px] gap-10 lg:px-14 lg:pt-14">
         <div className="relative basis-full overflow-hidden border-b-2 border-black lg:aspect-square lg:w-1/2 lg:rounded-[5rem] lg:border-2">
-          <Image
-            src={
-              isValidImage(thumbnail)
-                ? thumbnail.url
-                : "/images/img_placeholder.jpg"
-            }
-            alt={(isValidImage(thumbnail) && thumbnail.alt) || ""}
-            fill
-            className="object-cover"
+          <CMSMedia
+            media={thumbnail}
+            className="absolute h-full w-full object-cover"
+            controls={false}
           />
         </div>
-        <div className="hidden flex-col gap-10 lg:flex lg:w-1/2">
-          <div className="relative aspect-video overflow-hidden border-2 border-black lg:min-h-[150px] lg:rounded-[3rem]">
-            <Image
-              src={
-                isValidImage(cover) ? cover.url : "/images/img_placeholder.jpg"
-              }
-              alt={(isValidImage(cover) && cover.alt) || ""}
-              fill
-              className="object-cover"
+        <div className="hidden shrink-0 flex-col gap-10 lg:flex lg:w-1/2">
+          <div className="relative flex-grow basis-[70%] overflow-hidden border-2 border-black lg:rounded-[3rem]">
+            <CMSMedia
+              media={cover}
+              className="absolute h-full w-full object-cover"
+              controls={false}
             />
           </div>
-          <div className="flex items-end justify-between rounded-[3rem] bg-black p-8 lg:min-h-max">
-            <span className="font-adelle-mono-flex text-6xl uppercase text-simmer-white lg:text-7xl xl:text-[5.4rem] 2xl:text-9xl">
+          <div className="flex shrink-0 flex-grow basis-[30%] items-center justify-between rounded-[3rem] bg-black p-8 lg:min-h-max lg:gap-8">
+            <span className="inline-block max-w-[10ch] text-wrap font-adelle-mono-flex uppercase text-simmer-white lg:text-5xl xl:text-6xl 2xl:text-7xl min-[1600px]:text-8xl">
               {featuredServices}
             </span>
-            <ArrowDown className="h-16 w-10 flex-shrink-0 fill-simmer-white" />
+            <ArrowDown className="h-16 w-10 flex-shrink-0 self-end fill-simmer-white" />
           </div>
         </div>
       </div>

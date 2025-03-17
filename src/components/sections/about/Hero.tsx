@@ -81,7 +81,7 @@ const Hero: FC<HTMLProps<HTMLDivElement> & Props> = ({
     >
       <motion.div
         variants={item}
-        className="relative aspect-square border-b-2 border-black sm:aspect-video lg:order-2 lg:h-dvh lg:border-y-2"
+        className="relative aspect-[9/16] h-dvh border-b-2 border-black lg:order-2 lg:h-dvh lg:border-y-2"
       >
         <Image
           src={

@@ -7,6 +7,8 @@ import { useMagneticHover } from "@/hooks/useMagneticHover";
 import { isValidImage } from "@/lib/utils";
 import { Media, Project } from "@/payload-types";
 
+import CMSMedia from "./CMSMedia";
+
 interface Props {
   slug: string;
   name: string;
@@ -17,7 +19,7 @@ interface Props {
 const PortfolioItem: React.FC<Props> = ({ slug, name, category, image }) => {
   const magneticRef = useMagneticHover(100);
 
-  if (!isValidImage(image)) {
+  if (typeof image === "number") {
     return null;
   }
 
@@ -27,11 +29,10 @@ const PortfolioItem: React.FC<Props> = ({ slug, name, category, image }) => {
       className="group relative block aspect-square overflow-hidden bg-gray-100 transition duration-300 ease-in-out"
       scroll={true}
     >
-      <Image
-        className="object-cover transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:brightness-90"
-        src={image.url}
-        alt={image.alt || ""}
-        fill
+      <CMSMedia
+        className="absolute h-full w-full object-cover transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:brightness-90"
+        controls={false}
+        media={image}
       />
       <div
         ref={magneticRef}

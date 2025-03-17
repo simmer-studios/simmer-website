@@ -1,9 +1,13 @@
-import { motion } from "motion/react";
+import { HTMLMotionProps, motion } from "motion/react";
 import Link from "next/link";
-import { FC, HTMLProps } from "react";
+import { configToJSONSchema } from "payload";
+import { ComponentProps, FC, HTMLProps } from "react";
 import { FaCaretRight } from "react-icons/fa";
 
+import { cn } from "@/lib/utils";
+
 import Cross from "./icons/Cross";
+import ReturnHomeLink from "./ReturnHomeLink";
 import SimmerLogo from "./SimmerLogo";
 
 interface Props {
@@ -11,30 +15,24 @@ interface Props {
   onClose: () => void;
 }
 
-const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
+const HeaderMenuContent: FC<HTMLMotionProps<"div"> & Props> = ({
   currentPath,
   onClose,
   ...props
 }) => {
   return (
-    <div
-      className="min-h-screen divide-y-2 divide-simmer-white font-adelle-mono text-simmer-white"
+    <motion.div
+      initial={{ y: "-100%" }}
+      animate={{ y: "0%" }}
+      exit={{ y: "-100%", opacity: 0 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      layout="position"
+      className="min-h-dvh divide-y-2 divide-simmer-white font-adelle-mono text-simmer-white"
       {...props}
     >
-      <div className="flex h-[100px] items-center px-5">
+      <div className="flex h-[80px] items-center sm:h-[100px]">
         <SimmerLogo theme="dark" disableLogoBorder />
-        <div className="flex-1">
-          <div className="flex items-center gap-1">
-            <FaCaretRight className="h-[24px]" />
-            {currentPath === "/" ? (
-              <span className="uppercase">HOME</span>
-            ) : (
-              <Link href="/" className="uppercase" onClick={onClose}>
-                BACK TO HOME
-              </Link>
-            )}
-          </div>
-        </div>
+        <ReturnHomeLink path={currentPath} />
         <div className="flex flex-shrink-0 px-2">
           <motion.button
             whileTap={{ scale: 1.2 }}
@@ -48,16 +46,14 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
       <div className="row">
         <div className="container flex divide-x-2 divide-simmer-white">
           <div className="flex flex-1 items-center gap-2 px-5 py-1.5">
-            <Link
+            <MenuLink
+              active={currentPath === "/"}
               href="/"
-              className="inline-block pt-2.5 font-articulat text-7xl leading-none"
+              className="font-articulat"
               onClick={onClose}
             >
               HOME
-            </Link>
-            {currentPath === "/" && (
-              <FaCaretRight className="h-[70px] rotate-180" />
-            )}
+            </MenuLink>
           </div>
           <div className="flex items-center justify-center px-5">
             <span className="w-[6ch] leading-none">SIMMER GROUP INC.</span>
@@ -66,31 +62,27 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
       </div>
       <div className="row">
         <div className="container flex items-center gap-2 px-5 py-1.5">
-          <Link
+          <MenuLink
+            active={currentPath === "/works"}
             href="/works"
-            className="inline-block pt-2.5 font-articulat text-7xl font-medium leading-none"
+            className="font-articulat font-medium"
             onClick={onClose}
           >
             WORKS
-          </Link>
-          {currentPath === "/works" && (
-            <FaCaretRight className="h-[70px] rotate-180" />
-          )}
+          </MenuLink>
         </div>
       </div>
       <div className="row">
         <div className="container flex divide-x-2 divide-simmer-white">
           <div className="flex flex-1 items-center gap-2 px-5 py-1.5">
-            <Link
+            <MenuLink
+              active={currentPath === "/menu"}
               href="/menu"
-              className="inline-block pt-2.5 font-articulat text-7xl font-extralight italic leading-none"
+              className="font-articulat font-extralight italic"
               onClick={onClose}
             >
               MENU
-            </Link>
-            {currentPath === "/menu" && (
-              <FaCaretRight className="h-[70px] rotate-180" />
-            )}
+            </MenuLink>
           </div>
           <div className="flex flex-shrink-0 items-center justify-center px-5">
             <span className="w-[8ch] leading-none">OUR SERVICES</span>
@@ -99,30 +91,26 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
       </div>
       <div className="row">
         <div className="container flex gap-2 px-5 py-1.5">
-          <Link
+          <MenuLink
+            active={currentPath === "/about"}
             href="/about"
-            className="inline-block pt-2.5 font-articulat text-7xl font-bold leading-none"
+            className="font-articulat font-bold"
             onClick={onClose}
           >
             ABOUT
-          </Link>
-          {currentPath === "/about" && (
-            <FaCaretRight className="h-[70px] rotate-180" />
-          )}
+          </MenuLink>
         </div>
       </div>
       <div className="row">
         <div className="container flex items-center gap-2 px-5 py-1.5">
-          <Link
+          <MenuLink
+            active={currentPath === "/checkout"}
             href="/checkout"
-            className="inline-block pt-2.5 font-articulat text-7xl font-extralight leading-none"
+            className="font-articulat font-extralight"
             onClick={onClose}
           >
             QUOTE
-          </Link>
-          {currentPath === "/checkout" && (
-            <FaCaretRight className="h-[70px] rotate-180" />
-          )}
+          </MenuLink>
         </div>
       </div>
       <div className="row">
@@ -133,16 +121,14 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
             </span>
           </div>
           <div className="flex items-center gap-2 px-5 py-1.5">
-            <Link
+            <MenuLink
+              active={currentPath === "/snap"}
               href="/snap"
-              className="inline-block pt-2.5 font-articulat text-7xl font-medium leading-none"
+              className="font-articulat"
               onClick={onClose}
             >
               SNAP
-            </Link>
-            {currentPath === "/snap" && (
-              <FaCaretRight className="h-[70px] rotate-180" />
-            )}
+            </MenuLink>
           </div>
         </div>
       </div>
@@ -156,14 +142,16 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
           <div className="flex-1 divide-y-2 divide-simmer-white">
             <div className="flex px-5">
               <Link
-                href="#space"
+                href="https://simmerspace.com/"
+                target="_blank"
                 className="pt-1.5 font-articulat text-2xl font-semibold italic"
               >
                 SPACE
               </Link>
             </div>
             <Link
-              href="#supply"
+              href="https://simmerspace.com/"
+              target="_blank"
               className="flex items-center justify-between px-5"
             >
               <span className="pt-1.5 font-articulat text-2xl">SUPPLY</span>
@@ -172,7 +160,45 @@ const HeaderMenuContent: FC<HTMLProps<HTMLDivElement> & Props> = ({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
+  );
+};
+
+interface MenuLinkProps {
+  active: boolean;
+}
+
+const MenuLink: FC<ComponentProps<typeof Link> & MenuLinkProps> = ({
+  active,
+  children,
+  className,
+  ...props
+}) => {
+  return (
+    <Link
+      {...props}
+      className={cn(
+        "inline-flex items-center pt-2.5 text-7xl leading-none",
+        className
+      )}
+    >
+      {children}
+      {active && (
+        <motion.span
+          initial={{ x: 20 }}
+          animate={{ x: ["0%", "-10%", "0%"] }}
+          transition={{
+            duration: 1,
+            repeat: Infinity,
+            repeatType: "loop",
+            ease: "easeInOut"
+          }}
+          className="inline-block"
+        >
+          <FaCaretRight className="aspect-square h-[70px] w-full -translate-y-2 rotate-180" />
+        </motion.span>
+      )}
+    </Link>
   );
 };
 

@@ -5,13 +5,12 @@ import { AnimatePresence, motion } from "motion/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { ChangeEvent, FC, HTMLProps, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { FieldError, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import AMPERSAND from "@/assets/checkout/ampersand.svg";
 import CheckoutHeaderLG from "@/components/sections/checkout/CheckoutHeaderLG";
 import CheckoutHeaderSM from "@/components/sections/checkout/CheckoutHeaderSM";
-import { useCart } from "@/contexts/CartContext";
 import { cn } from "@/lib/utils";
 
 import { Form, FormControl, FormField, FormItem } from "./ui/Form";
@@ -26,7 +25,7 @@ const formSchema = z.object({
   email: z.string().email("Invalid email address"),
   mobile: z.string().min(11, "Mobile number is required"),
   brand: z.string().min(1, "Brand name is required"),
-  // budget: z.string().min(1, "Budget is required"),
+  budget: z.string().min(1, "Budget is required"),
   // orders: z.array(z.object({ serviceName: z.string(), serviceId: z.string() })),
   brandDescription: z.string().min(1, "Brand description is required"),
   referralSource: z.string().min(1, "Referral source is required")
@@ -54,13 +53,14 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: "onChange",
     defaultValues: {
       name: "",
       email: "",
       mobile: "",
       brand: "",
       brandDescription: "",
-      // budget: "",
+      budget: "",
       // orders: [],
       referralSource: ""
     }
@@ -136,9 +136,8 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
           initial="hidden"
           animate="visible"
           variants={containerAnimation}
-          className="text-simmer-white"
+          className="auto-fill-none text-simmer-white"
           onSubmit={handleSubmit}
-          id="checkout-form"
         >
           {/* full width field */}
           <motion.div
@@ -156,15 +155,15 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
             <FormField
               control={form.control}
               name="name"
-              render={({ field, fieldState }) => (
-                <FormItem className="flex w-full px-5 pt-1">
+              render={({ field }) => (
+                <FormItem className="flex w-full">
                   <FormControl>
                     <input
                       type="text"
                       placeholder="Name Here"
                       required
                       {...field}
-                      className="bg-transparent font-fionas text-xl font-semibold placeholder:leading-[-0.9] placeholder:text-simmer-white focus:outline-none sm:text-3xl lg:text-6xl lg:font-medium"
+                      className="w-full bg-transparent px-5 pt-1 font-fionas text-xl font-semibold placeholder:leading-[-0.9] placeholder:text-simmer-white focus:outline-none sm:text-3xl lg:text-6xl lg:font-medium"
                     />
                   </FormControl>
                 </FormItem>
@@ -181,13 +180,14 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
               <FormField
                 control={form.control}
                 name="email"
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                   <FormItem>
                     <FormControl>
                       <SingleLineFormField
                         label="EMAIL"
                         type="email"
                         placeholder="name@brand.com"
+                        error={fieldState.error}
                         required
                         {...field}
                       />
@@ -222,6 +222,23 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
                         label="BRAND"
                         type="text"
                         placeholder="What's your brand name/field?"
+                        required
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="brand"
+                render={({ field }) => (
+                  <FormItem className="block lg:hidden">
+                    <FormControl>
+                      <SingleLineFormField
+                        label="BUDGET"
+                        type="text"
+                        value={`₱ ${field.value}`}
+                        placeholder="How much is your budget?"
                         required
                       />
                     </FormControl>
@@ -306,7 +323,7 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
             </div>
             <div className="flex items-center justify-center bg-simmer-white py-5 lg:bg-black">
               <button
-                className="-translate-y-16 rounded-full border-2 border-black bg-simmer-white px-10 pb-5 pt-6 font-adelle-mono text-xl text-black lg:translate-y-0"
+                className="-translate-y-16 rounded-full border-2 border-black bg-simmer-white px-10 pb-5 pt-6 font-adelle-mono text-xl text-black hover:border-simmer-white hover:bg-black hover:text-simmer-white lg:translate-y-0"
                 type="submit"
                 disabled={isSubmitting}
               >
@@ -322,6 +339,7 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
 
 interface SingleLineFormFieldProps {
   label: string;
+  error?: FieldError | null;
 }
 
 const SingleLineFormField: FC<
@@ -333,6 +351,7 @@ const SingleLineFormField: FC<
   type = "text",
   required = false,
   defaultValue,
+  error,
   className,
   ...props
 }) => {
@@ -351,7 +370,12 @@ const SingleLineFormField: FC<
         placeholder={placeholder}
         required={required}
         defaultValue={defaultValue}
-        className="w-full bg-transparent px-5 pt-1 font-fionas text-xl font-semibold text-simmer-yellow placeholder:text-simmer-yellow focus:outline-none sm:text-3xl lg:pt-2 lg:text-5xl lg:font-normal"
+        className={cn(
+          "w-full bg-transparent px-5 pt-1 font-fionas text-xl font-semibold text-simmer-yellow placeholder:text-simmer-yellow focus:outline-none sm:text-3xl lg:pt-2 lg:text-5xl lg:font-normal",
+          {
+            "text-red-500": error
+          }
+        )}
       />
     </div>
   );

@@ -3,16 +3,9 @@
 import { FC } from "react";
 
 import { useCart } from "@/contexts/CartContext";
-import { cn } from "@/lib/utils";
-import { About, Menu } from "@/payload-types";
+import { Menu } from "@/payload-types";
 
 import Check from "./icons/Check";
-import ChevronDown from "./icons/ChevronDown";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger
-} from "./ui/Collapsible";
 
 interface Props {
   description: Menu["chefsChoice"]["description"];

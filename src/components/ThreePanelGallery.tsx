@@ -1,8 +1,9 @@
-import Image from "next/image";
 import { FC, HTMLProps } from "react";
 
-import { cn, getMediaType, isValidImage } from "@/lib/utils";
-import { Media, Project } from "@/payload-types";
+import { cn, isValidImage } from "@/lib/utils";
+import { Media } from "@/payload-types";
+
+import CMSMedia from "./CMSMedia";
 
 interface Props {
   firstImage: Media | number;
@@ -17,47 +18,44 @@ const ThreePanelGallery: FC<HTMLProps<HTMLDivElement> & Props> = ({
   className
 }) => {
   if (
-    !isValidImage(firstImage) ||
-    !isValidImage(secondImage) ||
-    !isValidImage(thirdImage)
+    typeof firstImage === "number" ||
+    typeof secondImage === "number" ||
+    typeof thirdImage === "number"
   ) {
     return null;
   }
 
   return (
     <section className={cn("", className)}>
-      <div className="grid grid-cols-1 gap-4 divide-black border-y-2 border-black lg:grid-cols-3 lg:gap-0 lg:divide-x-2">
+      <div className="grid grid-cols-1 gap-4 divide-black border-black lg:grid-cols-3 lg:gap-0 lg:divide-x-2 lg:border-y-2">
         <div
           className="relative aspect-[3/4] lg:aspect-square"
           key={firstImage.id}
         >
-          <Image
-            src={firstImage.url}
-            alt={firstImage.alt || ""}
-            fill
-            className="object-cover"
+          <CMSMedia
+            media={firstImage}
+            className="absolute h-full w-full object-cover"
+            controls={false}
           />
         </div>
         <div
           className="relative aspect-[3/4] lg:aspect-square"
           key={secondImage.id}
         >
-          <Image
-            src={secondImage.url}
-            alt={secondImage.alt || ""}
-            fill
-            className="object-cover"
+          <CMSMedia
+            media={secondImage}
+            className="absolute h-full w-full object-cover"
+            controls={false}
           />
         </div>
         <div
           className="relative aspect-[3/4] lg:aspect-square"
           key={thirdImage.id}
         >
-          <Image
-            src={thirdImage.url}
-            alt={thirdImage.alt || ""}
-            fill
-            className="object-cover"
+          <CMSMedia
+            media={thirdImage}
+            className="absolute h-full w-full object-cover"
+            controls={false}
           />
         </div>
       </div>

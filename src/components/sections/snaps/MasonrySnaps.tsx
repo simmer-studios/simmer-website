@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ComponentProps, FC, HTMLProps, PropsWithChildren } from "react";
 
+import CMSMedia from "@/components/CMSMedia";
 import { useMagneticHover } from "@/hooks/useMagneticHover";
 import { cn, getMediaType, isValidImage } from "@/lib/utils";
 import { Media, Snap } from "@/payload-types";
@@ -30,20 +31,20 @@ const item: Variants = {
   }
 };
 
-interface MasonryBlockProps extends ComponentProps<typeof Image> {
+interface MasonryBlockProps {
   name: string;
   slug: string;
+  media: Media | number;
 }
 
-const MasonryBlock: FC<MasonryBlockProps> = ({
-  name,
-  slug,
-  src,
-  alt,
-  className,
-  ...props
-}) => {
+const MasonryBlock: FC<
+  Omit<HTMLProps<HTMLDivElement>, "media"> & MasonryBlockProps
+> = ({ name, slug, media, height, className, ...props }) => {
   const magneticRef = useMagneticHover(100);
+
+  if (typeof media === "number") {
+    return null;
+  }
 
   return (
     <motion.div
@@ -54,13 +55,13 @@ const MasonryBlock: FC<MasonryBlockProps> = ({
       className="group relative break-inside-avoid"
     >
       <Link href={`/snap/${slug}`}>
-        <Image
-          src={src}
-          alt={alt || ""}
+        <CMSMedia
+          media={media}
+          className="w-full border-2 border-black object-cover"
+          controls={false}
           width={462}
-          className={cn("w-full border-2 border-black object-cover", className)}
+          height={height}
           loading="lazy"
-          {...props}
         />
       </Link>
       <div
@@ -98,13 +99,12 @@ const MasonrySnaps: FC<MasonrySnapsProps> = ({ snaps }) => {
       <MasonryContainer>
         {snaps
           .map((snap) =>
-            isValidImage(snap.thumbnail) ? (
+            typeof snap.thumbnail !== "number" ? (
               <MasonryBlock
                 key={snap.id}
                 slug={snap.slug}
                 name={snap.name}
-                src={snap.thumbnail.url}
-                alt="Simmer Studios Snap"
+                media={snap.thumbnail}
                 height={snap.thumbnail.height as number}
               />
             ) : null

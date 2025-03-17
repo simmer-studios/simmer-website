@@ -17,6 +17,7 @@ import {
 } from "./ui/Collapsible";
 
 interface MenuServiceProps {
+  specialty: Service["specialty"];
   linkTo: Service["linkTo"];
   name: string;
   description: Service["description"];
@@ -31,6 +32,7 @@ const buttonLink = {
 
 const MenuService: FC<HTMLProps<HTMLDivElement> & MenuServiceProps> = ({
   linkTo,
+  specialty,
   description,
   name,
   checked,
@@ -70,7 +72,10 @@ const MenuService: FC<HTMLProps<HTMLDivElement> & MenuServiceProps> = ({
           </Collapsible>
         ) : (
           <div className="flex items-center gap-2">
-            <span className="uppercase">{name}</span>
+            <p>
+              {specialty ? <span className="font-fold">*</span> : null}
+              <span className="uppercase">{name}</span>
+            </p>
           </div>
         )}
       </div>

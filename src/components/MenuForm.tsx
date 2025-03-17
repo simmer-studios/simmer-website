@@ -121,10 +121,7 @@ const MenuTabContent: FC<ComponentProps<typeof TabsContent>> = ({
   ...props
 }) => {
   return (
-    <TabsContent
-      className={cn("mt-0 min-h-[500px] bg-simmer-white", className)}
-      {...props}
-    >
+    <TabsContent className={cn("mt-0 bg-simmer-white", className)} {...props}>
       {children}
     </TabsContent>
   );

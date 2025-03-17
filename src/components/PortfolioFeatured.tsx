@@ -8,6 +8,7 @@ import { useMagneticHover } from "@/hooks/useMagneticHover";
 import { cn } from "@/lib/utils";
 import { Media, Project } from "@/payload-types";
 
+import CMSMedia from "./CMSMedia";
 import CustomFilterDropdown from "./CustomFilterDropdown";
 import ArrowDown from "./icons/ArrowDown";
 import ArrowRight from "./icons/ArrowRight";
@@ -27,11 +28,10 @@ const FeaturedImage: FC<FeaturedImageProps> = ({ heading, image, slug }) => {
       href={`/works/${slug}`}
       className="group relative block aspect-square flex-1 overflow-hidden bg-gray-100 transition duration-300 ease-in-out"
     >
-      <Image
-        className="object-cover transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:brightness-90"
-        src={image.url || "/images/img_placeholder.jpg"}
-        alt={image.alt || ""}
-        fill
+      <CMSMedia
+        media={image}
+        controls={false}
+        className="absolute h-full w-full object-cover transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:brightness-90"
       />
       <div
         ref={magneticRef}

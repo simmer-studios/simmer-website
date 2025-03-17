@@ -106,7 +106,8 @@ const HeroAside: FC<HTMLProps<HTMLDivElement> & Props> = ({
           </div>
         </Link>
         <Link
-          href="/space"
+          href="https://simmerspace.com/"
+          target="_blank"
           className={cn(
             "group flex min-h-[65px] items-center justify-center bg-simmer-white hover:brightness-95",
             {
@@ -121,17 +122,22 @@ const HeroAside: FC<HTMLProps<HTMLDivElement> & Props> = ({
             </span>
           </div>
         </Link>
-        <Link
-          href="/stores"
+        <div
+          // href="https://simmerspace.com/"
           className={cn(
             "group flex min-h-[65px] items-center justify-center bg-simmer-white hover:brightness-95",
             {
               "bg-black hover:bg-simmer-white hover:text-black":
-                variant === "menu"
+                variant === "menu",
+              "cursor-not-allowed select-none": true
             }
           )}
         >
-          <div className="relative w-24">
+          <div
+            className={cn("relative w-24", {
+              "opacity-30": true
+            })}
+          >
             <Asterisk
               className={cn("absolute -left-5 -top-2.5 w-3.5", {
                 "fill-simmer-white group-hover:fill-black": variant === "menu"
@@ -141,9 +147,10 @@ const HeroAside: FC<HTMLProps<HTMLDivElement> & Props> = ({
               STORIES
             </span>
           </div>
-        </Link>
+        </div>
         <Link
-          href="/supply"
+          href="https://simmerspace.com/"
+          target="_blank"
           className={cn(
             "group flex min-h-[65px] items-center justify-center bg-simmer-white hover:brightness-95",
             {

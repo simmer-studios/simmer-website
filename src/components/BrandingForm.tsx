@@ -41,7 +41,7 @@ const BrandingForm: FC<BrandingFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="">
+    <form onSubmit={handleSubmit} className="auto-fill-none">
       <div className="divide-y-2 divide-simmer-white pb-20">
         <SingleLineFormField label="NAME" placeholder="*Name Here" required />
         <SingleLineFormField label="MOBILE" placeholder="*+63" required />
