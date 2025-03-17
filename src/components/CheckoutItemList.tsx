@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, HTMLMotionProps, motion } from "motion/react";
 import Link from "next/link";
 import { FC, HTMLProps } from "react";
 
@@ -22,48 +23,64 @@ const CheckoutItemList: FC<HTMLProps<HTMLDivElement>> = ({
       )}
       data-lenis-prevent
     >
-      <div className="max-h-[calc(60px*7)] divide-y-2 divide-simmer-white overflow-y-auto xl:max-h-[calc(95px*5)]">
-        {orders.map((order) => (
-          <Order
-            serviceName={order}
-            key={order}
-            onRemove={() => removeItem(order)}
-          />
-        ))}
-      </div>
-      <div
-        className={cn(
-          "grid min-h-[60px] flex-1 items-center border-y-2 border-simmer-white text-2xl leading-none sm:text-3xl lg:min-h-[calc(95px*2)] lg:grid-cols-[70px_1fr] lg:divide-x-2 lg:divide-simmer-white lg:text-2xl",
-          {
-            "border-y-0 lg:divide-x-0": orders && orders.length < 1
-          }
-        )}
-      >
-        {orders && orders.length > 0 && (
-          <div className="hidden h-full basis-full lg:block"></div>
-        )}
-        <div
+      <AnimatePresence mode="popLayout">
+        <motion.div
+          layout="size"
+          className="max-h-[calc(60px*7)] divide-y-2 divide-simmer-white overflow-y-auto overflow-x-hidden xl:max-h-[calc(95px*5)]"
+          transition={{
+            duration: 0.5,
+            ease: "easeInOut",
+            staggerChildren: 0.1
+          }}
+        >
+          {orders.map((order) => (
+            <Order
+              serviceName={order}
+              key={order}
+              onRemove={() => removeItem(order)}
+            />
+          ))}
+        </motion.div>
+        <motion.div
+          layout="size"
+          key="checkout-order-controls"
           className={cn(
-            "col-span-full flex h-full w-full basis-full items-center justify-between lg:items-end lg:justify-end",
+            "grid min-h-[60px] flex-1 items-center overflow-hidden overflow-x-hidden border-y-2 border-simmer-white text-2xl leading-none sm:text-3xl lg:min-h-[calc(95px*2)] lg:grid-cols-[70px_1fr] lg:divide-x-2 lg:divide-simmer-white lg:text-2xl",
             {
-              "col-span-1": orders && orders.length > 0,
-              "lg:justify-between": isDiscounted
+              "border-y-0 lg:divide-x-0": orders && orders.length < 1
             }
           )}
         >
-          {isDiscounted && (
-            <div className="px-5 py-2 text-sm sm:text-base lg:px-7 lg:py-4 lg:text-xl">
-              *5% Discount Applied
-            </div>
+          {orders && orders.length > 0 && (
+            <motion.div
+              layout="size"
+              className="hidden h-full basis-full lg:block"
+            />
           )}
-          <Link
-            href="/menu"
-            className="inline-block min-w-max px-5 py-2 font-adelle-mono-flex text-sm text-simmer-yellow hover:underline hover:underline-offset-4 sm:text-base lg:px-7 lg:py-4 lg:text-xl xl:text-2xl"
+          <motion.div
+            layout="position"
+            className={cn(
+              "col-span-full flex h-full w-full basis-full items-center justify-between lg:items-end lg:justify-end",
+              {
+                "col-span-1": orders && orders.length > 0,
+                "lg:justify-between": isDiscounted
+              }
+            )}
           >
-            CLICK ADD MORE
-          </Link>
-        </div>
-      </div>
+            {isDiscounted && (
+              <div className="px-5 py-2 text-sm sm:text-base lg:px-7 lg:py-4 lg:text-xl">
+                *5% Discount Applied
+              </div>
+            )}
+            <Link
+              href="/menu"
+              className="inline-block min-w-max px-5 py-2 font-adelle-mono-flex text-sm text-simmer-yellow hover:underline hover:underline-offset-4 sm:text-base lg:px-7 lg:py-4 lg:text-xl xl:text-2xl"
+            >
+              CLICK ADD MORE
+            </Link>
+          </motion.div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
@@ -73,14 +90,19 @@ interface OrderProps {
   onRemove: () => void;
 }
 
-const Order: FC<HTMLProps<HTMLDivElement> & OrderProps> = ({
+const Order: FC<HTMLMotionProps<"div"> & OrderProps> = ({
   serviceName,
   onRemove,
   className,
   ...props
 }) => {
   return (
-    <div
+    <motion.div
+      layout="preserve-aspect"
+      initial={{ opacity: 0, x: "-100%" }}
+      animate={{ opacity: 1, x: "0%" }}
+      exit={{ opacity: 0, x: "100%" }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
       className={cn(
         "grid grid-cols-[70px_1fr] divide-x-2 divide-simmer-white",
         className
@@ -99,7 +121,7 @@ const Order: FC<HTMLProps<HTMLDivElement> & OrderProps> = ({
           {serviceName}
         </span>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
