@@ -4,13 +4,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "motion/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { ChangeEvent, FC, HTMLProps, useEffect, useState } from "react";
+import { FC, HTMLProps, useEffect, useState } from "react";
 import { FieldError, useForm } from "react-hook-form";
-import { z } from "zod";
 
+import { processCheckout } from "@/app/(frontend)/checkout/action";
+import { CheckoutData, checkoutSchema } from "@/app/(frontend)/checkout/schema";
 import AMPERSAND from "@/assets/checkout/ampersand.svg";
 import CheckoutHeaderLG from "@/components/sections/checkout/CheckoutHeaderLG";
 import CheckoutHeaderSM from "@/components/sections/checkout/CheckoutHeaderSM";
+import { useCart } from "@/contexts/CartContext";
 import { cn } from "@/lib/utils";
 
 import { Form, FormControl, FormField, FormItem } from "./ui/Form";
@@ -20,24 +22,35 @@ const CheckoutItemList = dynamic(() => import("./CheckoutItemList"), {
   loading: () => <p>Loading checkout item list...</p>
 });
 
-const formSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  mobile: z.string().min(11, "Mobile number is required"),
-  brand: z.string().min(1, "Brand name is required"),
-  budget: z.string().min(1, "Budget is required"),
-  // orders: z.array(z.object({ serviceName: z.string(), serviceId: z.string() })),
-  brandDescription: z.string().min(1, "Brand description is required"),
-  referralSource: z.string().min(1, "Referral source is required")
-});
-
 interface CheckoutFormProps {
-  onSubmit: () => Promise<void>;
+  onSubmitSuccess: () => void;
 }
 
-const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
-  const [budgetAmount, setBudgetAmount] = useState<string>("$$$$");
+const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
+  const [budgetAmount, setBudgetAmount] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { items, clearCart } = useCart();
+
+  const form = useForm<CheckoutData>({
+    mode: "onTouched",
+    resolver: zodResolver(checkoutSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      contactNumber: "+63",
+      brandName: "",
+      brandDetails: "",
+      budget: "",
+      referralSource: "",
+      orders: []
+    }
+  });
+
+  // Sync the orders field with the items in the cart
+  useEffect(() => {
+    form.setValue("orders", items);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items]);
 
   useEffect(() => {
     if (isSubmitting) {
@@ -45,31 +58,23 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
     }
   }, [isSubmitting]);
 
-  const handleOnBudgetChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value.replace(/[^0-9]/g, "");
+  const getFormattedBudget = (value: string) => {
+    const rawValue = value.replace(/[^0-9]/g, "");
     const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    setBudgetAmount(formattedValue ? `${formattedValue}` : "");
+    return formattedValue ? `${formattedValue}` : "";
   };
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    mode: "onChange",
-    defaultValues: {
-      name: "",
-      email: "",
-      mobile: "",
-      brand: "",
-      brandDescription: "",
-      budget: "",
-      // orders: [],
-      referralSource: ""
-    }
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Only called if the form data is valid
+  const handleSubmit = async (data: CheckoutData) => {
     setIsSubmitting(true);
-    await onSubmit();
+    const { success, message, errors } = await processCheckout(data);
+    if (success) {
+      clearCart();
+      onSubmitSuccess();
+    } else {
+      console.error(message, errors);
+    }
+    setIsSubmitting(false);
   };
 
   const formAnimation = {
@@ -137,7 +142,9 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
           animate="visible"
           variants={containerAnimation}
           className="auto-fill-none text-simmer-white"
-          onSubmit={handleSubmit}
+          onSubmit={form.handleSubmit(handleSubmit, (errors) => {
+            console.error(errors);
+          })}
         >
           {/* full width field */}
           <motion.div
@@ -149,7 +156,7 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
               className="px-5 py-3 text-3xl leading-none sm:text-5xl lg:px-7 lg:py-4 lg:text-8xl"
             >
               <span className="inline-block translate-y-0.5 font-adelle-mono-flex">
-                NAME
+                NAME*
               </span>
             </label>
             <FormField
@@ -159,10 +166,10 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
                 <FormItem className="flex w-full">
                   <FormControl>
                     <input
+                      {...field}
                       type="text"
                       placeholder="Name Here"
                       required
-                      {...field}
                       className="w-full bg-transparent px-5 pt-1 font-fionas text-xl font-semibold placeholder:leading-[-0.9] placeholder:text-simmer-white focus:outline-none sm:text-3xl lg:text-6xl lg:font-medium"
                     />
                   </FormControl>
@@ -184,12 +191,12 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
                   <FormItem>
                     <FormControl>
                       <SingleLineFormField
-                        label="EMAIL"
+                        {...field}
+                        label="EMAIL*"
                         type="email"
                         placeholder="name@brand.com"
                         error={fieldState.error}
                         required
-                        {...field}
                       />
                     </FormControl>
                   </FormItem>
@@ -197,15 +204,14 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
               />
               <FormField
                 control={form.control}
-                name="mobile"
+                name="contactNumber"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <SingleLineFormField
-                        label="MOBILE"
-                        type="text"
-                        defaultValue="+63"
                         {...field}
+                        label="MOBILE*"
+                        type="text"
                         required
                       />
                     </FormControl>
@@ -214,12 +220,13 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
               />
               <FormField
                 control={form.control}
-                name="brand"
+                name="brandName"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <SingleLineFormField
-                        label="BRAND"
+                        {...field}
+                        label="BRAND*"
                         type="text"
                         placeholder="What's your brand name/field?"
                         required
@@ -230,16 +237,23 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
               />
               <FormField
                 control={form.control}
-                name="brand"
+                name="budget"
                 render={({ field }) => (
                   <FormItem className="block lg:hidden">
                     <FormControl>
                       <SingleLineFormField
+                        {...field}
                         label="BUDGET"
                         type="text"
-                        value={`₱ ${field.value}`}
+                        value={budgetAmount}
                         placeholder="How much is your budget?"
-                        required
+                        onChange={(event) => {
+                          const formattedValue = getFormattedBudget(
+                            event.currentTarget.value
+                          );
+                          form.setValue("budget", formattedValue);
+                          setBudgetAmount(formattedValue);
+                        }}
                       />
                     </FormControl>
                   </FormItem>
@@ -247,14 +261,14 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
               />
               <FormField
                 control={form.control}
-                name="brandDescription"
+                name="brandDetails"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <MultiLineFormField
-                        label="REQUIRED FIELD"
-                        required
                         {...field}
+                        label="BRAND DETAILS*"
+                        required
                         placeholder="Tell us something about your brand here."
                       />
                     </FormControl>
@@ -275,7 +289,13 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
                     className="flex w-full bg-transparent font-fionas text-9xl text-simmer-white placeholder:text-simmer-white focus:outline-none"
                     placeholder="$$$$"
                     value={budgetAmount}
-                    onChange={handleOnBudgetChange}
+                    onChange={(event) => {
+                      const formattedValue = getFormattedBudget(
+                        event.currentTarget.value
+                      );
+                      form.setValue("budget", formattedValue);
+                      setBudgetAmount(formattedValue);
+                    }}
                   />
                 </div>
                 <Image
@@ -299,7 +319,7 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
           >
             <div className="grid min-h-[60px] items-center gap-2 text-2xl leading-none sm:text-3xl lg:gap-5 lg:text-xl">
               <span className="block translate-y-0.5 border-b-2 border-simmer-white px-5 py-2.5 font-adelle-mono-flex lg:border-none lg:pb-0 lg:pt-5 lg:font-articulat lg:font-bold">
-                WHERE DID YOU FIND US?
+                WHERE DID YOU FIND US?*
               </span>
               <div className="px-5 pb-16">
                 <FormField
@@ -337,23 +357,21 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
   );
 };
 
-interface SingleLineFormFieldProps {
+interface SingleLineFormFieldProps extends HTMLProps<HTMLInputElement> {
   label: string;
   error?: FieldError | null;
 }
 
-const SingleLineFormField: FC<
-  HTMLProps<HTMLInputElement> & SingleLineFormFieldProps
-> = ({
+const SingleLineFormField: FC<SingleLineFormFieldProps> = ({
   name,
   label,
   placeholder,
   type = "text",
   required = false,
-  defaultValue,
+  value,
   error,
   className,
-  ...props
+  onChange
 }) => {
   return (
     <div className={cn("flex divide-x-2 divide-simmer-white", className)}>
@@ -366,10 +384,12 @@ const SingleLineFormField: FC<
         </span>
       </label>
       <input
+        name={name}
         type={type}
         placeholder={placeholder}
         required={required}
-        defaultValue={defaultValue}
+        value={value}
+        onChange={onChange}
         className={cn(
           "w-full bg-transparent px-5 pt-1 font-fionas text-xl font-semibold text-simmer-yellow placeholder:text-simmer-yellow focus:outline-none sm:text-3xl lg:pt-2 lg:text-5xl lg:font-normal",
           {
@@ -381,11 +401,19 @@ const SingleLineFormField: FC<
   );
 };
 
-const MultiLineFormField: FC<HTMLProps<HTMLInputElement>> = ({
+interface MultiLineFormFieldProps extends HTMLProps<HTMLTextAreaElement> {
+  error?: FieldError | null;
+}
+
+const MultiLineFormField: FC<MultiLineFormFieldProps> = ({
+  name,
   label,
   placeholder,
+  required,
+  value,
+  error,
   className,
-  ...props
+  onChange
 }) => {
   return (
     <div className={cn("grid gap-2 px-5 py-5 lg:gap-5", className)}>
@@ -395,10 +423,18 @@ const MultiLineFormField: FC<HTMLProps<HTMLInputElement>> = ({
         </span>
       </div>
       <textarea
+        name={name}
         placeholder={placeholder}
-        required
+        value={value}
+        onChange={onChange}
+        required={required}
         rows={5}
-        className="w-full bg-transparent pt-1 text-2xl tracking-tight text-simmer-yellow placeholder:leading-[-0.9] placeholder:text-simmer-yellow focus:outline-none sm:text-3xl lg:text-5xl"
+        className={cn(
+          "w-full bg-transparent pt-1 text-2xl tracking-tight text-simmer-yellow placeholder:leading-[-0.9] placeholder:text-simmer-yellow focus:outline-none sm:text-3xl lg:text-5xl",
+          {
+            "text-red-500": error
+          }
+        )}
       />
     </div>
   );

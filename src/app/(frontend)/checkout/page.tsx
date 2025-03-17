@@ -12,16 +12,7 @@ import StickySidebar from "@/components/StickySidebar";
 
 /* CHECKOUT PAGE */
 export default function CheckoutPage() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    // Simulate form submission delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsSubmitting(false);
-    setIsSuccess(true);
-  };
 
   return (
     <>
@@ -38,7 +29,11 @@ export default function CheckoutPage() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <CheckoutForm onSubmit={handleSubmit} />
+                  <CheckoutForm
+                    onSubmitSuccess={() => {
+                      setIsSuccess(true);
+                    }}
+                  />
                 </motion.div>
               ) : (
                 <CheckoutSuccess key="success" />

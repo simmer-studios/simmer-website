@@ -13,7 +13,8 @@ interface Cart {
   isDiscounted: boolean;
   isChefChoiceSelected: boolean;
   addItem: (item: string) => void;
-  removeItem: (itemId: string) => void;
+  removeItem: (item: string) => void;
+  clearCart: () => void;
   applyDiscount: () => void;
   toggleChefChoice: () => void;
 }
@@ -22,10 +23,11 @@ const CartContext = createContext<Cart>({
   items: [],
   isDiscounted: false,
   isChefChoiceSelected: false,
-  addItem: () => null,
-  removeItem: () => null,
-  applyDiscount: () => null,
-  toggleChefChoice: () => null
+  addItem: (item: string) => {},
+  removeItem: () => {},
+  clearCart: () => {},
+  applyDiscount: () => {},
+  toggleChefChoice: () => {}
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
@@ -34,14 +36,18 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [isChefChoiceSelected, setIsChefChoiceSelected] =
     useState<boolean>(false);
 
-  const addCartItem = (item: string) => {
+  const addItem = (item: string) => {
     if (!items.includes(item)) {
       setItems((prev) => [...prev, item]);
     }
   };
 
-  const removeCartItem = (itemToRemove: string) => {
+  const removeItem = (itemToRemove: string) => {
     setItems((prev) => prev.filter((item) => item !== itemToRemove));
+  };
+
+  const clearCart = () => {
+    setItems([]);
   };
 
   const applyDiscount = () => {
@@ -54,9 +60,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (isChefChoiceSelected) {
-      addCartItem("Chef's Choice");
+      addItem("Chef's Choice");
     } else {
-      removeCartItem("Chef's Choice");
+      removeItem("Chef's Choice");
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,8 +123,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         items,
         isDiscounted,
         isChefChoiceSelected,
-        addItem: addCartItem,
-        removeItem: removeCartItem,
+        addItem,
+        removeItem,
+        clearCart,
         applyDiscount,
         toggleChefChoice
       }}

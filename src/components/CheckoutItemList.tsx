@@ -76,7 +76,7 @@ const CheckoutItemList: FC<HTMLProps<HTMLDivElement>> = ({
               href="/menu"
               className="inline-block min-w-max px-5 py-2 font-adelle-mono-flex text-sm text-simmer-yellow hover:underline hover:underline-offset-4 sm:text-base lg:px-7 lg:py-4 lg:text-xl xl:text-2xl"
             >
-              CLICK ADD MORE
+              ADD MORE
             </Link>
           </motion.div>
         </motion.div>
