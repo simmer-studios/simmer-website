@@ -1,11 +1,10 @@
 "use client";
 
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, HTMLProps, useState } from "react";
-import { FaCaretRight } from "react-icons/fa";
 
 import { Theme } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -13,6 +12,7 @@ import { cn } from "@/lib/utils";
 import CartButtonFallback from "./CartButtonFallback";
 import HeaderMenuContent from "./HeaderMenuContent";
 import HeaderHamburger from "./icons/HeaderHamburger";
+import ReturnHomeLink from "./ReturnHomeLink";
 import SimmerLogo from "./SimmerLogo";
 
 const HeaderCartButton = dynamic(() => import("./HeaderCartButton"), {
@@ -20,13 +20,9 @@ const HeaderCartButton = dynamic(() => import("./HeaderCartButton"), {
   loading: () => <CartButtonFallback theme="light" />
 });
 
-interface HeaderProps extends HTMLProps<HTMLElement> {
+interface HeaderProps extends HTMLProps<HTMLDivElement> {
   theme: Theme;
   disableLogoBorder?: boolean;
-}
-
-interface ReturnHomeLinkProps {
-  path: string;
 }
 
 interface HeaderCheckoutButtonProps {
@@ -74,45 +70,28 @@ const Header: FC<HeaderProps> = ({
           </motion.button>
         </div>
       </div>
-      {dropdownOpen && (
-        <div
-          className={cn(
-            "fixed bottom-0 left-0 right-0 top-0 z-50 hidden min-h-[100vh] bg-black",
-            {
-              block: dropdownOpen
-            }
-          )}
-        >
-          <HeaderMenuContent
-            currentPath={path}
-            onClose={() => setDropdownOpen(false)}
-          />
-        </div>
-      )}
-    </header>
-  );
-};
-
-const ReturnHomeLink: FC<ReturnHomeLinkProps> = ({ path }) => {
-  return (
-    <div className="basis-full lg:px-9">
-      <div className="hidden h-full items-center sm:flex">
-        {path === "/" ? (
-          <div className="flex items-center gap-1">
-            <FaCaretRight className="h-[28px]" />
-            <span className="uppercase">HOME</span>
-          </div>
-        ) : (
-          <Link
-            href="/"
-            className="flex items-center gap-1 hover:underline hover:underline-offset-2"
+      <AnimatePresence>
+        {dropdownOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={cn(
+              "fixed bottom-0 left-0 right-0 top-0 z-50 hidden min-h-[100vh] bg-black",
+              {
+                block: dropdownOpen
+              }
+            )}
           >
-            <FaCaretRight className="h-[28px]" />
-            <span className="uppercase">BACK TO HOME</span>
-          </Link>
+            <HeaderMenuContent
+              key="header-menu-content"
+              currentPath={path}
+              onClose={() => setDropdownOpen(false)}
+            />
+          </motion.div>
         )}
-      </div>
-    </div>
+      </AnimatePresence>
+    </header>
   );
 };
 
