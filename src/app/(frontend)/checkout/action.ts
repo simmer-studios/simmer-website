@@ -18,9 +18,12 @@ export async function processCheckout(
 ): Promise<ProcessCheckoutResponse> {
   try {
     const parsedData = await checkoutSchema.parseAsync(data);
-    console.log(parsedData);
 
     await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    console.log("Checkout successful", {
+      data: parsedData
+    });
 
     return {
       success: true,
@@ -38,6 +41,9 @@ export async function processCheckout(
         }))
       };
     } else {
+      console.error("Checkout failed", {
+        error
+      });
       return {
         success: false,
         message: "An error occurred while processing your checkout",

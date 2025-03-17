@@ -10,105 +10,111 @@ const CONFIG = {
   }
 };
 
+const MESSAGES = {
+  required: (field: string) => `${field} is required`,
+  minLength: (field: string, min: number) =>
+    `${field} must be at least ${min} characters`,
+  maxLength: (field: string, max: number) =>
+    `${field} must not be more than ${max} characters`,
+  invalid: (field: string) => `${field} is invalid`,
+  invalidType: (field: string, type: string) => `${field} must be a ${type}`
+};
+
 export const checkoutSchema = z.object({
   name: z
     .string({
-      required_error: "Name is required",
-      invalid_type_error: "Name must be a string"
+      required_error: MESSAGES.required("Name"),
+      invalid_type_error: MESSAGES.invalidType("Name", "string")
     })
     .trim()
-    .min(
-      CONFIG.string.min,
-      `Name must be at least ${CONFIG.string.min} characters`
-    )
-    .max(
-      CONFIG.string.max,
-      `Name must not be more than ${CONFIG.string.max} characters`
-    ),
+    .min(CONFIG.string.min, MESSAGES.minLength("Name", CONFIG.string.min))
+    .max(CONFIG.string.max, MESSAGES.maxLength("Name", CONFIG.string.max)),
   email: z
     .string({
-      required_error: "Email address is required",
-      invalid_type_error: "Email address must be a string"
+      required_error: MESSAGES.required("Email address"),
+      invalid_type_error: MESSAGES.invalidType("Email address", "string")
     })
     .trim()
-    .email("Email address is invalid")
+    .email(MESSAGES.invalid("Email address"))
     .min(
       CONFIG.string.min,
-      `Email address must be at least ${CONFIG.string.min} characters`
+      MESSAGES.minLength("Email address", CONFIG.string.min)
     )
     .max(
       CONFIG.string.max,
-      `Email address must not be more than ${CONFIG.string.max} characters`
+      MESSAGES.maxLength("Email address", CONFIG.string.max)
     ),
   contactNumber: z
     .string({
-      required_error: "Contact number is required",
-      invalid_type_error: "Contact number must be a string"
+      required_error: MESSAGES.required("Contact Number"),
+      invalid_type_error: MESSAGES.invalidType("Contact Number", "string")
     })
     .trim()
     .min(
       CONFIG.string.min,
-      `Contact number must be at least ${CONFIG.string.min} characters`
+      MESSAGES.minLength("Contact Number", CONFIG.string.min)
     )
     .max(
       CONFIG.string.max,
-      `Contact number must not be more than ${CONFIG.string.max} characters`
+      MESSAGES.maxLength("Contact Number", CONFIG.string.max)
     ),
   brandName: z
     .string({
-      required_error: "Brand name/field is required",
-      invalid_type_error: "Brand name/field must be a string"
-    })
-    .trim()
-    .min(CONFIG.string.min, "Brand name/field must be at least 10 characters")
-    .max(
-      CONFIG.string.max,
-      "Brand name/field must not be more than 255 characters"
-    ),
-  brandDetails: z
-    .string({
-      required_error: "Brand details are required",
-      invalid_type_error: "Brand details must be a string"
+      required_error: MESSAGES.required("Brand name/field"),
+      invalid_type_error: MESSAGES.invalidType("Brand name/field", "string")
     })
     .trim()
     .min(
       CONFIG.string.min,
-      `Brand details must be at least ${CONFIG.string.min} characters`
+      MESSAGES.minLength("Brand name/field", CONFIG.string.min)
     )
     .max(
       CONFIG.string.max,
-      `Brand details must not be more than ${CONFIG.string.max} characters`
+      MESSAGES.maxLength("Brand name/field", CONFIG.string.max)
+    ),
+  brandDetails: z
+    .string({
+      required_error: MESSAGES.required("Brand Details"),
+      invalid_type_error: MESSAGES.invalidType("Brand Details", "string")
+    })
+    .trim()
+    .min(
+      CONFIG.string.min,
+      MESSAGES.minLength("Brand Details", CONFIG.string.min)
+    )
+    .max(
+      CONFIG.string.max,
+      MESSAGES.maxLength("Brand Details", CONFIG.string.max)
     ),
   budget: z
     .string({
-      invalid_type_error: "Budget must be a string"
+      invalid_type_error: MESSAGES.invalidType("Budget", "string")
     })
     .trim()
-    .max(
-      CONFIG.string.max,
-      `Budget must not be more than ${CONFIG.string.max} characters`
-    )
+    .max(CONFIG.string.max, MESSAGES.maxLength("Budget", CONFIG.string.max))
     .optional(),
   referralSource: z
     .string({
-      required_error: "Referral source is required",
-      invalid_type_error: "Referral source must be a string"
+      required_error: MESSAGES.required("Referral Source"),
+      invalid_type_error: MESSAGES.invalidType("Referral Source", "string")
     })
+    .trim()
+    .min(
+      CONFIG.string.min,
+      MESSAGES.minLength("Referral Source", CONFIG.string.min)
+    )
     .max(
       CONFIG.string.max,
-      `Referral source must not be more than ${CONFIG.string.max} characters`
+      MESSAGES.maxLength("Referral Source", CONFIG.string.max)
     ),
   orders: z
     .string({
-      required_error: "Item name is required",
-      invalid_type_error: "Item name must be string"
+      required_error: MESSAGES.required("Item name"),
+      invalid_type_error: MESSAGES.invalidType("Item name", "string")
     })
     .trim()
-    .min(1, "Item name must be at least 1 character")
-    .max(
-      CONFIG.string.max,
-      `Item name must not be more than ${CONFIG.string.max} characters`
-    )
+    .min(1, MESSAGES.minLength("Item name", 1))
+    .max(CONFIG.string.max, MESSAGES.maxLength("Item name", CONFIG.string.max))
     .array()
     .max(
       CONFIG.array.max,

@@ -17,14 +17,14 @@ import { cn } from "@/lib/utils";
 
 import { Form, FormControl, FormField, FormItem } from "./ui/Form";
 
+interface CheckoutFormProps {
+  onSubmitSuccess: () => void;
+}
+
 const CheckoutItemList = dynamic(() => import("./CheckoutItemList"), {
   ssr: false,
   loading: () => <p>Loading checkout item list...</p>
 });
-
-interface CheckoutFormProps {
-  onSubmitSuccess: () => void;
-}
 
 const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
   const [budgetAmount, setBudgetAmount] = useState("");
@@ -61,7 +61,7 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
   const getFormattedBudget = (value: string) => {
     const rawValue = value.replace(/[^0-9]/g, "");
     const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return formattedValue ? `${formattedValue}` : "";
+    return formattedValue ?? "";
   };
 
   // Only called if the form data is valid
