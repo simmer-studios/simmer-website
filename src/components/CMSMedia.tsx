@@ -43,7 +43,7 @@ const CMSMedia: FC<Omit<HTMLProps<HTMLElement>, "media"> & Props> = ({
           loop
           muted
           controls={props.controls ?? true}
-          poster="/images/img_placeholder.jpg"
+          poster={media.thumbnailURL ?? "/images/img_placeholder.jpg"}
           className={className}
         />
       );

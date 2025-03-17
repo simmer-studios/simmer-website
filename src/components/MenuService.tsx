@@ -1,6 +1,5 @@
 "use client";
 
-import { link } from "fs";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { ComponentProps, FC, HTMLProps, useState } from "react";
@@ -8,6 +7,7 @@ import { ComponentProps, FC, HTMLProps, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Service } from "@/payload-types";
 
+import Asterisk from "./icons/Asterisk";
 import ChevronDown from "./icons/ChevronDown";
 import MenuItem from "./MenuItem";
 import {
@@ -50,7 +50,10 @@ const MenuService: FC<HTMLProps<HTMLDivElement> & MenuServiceProps> = ({
               className="flex w-full flex-wrap items-center justify-between gap-2"
               onClick={() => setIsExpanded((prev) => !prev)}
             >
-              <div className="flex items-center gap-2">
+              <div className="relative flex items-center gap-2">
+                {specialty ? (
+                  <Asterisk className="absolute left-[-14] top-[45%] h-2 w-2 translate-y-[-50%] rotate-90 md:w-3" />
+                ) : null}
                 <span className="uppercase">{name}</span>
                 <ChevronDown
                   className={cn("h-3 w-3 transition-all duration-150", {
@@ -72,8 +75,10 @@ const MenuService: FC<HTMLProps<HTMLDivElement> & MenuServiceProps> = ({
           </Collapsible>
         ) : (
           <div className="flex items-center gap-2">
-            <p>
-              {specialty ? <span className="font-fold">*</span> : null}
+            <p className="relative flex">
+              {specialty ? (
+                <Asterisk className="absolute left-[-14] top-[45%] h-2 w-2 translate-y-[-50%] rotate-90 md:w-3" />
+              ) : null}
               <span className="uppercase">{name}</span>
             </p>
           </div>
