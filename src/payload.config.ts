@@ -35,10 +35,6 @@ export default buildConfig({
       baseDir: path.resolve(dirname)
     }
   },
-  graphQL: {
-    disable: true,
-    disablePlaygroundInProduction: true
-  },
   serverURL: !isDevelopment ? WEBSITE_URL : undefined,
   csrf: !isDevelopment ? [WEBSITE_URL] : undefined,
   cors: !isDevelopment ? [WEBSITE_URL] : undefined,
