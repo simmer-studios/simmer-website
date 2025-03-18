@@ -9,6 +9,7 @@ import DetailedPageHero from "@/components/DetailedPageHero";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import StickySidebar from "@/components/StickySidebar";
+import { DEFAULT_REVALIDATE } from "@/constants";
 import { getMetadata } from "@/lib/utils/metadata";
 
 interface Props {
@@ -17,7 +18,7 @@ interface Props {
   }>;
 }
 
-export const revalidate = 3600; // 1 hour
+export const revalidate = DEFAULT_REVALIDATE;
 export const dynamicParams = true;
 export const dynamic = "force-static";
 

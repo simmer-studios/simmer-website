@@ -13,9 +13,10 @@ import RoundedLinks from "@/components/sections/home/RoundedLinks";
 import SecretIngredientReveal from "@/components/sections/home/SecretIngredientReveal";
 import Services from "@/components/sections/home/Services";
 import StickySidebar from "@/components/StickySidebar";
+import { DEFAULT_REVALIDATE } from "@/constants";
 import { getMetadata } from "@/lib/utils/metadata";
 
-export const revalidate = 3600; // 1 hour
+export const revalidate = DEFAULT_REVALIDATE;
 
 async function getHomepage() {
   const payload = await getPayload({ config });
