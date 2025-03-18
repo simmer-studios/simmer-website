@@ -8,6 +8,7 @@ import ContentWrapper from "@/components/ContentWrapper";
 import DetailedPageHero from "@/components/DetailedPageHero";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { RefreshRouteOnSave } from "@/components/RefreshRouteOnSave";
 import StickySidebar from "@/components/StickySidebar";
 import { getMetadata } from "@/lib/utils/metadata";
 
@@ -73,6 +74,8 @@ export default async function ProjectDetailsPage({ params }: Props) {
 
   return (
     <>
+      {/* PayloadCMS live preview */}
+      <RefreshRouteOnSave />
       <Header
         theme="dark"
         disableLogoBorder
