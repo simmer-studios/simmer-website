@@ -1,7 +1,9 @@
 "use server";
 
+import { Resend } from "resend";
 import { ZodError } from "zod";
 
+import { EmailTemplate } from "./EmailTemplate";
 import { CheckoutData, checkoutSchema } from "./schema";
 
 interface ProcessCheckoutResponse {
@@ -13,16 +15,34 @@ interface ProcessCheckoutResponse {
   }>;
 }
 
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 export async function processCheckout(
   data: CheckoutData
 ): Promise<ProcessCheckoutResponse> {
   try {
     const parsedData = await checkoutSchema.parseAsync(data);
 
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    const { data: resendData, error } = await resend.emails.send({
+      from: "Simmer Studios <noreply@simmer-studios.com>",
+      replyTo: parsedData.email,
+      to: ["alexanderpaul.marinas@gmail.com"],
+      subject: `Checkout | ${parsedData.brandName}`,
+      react: await EmailTemplate(parsedData)
+    });
+
+    if (error) {
+      console.error("Error sending email", { error });
+      return {
+        success: false,
+        message: "An error occurred while sending your email",
+        errors: []
+      };
+    }
 
     console.log("Checkout successful", {
-      data: parsedData
+      checkoutData: parsedData,
+      resendData
     });
 
     return {
@@ -41,9 +61,7 @@ export async function processCheckout(
         }))
       };
     } else {
-      console.error("Checkout failed", {
-        error
-      });
+      console.error("Checkout failed", { error });
       return {
         success: false,
         message: "An error occurred while processing your checkout",
