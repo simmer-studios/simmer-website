@@ -53,3 +53,11 @@ export function isValidImage(
 
   return true;
 }
+
+export function getAspectRatio(width?: number | null, height?: number | null) {
+  if (!width || !height) {
+    return undefined;
+  }
+
+  return `${width} / ${height}`;
+}
