@@ -24,13 +24,13 @@ export const Snaps: CollectionConfig = {
     afterChange: [
       ({ doc }) => {
         revalidatePath("/snap");
-        revalidatePath(`/snap/${doc.slug}/page`);
+        revalidatePath(`/snap/${doc.slug}`);
       }
     ],
     afterDelete: [
       ({ doc }) => {
         revalidatePath("/snap");
-        revalidatePath(`/snap/${doc.slug}/page`);
+        revalidatePath(`/snap/${doc.slug}`);
       }
     ]
   },
