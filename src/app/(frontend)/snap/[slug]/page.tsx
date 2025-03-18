@@ -1,4 +1,5 @@
 import config from "@payload-config";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
@@ -8,6 +9,7 @@ import DetailedPageHero from "@/components/DetailedPageHero";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import StickySidebar from "@/components/StickySidebar";
+import { getMetadata } from "@/lib/utils/metadata";
 
 interface Props {
   params: Promise<{
@@ -17,9 +19,7 @@ interface Props {
 
 export const revalidate = 3600; // 1 hour
 
-export default async function SimmerSnapsInvidiualPage({ params }: Props) {
-  const { slug } = await params;
-
+async function getSnap(slug: string) {
   const payload = await getPayload({ config });
 
   const snaps = await payload.find({
@@ -37,6 +37,23 @@ export default async function SimmerSnapsInvidiualPage({ params }: Props) {
     return notFound();
   }
 
+  return snap;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const snap = await getSnap(slug);
+
+  return getMetadata({
+    title: snap.name,
+    description: snap.description,
+    image: snap.cover
+  });
+}
+
+export default async function SnapDetailsPage({ params }: Props) {
+  const { slug } = await params;
+  const snap = await getSnap(slug);
   const content = snap.content;
 
   return (

@@ -19,6 +19,8 @@ const CMSMedia: FC<Omit<HTMLProps<HTMLElement>, "media"> & Props> = ({
     return null;
   }
 
+  console.log({ media });
+
   switch (getMediaType(media.mimeType)) {
     case "image":
       if (!isValidImage(media)) {
