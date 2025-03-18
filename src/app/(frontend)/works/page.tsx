@@ -7,7 +7,7 @@ import Header from "@/components/Header";
 import AnimatedContent from "@/components/sections/works/AnimatedContent";
 import { getMetadata } from "@/lib/utils/metadata";
 
-export const revalidate = 3600; // 1 hour
+export const revalidate = 86400; // 1 day
 
 async function getWorksPage(payload: BasePayload) {
   return payload.findGlobal({
@@ -34,8 +34,6 @@ async function getPageData() {
 
   const projectsPromise = payload.find({
     collection: "projects",
-    page: 1,
-    limit: 10,
     pagination: true,
     where: {
       featured: {

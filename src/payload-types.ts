@@ -302,7 +302,7 @@ export interface Service {
   /**
    * Mark this service as a specialty on the menu
    */
-  specialty?: boolean | null;
+  specialty: boolean;
   name: string;
   description?: string | null;
   linkTo?: ('none' | 'snap' | 'stories') | null;

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 import { Media } from "@/payload-types";
 
-import { isValidImage } from ".";
+import { isValidImage } from "./index";
 
 interface Params {
   title: string;

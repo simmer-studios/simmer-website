@@ -62,7 +62,7 @@ const MenuService: FC<HTMLProps<HTMLDivElement> & MenuServiceProps> = ({
   const renderTitle = (
     <div className="relative flex items-center gap-2">
       {specialty && <SpecialtyAsterisk />}
-      <span className="uppercase">{name}</span>
+      <span className="text-left uppercase">{name}</span>
       {description && (
         <ChevronDown
           className={cn("h-3 w-3 transition-all duration-150", {

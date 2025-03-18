@@ -2,6 +2,11 @@ import { Block } from "payload";
 
 export const FullWidthMedia: Block = {
   slug: "FullWidthImage",
+  labels: {
+    singular: "Full Width Media",
+    plural: "Full Width Media"
+  },
+  imageURL: "/images/cms/full_width_media.png",
   fields: [
     {
       name: "image",

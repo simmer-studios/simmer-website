@@ -9,7 +9,7 @@ export const WorksGlobal: GlobalConfig = {
   hooks: {
     afterChange: [
       () => {
-        revalidatePath("/works", "layout");
+        revalidatePath("/works");
       }
     ]
   },

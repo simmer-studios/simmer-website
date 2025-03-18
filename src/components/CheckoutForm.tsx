@@ -13,6 +13,7 @@ import AMPERSAND from "@/assets/checkout/ampersand.svg";
 import CheckoutHeaderLG from "@/components/sections/checkout/CheckoutHeaderLG";
 import CheckoutHeaderSM from "@/components/sections/checkout/CheckoutHeaderSM";
 import { useCart } from "@/contexts/CartContext";
+import { useAnalytics } from "@/hooks/useAnalytics";
 import { cn } from "@/lib/utils";
 
 import {
@@ -56,10 +57,25 @@ const CheckoutItemList = dynamic(() => import("./CheckoutItemList"), {
   loading: () => <p>Loading checkout item list...</p>
 });
 
+const LOCALS_STORAGE_KEY = "simmer-checkout-form";
+
+const FORM_DEFAULT_VALUES: CheckoutData = {
+  name: "",
+  email: "",
+  contactNumber: "+63",
+  brandName: "",
+  brandDetails: "",
+  budget: "",
+  referralSource: "",
+  orders: [],
+  isDiscounted: false
+};
+
 const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
-  const [budgetAmount, setBudgetAmount] = useState("");
+  const [formattedBudgetAmount, setFormattedBudgetAmount] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { items, clearCart } = useCart();
+  const { items, isDiscounted, clearCart } = useCart();
+  const { captureEvent } = useAnalytics();
 
   const form = useForm<CheckoutData>({
     mode: "onTouched",
@@ -72,9 +88,50 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
       brandDetails: "",
       budget: "",
       referralSource: "",
-      orders: []
+      orders: [],
+      isDiscounted: isDiscounted
     }
   });
+
+  const { watch, setValue } = form;
+
+  const getFormattedBudget = (value?: string) => {
+    if (!value) {
+      return "";
+    }
+
+    const rawValue = value.replace(/[^0-9]/g, "");
+    const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return formattedValue ?? "";
+  };
+
+  // Load stored form values on mount
+  useEffect(() => {
+    const storedValues = localStorage.getItem(LOCALS_STORAGE_KEY);
+
+    if (!storedValues) {
+      return;
+    }
+
+    try {
+      const parsedValues = JSON.parse(storedValues) as CheckoutData;
+      const formattedBudget = getFormattedBudget(parsedValues.budget);
+      setFormattedBudgetAmount(formattedBudget);
+      Object.entries(parsedValues).forEach(([key, value]) => {
+        setValue(key as keyof CheckoutData, value);
+      });
+    } catch (error) {
+      console.error("Error parsing checkout data from localStorage", error);
+    }
+  }, [setValue]);
+
+  // Watch form values and store in localStorage
+  useEffect(() => {
+    const subscription = watch((checkoutData) => {
+      localStorage.setItem(LOCALS_STORAGE_KEY, JSON.stringify(checkoutData));
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   // Sync the orders field with the items in the cart
   useEffect(() => {
@@ -82,23 +139,25 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items]);
 
+  // Sync the isDiscounted field with the isDiscounted state
+  useEffect(() => {
+    form.setValue("isDiscounted", isDiscounted);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDiscounted]);
+
   useEffect(() => {
     if (isSubmitting) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [isSubmitting]);
 
-  const getFormattedBudget = (value: string) => {
-    const rawValue = value.replace(/[^0-9]/g, "");
-    const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return formattedValue ?? "";
-  };
-
   // Only called if the form data is valid
   const handleSubmit = async (data: CheckoutData) => {
     setIsSubmitting(true);
     const { success, message, errors } = await processCheckout(data);
     if (success) {
+      form.reset();
+      captureEvent("CHECKOUT_SUCCESSFUL", data);
       clearCart();
       onSubmitSuccess();
     } else {
@@ -267,14 +326,14 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
                         {...field}
                         label="BUDGET"
                         type="text"
-                        value={budgetAmount}
+                        value={formattedBudgetAmount}
                         placeholder="How much is your budget?"
                         onChange={(event) => {
                           const formattedValue = getFormattedBudget(
                             event.currentTarget.value
                           );
                           form.setValue("budget", formattedValue);
-                          setBudgetAmount(formattedValue);
+                          setFormattedBudgetAmount(formattedValue);
                         }}
                       />
                     </FormControl>
@@ -311,13 +370,13 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
                     name="budget"
                     className="flex w-full bg-transparent font-fionas text-9xl text-simmer-white placeholder:text-simmer-white focus:outline-none"
                     placeholder="$$$$"
-                    value={budgetAmount}
+                    value={formattedBudgetAmount}
                     onChange={(event) => {
                       const formattedValue = getFormattedBudget(
                         event.currentTarget.value
                       );
                       form.setValue("budget", formattedValue);
-                      setBudgetAmount(formattedValue);
+                      setFormattedBudgetAmount(formattedValue);
                     }}
                   />
                 </div>

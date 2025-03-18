@@ -52,6 +52,7 @@ const HeroContentSM: FC<HTMLProps<HTMLDivElement>> = ({
       clearTimeout(playTimeoutId);
       clearTimeout(pauseTimeoutId);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array means this runs once on mount
 
   const handlePlayClick = (e: React.MouseEvent) => {

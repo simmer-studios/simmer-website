@@ -11,7 +11,7 @@ import MemberCards from "@/components/sections/about/MemberCards";
 import StickySidebar from "@/components/StickySidebar";
 import { getMetadata } from "@/lib/utils/metadata";
 
-export const revalidate = 3600; // 1 hour
+export const revalidate = 86400; // 1 day
 
 const getAboutPage = async (payload: BasePayload) => {
   return payload.findGlobal({

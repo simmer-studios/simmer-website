@@ -22,13 +22,15 @@ export const Snaps: CollectionConfig = {
   },
   hooks: {
     afterChange: [
-      () => {
+      ({ doc }) => {
         revalidatePath("/snap");
+        revalidatePath(`/snap/${doc.slug}`);
       }
     ],
     afterDelete: [
-      () => {
+      ({ doc }) => {
         revalidatePath("/snap");
+        revalidatePath(`/snap/${doc.slug}`);
       }
     ]
   },

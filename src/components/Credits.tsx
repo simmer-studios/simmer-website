@@ -27,7 +27,7 @@ const CreditsBlock: FC<HTMLProps<HTMLDivElement> & Props> = ({
           {title}
         </h2>
         {/* CREDITS */}
-        <div className="w-full divide-y-2 divide-black border-y-2 border-black">
+        <div className="w-full divide-y-2 divide-black border-y-2 border-black lg:max-w-xl">
           {creatives &&
             creatives.length > 0 &&
             creatives.map((person) => (

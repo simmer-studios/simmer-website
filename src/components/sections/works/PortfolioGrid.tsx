@@ -51,17 +51,16 @@ const PortfolioGrid: FC<HTMLProps<HTMLDivElement> & Props> = ({
         animate={isInView ? "show" : "hidden"}
         className="group/portfolio-grid grid grid-cols-1 gap-0.5 bg-black text-white md:grid-cols-2 lg:grid-cols-3"
       >
-        {projects &&
-          projects.map((project) => (
-            <motion.div key={project.id} variants={item}>
-              <PortfolioItem
-                slug={project.slug}
-                name={project.name}
-                category={project.project}
-                image={project.thumbnail}
-              />
-            </motion.div>
-          ))}
+        {projects.map((project) => (
+          <motion.div key={project.id} variants={item}>
+            <PortfolioItem
+              slug={project.slug}
+              name={project.name}
+              category={project.project}
+              image={project.thumbnail}
+            />
+          </motion.div>
+        ))}
       </motion.div>
     </section>
   );

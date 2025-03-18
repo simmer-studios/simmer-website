@@ -108,18 +108,27 @@ export const checkoutSchema = z.object({
       MESSAGES.maxLength("Referral Source", CONFIG.string.max)
     ),
   orders: z
-    .string({
-      required_error: MESSAGES.required("Item name"),
-      invalid_type_error: MESSAGES.invalidType("Item name", "string")
-    })
-    .trim()
-    .min(1, MESSAGES.minLength("Item name", 1))
-    .max(CONFIG.string.max, MESSAGES.maxLength("Item name", CONFIG.string.max))
-    .array()
+    .array(
+      z
+        .string({
+          required_error: MESSAGES.required("Item name"),
+          invalid_type_error: MESSAGES.invalidType("Item name", "string")
+        })
+        .trim()
+        .min(1, MESSAGES.minLength("Item name", 1))
+        .max(
+          CONFIG.string.max,
+          MESSAGES.maxLength("Item name", CONFIG.string.max)
+        )
+    )
     .max(
       CONFIG.array.max,
       `A maximum of ${CONFIG.array.max} items are allowed in the order`
-    )
+    ),
+  isDiscounted: z.boolean({
+    required_error: MESSAGES.required("isDiscounted"),
+    invalid_type_error: MESSAGES.invalidType("isDiscounted", "boolean")
+  })
 });
 
 export type CheckoutData = z.infer<typeof checkoutSchema>;

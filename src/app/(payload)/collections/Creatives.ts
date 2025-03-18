@@ -64,6 +64,11 @@ export const Creatives: CollectionConfig = {
           required: true,
           admin: {
             description: "Portrait image of the creative"
+          },
+          filterOptions: {
+            mimeType: {
+              contains: "image"
+            }
           }
         },
         {
@@ -73,6 +78,11 @@ export const Creatives: CollectionConfig = {
           required: true,
           admin: {
             description: "Fun artwork that represents the creative"
+          },
+          filterOptions: {
+            mimeType: {
+              contains: "image"
+            }
           }
         }
       ]

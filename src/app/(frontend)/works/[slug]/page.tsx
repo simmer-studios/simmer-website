@@ -9,7 +9,7 @@ import DetailedPageHero from "@/components/DetailedPageHero";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import StickySidebar from "@/components/StickySidebar";
-import { isValidImage } from "@/lib/utils";
+import { getMetadata } from "@/lib/utils/metadata";
 
 interface Props {
   params: Promise<{
@@ -17,7 +17,23 @@ interface Props {
   }>;
 }
 
-export const revalidate = 3600; // 1 hour
+export const revalidate = 86400; // 1 day
+export const dynamicParams = true;
+// export const dynamic = "force-static";
+
+export async function generateStaticParams() {
+  const payload = await getPayload({ config });
+
+  const projects = await payload.find({
+    collection: "projects",
+    limit: 100,
+    sort: ["-date"]
+  });
+
+  return projects.docs.map(({ slug }) => ({
+    slug
+  }));
+}
 
 async function getProject(slug: string) {
   const payload = await getPayload({ config });
@@ -44,29 +60,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = await getProject(slug);
 
-  const images = isValidImage(project.cover)
-    ? [
-        {
-          url: project.cover.url,
-          width: project.cover.width ?? "",
-          height: project.cover.height ?? "",
-          alt: project.cover.alt ?? ""
-        }
-      ]
-    : [];
-
-  return {
+  return getMetadata({
     title: project.name,
     description: project.description,
-    openGraph: {
-      title: project.name,
-      description: project.description,
-      images
-    }
-  };
+    image: project.cover
+  });
 }
 
-export default async function IndividualProject({ params }: Props) {
+export default async function ProjectDetailsPage({ params }: Props) {
   const { slug } = await params;
   const project = await getProject(slug);
   const content = project.content;

@@ -1,10 +1,9 @@
 "use client";
 
 import useEmblaCarousel from "embla-carousel-react";
-import Image from "next/image";
 import { FC, HTMLProps, useEffect } from "react";
 
-import { cn, isValidImage } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Media } from "@/payload-types";
 
 import CMSMedia from "./CMSMedia";
@@ -25,7 +24,7 @@ const Slideshow: FC<HTMLProps<HTMLDivElement> & Props> = ({
 
   useEffect(() => {
     if (emblaApi) {
-      console.log(emblaApi.slideNodes());
+      emblaApi.slideNodes();
     }
   }, [emblaApi]);
 

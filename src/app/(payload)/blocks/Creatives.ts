@@ -2,6 +2,7 @@ import { Block } from "payload";
 
 export const Creatives: Block = {
   slug: "Creatives",
+  imageURL: "/images/cms/creatives.png",
   fields: [
     {
       type: "array",
