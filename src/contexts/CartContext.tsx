@@ -11,30 +11,24 @@ import {
 interface Cart {
   items: string[];
   isDiscounted: boolean;
-  isChefChoiceSelected: boolean;
   addItem: (item: string) => void;
   removeItem: (item: string) => void;
   clearCart: () => void;
   applyDiscount: () => void;
-  toggleChefChoice: () => void;
 }
 
 const CartContext = createContext<Cart>({
   items: [],
   isDiscounted: false,
-  isChefChoiceSelected: false,
   addItem: (item: string) => {},
   removeItem: () => {},
   clearCart: () => {},
-  applyDiscount: () => {},
-  toggleChefChoice: () => {}
+  applyDiscount: () => {}
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<string[]>([]);
-  const [isDiscounted, setIsDiscounted] = useState<boolean>(false);
-  const [isChefChoiceSelected, setIsChefChoiceSelected] =
-    useState<boolean>(false);
+  const [isDiscounted, setIsDiscounted] = useState(false);
 
   const addItem = (item: string) => {
     if (!items.includes(item)) {
@@ -54,26 +48,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setIsDiscounted(true);
   };
 
-  const toggleChefChoice = () => {
-    setIsChefChoiceSelected((prev) => !prev);
-  };
-
-  useEffect(() => {
-    if (isChefChoiceSelected) {
-      addItem("Chef's Choice");
-    } else {
-      removeItem("Chef's Choice");
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isChefChoiceSelected]);
-
+  // Get the cart state from localStorage
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const simmerDiscount = localStorage.getItem("simmer-discount");
       const cart = localStorage.getItem("simmer-cart");
+      const discount = localStorage.getItem("simmer-discount");
 
-      setIsDiscounted(simmerDiscount === "true");
+      setIsDiscounted(discount === "true");
 
       if (!cart) {
         setItems([]);
@@ -85,7 +66,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             parsedCart.every((item) => typeof item === "string")
           ) {
             setItems(parsedCart);
-            setIsChefChoiceSelected(parsedCart.includes("Chef's Choice"));
           } else {
             console.warn("Invalid cart format in localStorage, resetting cart");
             setItems([]);
@@ -100,17 +80,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  // Save the cart items to localStorage when they change
   useEffect(() => {
     if (typeof window !== "undefined") {
       localStorage.setItem("simmer-cart", JSON.stringify(items));
-      if (items.includes("Chef's Choice")) {
-        setIsChefChoiceSelected(true);
-      } else {
-        setIsChefChoiceSelected(false);
-      }
     }
   }, [items]);
 
+  // Save isDiscounted to localStorage when it changes
   useEffect(() => {
     if (typeof window !== "undefined") {
       localStorage.setItem("simmer-discount", isDiscounted ? "true" : "false");
@@ -122,12 +99,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       value={{
         items,
         isDiscounted,
-        isChefChoiceSelected,
         addItem,
         removeItem,
         clearCart,
-        applyDiscount,
-        toggleChefChoice
+        applyDiscount
       }}
     >
       {children}

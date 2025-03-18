@@ -10,7 +10,8 @@ export const EmailTemplate: React.FC<Readonly<CheckoutData>> = ({
   brandDetails,
   referralSource,
   budget,
-  orders
+  orders,
+  isDiscounted
 }) => (
   <div>
     <p>
@@ -33,6 +34,9 @@ export const EmailTemplate: React.FC<Readonly<CheckoutData>> = ({
     </p>
     <p>
       <b>Budget:</b> {budget}
+    </p>
+    <p>
+      <b>Discount:</b> {isDiscounted && "5%"}
     </p>
     <p>
       <b>Orders:</b>

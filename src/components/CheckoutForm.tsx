@@ -29,7 +29,7 @@ const CheckoutItemList = dynamic(() => import("./CheckoutItemList"), {
 const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
   const [budgetAmount, setBudgetAmount] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { items, clearCart } = useCart();
+  const { items, isDiscounted, clearCart } = useCart();
 
   const form = useForm<CheckoutData>({
     mode: "onTouched",
@@ -42,7 +42,8 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
       brandDetails: "",
       budget: "",
       referralSource: "",
-      orders: []
+      orders: [],
+      isDiscounted: false
     }
   });
 
@@ -51,6 +52,12 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
     form.setValue("orders", items);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items]);
+
+  // Sync the isDiscounted field with the isDiscounted state
+  useEffect(() => {
+    form.setValue("isDiscounted", isDiscounted);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDiscounted]);
 
   useEffect(() => {
     if (isSubmitting) {

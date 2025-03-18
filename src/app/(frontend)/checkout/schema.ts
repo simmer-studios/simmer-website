@@ -119,7 +119,11 @@ export const checkoutSchema = z.object({
     .max(
       CONFIG.array.max,
       `A maximum of ${CONFIG.array.max} items are allowed in the order`
-    )
+    ),
+  isDiscounted: z.boolean({
+    required_error: MESSAGES.required("isDiscounted"),
+    invalid_type_error: MESSAGES.invalidType("isDiscounted", "boolean")
+  })
 });
 
 export type CheckoutData = z.infer<typeof checkoutSchema>;
