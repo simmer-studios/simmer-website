@@ -20,9 +20,19 @@ interface Props {
 export const revalidate = 3600; // 1 hour
 export const dynamicParams = true;
 
-export async function generateStaticParams() {
-  return []; // Allows revalidation on runtime
-}
+// export async function generateStaticParams() {
+//   const payload = await getPayload({ config });
+
+//   const projects = await payload.find({
+//     collection: "projects",
+//     limit: 100,
+//     sort: ["-date"]
+//   });
+
+//   return projects.docs.map(({ slug }) => ({
+//     slug
+//   }));
+// }
 
 async function getProject(slug: string) {
   const payload = await getPayload({ config });
@@ -45,16 +55,16 @@ async function getProject(slug: string) {
   return project;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const project = await getProject(slug);
+// export async function generateMetadata({ params }: Props): Promise<Metadata> {
+//   const { slug } = await params;
+//   const project = await getProject(slug);
 
-  return getMetadata({
-    title: project.name,
-    description: project.description,
-    image: project.cover
-  });
-}
+//   return getMetadata({
+//     title: project.name,
+//     description: project.description,
+//     image: project.cover
+//   });
+// }
 
 export default async function ProjectDetailsPage({ params }: Props) {
   const { slug } = await params;
