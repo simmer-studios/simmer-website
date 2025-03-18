@@ -42,7 +42,7 @@ const FORM_DEFAULT_VALUES: CheckoutData = {
 };
 
 const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
-  const [budgetAmount, setBudgetAmount] = useState("");
+  const [formattedBudgetAmount, setFormattedBudgetAmount] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { items, isDiscounted, clearCart } = useCart();
   const { captureEvent } = useAnalytics();
@@ -65,6 +65,16 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
 
   const { watch, setValue } = form;
 
+  const getFormattedBudget = (value?: string) => {
+    if (!value) {
+      return "";
+    }
+
+    const rawValue = value.replace(/[^0-9]/g, "");
+    const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return formattedValue ?? "";
+  };
+
   // Load stored form values on mount
   useEffect(() => {
     const storedValues = localStorage.getItem(LOCALS_STORAGE_KEY);
@@ -75,6 +85,8 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
 
     try {
       const parsedValues = JSON.parse(storedValues) as CheckoutData;
+      const formattedBudget = getFormattedBudget(parsedValues.budget);
+      setFormattedBudgetAmount(formattedBudget);
       Object.entries(parsedValues).forEach(([key, value]) => {
         setValue(key as keyof CheckoutData, value);
       });
@@ -108,12 +120,6 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [isSubmitting]);
-
-  const getFormattedBudget = (value: string) => {
-    const rawValue = value.replace(/[^0-9]/g, "");
-    const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return formattedValue ?? "";
-  };
 
   // Only called if the form data is valid
   const handleSubmit = async (data: CheckoutData) => {
@@ -298,14 +304,14 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
                         {...field}
                         label="BUDGET"
                         type="text"
-                        value={budgetAmount}
+                        value={formattedBudgetAmount}
                         placeholder="How much is your budget?"
                         onChange={(event) => {
                           const formattedValue = getFormattedBudget(
                             event.currentTarget.value
                           );
                           form.setValue("budget", formattedValue);
-                          setBudgetAmount(formattedValue);
+                          setFormattedBudgetAmount(formattedValue);
                         }}
                       />
                     </FormControl>
@@ -341,13 +347,13 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
                     name="budget"
                     className="flex w-full bg-transparent font-fionas text-9xl text-simmer-white placeholder:text-simmer-white focus:outline-none"
                     placeholder="$$$$"
-                    value={budgetAmount}
+                    value={formattedBudgetAmount}
                     onChange={(event) => {
                       const formattedValue = getFormattedBudget(
                         event.currentTarget.value
                       );
                       form.setValue("budget", formattedValue);
-                      setBudgetAmount(formattedValue);
+                      setFormattedBudgetAmount(formattedValue);
                     }}
                   />
                 </div>
