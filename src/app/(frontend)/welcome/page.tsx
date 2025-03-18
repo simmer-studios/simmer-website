@@ -3,10 +3,9 @@ import { Metadata } from "next";
 import { getPayload } from "payload";
 
 import WelcomePage from "@/components/sections/welcome/WelcomePage";
-import { DEFAULT_REVALIDATE } from "@/constants";
 import { getMetadata } from "@/lib/utils/metadata";
 
-export const revalidate = DEFAULT_REVALIDATE;
+export const revalidate = 86400; // 1 day
 
 async function getBrandQuestionnaire() {
   const payload = await getPayload({ config });

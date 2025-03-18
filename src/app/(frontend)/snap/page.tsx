@@ -8,10 +8,9 @@ import Header from "@/components/Header";
 import Hero from "@/components/sections/snaps/Hero";
 import MasonrySnaps from "@/components/sections/snaps/MasonrySnaps";
 import StickySidebar from "@/components/StickySidebar";
-import { DEFAULT_REVALIDATE } from "@/constants";
 import { getMetadata } from "@/lib/utils/metadata";
 
-export const revalidate = DEFAULT_REVALIDATE;
+export const revalidate = 86400; // 1 day
 
 async function getSnapPage(payload: BasePayload) {
   return payload.findGlobal({

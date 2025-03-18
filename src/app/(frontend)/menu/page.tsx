@@ -10,10 +10,9 @@ import Header from "@/components/Header";
 import MenuForm from "@/components/MenuForm";
 import Hero from "@/components/sections/menu/Hero";
 import StickySidebar from "@/components/StickySidebar";
-import { DEFAULT_REVALIDATE } from "@/constants";
 import { getMetadata } from "@/lib/utils/metadata";
 
-export const revalidate = DEFAULT_REVALIDATE;
+export const revalidate = 86400; // 1 day
 
 async function getMenu() {
   const payload = await getPayload({ config });

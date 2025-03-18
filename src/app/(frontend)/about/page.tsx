@@ -9,10 +9,9 @@ import ClientList from "@/components/sections/about/ClientList";
 import Hero from "@/components/sections/about/Hero";
 import MemberCards from "@/components/sections/about/MemberCards";
 import StickySidebar from "@/components/StickySidebar";
-import { DEFAULT_REVALIDATE } from "@/constants";
 import { getMetadata } from "@/lib/utils/metadata";
 
-export const revalidate = DEFAULT_REVALIDATE;
+export const revalidate = 86400; // 1 day
 
 const getAboutPage = async (payload: BasePayload) => {
   return payload.findGlobal({

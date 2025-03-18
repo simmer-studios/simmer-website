@@ -5,10 +5,9 @@ import { BasePayload, getPayload } from "payload";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import AnimatedContent from "@/components/sections/works/AnimatedContent";
-import { DEFAULT_REVALIDATE } from "@/constants";
 import { getMetadata } from "@/lib/utils/metadata";
 
-export const revalidate = DEFAULT_REVALIDATE;
+export const revalidate = 86400; // 1 day
 
 async function getWorksPage(payload: BasePayload) {
   return payload.findGlobal({
