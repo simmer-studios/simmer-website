@@ -7,7 +7,12 @@ export const HeadingDescription: Block = {
       name: "icon",
       type: "upload",
       relationTo: "media",
-      required: true
+      required: true,
+      filterOptions: {
+        mimeType: {
+          contains: "image"
+        }
+      }
     },
     {
       name: "heading",
