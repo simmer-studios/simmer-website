@@ -27,6 +27,20 @@ const CheckoutItemList = dynamic(() => import("./CheckoutItemList"), {
   loading: () => <p>Loading checkout item list...</p>
 });
 
+const LOCALS_STORAGE_KEY = "simmer-checkout-form";
+
+const FORM_DEFAULT_VALUES: CheckoutData = {
+  name: "",
+  email: "",
+  contactNumber: "+63",
+  brandName: "",
+  brandDetails: "",
+  budget: "",
+  referralSource: "",
+  orders: [],
+  isDiscounted: false
+};
+
 const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
   const [budgetAmount, setBudgetAmount] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -45,9 +59,37 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
       budget: "",
       referralSource: "",
       orders: [],
-      isDiscounted: false
+      isDiscounted: isDiscounted
     }
   });
+
+  const { watch, setValue } = form;
+
+  // Load stored form values on mount
+  useEffect(() => {
+    const storedValues = localStorage.getItem(LOCALS_STORAGE_KEY);
+
+    if (!storedValues) {
+      return;
+    }
+
+    try {
+      const parsedValues = JSON.parse(storedValues) as CheckoutData;
+      Object.entries(parsedValues).forEach(([key, value]) => {
+        setValue(key as keyof CheckoutData, value);
+      });
+    } catch (error) {
+      console.error("Error parsing checkout data from localStorage", error);
+    }
+  }, [setValue]);
+
+  // Watch form values and store in localStorage
+  useEffect(() => {
+    const subscription = watch((checkoutData) => {
+      localStorage.setItem(LOCALS_STORAGE_KEY, JSON.stringify(checkoutData));
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   // Sync the orders field with the items in the cart
   useEffect(() => {
@@ -78,6 +120,7 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
     setIsSubmitting(true);
     const { success, message, errors } = await processCheckout(data);
     if (success) {
+      form.reset();
       captureEvent("CHECKOUT_SUCCESSFUL", data);
       clearCart();
       onSubmitSuccess();
