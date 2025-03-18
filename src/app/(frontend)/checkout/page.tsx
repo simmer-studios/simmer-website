@@ -23,18 +23,11 @@ export default function CheckoutPage() {
           <div className="basis-full" id="checkout-body">
             <AnimatePresence mode="wait">
               {!isSuccess ? (
-                <motion.div
-                  key="checkout-form"
-                  initial={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <CheckoutForm
-                    onSubmitSuccess={() => {
-                      setIsSuccess(true);
-                    }}
-                  />
-                </motion.div>
+                <CheckoutForm
+                  onSubmitSuccess={() => {
+                    setIsSuccess(true);
+                  }}
+                />
               ) : (
                 <CheckoutSuccess key="success" />
               )}

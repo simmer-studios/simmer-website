@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, type Variants } from "motion/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { FC, HTMLProps, useEffect, useState } from "react";
@@ -15,11 +15,41 @@ import CheckoutHeaderSM from "@/components/sections/checkout/CheckoutHeaderSM";
 import { useCart } from "@/contexts/CartContext";
 import { cn } from "@/lib/utils";
 
-import { Form, FormControl, FormField, FormItem } from "./ui/Form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  useFormField
+} from "./ui/Form";
 
 interface CheckoutFormProps {
   onSubmitSuccess: () => void;
 }
+
+interface MultiLineFormFieldProps extends HTMLProps<HTMLTextAreaElement> {
+  label: string;
+}
+
+interface SingleLineFormFieldProps extends HTMLProps<HTMLInputElement> {
+  label: string;
+}
+
+const formAnimation: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
+const containerAnimation: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+};
 
 const CheckoutItemList = dynamic(() => import("./CheckoutItemList"), {
   ssr: false,
@@ -77,24 +107,14 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
     setIsSubmitting(false);
   };
 
-  const formAnimation = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
-
-  const containerAnimation = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
   return (
-    <div className="relative min-h-screen">
+    <motion.div
+      key="checkout-form"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="relative min-h-screen"
+    >
       <AnimatePresence>
         {isSubmitting && (
           <motion.div
@@ -133,7 +153,6 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
           </motion.div>
         )}
       </AnimatePresence>
-
       <CheckoutHeaderSM className="flex lg:hidden" />
       <CheckoutHeaderLG className="hidden lg:flex" />
       <Form {...form}>
@@ -185,6 +204,7 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
             {/* LEFT - field list */}
             <div className="divide-y-2 divide-simmer-white">
               <FormField
+                /* EMAIL */
                 control={form.control}
                 name="email"
                 render={({ field, fieldState }) => (
@@ -195,7 +215,6 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
                         label="EMAIL*"
                         type="email"
                         placeholder="name@brand.com"
-                        error={fieldState.error}
                         required
                       />
                     </FormControl>
@@ -203,6 +222,7 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
                 )}
               />
               <FormField
+                /* MOBILE NUMBER */
                 control={form.control}
                 name="contactNumber"
                 render={({ field }) => (
@@ -219,6 +239,7 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
                 )}
               />
               <FormField
+                /* BRAND NAME */
                 control={form.control}
                 name="brandName"
                 render={({ field }) => (
@@ -236,6 +257,7 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
                 )}
               />
               <FormField
+                /* BUDGET */
                 control={form.control}
                 name="budget"
                 render={({ field }) => (
@@ -260,6 +282,7 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
                 )}
               />
               <FormField
+                /* BRAND DETAILS */
                 control={form.control}
                 name="brandDetails"
                 render={({ field }) => (
@@ -353,14 +376,9 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
           </motion.div>
         </motion.form>
       </Form>
-    </div>
+    </motion.div>
   );
 };
-
-interface SingleLineFormFieldProps extends HTMLProps<HTMLInputElement> {
-  label: string;
-  error?: FieldError | null;
-}
 
 const SingleLineFormField: FC<SingleLineFormFieldProps> = ({
   name,
@@ -369,10 +387,11 @@ const SingleLineFormField: FC<SingleLineFormFieldProps> = ({
   type = "text",
   required = false,
   value,
-  error,
   className,
   onChange
 }) => {
+  const { error } = useFormField();
+  console.log(error);
   return (
     <div className={cn("flex divide-x-2 divide-simmer-white", className)}>
       <label
@@ -401,20 +420,17 @@ const SingleLineFormField: FC<SingleLineFormFieldProps> = ({
   );
 };
 
-interface MultiLineFormFieldProps extends HTMLProps<HTMLTextAreaElement> {
-  error?: FieldError | null;
-}
-
 const MultiLineFormField: FC<MultiLineFormFieldProps> = ({
   name,
   label,
   placeholder,
   required,
   value,
-  error,
   className,
   onChange
 }) => {
+  const { error } = useFormField();
+  console.log(error);
   return (
     <div className={cn("grid gap-2 px-5 py-5 lg:gap-5", className)}>
       <div className="">
