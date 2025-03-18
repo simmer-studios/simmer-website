@@ -2,6 +2,11 @@ import { Block } from "payload";
 
 export const ImageText: Block = {
   slug: "ImageText",
+  labels: {
+    singular: "Media and Text",
+    plural: "Media and Text"
+  },
+  imageURL: "/images/cms/media_text.png",
   fields: [
     {
       name: "image",
