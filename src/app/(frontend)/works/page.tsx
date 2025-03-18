@@ -34,8 +34,6 @@ async function getPageData() {
 
   const projectsPromise = payload.find({
     collection: "projects",
-    page: 1,
-    limit: 10,
     pagination: true,
     where: {
       featured: {
