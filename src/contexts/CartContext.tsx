@@ -8,6 +8,8 @@ import {
   useState
 } from "react";
 
+import { useAnalytics } from "@/hooks/useAnalytics";
+
 interface Cart {
   items: string[];
   isDiscounted: boolean;
@@ -29,6 +31,7 @@ const CartContext = createContext<Cart>({
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<string[]>([]);
   const [isDiscounted, setIsDiscounted] = useState(false);
+  const { captureEvent } = useAnalytics();
 
   const addItem = (item: string) => {
     if (!items.includes(item)) {
@@ -46,6 +49,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const applyDiscount = () => {
     setIsDiscounted(true);
+    captureEvent("DISCOUNT_APPLIED");
   };
 
   // Get the cart state from localStorage

@@ -13,6 +13,7 @@ import AMPERSAND from "@/assets/checkout/ampersand.svg";
 import CheckoutHeaderLG from "@/components/sections/checkout/CheckoutHeaderLG";
 import CheckoutHeaderSM from "@/components/sections/checkout/CheckoutHeaderSM";
 import { useCart } from "@/contexts/CartContext";
+import { useAnalytics } from "@/hooks/useAnalytics";
 import { cn } from "@/lib/utils";
 
 import { Form, FormControl, FormField, FormItem } from "./ui/Form";
@@ -30,6 +31,7 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
   const [budgetAmount, setBudgetAmount] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { items, isDiscounted, clearCart } = useCart();
+  const { captureEvent } = useAnalytics();
 
   const form = useForm<CheckoutData>({
     mode: "onTouched",
@@ -76,6 +78,7 @@ const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
     setIsSubmitting(true);
     const { success, message, errors } = await processCheckout(data);
     if (success) {
+      captureEvent("CHECKOUT_SUCCESSFUL", data);
       clearCart();
       onSubmitSuccess();
     } else {
