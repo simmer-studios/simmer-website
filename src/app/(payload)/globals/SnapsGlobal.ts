@@ -9,7 +9,7 @@ export const SnapsGlobal: GlobalConfig = {
   hooks: {
     afterChange: [
       () => {
-        revalidatePath("/snap", "layout");
+        revalidatePath("/snap");
       }
     ]
   },
