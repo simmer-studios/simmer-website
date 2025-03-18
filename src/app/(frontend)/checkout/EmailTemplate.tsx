@@ -18,7 +18,7 @@ export const EmailTemplate: React.FC<Readonly<CheckoutData>> = ({
       <b>Name:</b> {name}
     </p>
     <p>
-      <b>Email:</b> {email}
+      <b>Email Address:</b> {email}
     </p>
     <p>
       <b>Contact Number:</b> {contactNumber}
