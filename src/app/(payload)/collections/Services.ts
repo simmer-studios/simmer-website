@@ -23,7 +23,9 @@ export const Services: CollectionConfig = {
       type: "checkbox",
       admin: {
         description: "Mark this service as a specialty on the menu"
-      }
+      },
+      required: true,
+      defaultValue: false
     },
     {
       name: "name",
