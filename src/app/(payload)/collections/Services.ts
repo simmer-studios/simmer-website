@@ -12,7 +12,15 @@ export const Services: CollectionConfig = {
         revalidatePath("/");
         revalidatePath("/menu");
         revalidatePath("/works", "layout");
-        revalidatePath("/snap");
+        revalidatePath("/snap", "layout");
+      }
+    ],
+    afterDelete: [
+      () => {
+        revalidatePath("/");
+        revalidatePath("/menu");
+        revalidatePath("/works", "layout");
+        revalidatePath("/snap", "layout");
       }
     ]
   },

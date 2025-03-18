@@ -11,14 +11,14 @@ export const Categories: CollectionConfig = {
       () => {
         revalidatePath("/about");
         revalidatePath("/works", "layout");
-        revalidatePath("/snap");
+        revalidatePath("/snap", "layout");
       }
     ],
     afterDelete: [
       () => {
         revalidatePath("/about");
         revalidatePath("/works", "layout");
-        revalidatePath("/snap");
+        revalidatePath("/snap", "layout");
       }
     ]
   },
