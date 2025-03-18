@@ -145,7 +145,7 @@ export interface UserAuthOperations {
 export interface Project {
   id: number;
   /**
-   * Only two features projects will be displayed on the works page
+   * Only two featured projects will be displayed on the works page
    */
   featured: boolean;
   /**

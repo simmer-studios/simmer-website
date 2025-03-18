@@ -45,7 +45,7 @@ export const Projects: CollectionConfig = {
       admin: {
         width: "50%",
         description:
-          "Only two features projects will be displayed on the works page"
+          "Only two featured projects will be displayed on the works page"
       }
     },
     {
