@@ -20,19 +20,19 @@ interface Props {
 export const revalidate = 3600; // 1 hour
 export const dynamicParams = true;
 
-// export async function generateStaticParams() {
-//   const payload = await getPayload({ config });
+export async function generateStaticParams() {
+  const payload = await getPayload({ config });
 
-//   const projects = await payload.find({
-//     collection: "projects",
-//     limit: 100,
-//     sort: ["-date"]
-//   });
+  const projects = await payload.find({
+    collection: "projects",
+    limit: 100,
+    sort: ["-date"]
+  });
 
-//   return projects.docs.map(({ slug }) => ({
-//     slug
-//   }));
-// }
+  return projects.docs.map(({ slug }) => ({
+    slug
+  }));
+}
 
 async function getProject(slug: string) {
   const payload = await getPayload({ config });
