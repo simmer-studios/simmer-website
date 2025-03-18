@@ -21,17 +21,7 @@ export const revalidate = 3600; // 1 hour
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const payload = await getPayload({ config });
-
-  const snaps = await payload.find({
-    collection: "snaps",
-    limit: 100,
-    sort: ["-date"]
-  });
-
-  return snaps.docs.map(({ slug }) => ({
-    slug
-  }));
+  return []; // Allows revalidation on runtime
 }
 
 async function getSnap(slug: string) {
