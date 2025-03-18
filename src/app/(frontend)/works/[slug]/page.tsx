@@ -19,6 +19,7 @@ interface Props {
 
 export const revalidate = 3600; // 1 hour
 export const dynamicParams = true;
+export const dynamic = "auto";
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config });
