@@ -42,9 +42,9 @@ export const EmailTemplate: React.FC<Readonly<CheckoutData>> = ({
         ))}
       </ul>
     </p>
-
+    <br />
     <p>
-      <i>You may reply to this email directly to contact the client.</i>
+      <i>You may reply directly to this email to contact the client.</i>
     </p>
   </div>
 );

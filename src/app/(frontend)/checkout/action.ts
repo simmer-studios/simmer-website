@@ -15,6 +15,20 @@ interface ProcessCheckoutResponse {
   }>;
 }
 
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const EMAIL_DOMAIN = process.env.EMAIL_DOMAIN as string;
+const EMAIL_RECIPIENT = process.env.EMAIL_RECIPIENT as string;
+
+if (!RESEND_API_KEY) {
+  throw new Error("Environment variable RESEND_API_KEY is not set");
+}
+if (!EMAIL_DOMAIN) {
+  throw new Error("Environment variable EMAIL_DOMAIN is not set");
+}
+if (!EMAIL_RECIPIENT) {
+  throw new Error("Environment variable EMAIL_RECIPIENT is not set");
+}
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function processCheckout(
@@ -24,9 +38,9 @@ export async function processCheckout(
     const parsedData = await checkoutSchema.parseAsync(data);
 
     const { data: resendData, error } = await resend.emails.send({
-      from: "Simmer Studios <noreply@simmer-studios.com>",
+      from: `Simmer Studios <noreply@${EMAIL_DOMAIN}>`,
       replyTo: parsedData.email,
-      to: ["alexanderpaul.marinas@gmail.com"],
+      to: [EMAIL_RECIPIENT],
       subject: `Checkout | ${parsedData.brandName}`,
       react: await EmailTemplate(parsedData)
     });
