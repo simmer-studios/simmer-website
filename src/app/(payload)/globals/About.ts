@@ -1,9 +1,11 @@
 import { revalidatePath } from "next/cache";
 import { GlobalConfig } from "payload";
 
+import { SEOField } from "../fields/SEO";
+
 export const About: GlobalConfig = {
   slug: "about",
-  label: "About",
+  label: "About Page",
   hooks: {
     afterChange: [
       () => {
@@ -12,6 +14,7 @@ export const About: GlobalConfig = {
     ]
   },
   fields: [
+    SEOField,
     {
       name: "banner",
       label: "Banner",

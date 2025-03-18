@@ -18,7 +18,8 @@ export default async function SimmerSnapsPage() {
   });
 
   const snaps = await payload.find({
-    collection: "snaps"
+    collection: "snaps",
+    sort: ["-date"]
   });
 
   return (

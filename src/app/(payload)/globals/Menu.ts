@@ -1,6 +1,8 @@
 import { revalidatePath } from "next/cache";
 import { Field, GlobalConfig } from "payload";
 
+import { SEOField } from "../fields/SEO";
+
 const FIELDS: Field[] = [
   {
     name: "title",
@@ -32,7 +34,7 @@ const FIELDS: Field[] = [
 
 export const Menu: GlobalConfig = {
   slug: "menu",
-  label: "Menu",
+  label: "Menu Page",
   hooks: {
     afterChange: [
       () => {
@@ -41,6 +43,7 @@ export const Menu: GlobalConfig = {
     ]
   },
   fields: [
+    SEOField,
     {
       name: "strategy",
       label: "Strategy",

@@ -1,6 +1,8 @@
 import { revalidatePath } from "next/cache";
 import { GlobalConfig } from "payload";
 
+import { SEOField } from "../fields/SEO";
+
 export const WorksGlobal: GlobalConfig = {
   slug: "works-global",
   label: "Works Page",
@@ -12,6 +14,7 @@ export const WorksGlobal: GlobalConfig = {
     ]
   },
   fields: [
+    SEOField,
     {
       name: "categories",
       label: "Categories",

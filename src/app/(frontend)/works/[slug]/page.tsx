@@ -1,4 +1,5 @@
 import config from "@payload-config";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
@@ -8,6 +9,7 @@ import DetailedPageHero from "@/components/DetailedPageHero";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import StickySidebar from "@/components/StickySidebar";
+import { isValidImage } from "@/lib/utils";
 
 interface Props {
   params: Promise<{
@@ -17,9 +19,7 @@ interface Props {
 
 export const revalidate = 3600; // 1 hour
 
-export default async function IndividualProject({ params }: Props) {
-  const { slug } = await params;
-
+async function getProject(slug: string) {
   const payload = await getPayload({ config });
 
   const projects = await payload.find({
@@ -37,6 +37,38 @@ export default async function IndividualProject({ params }: Props) {
     return notFound();
   }
 
+  return project;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await getProject(slug);
+
+  const images = isValidImage(project.cover)
+    ? [
+        {
+          url: project.cover.url,
+          width: project.cover.width ?? "",
+          height: project.cover.height ?? "",
+          alt: project.cover.alt ?? ""
+        }
+      ]
+    : [];
+
+  return {
+    title: project.name,
+    description: project.description,
+    openGraph: {
+      title: project.name,
+      description: project.description,
+      images
+    }
+  };
+}
+
+export default async function IndividualProject({ params }: Props) {
+  const { slug } = await params;
+  const project = await getProject(slug);
   const content = project.content;
 
   return (

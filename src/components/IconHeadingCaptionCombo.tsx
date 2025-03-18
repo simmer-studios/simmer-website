@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { FC, HTMLProps, ReactNode } from "react";
+import { FC, HTMLProps } from "react";
 
-import { cn, getMediaType, isValidImage } from "@/lib/utils";
+import { cn, isValidImage } from "@/lib/utils";
 import { Media } from "@/payload-types";
 
 interface Props {

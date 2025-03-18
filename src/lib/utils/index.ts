@@ -40,7 +40,9 @@ interface MediaWithURL extends Media {
   url: string;
 }
 
-export function isValidImage(image?: Media | number): image is MediaWithURL {
+export function isValidImage(
+  image?: Media | number | null
+): image is MediaWithURL {
   if (!image || typeof image === "number" || !image.url) {
     return false;
   }
