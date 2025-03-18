@@ -24,13 +24,13 @@ export const Projects: CollectionConfig = {
   hooks: {
     afterChange: [
       ({ doc }) => {
-        revalidatePath("/works", "page");
+        revalidatePath("/works");
         revalidatePath(`/works/${doc.slug}`);
       }
     ],
     afterDelete: [
       ({ doc }) => {
-        revalidatePath("/works", "page");
+        revalidatePath("/works");
         revalidatePath(`/works/${doc.slug}`);
       }
     ]
