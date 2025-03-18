@@ -18,7 +18,7 @@ interface Props {
   }>;
 }
 
-export const revalidate = DEFAULT_REVALIDATE; // 1 hour
+export const revalidate = DEFAULT_REVALIDATE;
 export const dynamicParams = true;
 export const dynamic = "force-static";
 
