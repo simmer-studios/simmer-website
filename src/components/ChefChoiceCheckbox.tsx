@@ -25,7 +25,7 @@ const ChefChoiceCheckbox: FC<Props> = ({ description }) => {
   };
 
   return (
-    <div className="row grid w-full grid-cols-[70px_1fr] divide-x-2 divide-black border-b-2 border-black lg:grid-cols-[100px_1fr]">
+    <div className="row grid w-full grid-cols-[70px_1fr] divide-x-2 divide-black border-b-2 border-black lg:grid-cols-[150px_1fr]">
       <button
         className="flex items-center justify-center bg-simmer-white hover:brightness-95"
         type="button"
@@ -37,8 +37,10 @@ const ChefChoiceCheckbox: FC<Props> = ({ description }) => {
       </button>
       <div className="flex items-center p-5 font-articulat text-2xl font-bold tracking-tighter sm:text-4xl md:font-adelle-mono md:text-3xl md:uppercase lg:p-8 lg:text-5xl xl:p-10">
         <div className="w-full space-y-4">
-          <div className="flex cursor-pointer select-none items-center gap-2">
-            <span>{SERVICE_NAME}</span>
+          <div className="inline-flex cursor-pointer select-none items-center gap-2">
+            <button type="button" onClick={toggleChefsChoice}>
+              {SERVICE_NAME}
+            </button>
           </div>
           <p className="font-articulat text-sm font-normal normal-case leading-tight tracking-normal sm:text-base sm:leading-normal lg:text-lg">
             {description}
