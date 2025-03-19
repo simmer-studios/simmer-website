@@ -47,7 +47,8 @@ const InteractiveTaco: FC = () => {
           position: "absolute",
           top: 0,
           left: 0,
-          zIndex: 1
+          zIndex: 1,
+          willChange: "transform"
         }}
       />
       <Image
