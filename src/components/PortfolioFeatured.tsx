@@ -26,16 +26,16 @@ const FeaturedImage: FC<FeaturedImageProps> = ({ heading, image, slug }) => {
   return (
     <Link
       href={`/works/${slug}`}
-      className="group relative block aspect-square flex-1 overflow-hidden bg-gray-100 transition duration-300 ease-in-out"
+      className="group relative block aspect-square flex-1 overflow-hidden bg-black transition duration-300 ease-in-out"
     >
       <CMSMedia
         media={image}
         controls={false}
-        className="absolute h-full w-full object-cover transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:brightness-90"
+        className="will-change-scale absolute h-full w-full transform-gpu object-cover transition-all duration-300 ease-in-out will-change-transform group-hover:scale-110 group-hover:opacity-90"
       />
       <div
         ref={magneticRef}
-        className="pointer-events-none invisible absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-[3px] border-black bg-simmer-white px-14 py-6 text-center will-change-transform group-hover:visible"
+        className="will-change-opacity pointer-events-none invisible absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform-gpu border-[3px] border-black bg-simmer-white px-14 py-6 text-center will-change-transform group-hover:visible"
       >
         <span className="pointer-events-none block max-w-[16ch] font-adelle-mono text-2xl font-bold uppercase tracking-tight">
           {heading}
