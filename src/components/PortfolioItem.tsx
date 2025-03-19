@@ -30,13 +30,13 @@ const PortfolioItem: React.FC<Props> = ({ slug, name, category, image }) => {
       scroll={true}
     >
       <CMSMedia
-        className="absolute h-full w-full object-cover brightness-100 transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-90"
+        className="will-change-scale absolute h-full w-full transform-gpu object-cover transition-all duration-300 ease-in-out will-change-transform group-hover:scale-110 group-hover:opacity-90"
         controls={false}
         media={image}
       />
       <div
         ref={magneticRef}
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-[3px] border-black bg-simmer-white px-14 py-6 text-center transition-all duration-300 ease-out will-change-transform md:invisible md:opacity-0 md:group-hover:visible md:group-hover:opacity-100"
+        className="will-change-opacity pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform-gpu border-[3px] border-black bg-simmer-white px-14 py-6 text-center transition-all duration-300 ease-out will-change-transform md:invisible md:opacity-0 md:group-hover:visible md:group-hover:opacity-100"
       >
         <span className="pointer-events-none block font-adelle-mono text-2xl font-bold uppercase tracking-tight text-black">
           {name}
