@@ -26,11 +26,11 @@ const PortfolioItem: React.FC<Props> = ({ slug, name, category, image }) => {
   return (
     <Link
       href={`/works/${slug}`}
-      className="group relative block aspect-square overflow-hidden bg-gray-100 transition duration-300 ease-in-out"
+      className="group relative block aspect-square overflow-hidden bg-black transition duration-300 ease-in-out"
       scroll={true}
     >
       <CMSMedia
-        className="absolute h-full w-full object-cover transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:brightness-90"
+        className="absolute h-full w-full object-cover brightness-100 transition-all duration-300 ease-in-out group-hover:scale-110 group-hover:opacity-90"
         controls={false}
         media={image}
       />
