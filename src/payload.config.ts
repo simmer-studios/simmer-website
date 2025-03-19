@@ -38,6 +38,10 @@ export default buildConfig({
   serverURL: !isDevelopment ? WEBSITE_URL : undefined,
   csrf: !isDevelopment ? [WEBSITE_URL] : undefined,
   cors: !isDevelopment ? [WEBSITE_URL] : undefined,
+  graphQL: {
+    disable: true,
+    disablePlaygroundInProduction: true
+  },
   collections: [
     Projects,
     Snaps,

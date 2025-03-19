@@ -31,11 +31,7 @@ const CreditsBlock: FC<HTMLProps<HTMLDivElement> & Props> = ({
           {creatives &&
             creatives.length > 0 &&
             creatives.map((person) => (
-              <Credit
-                key={person.name}
-                title={person.role}
-                name={person.name}
-              />
+              <Credit key={person.id} title={person.role} name={person.name} />
             ))}
         </div>
       </div>

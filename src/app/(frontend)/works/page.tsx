@@ -34,12 +34,12 @@ async function getPageData() {
 
   const projectsPromise = payload.find({
     collection: "projects",
-    pagination: true,
     where: {
       featured: {
         equals: false
       }
     },
+    limit: 100,
     sort: ["-date"]
   });
 
