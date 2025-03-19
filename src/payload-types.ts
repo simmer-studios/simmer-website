@@ -145,7 +145,7 @@ export interface UserAuthOperations {
 export interface Project {
   id: number;
   /**
-   * Only two features projects will be displayed on the works page
+   * Only two featured projects will be displayed on the works page
    */
   featured: boolean;
   /**
@@ -302,7 +302,7 @@ export interface Service {
   /**
    * Mark this service as a specialty on the menu
    */
-  specialty?: boolean | null;
+  specialty: boolean;
   name: string;
   description?: string | null;
   linkTo?: ('none' | 'snap' | 'stories') | null;
@@ -920,6 +920,14 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Homepage {
   id: number;
+  seo: {
+    title: string;
+    description: string;
+    /**
+     * Must be 1200x630 (1.91:1 aspect ratio). This will be displayed when the page is shared on social media.
+     */
+    image?: (number | null) | Media;
+  };
   intro: {
     first: {
       title: string;
@@ -971,6 +979,14 @@ export interface Homepage {
  */
 export interface WorksGlobal {
   id: number;
+  seo: {
+    title: string;
+    description: string;
+    /**
+     * Must be 1200x630 (1.91:1 aspect ratio). This will be displayed when the page is shared on social media.
+     */
+    image?: (number | null) | Media;
+  };
   /**
    * Select the categories to show as filters on Works page
    */
@@ -984,6 +1000,14 @@ export interface WorksGlobal {
  */
 export interface SnapsGlobal {
   id: number;
+  seo: {
+    title: string;
+    description: string;
+    /**
+     * Must be 1200x630 (1.91:1 aspect ratio). This will be displayed when the page is shared on social media.
+     */
+    image?: (number | null) | Media;
+  };
   /**
    * Select the categories to show as filters when Products are selected
    */
@@ -1001,6 +1025,14 @@ export interface SnapsGlobal {
  */
 export interface Menu {
   id: number;
+  seo: {
+    title: string;
+    description: string;
+    /**
+     * Must be 1200x630 (1.91:1 aspect ratio). This will be displayed when the page is shared on social media.
+     */
+    image?: (number | null) | Media;
+  };
   strategy: {
     title: string;
     heading: string;
@@ -1031,6 +1063,14 @@ export interface Menu {
  */
 export interface About {
   id: number;
+  seo: {
+    title: string;
+    description: string;
+    /**
+     * Must be 1200x630 (1.91:1 aspect ratio). This will be displayed when the page is shared on social media.
+     */
+    image?: (number | null) | Media;
+  };
   /**
    * Landscape image
    */
@@ -1055,6 +1095,14 @@ export interface About {
  */
 export interface BrandQuestionnaire {
   id: number;
+  seo: {
+    title: string;
+    description: string;
+    /**
+     * Must be 1200x630 (1.91:1 aspect ratio). This will be displayed when the page is shared on social media.
+     */
+    image?: (number | null) | Media;
+  };
   description: string;
   brandAttributes: {
     left: string;
@@ -1075,6 +1123,13 @@ export interface BrandQuestionnaire {
  * via the `definition` "homepage_select".
  */
 export interface HomepageSelect<T extends boolean = true> {
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   intro?:
     | T
     | {
@@ -1144,6 +1199,13 @@ export interface HomepageSelect<T extends boolean = true> {
  * via the `definition` "works-global_select".
  */
 export interface WorksGlobalSelect<T extends boolean = true> {
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   categories?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1154,6 +1216,13 @@ export interface WorksGlobalSelect<T extends boolean = true> {
  * via the `definition` "snaps-global_select".
  */
 export interface SnapsGlobalSelect<T extends boolean = true> {
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   productCategories?: T;
   portraitCategories?: T;
   updatedAt?: T;
@@ -1165,6 +1234,13 @@ export interface SnapsGlobalSelect<T extends boolean = true> {
  * via the `definition` "menu_select".
  */
 export interface MenuSelect<T extends boolean = true> {
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   strategy?:
     | T
     | {
@@ -1203,6 +1279,13 @@ export interface MenuSelect<T extends boolean = true> {
  * via the `definition` "about_select".
  */
 export interface AboutSelect<T extends boolean = true> {
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   banner?: T;
   thumbnail?: T;
   cover?: T;
@@ -1218,6 +1301,13 @@ export interface AboutSelect<T extends boolean = true> {
  * via the `definition` "brand-questionnaire_select".
  */
 export interface BrandQuestionnaireSelect<T extends boolean = true> {
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   description?: T;
   brandAttributes?:
     | T

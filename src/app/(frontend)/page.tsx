@@ -13,20 +13,30 @@ import RoundedLinks from "@/components/sections/home/RoundedLinks";
 import SecretIngredientReveal from "@/components/sections/home/SecretIngredientReveal";
 import Services from "@/components/sections/home/Services";
 import StickySidebar from "@/components/StickySidebar";
+import { getMetadata } from "@/lib/utils/metadata";
 
-export const revalidate = 3600; // 1 hour
+export const revalidate = 86400; // 1 day
 
-export const metadata: Metadata = {
-  title: "Simmer Studios",
-  description: ""
-};
-
-export default async function HomePage() {
+async function getHomepage() {
   const payload = await getPayload({ config });
 
-  const homepage = await payload.findGlobal({
+  return payload.findGlobal({
     slug: "homepage"
   });
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { seo } = await getHomepage();
+
+  return getMetadata({
+    title: seo.title,
+    description: seo.description,
+    image: seo.image
+  });
+}
+
+export default async function HomePage() {
+  const homepage = await getHomepage();
 
   return (
     <>

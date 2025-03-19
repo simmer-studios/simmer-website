@@ -1,6 +1,8 @@
 import { revalidatePath } from "next/cache";
 import { Field, GlobalConfig } from "payload";
 
+import { SEOField } from "../fields/SEO";
+
 const INTRO_FIELD: Field[] = [
   {
     name: "title",
@@ -130,5 +132,5 @@ export const Homepage: GlobalConfig = {
       }
     ]
   },
-  fields: [IntroSection, ServicesSection]
+  fields: [SEOField, IntroSection, ServicesSection]
 };

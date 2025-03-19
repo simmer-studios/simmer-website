@@ -1,5 +1,6 @@
 import config from "@payload-config";
-import { getPayload } from "payload";
+import { Metadata } from "next";
+import { BasePayload, getPayload } from "payload";
 
 import ContentWrapper from "@/components/ContentWrapper";
 import Footer from "@/components/Footer";
@@ -8,24 +9,29 @@ import ClientList from "@/components/sections/about/ClientList";
 import Hero from "@/components/sections/about/Hero";
 import MemberCards from "@/components/sections/about/MemberCards";
 import StickySidebar from "@/components/StickySidebar";
+import { getMetadata } from "@/lib/utils/metadata";
 
-export const revalidate = 3600; // 1 hour
+export const revalidate = 86400; // 1 day
+
+const getAboutPage = async (payload: BasePayload) => {
+  return payload.findGlobal({
+    slug: "about"
+  });
+};
 
 const getPageData = async () => {
   const payload = await getPayload({ config });
 
-  const aboutPagePromise = payload.findGlobal({
-    slug: "about"
-  });
+  const aboutPagePromise = getAboutPage(payload);
 
   const creativesPromise = payload.find({
     collection: "creatives",
-    sort: ["+order"]
+    sort: ["order"],
+    limit: 100
   });
 
   const clientsPromise = payload.find({
     collection: "clients",
-    showHiddenFields: true,
     sort: ["-name"]
   });
 
@@ -42,11 +48,15 @@ const getPageData = async () => {
   };
 };
 
-export function generateMetadata() {
-  return {
-    title: "About | Simmer Studios",
-    description: "Simmer Studios is a creative agency."
-  };
+export async function generateMetadata(): Promise<Metadata> {
+  const payload = await getPayload({ config });
+  const { seo } = await getAboutPage(payload);
+
+  return getMetadata({
+    title: seo.title,
+    description: seo.description,
+    image: seo.image
+  });
 }
 
 export default async function AboutPage() {

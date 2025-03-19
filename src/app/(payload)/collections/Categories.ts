@@ -9,15 +9,13 @@ export const Categories: CollectionConfig = {
   hooks: {
     afterChange: [
       () => {
-        revalidatePath("/about");
-        revalidatePath("/works", "layout");
+        revalidatePath("/works");
         revalidatePath("/snap");
       }
     ],
     afterDelete: [
       () => {
-        revalidatePath("/about");
-        revalidatePath("/works", "layout");
+        revalidatePath("/works");
         revalidatePath("/snap");
       }
     ]

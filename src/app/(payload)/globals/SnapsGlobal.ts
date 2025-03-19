@@ -1,6 +1,8 @@
 import { revalidatePath } from "next/cache";
 import { GlobalConfig } from "payload";
 
+import { SEOField } from "../fields/SEO";
+
 export const SnapsGlobal: GlobalConfig = {
   slug: "snaps-global",
   label: "Snaps Page",
@@ -12,6 +14,7 @@ export const SnapsGlobal: GlobalConfig = {
     ]
   },
   fields: [
+    SEOField,
     {
       name: "productCategories",
       label: "Product Categories",

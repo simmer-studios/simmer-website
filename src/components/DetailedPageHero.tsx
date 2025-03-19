@@ -63,14 +63,14 @@ const DetailedPageHero: FC<HTMLProps<HTMLElement> & Props> = ({
           </div>
         </div>
       </div>
-      <div className="row order-2 flex gap-10 px-10 lg:order-3 lg:px-20 xl:px-28">
+      <div className="row order-2 flex gap-5 px-10 lg:order-3 lg:px-20 xl:px-28">
         {/* Project Name */}
         <div className="flex flex-1 justify-center lg:justify-start">
-          <h1 className="max-w-min break-words text-center font-adelle-mono text-7xl font-bold uppercase leading-none tracking-tighter sm:text-8xl lg:text-left lg:text-8xl xl:text-[6.5rem] min-[1440px]:text-[7rem] min-[1600px]:text-[9rem]">
+          <h1 className="break-words text-center font-adelle-mono text-7xl font-bold uppercase leading-none tracking-tighter sm:text-8xl lg:text-left lg:text-8xl xl:text-[6.5rem] min-[1440px]:text-[7rem] min-[1600px]:text-[9rem]">
             {name}
           </h1>
         </div>
-        <div className="hidden min-w-max flex-1 flex-wrap justify-end lg:flex lg:flex-shrink-0">
+        <div className="hidden min-w-max flex-shrink-0 flex-wrap justify-end lg:flex">
           <div className="flex -translate-y-5 items-end gap-4">
             <ArrowDown />
             <p className="translate-y-3 text-nowrap font-articulat tracking-tight lg:text-6xl">

@@ -23,13 +23,15 @@ export const Projects: CollectionConfig = {
   },
   hooks: {
     afterChange: [
-      () => {
-        revalidatePath("/works", "layout");
+      ({ doc }) => {
+        revalidatePath("/works");
+        revalidatePath(`/works/${doc.slug}`);
       }
     ],
     afterDelete: [
-      () => {
-        revalidatePath("/works", "layout");
+      ({ doc }) => {
+        revalidatePath("/works");
+        revalidatePath(`/works/${doc.slug}`);
       }
     ]
   },
@@ -43,7 +45,7 @@ export const Projects: CollectionConfig = {
       admin: {
         width: "50%",
         description:
-          "Only two features projects will be displayed on the works page"
+          "Only two featured projects will be displayed on the works page"
       }
     },
     {

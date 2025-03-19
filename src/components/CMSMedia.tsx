@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ComponentProps, FC, HTMLProps } from "react";
 
-import { getMediaType, isValidImage } from "@/lib/utils";
+import { cn, getAspectRatio, getMediaType, isValidImage } from "@/lib/utils";
 import { type Media } from "@/payload-types";
 
 interface Props {
@@ -11,6 +11,8 @@ interface Props {
 
 const CMSMedia: FC<Omit<HTMLProps<HTMLElement>, "media"> & Props> = ({
   media,
+  width,
+  height,
   loading,
   className,
   ...props
@@ -30,7 +32,9 @@ const CMSMedia: FC<Omit<HTMLProps<HTMLElement>, "media"> & Props> = ({
           src={media.url}
           alt={media.alt || ""}
           loading={loading}
-          fill
+          width={width ? Number(width) : undefined}
+          height={height ? Number(height) : undefined}
+          fill={width && height ? false : true}
           className={className}
         />
       );
@@ -43,8 +47,15 @@ const CMSMedia: FC<Omit<HTMLProps<HTMLElement>, "media"> & Props> = ({
           loop
           muted
           controls={props.controls ?? true}
-          poster="/images/img_placeholder.jpg"
-          className={className}
+          poster={media.thumbnailURL ?? "/images/img_placeholder.jpg"}
+          style={{
+            width: width ? Number(width) : undefined,
+            height: height ? Number(height) : undefined
+          }}
+          className={cn(
+            { "absolute h-full w-full": !width && !height },
+            className
+          )}
         />
       );
 

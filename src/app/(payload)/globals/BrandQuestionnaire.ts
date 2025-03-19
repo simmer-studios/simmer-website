@@ -1,6 +1,8 @@
 import { revalidatePath } from "next/cache";
 import { GlobalConfig } from "payload";
 
+import { SEOField } from "../fields/SEO";
+
 export const BrandQuestionnaire: GlobalConfig = {
   slug: "brand-questionnaire",
   label: "Brand Questionnaire",
@@ -12,6 +14,7 @@ export const BrandQuestionnaire: GlobalConfig = {
     ]
   },
   fields: [
+    SEOField,
     {
       name: "description",
       label: "Description",

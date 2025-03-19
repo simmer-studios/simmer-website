@@ -1,4 +1,5 @@
 import config from "@payload-config";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 
@@ -8,6 +9,7 @@ import DetailedPageHero from "@/components/DetailedPageHero";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import StickySidebar from "@/components/StickySidebar";
+import { getMetadata } from "@/lib/utils/metadata";
 
 interface Props {
   params: Promise<{
@@ -15,11 +17,25 @@ interface Props {
   }>;
 }
 
-export const revalidate = 3600; // 1 hour
+export const revalidate = 86400; // 1 day
+export const dynamicParams = true;
+// export const dynamic = "force-static";
 
-export default async function SimmerSnapsInvidiualPage({ params }: Props) {
-  const { slug } = await params;
+export async function generateStaticParams() {
+  const payload = await getPayload({ config });
 
+  const snaps = await payload.find({
+    collection: "snaps",
+    limit: 100,
+    sort: ["-date"]
+  });
+
+  return snaps.docs.map(({ slug }) => ({
+    slug
+  }));
+}
+
+async function getSnap(slug: string) {
   const payload = await getPayload({ config });
 
   const snaps = await payload.find({
@@ -37,6 +53,23 @@ export default async function SimmerSnapsInvidiualPage({ params }: Props) {
     return notFound();
   }
 
+  return snap;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const snap = await getSnap(slug);
+
+  return getMetadata({
+    title: snap.name,
+    description: snap.description,
+    image: snap.cover
+  });
+}
+
+export default async function SnapDetailsPage({ params }: Props) {
+  const { slug } = await params;
+  const snap = await getSnap(slug);
   const content = snap.content;
 
   return (
@@ -49,7 +82,7 @@ export default async function SimmerSnapsInvidiualPage({ params }: Props) {
       <main className="border-b-2 border-black bg-black">
         <ContentWrapper>
           <StickySidebar theme="dark" className="mt-32 border-r-0" />
-          <div className="basis-full space-y-20 overflow-hidden bg-simmer-white pb-20 lg:rounded-tl-[8rem]">
+          <div className="basis-full space-y-20 overflow-hidden bg-simmer-white lg:rounded-tl-[8rem]">
             <DetailedPageHero
               thumbnail={snap.thumbnail}
               cover={snap.cover}

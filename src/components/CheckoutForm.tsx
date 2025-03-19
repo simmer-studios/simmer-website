@@ -1,43 +1,149 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, type Variants } from "motion/react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { ChangeEvent, FC, HTMLProps, useEffect, useState } from "react";
+import { FC, HTMLProps, useEffect, useState } from "react";
 import { FieldError, useForm } from "react-hook-form";
-import { z } from "zod";
 
+import { processCheckout } from "@/app/(frontend)/checkout/action";
+import { CheckoutData, checkoutSchema } from "@/app/(frontend)/checkout/schema";
 import AMPERSAND from "@/assets/checkout/ampersand.svg";
 import CheckoutHeaderLG from "@/components/sections/checkout/CheckoutHeaderLG";
 import CheckoutHeaderSM from "@/components/sections/checkout/CheckoutHeaderSM";
+import { useCart } from "@/contexts/CartContext";
+import { useAnalytics } from "@/hooks/useAnalytics";
 import { cn } from "@/lib/utils";
 
-import { Form, FormControl, FormField, FormItem } from "./ui/Form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  useFormField
+} from "./ui/Form";
+
+interface CheckoutFormProps {
+  onSubmitSuccess: () => void;
+}
+
+interface MultiLineFormFieldProps extends HTMLProps<HTMLTextAreaElement> {
+  label: string;
+}
+
+interface SingleLineFormFieldProps extends HTMLProps<HTMLInputElement> {
+  label: string;
+}
+
+const formAnimation: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
+const containerAnimation: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+};
 
 const CheckoutItemList = dynamic(() => import("./CheckoutItemList"), {
   ssr: false,
   loading: () => <p>Loading checkout item list...</p>
 });
 
-const formSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  mobile: z.string().min(11, "Mobile number is required"),
-  brand: z.string().min(1, "Brand name is required"),
-  budget: z.string().min(1, "Budget is required"),
-  // orders: z.array(z.object({ serviceName: z.string(), serviceId: z.string() })),
-  brandDescription: z.string().min(1, "Brand description is required"),
-  referralSource: z.string().min(1, "Referral source is required")
-});
+const LOCALS_STORAGE_KEY = "simmer-checkout-form";
 
-interface CheckoutFormProps {
-  onSubmit: () => Promise<void>;
-}
+const FORM_DEFAULT_VALUES: CheckoutData = {
+  name: "",
+  email: "",
+  contactNumber: "+63",
+  brandName: "",
+  brandDetails: "",
+  budget: "",
+  referralSource: "",
+  orders: [],
+  isDiscounted: false
+};
 
-const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
-  const [budgetAmount, setBudgetAmount] = useState<string>("$$$$");
+const CheckoutForm = ({ onSubmitSuccess }: CheckoutFormProps) => {
+  const [formattedBudgetAmount, setFormattedBudgetAmount] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { items, isDiscounted, clearCart } = useCart();
+  const { captureEvent } = useAnalytics();
+
+  const form = useForm<CheckoutData>({
+    mode: "onTouched",
+    resolver: zodResolver(checkoutSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      contactNumber: "+63",
+      brandName: "",
+      brandDetails: "",
+      budget: "",
+      referralSource: "",
+      orders: [],
+      isDiscounted: isDiscounted
+    }
+  });
+
+  const { watch, setValue } = form;
+
+  const getFormattedBudget = (value?: string) => {
+    if (!value) {
+      return "";
+    }
+
+    const rawValue = value.replace(/[^0-9]/g, "");
+    const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return formattedValue ?? "";
+  };
+
+  // Load stored form values on mount
+  useEffect(() => {
+    const storedValues = localStorage.getItem(LOCALS_STORAGE_KEY);
+
+    if (!storedValues) {
+      return;
+    }
+
+    try {
+      const parsedValues = JSON.parse(storedValues) as CheckoutData;
+      const formattedBudget = getFormattedBudget(parsedValues.budget);
+      setFormattedBudgetAmount(formattedBudget);
+      Object.entries(parsedValues).forEach(([key, value]) => {
+        setValue(key as keyof CheckoutData, value);
+      });
+    } catch (error) {
+      console.error("Error parsing checkout data from localStorage", error);
+    }
+  }, [setValue]);
+
+  // Watch form values and store in localStorage
+  useEffect(() => {
+    const subscription = watch((checkoutData) => {
+      localStorage.setItem(LOCALS_STORAGE_KEY, JSON.stringify(checkoutData));
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
+  // Sync the orders field with the items in the cart
+  useEffect(() => {
+    form.setValue("orders", items);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items]);
+
+  // Sync the isDiscounted field with the isDiscounted state
+  useEffect(() => {
+    form.setValue("isDiscounted", isDiscounted);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDiscounted]);
 
   useEffect(() => {
     if (isSubmitting) {
@@ -45,51 +151,29 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
     }
   }, [isSubmitting]);
 
-  const handleOnBudgetChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value.replace(/[^0-9]/g, "");
-    const formattedValue = rawValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    setBudgetAmount(formattedValue ? `${formattedValue}` : "");
-  };
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    mode: "onChange",
-    defaultValues: {
-      name: "",
-      email: "",
-      mobile: "",
-      brand: "",
-      brandDescription: "",
-      budget: "",
-      // orders: [],
-      referralSource: ""
-    }
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Only called if the form data is valid
+  const handleSubmit = async (data: CheckoutData) => {
     setIsSubmitting(true);
-    await onSubmit();
-  };
-
-  const formAnimation = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
-
-  const containerAnimation = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
+    const { success, message, errors } = await processCheckout(data);
+    if (success) {
+      form.reset();
+      captureEvent("CHECKOUT_SUCCESSFUL", data);
+      clearCart();
+      onSubmitSuccess();
+    } else {
+      console.error(message, errors);
     }
+    setIsSubmitting(false);
   };
 
   return (
-    <div className="relative min-h-screen">
+    <motion.div
+      key="checkout-form"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="relative min-h-screen"
+    >
       <AnimatePresence>
         {isSubmitting && (
           <motion.div
@@ -128,7 +212,6 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
           </motion.div>
         )}
       </AnimatePresence>
-
       <CheckoutHeaderSM className="flex lg:hidden" />
       <CheckoutHeaderLG className="hidden lg:flex" />
       <Form {...form}>
@@ -137,7 +220,9 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
           animate="visible"
           variants={containerAnimation}
           className="auto-fill-none text-simmer-white"
-          onSubmit={handleSubmit}
+          onSubmit={form.handleSubmit(handleSubmit, (errors) => {
+            console.error(errors);
+          })}
         >
           {/* full width field */}
           <motion.div
@@ -149,7 +234,7 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
               className="px-5 py-3 text-3xl leading-none sm:text-5xl lg:px-7 lg:py-4 lg:text-8xl"
             >
               <span className="inline-block translate-y-0.5 font-adelle-mono-flex">
-                NAME
+                NAME*
               </span>
             </label>
             <FormField
@@ -159,10 +244,10 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
                 <FormItem className="flex w-full">
                   <FormControl>
                     <input
+                      {...field}
                       type="text"
                       placeholder="Name Here"
                       required
-                      {...field}
                       className="w-full bg-transparent px-5 pt-1 font-fionas text-xl font-semibold placeholder:leading-[-0.9] placeholder:text-simmer-white focus:outline-none sm:text-3xl lg:text-6xl lg:font-medium"
                     />
                   </FormControl>
@@ -178,34 +263,34 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
             {/* LEFT - field list */}
             <div className="divide-y-2 divide-simmer-white">
               <FormField
+                /* EMAIL */
                 control={form.control}
                 name="email"
                 render={({ field, fieldState }) => (
                   <FormItem>
                     <FormControl>
                       <SingleLineFormField
-                        label="EMAIL"
+                        {...field}
+                        label="EMAIL*"
                         type="email"
                         placeholder="name@brand.com"
-                        error={fieldState.error}
                         required
-                        {...field}
                       />
                     </FormControl>
                   </FormItem>
                 )}
               />
               <FormField
+                /* MOBILE NUMBER */
                 control={form.control}
-                name="mobile"
+                name="contactNumber"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <SingleLineFormField
-                        label="MOBILE"
+                        {...field}
+                        label="MOBILE*"
                         type="text"
-                        defaultValue="+63"
-                        {...field}
                         required
                       />
                     </FormControl>
@@ -213,13 +298,15 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
                 )}
               />
               <FormField
+                /* BRAND NAME */
                 control={form.control}
-                name="brand"
+                name="brandName"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <SingleLineFormField
-                        label="BRAND"
+                        {...field}
+                        label="BRAND*"
                         type="text"
                         placeholder="What's your brand name/field?"
                         required
@@ -229,33 +316,42 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
                 )}
               />
               <FormField
+                /* BUDGET */
                 control={form.control}
-                name="brand"
+                name="budget"
                 render={({ field }) => (
                   <FormItem className="block lg:hidden">
                     <FormControl>
                       <SingleLineFormField
+                        {...field}
                         label="BUDGET"
                         type="text"
-                        value={`₱ ${field.value}`}
+                        value={formattedBudgetAmount}
                         placeholder="How much is your budget?"
-                        required
+                        onChange={(event) => {
+                          const formattedValue = getFormattedBudget(
+                            event.currentTarget.value
+                          );
+                          form.setValue("budget", formattedValue);
+                          setFormattedBudgetAmount(formattedValue);
+                        }}
                       />
                     </FormControl>
                   </FormItem>
                 )}
               />
               <FormField
+                /* BRAND DETAILS */
                 control={form.control}
-                name="brandDescription"
+                name="brandDetails"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <MultiLineFormField
-                        label="REQUIRED FIELD"
-                        required
                         {...field}
+                        label="BRAND DETAILS*"
                         placeholder="Tell us something about your brand here."
+                        required
                       />
                     </FormControl>
                   </FormItem>
@@ -274,8 +370,14 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
                     name="budget"
                     className="flex w-full bg-transparent font-fionas text-9xl text-simmer-white placeholder:text-simmer-white focus:outline-none"
                     placeholder="$$$$"
-                    value={budgetAmount}
-                    onChange={handleOnBudgetChange}
+                    value={formattedBudgetAmount}
+                    onChange={(event) => {
+                      const formattedValue = getFormattedBudget(
+                        event.currentTarget.value
+                      );
+                      form.setValue("budget", formattedValue);
+                      setFormattedBudgetAmount(formattedValue);
+                    }}
                   />
                 </div>
                 <Image
@@ -299,7 +401,7 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
           >
             <div className="grid min-h-[60px] items-center gap-2 text-2xl leading-none sm:text-3xl lg:gap-5 lg:text-xl">
               <span className="block translate-y-0.5 border-b-2 border-simmer-white px-5 py-2.5 font-adelle-mono-flex lg:border-none lg:pb-0 lg:pt-5 lg:font-articulat lg:font-bold">
-                WHERE DID YOU FIND US?
+                WHERE DID YOU FIND US?*
               </span>
               <div className="px-5 pb-16">
                 <FormField
@@ -333,28 +435,22 @@ const CheckoutForm = ({ onSubmit }: CheckoutFormProps) => {
           </motion.div>
         </motion.form>
       </Form>
-    </div>
+    </motion.div>
   );
 };
 
-interface SingleLineFormFieldProps {
-  label: string;
-  error?: FieldError | null;
-}
-
-const SingleLineFormField: FC<
-  HTMLProps<HTMLInputElement> & SingleLineFormFieldProps
-> = ({
+const SingleLineFormField: FC<SingleLineFormFieldProps> = ({
   name,
   label,
   placeholder,
   type = "text",
   required = false,
-  defaultValue,
-  error,
+  value,
   className,
-  ...props
+  onChange
 }) => {
+  const { error } = useFormField();
+  console.log(error);
   return (
     <div className={cn("flex divide-x-2 divide-simmer-white", className)}>
       <label
@@ -366,10 +462,12 @@ const SingleLineFormField: FC<
         </span>
       </label>
       <input
+        name={name}
         type={type}
         placeholder={placeholder}
         required={required}
-        defaultValue={defaultValue}
+        value={value}
+        onChange={onChange}
         className={cn(
           "w-full bg-transparent px-5 pt-1 font-fionas text-xl font-semibold text-simmer-yellow placeholder:text-simmer-yellow focus:outline-none sm:text-3xl lg:pt-2 lg:text-5xl lg:font-normal",
           {
@@ -381,12 +479,17 @@ const SingleLineFormField: FC<
   );
 };
 
-const MultiLineFormField: FC<HTMLProps<HTMLInputElement>> = ({
+const MultiLineFormField: FC<MultiLineFormFieldProps> = ({
+  name,
   label,
   placeholder,
+  required,
+  value,
   className,
-  ...props
+  onChange
 }) => {
+  const { error } = useFormField();
+  console.log(error);
   return (
     <div className={cn("grid gap-2 px-5 py-5 lg:gap-5", className)}>
       <div className="">
@@ -395,10 +498,18 @@ const MultiLineFormField: FC<HTMLProps<HTMLInputElement>> = ({
         </span>
       </div>
       <textarea
+        name={name}
         placeholder={placeholder}
-        required
+        value={value}
+        onChange={onChange}
+        required={required}
         rows={5}
-        className="w-full bg-transparent pt-1 text-2xl tracking-tight text-simmer-yellow placeholder:leading-[-0.9] placeholder:text-simmer-yellow focus:outline-none sm:text-3xl lg:text-5xl"
+        className={cn(
+          "w-full bg-transparent pt-1 text-2xl tracking-tight text-simmer-yellow placeholder:leading-[-0.9] placeholder:text-simmer-yellow focus:outline-none sm:text-3xl lg:text-5xl",
+          {
+            "text-red-500": error
+          }
+        )}
       />
     </div>
   );

@@ -2,6 +2,11 @@ import { Block } from "payload";
 
 export const ThreeImages: Block = {
   slug: "ThreeImages",
+  labels: {
+    singular: "Three Media",
+    plural: "Three Media"
+  },
+  imageURL: "/images/cms/three_media.png",
   fields: [
     {
       name: "first",

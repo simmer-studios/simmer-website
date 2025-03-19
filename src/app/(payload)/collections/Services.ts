@@ -12,7 +12,15 @@ export const Services: CollectionConfig = {
         revalidatePath("/");
         revalidatePath("/menu");
         revalidatePath("/works", "layout");
-        revalidatePath("/snap");
+        revalidatePath("/snap", "layout");
+      }
+    ],
+    afterDelete: [
+      () => {
+        revalidatePath("/");
+        revalidatePath("/menu");
+        revalidatePath("/works", "layout");
+        revalidatePath("/snap", "layout");
       }
     ]
   },
@@ -23,7 +31,9 @@ export const Services: CollectionConfig = {
       type: "checkbox",
       admin: {
         description: "Mark this service as a specialty on the menu"
-      }
+      },
+      required: true,
+      defaultValue: false
     },
     {
       name: "name",
