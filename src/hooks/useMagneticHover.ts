@@ -1,9 +1,32 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const useMagneticHover = (strength: number = 40) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [isEnabled, setIsEnabled] = useState(false);
 
   useEffect(() => {
+    // Check if hover is supported and screen size is > 768px
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    const hasHoverSupport = window.matchMedia("(hover: hover)").matches;
+
+    const updateEnabled = () => {
+      setIsEnabled(mediaQuery.matches && hasHoverSupport);
+    };
+
+    // Initial check
+    updateEnabled();
+
+    // Listen for changes
+    mediaQuery.addEventListener("change", updateEnabled);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateEnabled);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isEnabled) return;
+
     const element = ref.current;
     if (!element) return;
 
@@ -58,7 +81,7 @@ export const useMagneticHover = (strength: number = 40) => {
       parent.removeEventListener("mousemove", handleMouseMove);
       parent.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [strength]);
+  }, [strength, isEnabled]);
 
   return ref;
 };
