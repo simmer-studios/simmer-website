@@ -144,7 +144,7 @@ const ServiceText: FC<PropsWithChildren<ServiceTextProps>> = ({
   return (
     <p
       className={cn(
-        "font-articulat text-[3rem] font-bold leading-none min-[500px]:text-[3.3rem] sm:text-[5rem] md:text-[5.8rem] lg:text-[6.5rem] xl:text-[8rem] 2xl:text-[9.5rem]",
+        "font-articulat text-[2.5rem] font-bold leading-none min-[500px]:text-[3.3rem] sm:text-[5rem] md:text-[5.8rem] lg:text-[6.5rem] xl:text-[8rem] 2xl:text-[9.5rem]",
         {
           "font-medium italic": variant === "thin-italic"
         }
