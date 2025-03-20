@@ -72,7 +72,7 @@ const Footer = () => {
           variants={container}
           initial="hidden"
           animate={isInView ? "show" : "hidden"}
-          className="order-3 mt-32 flex flex-col items-center gap-20 lg:mt-0 lg:flex-row lg:items-end lg:justify-between"
+          className="order-3 mt-32 flex flex-col items-center gap-20 overflow-hidden lg:mt-0 lg:flex-row lg:items-end lg:justify-between"
         >
           <motion.div
             variants={itemLeft}
