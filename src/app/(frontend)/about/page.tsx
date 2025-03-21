@@ -32,7 +32,7 @@ const getPageData = async () => {
 
   const clientsPromise = payload.find({
     collection: "clients",
-    sort: ["-name"],
+    sort: ["-featured", "name"],
     limit: 100
   });
 
