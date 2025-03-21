@@ -32,7 +32,8 @@ const getPageData = async () => {
 
   const clientsPromise = payload.find({
     collection: "clients",
-    sort: ["-name"]
+    sort: ["-name"],
+    limit: 100
   });
 
   const [aboutPage, creativesData, clientsData] = await Promise.all([

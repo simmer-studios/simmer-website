@@ -17,7 +17,9 @@ const ClientList: FC<HTMLProps<HTMLDivElement> & Props> = ({
   description,
   className
 }) => {
-  if (!clients || clients.length < 1) return null;
+  if (!clients || clients.length < 1) {
+    return null;
+  }
 
   const featuredClients = clients.filter((client) => client.featured);
   const otherClients = clients.filter((client) => !client.featured);
