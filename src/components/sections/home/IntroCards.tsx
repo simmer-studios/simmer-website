@@ -27,7 +27,7 @@ const IntroCards: FC<Props> = ({ intro }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="mx-auto mb-[24.82px] bg-black px-10 @container/cards-section md:px-20 xl:mb-8 xl:max-w-[1837px]"
+      className="mx-auto mb-[24.82px] overflow-hidden bg-black px-10 @container/cards-section md:px-20 xl:mb-8 xl:max-w-[1837px]"
     >
       <div className="flex flex-col gap-6 @[75rem]/cards-section:flex-row">
         {/* card 1 */}

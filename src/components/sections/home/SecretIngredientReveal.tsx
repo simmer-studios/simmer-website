@@ -151,7 +151,7 @@ const Ticket: FC<HTMLProps<HTMLDivElement> & TicketProps> = ({
         01
       </span>
       <div>
-        <h2 className="text-balance font-articulat text-5xl font-medium tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl 2xl:text-9xl">
+        <h2 className="text-balance font-articulat text-5xl font-medium tracking-tighter sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl">
           Guess our secret ingredient for a surprise.
         </h2>
       </div>
