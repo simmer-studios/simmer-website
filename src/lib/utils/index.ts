@@ -24,6 +24,36 @@ export function validateUrl(value: unknown): string | true {
   }
 }
 
+type CommonMedia = number | Media | null | undefined;
+
+export function isValidMedia(
+  media: CommonMedia | CommonMedia[]
+): media is Media | Media[] {
+  if (Array.isArray(media)) {
+    return media.every((item) => {
+      if (!item || typeof item === "number") {
+        return false;
+      }
+
+      if (item.url && item.mimeType) {
+        return true;
+      }
+
+      return false;
+    });
+  }
+
+  if (!media || typeof media === "number") {
+    return false;
+  }
+
+  if (media.url && media.mimeType) {
+    return true;
+  }
+
+  return false;
+}
+
 export function getMediaType(mimeType: Media["mimeType"]) {
   if (mimeType?.startsWith("image")) {
     return "image";
