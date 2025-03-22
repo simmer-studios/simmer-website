@@ -1,6 +1,6 @@
 import { FC, HTMLProps } from "react";
 
-import { cn, isValidImage } from "@/lib/utils";
+import { cn, isValidImage, isValidMedia } from "@/lib/utils";
 import { Media } from "@/payload-types";
 
 import CMSMedia from "./CMSMedia";
@@ -10,6 +10,8 @@ interface Props {
   secondImage: Media | number;
   thirdImage: Media | number;
 }
+
+const ImageBlockStyles = cn("relative aspect-square");
 
 const ThreePanelGallery: FC<HTMLProps<HTMLDivElement> & Props> = ({
   firstImage,
@@ -27,35 +29,26 @@ const ThreePanelGallery: FC<HTMLProps<HTMLDivElement> & Props> = ({
 
   return (
     <section className={cn("", className)}>
-      <div className="grid grid-cols-1 gap-4 divide-black border-black lg:grid-cols-3 lg:gap-0 lg:divide-x-2 lg:border-y-2">
-        <div
-          className="relative aspect-[3/4] lg:aspect-square"
-          key={firstImage.id}
-        >
+      <div className="grid grid-cols-1 divide-black border-black sm:grid-cols-3 sm:divide-x-2 sm:border-y-2">
+        <div key={firstImage.id} className={ImageBlockStyles}>
           <CMSMedia
             media={firstImage}
-            className="absolute h-full w-full object-cover"
             controls={false}
+            className="object-cover"
           />
         </div>
-        <div
-          className="relative aspect-[3/4] lg:aspect-square"
-          key={secondImage.id}
-        >
+        <div key={secondImage.id} className={ImageBlockStyles}>
           <CMSMedia
             media={secondImage}
-            className="absolute h-full w-full object-cover"
             controls={false}
+            className="object-cover"
           />
         </div>
-        <div
-          className="relative aspect-[3/4] lg:aspect-square"
-          key={thirdImage.id}
-        >
+        <div key={thirdImage.id} className={ImageBlockStyles}>
           <CMSMedia
             media={thirdImage}
-            className="absolute h-full w-full object-cover"
             controls={false}
+            className="object-cover"
           />
         </div>
       </div>
