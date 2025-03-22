@@ -1,6 +1,6 @@
 import { FC, HTMLProps } from "react";
 
-import { cn, isValidImage, isValidMedia } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Media } from "@/payload-types";
 
 import CMSMedia from "./CMSMedia";
