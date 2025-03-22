@@ -82,7 +82,7 @@ export default async function ProjectDetailsPage({ params }: Props) {
       <main className="bg-black">
         <ContentWrapper>
           <StickySidebar theme="dark" className="mt-32 border-r-0" />
-          <div className="basis-full space-y-20 overflow-hidden bg-simmer-white lg:rounded-tl-[8rem]">
+          <div className="basis-full space-y-20 overflow-hidden border-b-2 border-black bg-simmer-white pb-20 lg:rounded-tl-[8rem]">
             <DetailedPageHero
               thumbnail={project.thumbnail}
               cover={project.cover}
