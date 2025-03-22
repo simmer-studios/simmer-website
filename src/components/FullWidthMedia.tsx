@@ -10,8 +10,8 @@ interface Props {
 
 const FullWidthMedia: FC<Props> = ({ media }) => {
   return (
-    <section className="relative min-h-dvh overflow-hidden">
-      <CMSMedia media={media} className="absolute h-full w-full object-cover" />
+    <section className="relative aspect-video w-full overflow-hidden">
+      <CMSMedia media={media} className="object-cover" />
     </section>
   );
 };
