@@ -11,7 +11,7 @@ interface Props {
   thirdImage: Media | number;
 }
 
-const ImageBlockStyles = cn("relative aspect-square");
+const ImageBlockStyles = cn("relative aspect-square bg-black");
 
 const ThreePanelGallery: FC<HTMLProps<HTMLDivElement> & Props> = ({
   firstImage,
@@ -34,21 +34,21 @@ const ThreePanelGallery: FC<HTMLProps<HTMLDivElement> & Props> = ({
           <CMSMedia
             media={firstImage}
             controls={false}
-            className="object-cover"
+            className="object-contain"
           />
         </div>
         <div key={secondImage.id} className={ImageBlockStyles}>
           <CMSMedia
             media={secondImage}
             controls={false}
-            className="object-cover"
+            className="object-contain"
           />
         </div>
         <div key={thirdImage.id} className={ImageBlockStyles}>
           <CMSMedia
             media={thirdImage}
             controls={false}
-            className="object-cover"
+            className="object-contain"
           />
         </div>
       </div>
