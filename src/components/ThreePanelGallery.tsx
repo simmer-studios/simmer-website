@@ -34,21 +34,21 @@ const ThreePanelGallery: FC<HTMLProps<HTMLDivElement> & Props> = ({
           <CMSMedia
             media={firstImage}
             controls={false}
-            className="object-contain"
+            className="object-cover"
           />
         </div>
         <div key={secondImage.id} className={ImageBlockStyles}>
           <CMSMedia
             media={secondImage}
             controls={false}
-            className="object-contain"
+            className="object-cover"
           />
         </div>
         <div key={thirdImage.id} className={ImageBlockStyles}>
           <CMSMedia
             media={thirdImage}
             controls={false}
-            className="object-contain"
+            className="object-cover"
           />
         </div>
       </div>
