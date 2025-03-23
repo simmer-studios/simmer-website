@@ -125,7 +125,7 @@ export const EmailTemplate: React.FC<Readonly<Questionnaire>> = ({
       <p>
         <b>Brand Details:</b> {brandDetails}
       </p>
-
+      <br />
       <h3>Brand Questionnaire: </h3>
       {questions.map(([question, answer]) => (
         <div key={question}>
@@ -135,12 +135,10 @@ export const EmailTemplate: React.FC<Readonly<Questionnaire>> = ({
           <p>{answer}</p>
         </div>
       ))}
-
+      <br />
       <h3>Brand Attributes: </h3>
       <Sliders attributes={mappedAttributes} />
-
       <br />
-
       <p>
         <i>You may reply directly to this email to contact the client.</i>
       </p>

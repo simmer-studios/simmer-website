@@ -80,7 +80,7 @@ const BrandingForm: FC<BrandingFormProps> = ({
         />
         <MultiLineFormField
           name="brandDetails"
-          label="ELEVATOR PITCH*"
+          label="ELEVATOR PITCH"
           placeholder="Your brand in 3-5 sentences"
           required
         />
