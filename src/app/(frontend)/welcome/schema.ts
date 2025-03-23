@@ -2,8 +2,8 @@ import { z } from "zod";
 
 const CONFIG = {
   string: {
-    min: 3,
-    max: 255
+    min: 1,
+    max: 1000
   }
 };
 
