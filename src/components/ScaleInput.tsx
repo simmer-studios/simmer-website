@@ -2,13 +2,13 @@ import { cn } from "@/lib/utils";
 
 import Slider from "./ui/Slider";
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
   leftLabel: string;
   rightLabel: string;
 }
 
-const ScaleInput: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = ({
+const ScaleInput: React.FC<Props> = ({
   name,
   className,
   leftLabel,

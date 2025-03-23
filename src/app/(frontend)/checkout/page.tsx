@@ -1,6 +1,7 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import { Metadata } from "next";
 import { useState } from "react";
 
 import CheckoutForm from "@/components/CheckoutForm";
@@ -9,6 +10,10 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import CheckoutSuccess from "@/components/sections/checkout/CheckoutSuccess";
 import StickySidebar from "@/components/StickySidebar";
+
+export const metadata: Metadata = {
+  title: "Checkout | Simmer Studios"
+};
 
 /* CHECKOUT PAGE */
 export default function CheckoutPage() {
