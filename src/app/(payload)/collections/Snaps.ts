@@ -162,7 +162,8 @@ export const Snaps: CollectionConfig = {
       type: "text",
       validate: validateUrl,
       admin: {
-        width: "50%"
+        width: "50%",
+        description: "Link to their website or social media"
       }
     },
     {
