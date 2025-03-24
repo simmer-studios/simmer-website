@@ -40,13 +40,12 @@ export const Projects: CollectionConfig = {
       type: "checkbox",
       name: "featured",
       label: "Featured",
-      required: true,
-      defaultValue: false,
       admin: {
         width: "50%",
         description:
           "Only two featured projects will be displayed on the works page"
-      }
+      },
+      hidden: true
     },
     {
       type: "row",

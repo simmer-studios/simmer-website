@@ -149,7 +149,7 @@ export interface Project {
   /**
    * Only two featured projects will be displayed on the works page
    */
-  featured: boolean;
+  featured?: boolean | null;
   /**
    * Square image
    */
@@ -354,6 +354,9 @@ export interface Snap {
    * Select the categories this Snap will show up on when filtered
    */
   categories: (number | Category)[];
+  /**
+   * Link to their website or social media
+   */
   websiteUrl?: string | null;
   content?:
     | (
@@ -990,6 +993,10 @@ export interface WorksGlobal {
     image?: (number | null) | Media;
   };
   /**
+   * Select the projects to show as featured on Works page
+   */
+  featuredProjects?: (number | Project)[] | null;
+  /**
    * Select the categories to show as filters on Works page
    */
   categories: (number | Category)[];
@@ -1225,6 +1232,7 @@ export interface WorksGlobalSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  featuredProjects?: T;
   categories?: T;
   updatedAt?: T;
   createdAt?: T;

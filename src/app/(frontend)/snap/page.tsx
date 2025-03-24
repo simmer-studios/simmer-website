@@ -32,7 +32,7 @@ async function getPageData() {
 
   const snapsPromise = payload.find({
     collection: "snaps",
-    limit: 100,
+    limit: 1000,
     sort: ["-date"]
   });
 

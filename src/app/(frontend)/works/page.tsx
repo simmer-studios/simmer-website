@@ -26,36 +26,24 @@ async function getPageData() {
 
   const projectsPromise = payload.find({
     collection: "projects",
-    where: {
-      featured: {
-        equals: false
-      }
-    },
-    limit: 100,
+    limit: 1000,
     sort: ["-date"]
   });
 
-  const featuredProjectsPromise = payload.find({
-    collection: "projects",
-    page: 1,
-    limit: 2,
-    where: {
-      featured: {
-        equals: true
-      }
-    },
-    sort: ["-date"]
-  });
-
-  const [projects, featuredProjects, worksPage] = await Promise.all([
+  const [projects, worksPage] = await Promise.all([
     projectsPromise,
-    featuredProjectsPromise,
     worksPagePromise
   ]);
 
+  const featuredProjects =
+    Array.isArray(worksPage.featuredProjects) &&
+    worksPage.featuredProjects.every((item) => typeof item !== "number")
+      ? worksPage.featuredProjects
+      : [];
+
   return {
     projects: projects.docs,
-    featuredProjects: featuredProjects.docs,
+    featuredProjects,
     categories: worksPage.categories
   };
 }
