@@ -19,7 +19,8 @@ interface BrandingFormProps {
     left: string;
     right: string;
   }[];
-  onSubmit: () => Promise<void>;
+  onSubmit: () => void;
+  onSuccess: () => void;
 }
 
 interface BrandingScaleProps {
@@ -33,17 +34,19 @@ interface BrandingScaleProps {
 const BrandingForm: FC<BrandingFormProps> = ({
   questions,
   sliders,
-  onSubmit
+  onSubmit,
+  onSuccess
 }) => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    onSubmit();
 
     try {
       const formData = new FormData(event.currentTarget);
       const data = Object.fromEntries(formData.entries());
       const parsedData = await questionnaireSchema.parseAsync(data);
       await processQuestionnaire(parsedData);
-      onSubmit();
+      onSuccess();
     } catch (error) {
       console.error(error);
       window.alert("There was an error submitting your form");

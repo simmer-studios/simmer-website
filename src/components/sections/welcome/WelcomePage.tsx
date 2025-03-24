@@ -29,8 +29,9 @@ export default function WelcomePage({ brandingPage }: WelcomePageProps) {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    // Simulate form submission delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+  };
+
+  const handleSuccess = () => {
     setIsSubmitting(false);
     setIsSuccess(true);
   };
@@ -110,6 +111,7 @@ export default function WelcomePage({ brandingPage }: WelcomePageProps) {
                     questions={brandingPage.questions}
                     sliders={brandingPage.brandAttributes}
                     onSubmit={handleSubmit}
+                    onSuccess={handleSuccess}
                   />
                 </motion.div>
               ) : (
