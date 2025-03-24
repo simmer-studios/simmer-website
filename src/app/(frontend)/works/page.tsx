@@ -10,21 +10,13 @@ import { getMetadata } from "@/lib/utils/metadata";
 export const revalidate = 86400; // 1 day
 
 async function getWorksPage(payload: BasePayload) {
-  return payload.findGlobal({
-    slug: "works-global"
-  });
+  return payload.findGlobal({ slug: "works-global" });
 }
 
 export async function generateMetadata(): Promise<Metadata> {
   const payload = await getPayload({ config });
-
-  const worksPage = await getWorksPage(payload);
-
-  return getMetadata({
-    title: worksPage.seo.title,
-    description: worksPage.seo.description,
-    image: worksPage.seo.image
-  });
+  const { seo } = await getWorksPage(payload);
+  return getMetadata(seo);
 }
 
 async function getPageData() {

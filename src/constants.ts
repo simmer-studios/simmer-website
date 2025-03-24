@@ -13,4 +13,11 @@ if (!DOMAIN_NAME) {
   throw new Error("Environment variable DOMAIN_NAME is not set");
 }
 
-export { DOMAIN_NAME, WEBSITE_URL };
+const DEFAULT_METADATA_IMAGE = {
+  url: "/images/simmer_studios_social.png",
+  width: 2836,
+  height: 1664,
+  alt: "Simmer Studios"
+};
+
+export { DEFAULT_METADATA_IMAGE, DOMAIN_NAME, WEBSITE_URL };

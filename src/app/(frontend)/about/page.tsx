@@ -1,6 +1,6 @@
 import config from "@payload-config";
 import { Metadata } from "next";
-import { BasePayload, getPayload } from "payload";
+import { getPayload } from "payload";
 
 import ContentWrapper from "@/components/ContentWrapper";
 import Footer from "@/components/Footer";
@@ -13,23 +13,15 @@ import { getMetadata } from "@/lib/utils/metadata";
 
 export const revalidate = 86400; // 1 day
 
-const getAboutPage = async (payload: BasePayload) => {
-  return payload.findGlobal({
-    slug: "about"
-  });
-};
-
 const getPageData = async () => {
   const payload = await getPayload({ config });
 
-  const aboutPagePromise = getAboutPage(payload);
-
+  const aboutPagePromise = payload.findGlobal({ slug: "about" });
   const creativesPromise = payload.find({
     collection: "creatives",
     sort: ["order"],
     limit: 100
   });
-
   const clientsPromise = payload.find({
     collection: "clients",
     sort: ["-featured", "name"],
@@ -51,13 +43,13 @@ const getPageData = async () => {
 
 export async function generateMetadata(): Promise<Metadata> {
   const payload = await getPayload({ config });
-  const { seo } = await getAboutPage(payload);
-
-  return getMetadata({
-    title: seo.title,
-    description: seo.description,
-    image: seo.image
+  const { seo } = await payload.findGlobal({
+    slug: "about",
+    select: {
+      seo: true
+    }
   });
+  return getMetadata(seo);
 }
 
 export default async function AboutPage() {

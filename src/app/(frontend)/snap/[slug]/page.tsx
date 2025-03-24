@@ -19,7 +19,6 @@ interface Props {
 
 export const revalidate = 86400; // 1 day
 export const dynamicParams = true;
-// export const dynamic = "force-static";
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config });

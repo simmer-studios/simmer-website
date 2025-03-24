@@ -3,7 +3,7 @@ import "./globals.css";
 import { Metadata } from "next";
 
 import SmoothScroll from "@/components/SmoothScroll";
-import { WEBSITE_URL } from "@/constants";
+import { DEFAULT_METADATA_IMAGE, WEBSITE_URL } from "@/constants";
 import { AnimationProvider } from "@/contexts/AnimationContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { PostHogProvider } from "@/providers/PostHogProvider";
@@ -15,7 +15,8 @@ export const metadata: Metadata = {
   title: "Simmer Studios",
   openGraph: {
     siteName: "Simmer Studios",
-    type: "website"
+    type: "website",
+    images: [DEFAULT_METADATA_IMAGE]
   }
 };
 

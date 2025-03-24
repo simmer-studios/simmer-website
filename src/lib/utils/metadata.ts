@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 
+import { DEFAULT_METADATA_IMAGE } from "@/constants";
 import { Media } from "@/payload-types";
 
 import { isValidImage } from "./index";
@@ -20,7 +21,7 @@ export function getMetadata({ title, description, image }: Params): Metadata {
           alt: image.alt ?? ""
         }
       ]
-    : [];
+    : [DEFAULT_METADATA_IMAGE];
 
   return {
     title,

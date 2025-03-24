@@ -1,15 +1,22 @@
+import config from "@payload-config";
 import { Metadata } from "next";
+import { getPayload } from "payload";
 
 import ContentWrapper from "@/components/ContentWrapper";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import StickySidebar from "@/components/StickySidebar";
+import { getMetadata } from "@/lib/utils/metadata";
 
 import { CheckoutContent } from "./CheckoutContent";
 
-export const metadata: Metadata = {
-  title: "Checkout | Simmer Studios"
-};
+export const revalidate = 86400; // 1 day
+
+export async function generateMetadata(): Promise<Metadata> {
+  const payload = await getPayload({ config });
+  const { seo } = await payload.findGlobal({ slug: "checkout" });
+  return getMetadata(seo);
+}
 
 export default function CheckoutPage() {
   return (
