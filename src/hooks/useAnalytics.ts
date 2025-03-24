@@ -1,8 +1,9 @@
 import { usePostHog } from "posthog-js/react";
 
 const AnalyticsEvents = {
-  CHECKOUT_SUCCESSFUL: "checkout_successful",
-  DISCOUNT_APPLIED: "discount_applied"
+  DISCOUNT_APPLIED: "Discount Applied",
+  CHECKOUT_SUCCESSFUL: "Checkout Successful",
+  BRAND_QUESTIONNAIRE_SUBMITTED: "Brand Questionnaire Submitted"
 } as const;
 
 export const useAnalytics = () => {

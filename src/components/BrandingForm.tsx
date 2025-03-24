@@ -2,6 +2,7 @@ import { FC, FormEvent, HTMLProps } from "react";
 
 import { processQuestionnaire } from "@/app/(frontend)/welcome/action";
 import { questionnaireSchema } from "@/app/(frontend)/welcome/schema";
+import { useAnalytics } from "@/hooks/useAnalytics";
 import { cn } from "@/lib/utils";
 
 import ArrowDown from "./icons/ArrowDown";
@@ -37,6 +38,8 @@ const BrandingForm: FC<BrandingFormProps> = ({
   onSubmit,
   onSuccess
 }) => {
+  const { captureEvent } = useAnalytics();
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSubmit();
@@ -45,11 +48,26 @@ const BrandingForm: FC<BrandingFormProps> = ({
       const formData = new FormData(event.currentTarget);
       const data = Object.fromEntries(formData.entries());
       const parsedData = await questionnaireSchema.parseAsync(data);
-      await processQuestionnaire(parsedData);
-      onSuccess();
+      const { success, message, errors } =
+        await processQuestionnaire(parsedData);
+      if (success) {
+        captureEvent("BRAND_QUESTIONNAIRE_SUBMITTED", {
+          name: parsedData.name,
+          email: parsedData.email,
+          brandName: parsedData.brandName
+        });
+        onSuccess();
+      } else {
+        console.error(message, errors);
+        window.alert(
+          "There was an error submitting your form. Please try again later."
+        );
+      }
     } catch (error) {
       console.error(error);
-      window.alert("There was an error submitting your form");
+      window.alert(
+        "There was an error submitting your form. Please try again later."
+      );
     }
   };
 
