@@ -43,7 +43,7 @@ const PortfolioGrid: FC<HTMLProps<HTMLDivElement> & Props> = ({
   };
 
   return (
-    <section className={cn("border-t-2 border-black", className)} {...props}>
+    <section className={cn("", className)} {...props}>
       <motion.div
         ref={ref}
         variants={container}

@@ -15,7 +15,6 @@ import SIMMERING from "@/assets/snap/simmering.svg";
 import SNAPS from "@/assets/snap/snaps.svg";
 import VIDEO from "@/assets/snap/video.svg";
 import SnapsFilterDropdown from "@/components/SnapsFilterDropdown";
-import { Filter } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { SnapsGlobal } from "@/payload-types";
 
@@ -58,19 +57,13 @@ const HeroContentLG: FC<HTMLMotionProps<"div"> & Props> = ({
     "product"
   );
 
-  const productFilters = productCategories
-    .filter((category) => typeof category !== "number")
-    .map((filter) => ({
-      label: filter.name,
-      id: filter.id
-    }));
+  const productFilters = productCategories.filter(
+    (category) => typeof category !== "number"
+  );
 
-  const portraitFilters = portraitCategories
-    .filter((category) => typeof category !== "number")
-    .map((filter) => ({
-      label: filter.name,
-      id: filter.id
-    }));
+  const portraitFilters = portraitCategories.filter(
+    (category) => typeof category !== "number"
+  );
 
   return (
     <motion.div
