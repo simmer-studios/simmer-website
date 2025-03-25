@@ -5,12 +5,13 @@ export const useMagneticHover = (strength: number = 40) => {
   const [isEnabled, setIsEnabled] = useState(false);
 
   useEffect(() => {
-    // Check if hover is supported and screen size is > 768px
-    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    // Check if hover is supported and screen size is > 1024px (desktop)
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
     const hasHoverSupport = window.matchMedia("(hover: hover)").matches;
 
     const updateEnabled = () => {
-      setIsEnabled(mediaQuery.matches && hasHoverSupport);
+      const isDesktopSize = window.innerWidth >= 1024;
+      setIsEnabled(isDesktopSize && hasHoverSupport);
     };
 
     // Initial check
@@ -18,14 +19,23 @@ export const useMagneticHover = (strength: number = 40) => {
 
     // Listen for changes
     mediaQuery.addEventListener("change", updateEnabled);
+    window.addEventListener("resize", updateEnabled);
 
     return () => {
       mediaQuery.removeEventListener("change", updateEnabled);
+      window.removeEventListener("resize", updateEnabled);
     };
   }, []);
 
   useEffect(() => {
-    if (!isEnabled) return;
+    if (!isEnabled) {
+      // Reset transform when disabled
+      const element = ref.current;
+      if (element) {
+        element.style.transform = "";
+      }
+      return;
+    }
 
     const element = ref.current;
     if (!element) return;
