@@ -16,6 +16,18 @@ export const WorksGlobal: GlobalConfig = {
   fields: [
     SEOField,
     {
+      name: "featuredProjects",
+      label: "Featured Projects",
+      type: "relationship",
+      relationTo: "projects",
+      hasMany: true,
+      minRows: 2,
+      maxRows: 2,
+      admin: {
+        description: "Select the projects to show as featured on Works page"
+      }
+    },
+    {
       name: "categories",
       label: "Categories",
       type: "relationship",

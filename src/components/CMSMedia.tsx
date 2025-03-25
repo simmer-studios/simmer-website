@@ -38,7 +38,7 @@ const CMSMedia: FC<Omit<HTMLProps<HTMLElement>, "media"> & Props> = ({
         width={hasWidthAndHeight ? Number(width) : undefined}
         height={hasWidthAndHeight ? Number(height) : undefined}
         fill={!hasWidthAndHeight}
-        className={className}
+        className={cn("bg-black", className)}
       />
     );
   }

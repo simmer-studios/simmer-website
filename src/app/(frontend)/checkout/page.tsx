@@ -1,19 +1,24 @@
-"use client";
+import config from "@payload-config";
+import { Metadata } from "next";
+import { getPayload } from "payload";
 
-import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
-
-import CheckoutForm from "@/components/CheckoutForm";
 import ContentWrapper from "@/components/ContentWrapper";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import CheckoutSuccess from "@/components/sections/checkout/CheckoutSuccess";
 import StickySidebar from "@/components/StickySidebar";
+import { getMetadata } from "@/lib/utils/metadata";
 
-/* CHECKOUT PAGE */
+import { CheckoutContent } from "./CheckoutContent";
+
+export const revalidate = 86400; // 1 day
+
+export async function generateMetadata(): Promise<Metadata> {
+  const payload = await getPayload({ config });
+  const { seo } = await payload.findGlobal({ slug: "checkout" });
+  return getMetadata(seo);
+}
+
 export default function CheckoutPage() {
-  const [isSuccess, setIsSuccess] = useState(false);
-
   return (
     <>
       <Header theme="dark" disableLogoBorder />
@@ -21,17 +26,7 @@ export default function CheckoutPage() {
         <ContentWrapper className="bg-black">
           <StickySidebar theme="dark" className="border-t-0" />
           <div className="basis-full" id="checkout-body">
-            <AnimatePresence mode="wait">
-              {!isSuccess ? (
-                <CheckoutForm
-                  onSubmitSuccess={() => {
-                    setIsSuccess(true);
-                  }}
-                />
-              ) : (
-                <CheckoutSuccess key="success" />
-              )}
-            </AnimatePresence>
+            <CheckoutContent />
           </div>
         </ContentWrapper>
       </main>

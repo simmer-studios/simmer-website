@@ -17,6 +17,7 @@ import { Snaps } from "./app/(payload)/collections/Snaps";
 import { Users } from "./app/(payload)/collections/Users";
 import { About } from "./app/(payload)/globals/About";
 import { BrandQuestionnaire } from "./app/(payload)/globals/BrandQuestionnaire";
+import { Checkout } from "./app/(payload)/globals/Checkout";
 import { Homepage } from "./app/(payload)/globals/Homepage";
 import { Menu } from "./app/(payload)/globals/Menu";
 import { SnapsGlobal } from "./app/(payload)/globals/SnapsGlobal";
@@ -58,6 +59,7 @@ export default buildConfig({
     SnapsGlobal,
     Menu,
     About,
+    Checkout,
     BrandQuestionnaire
   ],
   editor: lexicalEditor(),

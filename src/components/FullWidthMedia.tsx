@@ -1,5 +1,6 @@
 import { FC } from "react";
 
+import { getAspectRatio, isValidMedia } from "@/lib/utils";
 import { type Media } from "@/payload-types";
 
 import CMSMedia from "./CMSMedia";
@@ -9,9 +10,21 @@ interface Props {
 }
 
 const FullWidthMedia: FC<Props> = ({ media }) => {
+  if (!isValidMedia(media)) {
+    return null;
+  }
+
+  /* use original aspect ratio of image/video when width and height are defined, else use default (16:9) */
+  const aspectRatio = getAspectRatio(media.width, media.height);
+
   return (
-    <section className="relative min-h-dvh overflow-hidden">
-      <CMSMedia media={media} className="absolute h-full w-full object-cover" />
+    <section
+      className="relative w-full overflow-hidden bg-black"
+      style={{
+        aspectRatio: aspectRatio ? aspectRatio : "16 / 9"
+      }}
+    >
+      <CMSMedia media={media} className="object-contain md:object-cover" />
     </section>
   );
 };

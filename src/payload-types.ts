@@ -101,6 +101,7 @@ export interface Config {
     'snaps-global': SnapsGlobal;
     menu: Menu;
     about: About;
+    checkout: Checkout;
     'brand-questionnaire': BrandQuestionnaire;
   };
   globalsSelect: {
@@ -109,6 +110,7 @@ export interface Config {
     'snaps-global': SnapsGlobalSelect<false> | SnapsGlobalSelect<true>;
     menu: MenuSelect<false> | MenuSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
+    checkout: CheckoutSelect<false> | CheckoutSelect<true>;
     'brand-questionnaire': BrandQuestionnaireSelect<false> | BrandQuestionnaireSelect<true>;
   };
   locale: null;
@@ -147,7 +149,7 @@ export interface Project {
   /**
    * Only two featured projects will be displayed on the works page
    */
-  featured: boolean;
+  featured?: boolean | null;
   /**
    * Square image
    */
@@ -352,6 +354,9 @@ export interface Snap {
    * Select the categories this Snap will show up on when filtered
    */
   categories: (number | Category)[];
+  /**
+   * Link to their website or social media
+   */
   websiteUrl?: string | null;
   content?:
     | (
@@ -988,6 +993,10 @@ export interface WorksGlobal {
     image?: (number | null) | Media;
   };
   /**
+   * Select the projects to show as featured on Works page
+   */
+  featuredProjects?: (number | Project)[] | null;
+  /**
    * Select the categories to show as filters on Works page
    */
   categories: (number | Category)[];
@@ -1086,6 +1095,23 @@ export interface About {
   tagline: string;
   description: string;
   clientsDescription: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "checkout".
+ */
+export interface Checkout {
+  id: number;
+  seo: {
+    title: string;
+    description: string;
+    /**
+     * Must be 1200x630 (1.91:1 aspect ratio). This will be displayed when the page is shared on social media.
+     */
+    image?: (number | null) | Media;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1206,6 +1232,7 @@ export interface WorksGlobalSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
+  featuredProjects?: T;
   categories?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1292,6 +1319,22 @@ export interface AboutSelect<T extends boolean = true> {
   tagline?: T;
   description?: T;
   clientsDescription?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "checkout_select".
+ */
+export interface CheckoutSelect<T extends boolean = true> {
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

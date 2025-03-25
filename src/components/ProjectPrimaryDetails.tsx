@@ -33,19 +33,19 @@ const ProjectPrimaryDetails: FC<HTMLProps<HTMLUListElement> & Props> = ({
       <li>
         <ProjectPrimaryDetailsRow>
           <LabelCell>YEAR</LabelCell>
-          <span>{new Date(date).getFullYear()}</span>
+          <span className="text-right">{new Date(date).getFullYear()}</span>
         </ProjectPrimaryDetailsRow>
       </li>
       <li>
         <ProjectPrimaryDetailsRow>
           <LabelCell>BRAND</LabelCell>
-          <span>{brand}</span>
+          <span className="text-right">{brand}</span>
         </ProjectPrimaryDetailsRow>
       </li>
       <li>
         <ProjectPrimaryDetailsRow>
           <LabelCell>PROJECT</LabelCell>
-          <span>{project}</span>
+          <span className="text-right">{project}</span>
         </ProjectPrimaryDetailsRow>
       </li>
       <li>

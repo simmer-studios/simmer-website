@@ -14,27 +14,20 @@ import { getMetadata } from "@/lib/utils/metadata";
 
 export const revalidate = 86400; // 1 day
 
-async function getMenu() {
-  const payload = await getPayload({ config });
-
-  return payload.findGlobal({
-    slug: "menu",
-    showHiddenFields: true
-  });
-}
-
 export async function generateMetadata(): Promise<Metadata> {
-  const { seo } = await getMenu();
-
-  return getMetadata({
-    title: seo.title,
-    description: seo.description,
-    image: seo.image
+  const payload = await getPayload({ config });
+  const { seo } = await payload.findGlobal({
+    slug: "menu",
+    select: {
+      seo: true
+    }
   });
+  return getMetadata(seo);
 }
 
 export default async function MenuPage() {
-  const menu = await getMenu();
+  const payload = await getPayload({ config });
+  const menu = await payload.findGlobal({ slug: "menu" });
 
   return (
     <>

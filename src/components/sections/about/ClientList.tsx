@@ -17,10 +17,9 @@ const ClientList: FC<HTMLProps<HTMLDivElement> & Props> = ({
   description,
   className
 }) => {
-  if (!clients || clients.length < 1) return null;
-
-  const featuredClients = clients.filter((client) => client.featured);
-  const otherClients = clients.filter((client) => !client.featured);
+  if (!clients || clients.length < 1) {
+    return null;
+  }
 
   const container = {
     hidden: { opacity: 0 },
@@ -66,13 +65,10 @@ const ClientList: FC<HTMLProps<HTMLDivElement> & Props> = ({
         <p className="md:max-w-[90%] lg:max-w-[70%]">{description}</p>
       </motion.div>
       <div className="container grid grid-cols-2 gap-x-2 gap-y-1.5 px-8 py-5 sm:grid-cols-3 md:grid-cols-4">
-        {featuredClients.map((featuredClient) => (
-          <ClientName majorClient key={featuredClient.id}>
-            {featuredClient.name}
+        {clients.map((client) => (
+          <ClientName featured={client.featured} key={client.id}>
+            {client.name}
           </ClientName>
-        ))}
-        {otherClients.map((client) => (
-          <ClientName key={client.id}>{client.name}</ClientName>
         ))}
       </div>
       <motion.div
@@ -88,12 +84,12 @@ const ClientList: FC<HTMLProps<HTMLDivElement> & Props> = ({
 };
 
 interface ClientNameProps {
-  majorClient?: boolean;
+  featured?: boolean;
 }
 
 const ClientName: FC<
   Omit<HTMLMotionProps<"p">, keyof ClientNameProps> & ClientNameProps
-> = ({ majorClient, className, children, ...props }) => {
+> = ({ featured, className, children, ...props }) => {
   return (
     <motion.p
       variants={{
@@ -103,7 +99,7 @@ const ClientName: FC<
       className={cn(
         "text-center font-normal tracking-tight sm:text-start xl:text-xl",
         {
-          "font-semibold": majorClient
+          "font-semibold": featured
         },
         className
       )}

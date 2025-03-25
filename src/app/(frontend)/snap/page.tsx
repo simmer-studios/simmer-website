@@ -12,32 +12,27 @@ import { getMetadata } from "@/lib/utils/metadata";
 
 export const revalidate = 86400; // 1 day
 
-async function getSnapPage(payload: BasePayload) {
-  return payload.findGlobal({
-    slug: "snaps-global"
-  });
-}
-
 export async function generateMetadata(): Promise<Metadata> {
   const payload = await getPayload({ config });
-
-  const { seo } = await getSnapPage(payload);
-
-  return getMetadata({
-    title: seo.title,
-    description: seo.description,
-    image: seo.image
+  const { seo } = await payload.findGlobal({
+    slug: "snaps-global",
+    select: {
+      seo: true
+    }
   });
+  return getMetadata(seo);
 }
 
 async function getPageData() {
   const payload = await getPayload({ config });
 
-  const snapPagePromise = getSnapPage(payload);
+  const snapPagePromise = payload.findGlobal({
+    slug: "snaps-global"
+  });
 
   const snapsPromise = payload.find({
     collection: "snaps",
-    limit: 100,
+    limit: 1000,
     sort: ["-date"]
   });
 

@@ -8,6 +8,7 @@ import { ImageText } from "@/app/(payload)/blocks/ImageText";
 import { Quote } from "@/app/(payload)/blocks/Quote";
 import { ThreeImages } from "@/app/(payload)/blocks/ThreeImages";
 import { TwoImageText } from "@/app/(payload)/blocks/TwoImageText";
+import { validateUrl } from "@/lib/utils";
 
 import { HeadingDescription } from "../blocks/HeadingDescription";
 
@@ -159,20 +160,10 @@ export const Snaps: CollectionConfig = {
       name: "websiteUrl",
       label: "Website URL",
       type: "text",
-      validate: (value: unknown) => {
-        if (typeof value !== "string") {
-          return "Please enter a valid URL";
-        }
-
-        try {
-          new URL(value);
-          return true;
-        } catch (e) {
-          return "Please enter a valid URL";
-        }
-      },
+      validate: validateUrl,
       admin: {
-        width: "50%"
+        width: "50%",
+        description: "Link to their website or social media"
       }
     },
     {
