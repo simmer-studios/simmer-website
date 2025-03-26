@@ -218,7 +218,7 @@ const SingleLineFormField: FC<SingleLineFormFieldProps> = ({
           placeholder={placeholder}
           required={required}
           defaultValue={defaultValue}
-          className="w-full bg-transparent pt-1 font-fionas text-xl font-semibold text-simmer-yellow placeholder:text-simmer-yellow/60 focus:outline-none sm:text-3xl lg:py-2 lg:text-5xl lg:font-normal xl:pr-16"
+          className="w-full bg-transparent pt-1 font-fionas text-xl font-semibold text-simmer-yellow placeholder:text-simmer-yellow/80 focus:outline-none sm:text-3xl lg:py-2 lg:text-5xl lg:font-normal xl:pr-16"
           {...props}
         />
       </div>
@@ -254,7 +254,7 @@ const MultiLineFormField: FC<MultiLineFormFieldProps> = ({
             placeholder={placeholder}
             required={required}
             rows={5}
-            className="w-full bg-transparent pt-1 text-2xl tracking-tight text-simmer-yellow placeholder:leading-[-0.9] placeholder:text-simmer-yellow/60 focus:outline-none sm:text-3xl lg:text-5xl"
+            className="w-full bg-transparent pt-1 text-2xl tracking-tight text-simmer-yellow placeholder:leading-[-0.9] placeholder:text-simmer-yellow/70 focus:outline-none sm:text-3xl lg:text-5xl"
             {...props}
           />
           {error && (
