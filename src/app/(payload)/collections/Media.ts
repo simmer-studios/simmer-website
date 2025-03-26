@@ -14,6 +14,29 @@ export const Media: CollectionConfig = {
   upload: {
     mimeTypes: ["image/*", "video/*"],
     disableLocalStorage: true,
-    displayPreview: true
+    displayPreview: true,
+    adminThumbnail: "square",
+    imageSizes: [
+      {
+        name: "square",
+        width: 500,
+        height: 500,
+        fit: "cover",
+        withoutEnlargement: true,
+        generateImageName: ({ originalName, sizeName, extension }) => {
+          return `${originalName}-${sizeName}.${extension}`;
+        }
+      },
+      {
+        name: "landscape",
+        width: 1080,
+        height: 1920,
+        fit: "cover",
+        withoutEnlargement: true,
+        generateImageName: ({ originalName, sizeName, extension }) => {
+          return `${originalName}-${sizeName}.${extension}`;
+        }
+      }
+    ]
   }
 };
