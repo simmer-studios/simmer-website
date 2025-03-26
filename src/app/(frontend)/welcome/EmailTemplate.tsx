@@ -89,9 +89,9 @@ export const EmailTemplate: React.FC<Readonly<Questionnaire>> = ({
       const [attributes, questions] = acc;
       if (entry[0].startsWith("Attribute:")) {
         const attribute = entry[0].substring(entry[0].indexOf(":") + 1);
-        attributes.push([attribute, entry[1]]);
+        attributes.push([attribute, entry[1] as string]);
       } else {
-        questions.push(entry);
+        questions.push(entry as [string, string]);
       }
       return acc;
     },
