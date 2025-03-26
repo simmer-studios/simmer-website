@@ -3,7 +3,7 @@ import { z } from "zod";
 export const QUESTIONNAIRE_CONFIG = {
   string: {
     min: 1,
-    max: 100
+    max: 2000
   }
 };
 
