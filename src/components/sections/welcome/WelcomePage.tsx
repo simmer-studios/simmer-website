@@ -36,6 +36,10 @@ export default function WelcomePage({ brandingPage }: WelcomePageProps) {
     setIsSuccess(true);
   };
 
+  const handleSubmitError = () => {
+    setIsSubmitting(false);
+  };
+
   return (
     <>
       <Header theme="dark" disableLogoBorder />
@@ -112,6 +116,7 @@ export default function WelcomePage({ brandingPage }: WelcomePageProps) {
                     sliders={brandingPage.brandAttributes}
                     onSubmit={handleSubmit}
                     onSuccess={handleSuccess}
+                    onSubmitError={handleSubmitError}
                   />
                 </motion.div>
               ) : (
