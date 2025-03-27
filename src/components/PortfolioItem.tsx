@@ -1,12 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 
 import { useMagneticHover } from "@/hooks/useMagneticHover";
-import { isValidImage } from "@/lib/utils";
-import { Media, Project } from "@/payload-types";
+import { Project } from "@/payload-types";
 
 import CMSMedia from "./CMSMedia";
 
@@ -21,12 +19,13 @@ const PortfolioItem: React.FC<Props> = ({ slug, name, category, image }) => {
   const magneticRef = useMagneticHover(100);
 
   useEffect(() => {
-    // Reset transform when component unmounts or when screen size/hover support changes
+    const element = magneticRef.current;
     return () => {
-      if (magneticRef.current) {
-        magneticRef.current.style.transform = "translate(-50%, -50%)";
+      if (element) {
+        element.style.transform = "translate(-50%, -50%)";
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (typeof image === "number") {
