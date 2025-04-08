@@ -13,6 +13,8 @@ import { PostHogProvider } from "@/providers/PostHogProvider";
 export const metadata: Metadata = {
   metadataBase: new URL(WEBSITE_URL),
   title: "Simmer Studios",
+  description:
+    "We tailor and align our ideas to showcase your brand's identity and make it stand out from the crowd.",
   openGraph: {
     siteName: "Simmer Studios",
     type: "website",

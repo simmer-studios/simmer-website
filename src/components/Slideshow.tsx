@@ -1,5 +1,6 @@
 "use client";
 
+import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { FC, HTMLProps, useEffect } from "react";
 
@@ -18,9 +19,18 @@ const Slideshow: FC<HTMLProps<HTMLDivElement> & Props> = ({
   className,
   ...props
 }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "center"
-  });
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      align: "center",
+      loop: true
+    },
+    [
+      Autoplay({
+        playOnInit: true,
+        delay: 3000
+      })
+    ]
+  );
 
   useEffect(() => {
     if (emblaApi) {

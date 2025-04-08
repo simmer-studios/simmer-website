@@ -34,10 +34,11 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export const processQuestionnaire = async (
   data: Questionnaire
 ): Promise<ProcessQuestionnaireResponse> => {
+  console.log("Brand Questionnaire", { data });
   try {
     const parsedData = await questionnaireSchema.parseAsync(data);
 
-    console.log({ action: parsedData });
+    console.log("Brand Questionnaire", { parsedData });
 
     const { data: resendData, error } = await resend.emails.send({
       from: `Simmer Studios <noreply@${EMAIL_DOMAIN}>`,
@@ -48,7 +49,9 @@ export const processQuestionnaire = async (
     });
 
     if (error) {
-      console.error("Error sending email", { error });
+      console.error("Brand Questionnaire error sending email", {
+        error
+      });
       return {
         success: false,
         message: "An error occurred while sending your email",
@@ -56,14 +59,14 @@ export const processQuestionnaire = async (
       };
     }
 
-    console.log("Brand questionnaire submitted", {
+    console.log("Brand Questionnaire submitted", {
       data: parsedData,
       resendData
     });
 
     return {
       success: true,
-      message: "Brand questionnaire successfully processed",
+      message: "Brand Questionnaire successfully processed",
       errors: []
     };
   } catch (error) {
@@ -77,11 +80,11 @@ export const processQuestionnaire = async (
         }))
       };
     } else {
-      console.error("Brand questionnaire processing failed", { error });
+      console.error("Brand Questionnaire processing failed", { error });
       return {
         success: false,
         message:
-          "An error occurred while processing your brand questionnaire form",
+          "An error occurred while processing your Brand Questionnaire form",
         errors: []
       };
     }

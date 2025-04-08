@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-const CONFIG = {
+export const QUESTIONNAIRE_CONFIG = {
   string: {
     min: 1,
-    max: 1000
+    max: 2000
   }
 };
 
@@ -25,8 +25,14 @@ export const questionnaireSchema = z
         invalid_type_error: MESSAGES.invalidType("Name", "string")
       })
       .trim()
-      .min(CONFIG.string.min, MESSAGES.minLength("Name", CONFIG.string.min))
-      .max(CONFIG.string.max, MESSAGES.maxLength("Name", CONFIG.string.max)),
+      .min(
+        QUESTIONNAIRE_CONFIG.string.min,
+        MESSAGES.minLength("Name", QUESTIONNAIRE_CONFIG.string.min)
+      )
+      .max(
+        QUESTIONNAIRE_CONFIG.string.max,
+        MESSAGES.maxLength("Name", QUESTIONNAIRE_CONFIG.string.max)
+      ),
     email: z
       .string({
         required_error: MESSAGES.required("Email address"),
@@ -35,56 +41,93 @@ export const questionnaireSchema = z
       .trim()
       .email(MESSAGES.invalid("Email address"))
       .min(
-        CONFIG.string.min,
-        MESSAGES.minLength("Email address", CONFIG.string.min)
+        QUESTIONNAIRE_CONFIG.string.min,
+        MESSAGES.minLength("Email address", QUESTIONNAIRE_CONFIG.string.min)
       )
       .max(
-        CONFIG.string.max,
-        MESSAGES.maxLength("Email address", CONFIG.string.max)
+        QUESTIONNAIRE_CONFIG.string.max,
+        MESSAGES.maxLength("Email address", QUESTIONNAIRE_CONFIG.string.max)
       ),
     contactNumber: z
       .string({
-        required_error: MESSAGES.required("Contact Number"),
-        invalid_type_error: MESSAGES.invalidType("Contact Number", "string")
+        required_error: MESSAGES.required("Contact number"),
+        invalid_type_error: MESSAGES.invalidType("Contact number", "string")
       })
       .trim()
       .min(
-        CONFIG.string.min,
-        MESSAGES.minLength("Contact Number", CONFIG.string.min)
+        QUESTIONNAIRE_CONFIG.string.min,
+        MESSAGES.minLength("Contact number", QUESTIONNAIRE_CONFIG.string.min)
       )
       .max(
-        CONFIG.string.max,
-        MESSAGES.maxLength("Contact Number", CONFIG.string.max)
+        QUESTIONNAIRE_CONFIG.string.max,
+        MESSAGES.maxLength("Contact number", QUESTIONNAIRE_CONFIG.string.max)
       ),
     brandName: z
       .string({
-        required_error: MESSAGES.required("Brand name/field"),
-        invalid_type_error: MESSAGES.invalidType("Brand name/field", "string")
+        required_error: MESSAGES.required("Brand name"),
+        invalid_type_error: MESSAGES.invalidType("Brand name", "string")
       })
       .trim()
       .min(
-        CONFIG.string.min,
-        MESSAGES.minLength("Brand name/field", CONFIG.string.min)
+        QUESTIONNAIRE_CONFIG.string.min,
+        MESSAGES.minLength("Brand name", QUESTIONNAIRE_CONFIG.string.min)
       )
       .max(
-        CONFIG.string.max,
-        MESSAGES.maxLength("Brand name/field", CONFIG.string.max)
+        QUESTIONNAIRE_CONFIG.string.max,
+        MESSAGES.maxLength("Brand name", QUESTIONNAIRE_CONFIG.string.max)
       ),
     brandDetails: z
       .string({
-        required_error: MESSAGES.required("Brand Details"),
-        invalid_type_error: MESSAGES.invalidType("Brand Details", "string")
+        required_error: MESSAGES.required("Elevator pitch"),
+        invalid_type_error: MESSAGES.invalidType("Elevator pitch", "string")
       })
       .trim()
       .min(
-        CONFIG.string.min,
-        MESSAGES.minLength("Brand Details", CONFIG.string.min)
+        QUESTIONNAIRE_CONFIG.string.min,
+        MESSAGES.minLength("Elevator pitch", QUESTIONNAIRE_CONFIG.string.min)
       )
       .max(
-        CONFIG.string.max,
-        MESSAGES.maxLength("Brand Details", CONFIG.string.max)
+        QUESTIONNAIRE_CONFIG.string.max,
+        MESSAGES.maxLength("Elevator pitch", QUESTIONNAIRE_CONFIG.string.max)
       )
   })
-  .and(z.record(z.string(), z.string()));
+  .passthrough()
+  .superRefine((data, ctx) => {
+    Object.entries(data).forEach(([key, value]) => {
+      if (
+        [
+          "name",
+          "email",
+          "contactNumber",
+          "brandName",
+          "brandDetails"
+        ].includes(key)
+      ) {
+        return;
+      }
+
+      if (typeof value !== "string") {
+        ctx.addIssue({
+          code: z.ZodIssueCode.invalid_type,
+          expected: "string",
+          received: typeof value,
+          path: [key],
+          message: MESSAGES.invalidType(key, "string")
+        });
+        return;
+      }
+
+      if (value.length > QUESTIONNAIRE_CONFIG.string.max) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_big,
+          maximum: QUESTIONNAIRE_CONFIG.string.max,
+          inclusive: true,
+          type: "string",
+          path: [key],
+          message: MESSAGES.maxLength("Answer", QUESTIONNAIRE_CONFIG.string.max)
+        });
+      }
+    });
+  });
 
 export type Questionnaire = z.infer<typeof questionnaireSchema>;

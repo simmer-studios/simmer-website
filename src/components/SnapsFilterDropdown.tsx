@@ -4,13 +4,13 @@ import Image from "next/image";
 import { FC } from "react";
 
 import FILTER from "@/assets/snap/filter.svg";
-import { Filter } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { Category } from "@/payload-types";
 
 import CustomFilterDropdown from "./CustomFilterDropdown";
 
 interface Props {
-  filters: Filter[];
+  filters: Category[];
 }
 
 const SnapsFilterDropdown: FC<Props> = ({ filters }) => {
@@ -28,7 +28,7 @@ const SnapsFilterDropdown: FC<Props> = ({ filters }) => {
           <div className="flex px-5 py-5">
             {activeFilter ? (
               <span className="text-start font-articulat text-xl font-bold uppercase text-black">
-                {activeFilter.label}
+                {activeFilter.name}
               </span>
             ) : (
               <Image src={FILTER} alt="Filter" width={100} />
@@ -36,7 +36,7 @@ const SnapsFilterDropdown: FC<Props> = ({ filters }) => {
           </div>
         </button>
       )}
-      filters={filters}
+      data={filters}
     />
   );
 };

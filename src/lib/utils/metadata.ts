@@ -27,6 +27,8 @@ export function getMetadata({ title, description, image }: Params): Metadata {
     title,
     description,
     openGraph: {
+      siteName: "Simmer Studios",
+      type: "website",
       title,
       description,
       images

@@ -1,9 +1,18 @@
 "use client";
 
-import { FC, HTMLProps, ReactNode, useEffect, useState } from "react";
+import {
+  FC,
+  HTMLProps,
+  memo,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState
+} from "react";
+import { set } from "zod";
 
-import { Filter } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { Category } from "@/payload-types";
 
 import {
   DropdownMenu,
@@ -12,25 +21,25 @@ import {
   DropdownMenuTrigger
 } from "./ui/DropdownMenu";
 
-interface Props extends HTMLProps<HTMLDivElement> {
-  filters: Filter[];
-  onFilterChange?: (filter: Filter | null) => void;
-  trigger: (activeFilter: Filter | null) => ReactNode;
+interface Props extends Omit<HTMLProps<HTMLDivElement>, "data"> {
+  data: Category[];
+  onFilterChange?: (filter: Category | null) => void;
+  trigger: (activeFilter: Category | null) => ReactNode;
 }
 
 const CustomFilterDropdown: FC<Props> = ({
-  filters,
+  data: filters,
   onFilterChange,
   className,
   trigger
 }) => {
-  const [activeFilter, setActiveFilter] = useState<Filter | null>(null);
+  const [activeFilter, setActiveFilter] = useState<Category | null>(null);
 
-  const handleToggleFilter = ({ id, label }: Filter) => {
-    if (id === activeFilter?.id) {
+  const handleToggleFilter = (category: Category) => {
+    if (category.id === activeFilter?.id) {
       setActiveFilter(null);
     } else {
-      setActiveFilter({ id, label });
+      setActiveFilter(category);
     }
   };
 
@@ -40,7 +49,7 @@ const CustomFilterDropdown: FC<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFilter]);
 
-  /* if the filters change, reset the active filter */
+  /* reset active filter when filters change */
   useEffect(() => {
     setActiveFilter(null);
   }, [filters]);
@@ -56,18 +65,18 @@ const CustomFilterDropdown: FC<Props> = ({
         className="rounded-xl border-none bg-black px-5 py-8 font-adelle-mono tracking-normal text-simmer-white"
       >
         {filters
-          ? filters.map(({ id, label }) => (
+          ? filters.map((filter) => (
               <DropdownMenuItem
-                key={id}
-                onClick={() => handleToggleFilter({ id, label })}
+                key={filter.id}
+                onClick={() => handleToggleFilter(filter)}
                 className={cn(
                   "underline underline-offset-2 hover:text-simmer-yellow",
                   {
-                    "text-simmer-yellow": activeFilter?.id === id
+                    "text-simmer-yellow": activeFilter?.name === filter.name
                   }
                 )}
               >
-                {label}
+                {filter.name}
               </DropdownMenuItem>
             ))
           : null}
