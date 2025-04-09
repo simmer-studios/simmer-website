@@ -49,9 +49,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
           <div className="flex items-center justify-center gap-[2vw] px-8 py-8">
             <div>
               <HoverTransition
-                transitionElement={
-                  <Image src={HOVER_WeAre} alt="We are" fill />
-                }
+                transitionElement={<Image src={HOVER_WeAre} alt="We are" />}
                 delay={0}
               >
                 <Image src={WeAre} alt="We are" height={160} />
@@ -59,7 +57,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             </div>
             <div className="">
               <HoverTransition
-                transitionElement={<Image src={HOVER_More} alt="More" fill />}
+                transitionElement={<Image src={HOVER_More} alt="More" />}
                 delay={100}
               >
                 <Image src={More} alt="" height={160} />
@@ -75,7 +73,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             </div>
             <div className="">
               <HoverTransition
-                transitionElement={<Image src={HOVER_Than} alt="Than" fill />}
+                transitionElement={<Image src={HOVER_Than} alt="Than" />}
                 delay={200}
               >
                 <Image src={Than} alt="Than" height={160} />
@@ -93,7 +91,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
               <HoverTransition
                 className="overflow-y-visible"
                 transitionElement={
-                  <Image src={HOVER_Burger} alt="" className="scale-125" fill />
+                  <Image src={HOVER_Burger} alt="" className="" />
                 }
                 delay={300}
               >
@@ -102,7 +100,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             </div>
             <div className="px-8 py-8">
               <HoverTransition
-                transitionElement={<Image src={HOVER_Just} alt="Just" fill />}
+                transitionElement={<Image src={HOVER_Just} alt="Just" />}
                 delay={400}
               >
                 <Image src={Just} alt="Just" height={160} />
@@ -115,8 +113,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
                   <Image
                     src={HOVER_Cup}
                     alt=""
-                    fill
-                    className="-translate-x-5 scale-[1.7]"
+                    className="-translate-x-5 scale-150"
                   />
                 }
                 delay={500}
@@ -126,9 +123,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             </div>
             <div className="px-8 py-8">
               <HoverTransition
-                transitionElement={
-                  <Image src={HOVER_ThinkOutside} alt="" fill />
-                }
+                transitionElement={<Image src={HOVER_ThinkOutside} alt="" />}
                 delay={600}
               >
                 <Image
@@ -151,12 +146,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
               <HoverTransition
                 className="overflow-y-visible"
                 transitionElement={
-                  <Image
-                    src={HOVER_CreativeKitchen}
-                    alt=""
-                    className="scale-125"
-                    fill
-                  />
+                  <Image src={HOVER_CreativeKitchen} alt="" className="" />
                 }
                 delay={700}
               >
@@ -183,12 +173,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
               <HoverTransition
                 className="overflow-y-visible"
                 transitionElement={
-                  <Image
-                    src={HOVER_SoMuchMore}
-                    alt=""
-                    className="scale-110"
-                    fill
-                  />
+                  <Image src={HOVER_SoMuchMore} alt="" className="scale-110" />
                 }
                 delay={800}
               >
@@ -197,7 +182,7 @@ const HeroContentLG: FC<HTMLProps<HTMLDivElement>> = (props) => {
             </div>
             <div className="bg-simmer-white px-8 py-8">
               <HoverTransition
-                transitionElement={<Image src={HOVER_Eggcited} alt="" fill />}
+                transitionElement={<Image src={HOVER_Eggcited} alt="" />}
                 delay={900}
               >
                 <Image src={Egg} alt="" height={160} />
