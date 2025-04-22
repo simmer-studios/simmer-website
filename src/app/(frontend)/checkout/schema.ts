@@ -3,7 +3,7 @@ import { z } from "zod";
 const CONFIG = {
   string: {
     min: 3,
-    max: 255
+    max: 5000
   },
   array: {
     max: 100
