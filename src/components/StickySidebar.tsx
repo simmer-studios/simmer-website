@@ -110,7 +110,7 @@ const StickySidebar: FC<HTMLAttributes<HTMLElement> & Props> = ({
           >
             SNAP
           </SidebarNavLink>
-          <SidebarNavLink
+          {/* <SidebarNavLink
             href="/stories"
             className={cn({
               "flex items-center gap-[0.87rem] after:inline-block after:h-[0.68rem] after:w-[0.68rem] after:rounded-full after:content-['']":
@@ -121,7 +121,7 @@ const StickySidebar: FC<HTMLAttributes<HTMLElement> & Props> = ({
             })}
           >
             STORIES
-          </SidebarNavLink>
+          </SidebarNavLink> */}
           <SidebarNavLink
             href="/supply"
             className={cn({

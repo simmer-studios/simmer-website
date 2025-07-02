@@ -27,7 +27,7 @@ interface MenuServiceProps {
 
 const buttonLink = {
   snap: { url: "/snap", label: "GO TO SIMMER SNAP" },
-  stories: { url: "/stories", label: "GO TO SIMMER STORIES" }
+  stories: { url: "#", label: "GO TO SIMMER STORIES" }
 };
 
 const ButtonLink: FC<ComponentProps<typeof Link>> = ({
