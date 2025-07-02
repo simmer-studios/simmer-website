@@ -36,8 +36,8 @@ export default async function HomePage() {
 
   return (
     <>
-      <Header theme="light" />
-      <main className="bg-black">
+      <main className="relative bg-black">
+        <Header theme="light" />
         <Hero />
         <HeroDivider />
         <ContentWrapper className="border-b-2 border-black pt-10 lg:pt-16">
